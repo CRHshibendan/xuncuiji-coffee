@@ -102,3 +102,23 @@ button{transition:background .2s,color .2s,box-shadow .2s,scale .18s}button:acti
 @keyframes sheet-out{to{opacity:0;transform:translateY(24px)}}
 @media(max-width:640px){.session-options{display:grid;grid-template-columns:1fr 1.08fr;gap:8px}.session-options .brewer-select,.session-options .play-mode-tabs{display:flex;justify-content:center}.session-options .brewer-select button,.session-options .play-mode-tabs button{flex:1;padding:8px 6px}#restart{grid-column:1/-1;justify-self:end;min-height:28px;padding:2px 6px;margin-top:-3px}.advanced-play .studio-title{margin-bottom:12px}}
 .range-scale{display:flex;justify-content:space-between;font-size:11px;color:#738064;margin:0 0 16px}
+
+/* Keep the next gesture readable outside the tiny SVG labels. */
+.operation-guide{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid #dbcfb8;background:#fff0ce;color:#5b3c13;position:relative}
+.operation-guide>div{flex:1;min-width:0}.operation-guide strong{display:block;font-size:15px;font-weight:600;line-height:1.55}.operation-guide p{font-size:12px;line-height:1.75;margin:5px 0 0;color:inherit}
+.operation-symbol{width:36px;height:36px;display:grid;place-items:center;background:#fffaf0;border:1px solid #e4c58b;border-radius:12px;flex:none;font-size:23px}
+#fold-filter-button{border:1px solid #96622a;background:#875924;color:white;border-radius:12px;padding:12px 14px;min-height:48px;font-size:13px;font-weight:500;white-space:nowrap;box-shadow:0 3px 8px #79522614}
+.filter-guide.paper-ready{background:#eaf1df;color:#3d572c;border-color:#cddbbb}
+.filter-guide.paper-ready .operation-symbol{background:#f8fbed;border-color:#c6d7ad}
+.paper-tap-halo{stroke:#b87b2e;stroke-width:3;stroke-dasharray:7 6;animation:paper-tap-pulse 1.6s ease-in-out infinite}
+#scene #filter-object.needs-tap .scene-caption{fill:#865014;font-size:16px;font-weight:600}
+.pour-guide{background:#e2eef0;color:#214f58;border-top:1px solid #bdd3d8;border-bottom:1px solid #bdd3d8;gap:11px;padding:17px 18px}
+.pour-guide .operation-symbol{background:#f4fbfb;border-color:#b4cfd4;color:#2f6770}.pour-guide strong{font-size:16px}.pour-guide p{font-size:12px}
+.pour-shortcut{display:block;font-size:11px;margin-top:8px;line-height:1.7;color:#47717a}
+#pour-state{align-self:flex-start;border:1px solid #b7ced3;border-radius:20px;white-space:nowrap;font-size:10px;font-weight:500;background:#f6fbfb;padding:5px 8px;margin-top:3px}
+.pour-guide.is-pouring{background:#cee8df;color:#224f3c;border-color:#a3cbb6}.pour-guide.is-pouring #pour-state{background:#315d44;border-color:#315d44;color:white}
+.pour-guide.pour-missed{background:#fff0d8;color:#805014;border-color:#dbbb87}.pour-guide.pour-missed #pour-state{background:#986525;color:#fff;border-color:#986525}
+.selection-caption:not(:empty){left:12px;right:12px;bottom:10px;transform:none;width:auto;max-width:none;background:#fffaf0f5;border:1px solid #c7d2ba;border-radius:12px;padding:11px 14px;font-size:13px;font-weight:500;line-height:1.7;color:#405733;box-shadow:0 4px 18px #3d4e2d15;text-align:center}
+@keyframes paper-tap-pulse{50%{stroke-opacity:.35;stroke-width:5}}
+@media(max-width:640px){.operation-guide{padding:14px 13px;gap:10px}.operation-guide .operation-symbol{width:30px;height:34px;font-size:20px;border-radius:10px}.filter-guide{flex-wrap:wrap}.filter-guide>div{flex-basis:calc(100% - 44px)}.filter-guide strong{font-size:16px}.filter-guide p{font-size:12px}#fold-filter-button{margin-left:40px;min-width:140px;min-height:46px;font-size:14px}.pour-guide{align-items:flex-start;padding:16px 13px;gap:9px}.pour-guide strong{font-size:16px}.pour-guide p{font-size:12px}.pour-shortcut{font-size:12px}#pour-state{font-size:10px;padding:5px 7px}.hands-on-actions{padding-top:14px}.selection-caption:not(:empty){font-size:12px;padding:10px 12px}}
+#fold-filter-button:disabled{opacity:1;background:#edf4e5;border-color:#bcccab;color:#4c653b;box-shadow:none}
