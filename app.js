@@ -18,14 +18,8 @@ $$('dialog').forEach(dialog=>dialog.addEventListener('click',event=>{if(event.ta
 // Lessons
 const completedRaw=read('slowbrew-lessons',[]);
 const completed=new Set(Array.isArray(completedRaw)?completedRaw.filter(n=>[0,1,2].includes(n)):[]);
-const lessons=[
- {title:'你的第一套手冲装备',time:'LESSON 01 · 认识器具',body:`<p>手冲，就是让热水流经咖啡粉，再用滤纸把咖啡液与粉渣分开。第一杯从这几样器具开始。</p><h3>滤杯 + 匹配的滤纸</h3><p>滤杯支撑滤纸，滤纸留下粉渣。Melitta 先折好扇形滤纸接缝；Chemex 则展开专用厚滤纸，让三层面朝向壶嘴。放好后用热水润湿、预热器具，再倒掉预热水。</p><h3>细口壶 + 电子秤</h3><p>细口壶帮助你控制水流。电子秤让粉量和注水量可以复现；先称粉，准备注水前再归零。没有细口壶，可以先用能稳定倒出细水流的壶练习。</p><h3>磨豆机 + 接咖啡的杯子</h3><p>Melitta 可以从中细研磨开始，Chemex 可以从中研磨开始。如果暂时没有磨豆机，可以购买少量适合手冲的代磨粉，并尽快使用。杯子需要能稳稳托住滤杯。</p><div class="callout"><strong>动手小任务</strong><br>放好滤杯，润湿滤纸，倒掉预热水。把秤归零——这就是正式冲煮前的小仪式。</div>`},
- {title:'选一支喜欢的咖啡豆',time:'LESSON 02 · 认识咖啡豆',body:`<p>不需要一次读懂产地、品种和处理法。先从包装上的<strong>烘焙度</strong>和<strong>风味描述</strong>开始。</p><h3>浅烘焙：试试明亮的风味</h3><p>常见果香、花香和活泼酸质的描述。这里的“酸”可能像水果的清爽感；是否喜欢，要用自己的味觉判断。</p><h3>中烘焙：从平衡感开始</h3><p>常见坚果、焦糖或巧克力一类描述，可以作为本网站入门配方的尝试方向。风味词是联想，不代表咖啡里添加了这些食物。</p><h3>深烘焙：试试醇厚的口感</h3><p>烘焙风味通常更明显。可以从较低的水温尝试，再按口感调整。豆子、器具不同，配方也会不同。</p><div class="callout"><strong>动手小任务</strong><br>闻一闻干咖啡粉。先别看包装上的风味词，写下你自己的第一个联想。没有标准答案。</div>`},
- {title:'好喝的背后，是这些变量',time:'LESSON 03 · 理解冲煮',body:`<h3>粉水比：这一杯的浓淡</h3><p>粉水比 1:16.7，表示每 1g 咖啡粉使用约 16.7g 冲煮用水。15g 粉搭配 250g 水就是一个起点；冲出的咖啡液会少一些，因为粉层会留住部分水。</p><h3>水温：帮助风味溶出</h3><p>其他条件相同时，较高水温通常有助于萃取。工坊以 92–93°C 作为中度烘焙练习起点；不需要把它当成所有咖啡的标准。</p><h3>研磨：水与咖啡的接触方式</h3><p>磨细通常会增加接触面积，也可能让下水变慢；磨粗则通常相反。不同磨豆机刻度不能直接通用，请根据实际颗粒和流速观察。</p><h3>闷蒸：先让咖啡粉均匀湿润</h3><p>先用少量水打湿咖啡粉，等待排气，然后继续注水。尝试用细水流缓慢画小圈，尽量避开滤纸边缘。</p><div class="callout"><strong>动手小任务</strong><br>去参数实验室，把粉水比从 1:16.7 改成 1:15。观察水量如何变化。下一次实物冲煮，只改这一个变量。</div><p><a href="https://chemexcoffeemaker.com/pages/how-to-brew-with-chemex" target="_blank" rel="noopener">延伸阅读：Chemex 官方冲煮教学 ↗</a>（本网站为独立入门练习，分段节奏有所简化。）</p>`}
-];
-function renderLessonStatuses(){completed.forEach(i=>{$('#lesson-status-'+i).innerHTML='已读完，去试试 '+icon('check');});}
+function renderLessonStatuses(){completed.forEach(i=>{$('#lesson-status-'+i).innerHTML='已读过，继续探索 '+icon('check');});}
 renderLessonStatuses();
-$$('[data-lesson]').forEach(button=>button.addEventListener('click',()=>{const i=Number(button.dataset.lesson),lesson=lessons[i];$('#lesson-detail').innerHTML=`<div class="eyebrow">${lesson.time}</div><h2>${lesson.title}</h2><div class="lesson-detail-content">${lesson.body}</div><button class="button primary" id="finish-lesson">我学会了，动手试试 ${icon('arrow')}</button>`;$('#finish-lesson').addEventListener('click',()=>{completed.add(i);persist('slowbrew-lessons',[...completed]);renderLessonStatuses();$('#lesson-dialog').close();document.getElementById(i===2?'lab':'practice').scrollIntoView({behavior:'smooth'});});$('#lesson-dialog').showModal();}));
 // Recipe laboratory
 let grind='medium';
 function labRecipe(){return{dose:Number($('#dose').value),water:Math.round(Number($('#dose').value)*Number($('#ratio').value)),temp:Number($('#temp').value),grind};}
