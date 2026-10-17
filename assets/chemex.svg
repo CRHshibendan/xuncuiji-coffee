@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" fill="none">
+  <title>Chemex 经典木领咖啡壶</title>
+  <desc>透明背景，简洁矢量插画。沙漏形一体玻璃壶、导流嘴、木质隔热领和皮绳。</desc>
+  <g stroke="#493F36" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+    <g id="glass-body">
+      <path d="M166 145C183 191 228 240 268 286C282 303 280 321 265 342C230 391 170 436 166 493C162 541 198 565 320 565C442 565 478 541 474 493C470 436 410 391 375 342C360 321 358 303 372 286C412 240 457 191 474 145Z" fill="#EAF0EE" fill-opacity="0.36"/>
+      <path d="M188 164C214 212 246 251 280 286M452 164C426 212 394 251 360 286" stroke="#B6C7C2" stroke-width="3"/>
+      <path d="M267 365C229 411 198 450 194 487C190 512 201 526 225 535" stroke="#FFFFFF" stroke-width="10"/>
+      <path d="M398 400C424 431 446 462 448 491" stroke="#BBCBC5" stroke-width="3"/>
+      <path d="M201 542C254 557 387 557 439 542" stroke="#AEBFB8" stroke-width="3"/>
+      <path d="M416 467H432M422 492H438" stroke="#9FAEA7" stroke-width="3"/>
+    </g>
+    <g id="rim-and-spout">
+      <path d="M474 145C474 119 404 99 320 99C235 99 166 119 166 145C166 171 235 191 320 191C389 191 446 178 468 158L494 132C483 132 478 137 474 145Z" fill="#F9FCFA" fill-opacity="0.85"/>
+      <path d="M183 145C211 117 413 114 454 143C429 166 370 176 320 176C261 176 210 165 183 145Z" fill="#E6EEEA" fill-opacity="0.65" stroke="#A7BAB0" stroke-width="2.5"/>
+      <path d="M432 175C447 167 458 158 466 148" stroke="#A7BAB0" stroke-width="2.5"/>
+    </g>
+    <g id="wood-collar">
+      <path d="M258 280C291 290 349 290 382 280L374 303C368 321 373 339 383 356C348 367 292 367 257 356C267 339 272 321 266 303Z" fill="#C69A62"/>
+      <path d="M320 289V363" stroke="#967044" stroke-width="3"/>
+      <g stroke="#A87D4B" stroke-width="2">
+        <path d="M278 299C291 303 302 304 309 304M332 304C343 304 352 303 363 300"/>
+        <path d="M275 342C289 347 299 347 309 348M332 348C343 348 353 347 365 343"/>
+      </g>
+      <path d="M272 291C295 296 306 296 311 296" stroke="#E4C398" stroke-width="3"/>
+    </g>
+    <g id="leather-tie" stroke="#684832" stroke-width="4">
+      <path d="M263 317C299 325 342 325 377 317"/>
+      <path d="M263 325C299 333 342 333 377 325"/>
+      <path d="M326 328C346 345 357 365 357 391C358 409 366 421 376 427M321 332C324 360 316 379 321 396C326 414 321 430 311 439"/>
+      <path d="M317 323C308 302 293 300 289 308C285 319 300 326 317 323ZM325 323C336 302 352 302 354 312C356 323 340 328 325 323Z" fill="#DAC2A5" stroke-width="3"/>
+      <ellipse cx="322" cy="328" rx="11" ry="14" fill="#AC794B" stroke-width="3"/>
+    </g>
+  </g>
+</svg>
