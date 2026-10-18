@@ -129,3 +129,180 @@ body.xc-refined{color:var(--xc-ink);font-family:var(--xc-sans);background-color:
 @media(prefers-reduced-motion:reduce){.task-cup-steam,.task-art>img{animation:none!important}.task-cup-fill i{transition:none}}
 @media(max-width:440px){.task-art{justify-content:flex-start;padding-left:1px}.task-art>img{width:53px}.task-art .task-cup{position:absolute;right:6px;bottom:12px;width:25px;height:27px}.task-art .task-cup:after{right:-7px;width:6px}.xc-refined .batch-heading h2{font-size:20px}}
 @media(max-width:370px){.xc-refined .task-select strong{font-size:15px}.xc-refined .cup-task{padding:10px 6px}.xc-refined .task-select span,.xc-refined .task-select small{font-size:11px}.task-art>img{width:48px}.xc-refined .task-action{font-size:11px}.xc-refined .session-hud>div{padding-right:8px}.xc-refined .session-hud strong{font-size:20px}}
+
+/* Clear reading hierarchy: neutral ink, white content, distinct semantic washes. */
+:root{
+ --xc-paper:#f3f0e9;--xc-surface:#fff;--xc-ink:#26332d;--xc-copy:#46534c;
+ --xc-forest:#285442;--xc-sage:#e2eee5;--xc-line:#d3d7d0;
+ --xc-brass:#8c4e28;--xc-clay:#9c4935;
+ --xc-muted:#5d6b63;--xc-blue:#e0ecf3;--xc-blue-ink:#315b73;
+ --xc-peach:#f7e3d3;--xc-peach-ink:#804329;--xc-lilac:#eae4f1;
+}
+body.xc-refined{color:var(--xc-ink)}
+.xc-refined :is(.header,.studio-header,.shop-header,.learn-header){background:#fffdf8;border-color:#d8dbd4}
+.xc-refined :is(.section-description,.hero p,.lead,.title-sub){color:#46534c}
+.xc-refined :is(.overline,.eyebrow,.tiny-label){color:#5b675f;letter-spacing:.09em}
+.xc-refined :is(.nav-link,.site-links a,.back-home,.studio-shop-link){color:#3e5146;font-size:13px}
+.xc-refined :is(.button.primary,.solid-button,.pill.dark,.next-action,.report-actions .primary){background:#285442;font-weight:600}
+.xc-refined :is(.button.outline,.soft-button,.secondary){background:#fff;border-color:#9cafa1;color:#315640}
+/* Home: color belongs to the illustration; reading surfaces stay white. */
+.xc-refined .hero p{font-size:16px;line-height:1.85}
+.xc-refined .hero-note{font-size:13px;color:#59665d}
+.xc-refined .section-description{font-size:15px;line-height:1.8}
+.xc-refined :is(.lesson-card,.workshop-entry,.new-method-card,.note-card){border-color:#cfd5cc}
+.xc-refined .lesson-art{background:#dceadf}
+.xc-refined .bean-art{background:#f2dccb}
+.xc-refined .ratio-art{background:#dce9f2}
+.xc-refined .art-tag{font-size:12px;color:#495d51;letter-spacing:.04em}
+.xc-refined .bean-art .art-tag{color:#795039}.xc-refined .ratio-art .art-tag{color:#355970}
+.xc-refined .lesson-body{background:#fff;padding:25px}
+.xc-refined .lesson-body .tiny-label{font-size:12px;color:#5d6b63}
+.xc-refined .lesson-body h3{font-size:23px;color:#26332d;line-height:1.5}
+.xc-refined :is(.lesson-body p,.workshop-entry p,.new-method-card p,.shop-promo p){font-size:15px;line-height:1.85;color:#46534c}
+.xc-refined .lesson-status{font-size:13px;font-weight:500;color:#285442;border-color:#d5ddd6}
+.xc-refined .workshop-entry{background:#edf3ed;border-color:#b7ccbd}
+.xc-refined .workshop-entry:nth-child(2){background:#f8eade;border-color:#dcc2ac}
+.xc-refined .workshop-entry h3{color:#263e31}
+.xc-refined .workshop-entry:nth-child(2) h3{color:#6d432e}
+.xc-refined .workshop-entry h3 span{font-size:15px;color:#45554a}
+.xc-refined .entry-link{font-size:14px;color:#285442;font-weight:500}
+.xc-refined .new-method-card{background:#fff;border-top:4px solid #b87452}
+.xc-refined .new-method-card:nth-child(2){border-top-color:#608a9f}
+.xc-refined .new-method-card:nth-child(3){border-top-color:#566f5e}
+.xc-refined .new-method-card:nth-child(4){border-top-color:#8e789d}
+.xc-refined .new-method-card:nth-child(5){border-top-color:#b49853}
+.xc-refined .new-method-card h3{color:#26332d}
+.xc-refined .new-method-modes a{font-size:13px;color:#315640;border-color:#a9bdae;background:#fff}
+.xc-refined .new-method-modes a:last-child{color:#fff;background:#285442;border-color:#285442}
+.xc-refined .shop-promo{background:#f5dfce;border-color:#cca684}
+.xc-refined .shop-promo strong{color:#603c29}.xc-refined .shop-promo .tiny-label{color:#735039}
+.xc-refined .shop-promo :is(.promo-tags,.promo-cta){color:#69442c;font-size:13px}
+.xc-refined .promo-cta{background:#fffaf5;border-color:#bd9272}
+.xc-refined .lab-controls{background:#fff}.xc-refined .lab-result{background:#e2edf3;border-color:#bdcfda}
+.xc-refined :is(.range-label,.lab-heading){color:#34473b;font-size:14px}
+.xc-refined .lab-result :is(p,.lab-tip,.flavor-desc){color:#3e5361;font-size:14px;line-height:1.85}
+.xc-refined .water-result strong{color:#315b73}.xc-refined .water-result span{color:#465d6c;font-size:13px}
+.xc-refined .note-card{background:#fff;border-color:#d1d6ce}
+.xc-refined .note-card h3{color:#26332d;font-size:22px}
+.xc-refined .note-card p{color:#46534c;font-size:14px;line-height:1.85}
+.xc-refined :is(.note-top,.note-recipe,.journal-footer,.hands-on-note){color:#5a675e;font-size:13px}
+.xc-refined .taste-tag{font-size:12px;background:#e2eee5;color:#285442;border-color:#b7cdbb}
+/* Studio: instruction, work surface and live data read as separate areas. */
+.xc-refined .workspace{border-color:#cbd3c9;box-shadow:none}
+.xc-refined .journey-sidebar{background:#e8eee8}
+.xc-refined .coach-panel{background:#fffdf9;border-color:#d3d9cf}
+.xc-refined .studio-center{background:#fff}
+.xc-refined .guide-banner{background:#f6dfc9;border-color:#d6b28d}
+.xc-refined .guide-banner strong{font-family:var(--xc-sans);font-size:20px;font-weight:600;line-height:1.6;color:#663e25;letter-spacing:0}
+.xc-refined .guide-banner :is(small,div>span){color:#694a33;font-size:14px;line-height:1.8}
+.xc-refined.advanced-play .guide-banner{background:#dfece3;border-color:#abc9b6}
+.xc-refined.advanced-play .guide-banner strong{color:#244d38}
+.xc-refined.advanced-play .guide-banner :is(small,div>span){color:#405e4b;font-size:14px}
+.xc-refined .parameter-strip{background:#f1f4f5;border-color:#cdd7da}
+.xc-refined .parameter-cards button{background:#fff;border-color:#c9d3d5;box-shadow:none;border-top:3px solid #597c65}
+.xc-refined .parameter-cards button:nth-child(2){border-top-color:#877197}
+.xc-refined .parameter-cards button:nth-child(3){border-top-color:#b76b41}
+.xc-refined .parameter-cards button:nth-child(4){border-top-color:#4d7f9a}
+.xc-refined :is(.parameter-heading,.parameter-cards button>span,.parameter-cards small,.parameter-heading small){color:#50616a;font-size:12px}
+.xc-refined .parameter-cards strong{font-size:25px;color:#263a32;font-weight:500}
+.xc-refined .scene-wrap{background:#faf9f3}
+.xc-refined :is(.scene-toolbar button,.stage-footer button){color:#385746;font-size:13px}
+.xc-refined .live-dashboard{background:#fff;border-color:#cbd4cf;gap:8px;padding:14px}
+.xc-refined .live-dashboard>div{border:0;border-radius:7px;background:#f2eee7;padding:10px 12px}
+.xc-refined .live-dashboard>div:nth-child(2){background:#e3edf5}
+.xc-refined .live-dashboard>div:nth-child(3){background:#f9e7d4}
+.xc-refined .live-dashboard>div:nth-child(4){background:#eae5f1}
+.xc-refined .live-dashboard span{color:#4d5a52;font-size:12px}
+.xc-refined .live-dashboard strong{color:#283a31;font-size:28px;font-weight:500;letter-spacing:-.025em}
+.xc-refined .live-dashboard small{color:#4d5a52;font-size:13px}
+.xc-refined .watching-heat .live-dashboard>div:nth-child(3),.xc-refined.watching-heat .live-dashboard>div:nth-child(3){box-shadow:none;background:#f7dab7}
+.xc-refined .coach-panel h2{color:#293e32;font-size:26px;font-weight:500}
+.xc-refined :is(.coach-panel #instruction-desc,.gesture-card p,.coach-tip p,.feedback-box p){font-size:14px;line-height:1.85;color:#45554a}
+.xc-refined .gesture-card{background:#e4eef4;border-color:#b9cdda}
+.xc-refined .gesture-card :is(strong,span){color:#315b73}.xc-refined .gesture-card strong{font-size:14px}
+.xc-refined :is(.coach-eyebrow,.coach-tip>span,.task-progress>div>span,.free-sidebar-desc){font-size:12px;color:#58685d}
+.xc-refined .coach-tip{border-color:#d0d9ce}.xc-refined .feedback-box{border-color:#527660}
+.xc-refined .operation-guide{background:#f9ecd8;border-color:#d7b780}
+.xc-refined .operation-guide strong{color:#694525;font-size:16px}
+.xc-refined .operation-guide p{color:#6c5133;font-size:14px;line-height:1.75}
+.xc-refined .heat-guide{background:#fce7c7;border-color:#c69755;box-shadow:none}
+.xc-refined .heat-guide>span,.xc-refined .heat-guide p{color:#70471f;font-size:13px}
+.xc-refined .heat-temperatures output{color:#6e3e1b;font-weight:500}
+.xc-refined .heat-guide button{background:#764821;border-color:#764821;color:#fffdf7;font-size:14px;font-weight:500}
+.xc-refined .heat-guide button:disabled{background:#eed2a7;border-color:#c0975b;color:#67441f;opacity:1}
+/* Shop: station status is carried by color and its existing text label. */
+.xc-refined :is(.side-card,.scene-card,.batch-workbench){background:#fff;border-color:#cbd4c9}
+.xc-refined .scene-ticker{background:#eef3ef;color:#405747;font-size:14px;line-height:1.75}
+.xc-refined .batch-heading h2{color:#2e4034}.xc-refined .batch-heading>span{color:#546259;font-size:13px}
+.xc-refined .cup-task{background:#fffdf9;border-color:#d5d8cd;border-top:3px solid #637f6b}
+.xc-refined .cup-task:nth-child(2){border-top-color:#ac7656}.xc-refined .cup-task:nth-child(3){border-top-color:#6386a1}
+.xc-refined .cup-task.chosen{background:#fffdf9;border-color:#42634d;box-shadow:0 0 0 1px #42634d inset}
+.xc-refined .cup-task[data-phase="grinding"],.xc-refined .cup-task[data-phase="prepared"]{background:#fbecd9;border-color:#bd9159}
+.xc-refined .cup-task[data-phase="brewing"]{background:#e1edf5;border-color:#789db4}
+.xc-refined .cup-task.ready{background:#e0eedf;border-color:#759777}
+.xc-refined .task-select span{color:#536158;font-size:12px}
+.xc-refined .task-select strong{color:#26392e;font-size:22px;font-weight:500}
+.xc-refined .task-select small{color:#46554b;background:#e9ede6;font-size:12px}
+.xc-refined .cup-task[data-phase="grinding"] .task-select small,.xc-refined .cup-task[data-phase="prepared"] .task-select small{background:#efd1aa;color:#68451f}
+.xc-refined .cup-task[data-phase="brewing"] .task-select small{background:#c4dce9;color:#2d536d}
+.xc-refined .cup-task.ready .task-select small{background:#bfdbbc;color:#294c2d}
+.xc-refined .task-action{background:#fff;color:#31533d;border-color:#9ab39f;font-size:13px;font-weight:500}
+.xc-refined .task-action:disabled{opacity:1;background:#f5f8fa;color:#466176;border-color:#bacfdb}
+.xc-refined .ready .task-action{background:#285442;color:#fff;border-color:#285442}
+.xc-refined .cup-task.empty-task{background:#f3f3ef;border:1px dashed #c2cbbf;box-shadow:none}
+.xc-refined .recipe-pills span{background:#edf1e8;color:#42593d;border-color:#c5d0bc;font-size:13px}
+.xc-refined :is(.side-head small,#queue-note,.action-hint,.coffee-connection>p:not(.overline),.ticket-sub,.order-heading small){color:#536359;font-size:14px;line-height:1.75}
+.xc-refined .ticket{background:#f5f6f2;border-color:#d3d9ce}.xc-refined .ticket.is-active{background:#f9ead6;border-color:#c6a071}
+.xc-refined .ticket-title b{color:#2c4232;font-size:14px}.xc-refined .ticket-price{color:#784826}
+.xc-refined .coffee-connection{background:#e1edf4!important;border-color:#b8cfdb!important}
+.xc-refined .coffee-connection h3{color:#315b73}.xc-refined .coffee-connection :is(.overline,a){color:#3e5c6e;font-size:12px}
+.xc-refined .counter-tools>button{background:#f7dfd3;border-color:#c9967b}
+.xc-refined .counter-tools b{color:#80432d}.xc-refined .counter-tools small{color:#724e3b;font-size:13px}
+.xc-refined :is(.welcome-copy,.welcome-foot,.round-options small,.round-options span,.report-note,.best-note){color:#46594c;font-size:14px;line-height:1.75}
+.xc-refined .round-options button{background:#fff;border-color:#c7d2c5}.xc-refined .round-options button[aria-pressed="true"]{background:#e1eee2;border-color:#6a9272}
+/* Classroom: longer paragraphs get reading-size text and lighter surfaces. */
+.xc-refined :is(.section-heading>p:not(.eyebrow),.brewer-copy>p,.recipe-detail>p,.brewer-facts,.recipe-footnote,.footer-note){color:#43534a;font-size:15px;line-height:1.85}
+.xc-refined .recipe-detail{background:#fff;border-color:#c8d3c8}
+.xc-refined .recipe-detail h3{color:#263b2e;font-size:27px;line-height:1.5}
+.xc-refined .recipe-step-top{color:#516257;font-size:12px}
+.xc-refined .recipe-meta{background:#e7eff3;border-color:#c0d1da;padding:20px;border-radius:10px}
+.xc-refined .recipe-meta :is(span,small){color:#50626d;font-size:12px}
+.xc-refined .recipe-meta strong{color:#294c60}
+.xc-refined .brewer-tabs{background:#e3eae2;border-color:#bfcdbd}
+.xc-refined .brewer-tabs button{color:#435b48}.xc-refined .brewer-tabs button span{color:#53675a;font-size:12px}
+.xc-refined .recipe-timeline button{color:#44584a;background:#f4f5ef;border-color:#d2d9cc}
+.xc-refined .recipe-timeline button.active{background:#e1eee1;border-color:#779779;color:#28503a}
+.xc-refined .taste-response>p{color:#5c493a;font-size:15px;line-height:1.85}
+.xc-refined :is(.footer-note,.studio-footnote,.studio-bottom,.shop-footer){font-size:12px;color:#59675d}
+/* Stronger illustration blocks and category edges keep the palette distinguishable. */
+.xc-refined .lesson-art{background:#cadfce}.xc-refined .bean-art{background:#efcfb3}.xc-refined .ratio-art{background:#cbdfea}
+.xc-refined .practice-wrap{background:#e9ede7}
+.xc-refined .workshop-entry{background:#e2eee4;border-left:4px solid #53785f}
+.xc-refined .workshop-entry:nth-child(2){background:#f5e3d1;border-left:4px solid #b0774d}
+.xc-refined .strip-intro strong{font-size:16px;color:#35483b}
+.xc-refined .intro-strip b{font-size:14px;color:#304837}
+.xc-refined .intro-strip small{font-size:12px;color:#526358;line-height:1.65}
+.xc-refined .section-top h2{color:#273c2f}
+.xc-refined .heat-guide>span,.xc-refined .heat-guide p{color:#70471f;font-size:13px}
+.xc-refined .lesson-body h3{position:relative;display:block;padding-right:22px}
+.xc-refined .lesson-body h3>span{position:absolute;right:0;top:0;color:#425c4a}
+.xc-refined .lesson-art .art-tag{max-width:100%;padding-inline:8px;white-space:normal;line-height:1.6;letter-spacing:0;text-align:center}
+.xc-refined :is(#note-form label,.taste-options legend){font-size:14px;color:#405346}
+.xc-refined .taste-options span{font-size:13px;color:#405346}
+.xc-refined :is(.note-top button,.range-scale,.range-ends){font-size:12px;color:#59675d}
+.xc-refined :is(#help-dialog dt,#help-dialog dd,.sheet-note){font-size:14px;line-height:1.8;color:#43534a}
+.xc-refined.easy-shop #main-action:disabled{opacity:1;background:#dce8ef;color:#31556c;border-color:#a9c1d0;box-shadow:none}
+.xc-refined .cup-task .task-progress{background:#e1e6de}
+.xc-refined .cup-task[data-phase="grinding"] .task-progress i,.xc-refined .cup-task[data-phase="prepared"] .task-progress i{background:#ad7441}
+.xc-refined .cup-task[data-phase="brewing"] .task-progress i{background:#4b7c99}
+.xc-refined .cup-task.ready .task-progress i{background:#4d7b50}
+.xc-refined .story-step{opacity:1}
+.xc-refined .story-step.active .step-kicker{color:#285442;font-weight:600}
+.xc-refined :is(.story-step>p,.toolkit p,.roast-description p,.variable-explanation p,.faq details p,.practice-finale>p:not(.eyebrow)){color:#46534c;font-size:15px;line-height:1.85}
+.xc-refined .brewer-facts>div{color:#46534c;font-size:14px;line-height:1.85}
+.xc-refined .brewer-facts strong{font-size:15px;color:#2c4434}
+.xc-refined .brewer-facts b{background:#dcebdc;color:#34563d;font-size:13px}
+.xc-refined .experiment-rule{font-size:13px}.xc-refined .experiment-rule span{color:#70553c}.xc-refined .experiment-rule strong{color:#604630;font-weight:500}
+.xc-refined .taste-response .small-note,.xc-refined .small-note{font-size:13px;color:#5b675e;line-height:1.85}
+.xc-refined .faq summary{color:#604630;font-size:15px}
+.xc-refined .roast-options button{color:#3f5846;background:#fff;font-size:14px;border-color:#b8c7b6}.xc-refined .roast-options button.active{color:#fff;background:#775138;border-color:#775138}
