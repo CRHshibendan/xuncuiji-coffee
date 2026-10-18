@@ -69,8 +69,10 @@ function steps(){const r=recipes[selectedBrewer];return[
  ];}
 function renderRecipe(){const all=steps(),s=all[recipeStep];
  $('#recipe-timeline').innerHTML=all.map((item,i)=>`<button data-recipe-step="${i}" class="${i===recipeStep?'active':''}" aria-pressed="${i===recipeStep}"><span>${String(i+1).padStart(2,'0')}</span><div><strong>${item.name}</strong><small>${item.hint}</small></div></button>`).join('');
- $$('[data-recipe-step]').forEach(b=>b.addEventListener('click',()=>{stopRecipe();recipeStep=Number(b.dataset.recipeStep);renderRecipe();}));
+ $$('[data-recipe-step]').forEach(b=>b.addEventListener('click',()=>{stopRecipe();recipeStep=Number(b.dataset.recipeStep);renderRecipe();$('#recipe-timeline .active').focus({preventScroll:true});}));
+ $('#step-heat').textContent=recipes[selectedBrewer].temp+'°C';
  $('#recipe-step-count').textContent=String(recipeStep+1).padStart(2,'0')+' / 07';$('.step-visual').dataset.step=recipeStep;$('#step-visual-label').textContent=s.visual;$('#recipe-action').textContent=s.name;$('#recipe-step-title').textContent=s.title;$('#recipe-step-description').textContent=s.text;$('#recipe-step-observe').textContent=s.observe;$('#previous-step').disabled=recipeStep===0;$('#next-step').textContent=recipeStep===6?'重新看一遍 ↻':'下一步 →';
+ const timeline=$('#recipe-timeline'),active=timeline.querySelector('.active');if(timeline.scrollWidth>timeline.clientWidth&&active)timeline.scrollTo({left:active.offsetLeft-timeline.clientWidth/2+active.offsetWidth/2,behavior:motionPaused?'instant':'smooth'});
 }
 function stopRecipe(){clearInterval(recipeTimer);recipeTimer=null;const button=$('#play-recipe');if(button){button.setAttribute('aria-pressed','false');button.textContent='播放步骤动画 ▷';}}
 $('#play-recipe').addEventListener('click',()=>{if(recipeTimer){stopRecipe();return;}if(recipeStep===6)recipeStep=0;renderRecipe();$('#play-recipe').setAttribute('aria-pressed','true');$('#play-recipe').textContent='暂停播放 Ⅱ';recipeTimer=setInterval(()=>{if(document.hidden){stopRecipe();return;}if(recipeStep<6){recipeStep++;renderRecipe();}else stopRecipe();},6500);});

@@ -5,3 +5,18 @@
 @media(max-width:370px){.content{width:calc(100% - 30px)}.learn-header{padding:0 13px}.learn-brand{font-size:20px}.header-actions{gap:10px}.pill.small{padding:8px 10px;font-size:9px}.learn-hero h1{font-size:34px}.hero-meta{gap:10px;font-size:8px}.hero-meta span+span{padding-left:10px}.section-heading h2{font-size:32px}.brewer-tabs button{font-size:14px;padding:12px 10px}.brewer-tabs button span{font-size:9px}.variable-lab{padding:17px}.roast-options button{font-size:11px}.recipe-detail h3{font-size:24px}.taste-choices button{padding:16px 12px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.motion-enabled .reveal{opacity:1;transform:none}.story-step{opacity:1}.hero-liquid{transform:none}}
 .variable-visual{width:100%;min-width:0}.lab-controls,.brewer-copy,.beans-copy,.taste-response{min-width:0}
+/* Keep the response to a slider in the same phone view as the control. */
+.recipe-timeline{position:relative}
+.step-water,.step-drop{width:3px;border:0;background:repeating-linear-gradient(to bottom,#88a9a6 0 5px,transparent 5px 10px);background-size:3px 10px}
+.step-drop{background-image:repeating-linear-gradient(to bottom,#9c764b 0 5px,transparent 5px 10px)}
+.step-visual[data-step="3"] .step-water,.step-visual[data-step="4"] .step-water,.step-visual[data-step="5"] .step-water,.step-visual[data-step="3"] .step-drop,.step-visual[data-step="5"] .step-drop{animation:step-flow .7s linear infinite}
+.step-visual[data-step="2"] .step-water{opacity:0;animation:none}
+.step-heat{position:absolute;right:4px;top:24px;font-size:17px;line-height:1.2;color:#aa744b;background:#fff7e6;border:1px solid #dbc9a5;border-radius:12px;padding:12px;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .5s var(--ease)}
+.step-visual[data-step="2"] .step-heat{opacity:1;transform:none}
+.step-visual[data-step="1"] .step-powder{animation:powder-settle .75s var(--ease) both}
+@keyframes step-flow{to{background-position-y:20px}}
+@keyframes powder-settle{from{transform:translateY(-14px) scale(.4);opacity:0}to{transform:none;opacity:1}}
+@media(max-width:760px){.lab-controls{display:contents}.variable-tabs{grid-row:1;margin-bottom:0}.variable-visual{grid-row:2;aspect-ratio:auto;height:275px;min-height:0;gap:12px}#variable-panel{grid-row:3}.variable-explanation{grid-row:4;min-height:0;margin-top:0;padding-top:18px}.lab-water-number strong{font-size:40px}.lab-water-number small{margin-bottom:5px}.visual-caption{bottom:12px}.variable-lab{gap:18px}.variable-visual .grind-visual,.variable-visual .temperature-visual{height:130px}.thermometer{height:125px}.step-heat{right:8px;font-size:16px}}
+/* The illustration changes focus; the teaching text stays readable throughout. */
+.story-step{opacity:1}.story-step.active .step-kicker{color:#496b37}
+@media(max-width:760px){.story-step{opacity:1}}
