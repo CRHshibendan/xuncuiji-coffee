@@ -75,10 +75,10 @@ const CoffeeFree=(()=>{
   const available=s.id==='espresso'||s.id==='moka'?s.output:s.id==='siphon'?Math.max(0,s.water-s.dose*1.7)*s.returned:Math.max(0,s.water-s.dose*1.7),amount=Math.max(0,available-s.served);
   const findings=[];if(!s.dose)findings.push('没有投入咖啡粉，杯中只有水，不能形成咖啡。');if(!amount)findings.push('没有可倒出的液体，这次尚未成杯。');
   if(s.id==='moka'){if(s.water>150)findings.push('水位超过安全阀。示意出液已停止，实物应在冷却后纠正水位。');if(!s.basket||!s.sealed)findings.push('粉槽或上下壶未装好，没有形成正确的冲煮结构。');if(s.highHeatTime>9)findings.push('大火持续较久；下一杯及时离火，避免持续高温。');}
-  if(s.id==='coldbrew'){if(!s.filter)findings.push('没有过滤，粉渣跟着进入杯中。');if(s.temp>20)findings.push('本次用了温热水，已经偏离冷藏冷水浸泡条件。');if(!s.lid)findings.push('本次没有加盖冷藏；与本课冷藏条件不同，不能照搬储存做法。');}
-  if(s.id==='frenchpress'){if(!s.plunge)findings.push('还没有下压滤网，直接倒出会带入更多粉渣。');if(s.fastPress)findings.push('下压过快，下一杯慢慢压；实物遇到阻力不要强压。');}
-  if(s.id==='siphon'){if(!s.filter)findings.push('没有装滤器，回流时粉渣也会进入下壶。');if(s.returned<.9)findings.push('回流尚未完成，杯中液量偏少。');}
-  if(s.id==='espresso'){if(s.dose>22)findings.push('粉量超过本课粉碗示意容量；实物要按粉碗容量装粉。');if(s.warm<.8)findings.push('机器没有充分预热，本次演示的冲煮条件不稳定。');if(!s.distributed)findings.push('没有布粉，演示流速加快，可能出现不均匀萃取。');if(!s.tamped)findings.push('没有压粉，演示阻力较小，流速更快。');}
+  if(s.id==='coldbrew'){if(s.dose>0&&amount>0&&!s.filter)findings.push('没有过滤，粉渣跟着进入杯中。');if(s.temp>20)findings.push('本次用了温热水，已经偏离冷藏冷水浸泡条件。');if(!s.lid)findings.push('本次没有加盖冷藏；与本课冷藏条件不同，不能照搬储存做法。');}
+  if(s.id==='frenchpress'){if(s.dose>0&&amount>0&&!s.plunge)findings.push('还没有下压滤网，直接倒出会带入更多粉渣。');if(s.fastPress)findings.push('下压过快，下一杯慢慢压；实物遇到阻力不要强压。');}
+  if(s.id==='siphon'){if(s.dose>0&&amount>0&&!s.filter)findings.push('没有装滤器，回流时粉渣也会进入下壶。');if(s.returned<.9)findings.push('回流尚未完成，杯中液量偏少。');}
+  if(s.id==='espresso'){if(s.dose>22)findings.push('粉量超过本课粉碗示意容量；实物要按粉碗容量装粉。');if(s.warm<.8)findings.push('机器没有充分预热，本次演示的冲煮条件不稳定。');if(s.dose>0&&!s.distributed)findings.push('没有布粉，演示流速加快，可能出现不均匀萃取。');if(s.dose>0&&!s.tamped)findings.push('没有压粉，演示阻力较小，流速更快。');}
   const exposure=s.batches.reduce((n,b)=>n+b.dose*b.exposure,0)/(s.dose||1),ratio=amount/(s.dose||1),base=(specs[s.id].water-specs[s.id].dose*1.7)/specs[s.id].dose;
   let title=!s.dose||!amount?'这一杯，还没形成咖啡。':exposure<.65?'溶出偏少，可能尖酸或空薄。':exposure>1.6?'接触较多，留意苦涩与干燥感。':'接近本课起点，尝尝你的版本。';
   if(s.dose&&amount){findings.push(exposure<.65?'咖啡与水的有效接触偏少；试着延长接触，或让粉更均匀地湿润。':exposure>1.6?'有效接触较多；下一杯可以减少时间或调粗研磨，再比较口感。':'本次有效接触接近教学起点，可以保留配方，用真实味觉判断。');if(s.id!=='espresso')findings.push(ratio>base*1.15?'每克粉对应的饮品量较多，浓度方向可能更清淡。':ratio<base*.85?'每克粉对应的饮品量较少，浓度方向可能更浓。':'粉量与饮品量接近本课的比例。');else findings.push(`这一杯实际粉液比约 1:${ratio.toFixed(1)}；液重由你的停萃时机决定。`);}

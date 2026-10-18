@@ -2,7 +2,7 @@
 const MethodArt={render(id,done=[],token='',progress=0,levels={}){
  const has=t=>done.includes(t),water=has('water'),coffee=has('coffee'),p=Math.max(0,Math.min(1,progress));
  const liquid=(x,y,w,h,c='#976238')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" fill="${c}" opacity=".72"/>`;
- const cup=`<g class="art-cup"><path d="M440 310h82v45q-4 20-41 20t-41-20Z" fill="#fff9ea"/><path d="M524 318q39 0 25 30h-23" fill="none" stroke-width="7"/>${has('serve')||has('filter')&&id==='coldbrew'?liquid(446,334,70,25):''}</g>`;
+ const cup=`<g class="art-cup"><path d="M440 310h82v45q-4 20-41 20t-41-20Z" fill="#fff9ea"/><path d="M524 318q39 0 25 30h-23" fill="none" stroke-width="7"/>${has('serve')||has('filter')&&id==='coldbrew'?liquid(446,334,70,25,levels.cupColor):''}</g>`;
  const grounds=coffee?liquid(266,id==='siphon'?142:id==='espresso'?240:280,68,15,'#694833'):'';
  const mokaFill=levels.moka??(has('heat')?1:p),espressoFill=levels.espresso??(has('extract')?1:p);
  const risen=levels.rise??(has('rise')?1:token==='rise'?p:0),drawn=levels.returned??(has('drawdown')?1:token==='drawdown'?p:0),upper=risen*(1-drawn);
