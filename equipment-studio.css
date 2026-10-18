@@ -9,3 +9,8 @@
 .equipment-studio #scene .interactive .hit-area{pointer-events:all}.equipment-studio #scene .subdued .hit-area{pointer-events:none}
 /* The vessel stays readable while the next loose tool receives the hand cue. */
 .equipment-studio #scene .subdued{opacity:.6}.equipment-studio #scene #brewer-layer [data-object="server"],.equipment-studio #scene #brewer-layer [data-object="upper"],.equipment-studio #scene #brewer-layer [data-object="siphon-upper"],.equipment-studio #scene #brewer-layer [data-object="machine"]{opacity:1}
+
+/* Store tools that do not belong to this brewing method. */
+.equipment-studio #scene .studio-stowed{display:none!important;pointer-events:none!important}
+
+.equipment-studio[data-equipment="espresso"] #scene-labels{display:none}
