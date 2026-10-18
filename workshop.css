@@ -122,3 +122,30 @@ button{transition:background .2s,color .2s,box-shadow .2s,scale .18s}button:acti
 @keyframes paper-tap-pulse{50%{stroke-opacity:.35;stroke-width:5}}
 @media(max-width:640px){.operation-guide{padding:14px 13px;gap:10px}.operation-guide .operation-symbol{width:30px;height:34px;font-size:20px;border-radius:10px}.filter-guide{flex-wrap:wrap}.filter-guide>div{flex-basis:calc(100% - 44px)}.filter-guide strong{font-size:16px}.filter-guide p{font-size:12px}#fold-filter-button{margin-left:40px;min-width:140px;min-height:46px;font-size:14px}.pour-guide{align-items:flex-start;padding:16px 13px;gap:9px}.pour-guide strong{font-size:16px}.pour-guide p{font-size:12px}.pour-shortcut{font-size:12px}#pour-state{font-size:10px;padding:5px 7px}.hands-on-actions{padding-top:14px}.selection-caption:not(:empty){font-size:12px;padding:10px 12px}}
 #fold-filter-button:disabled{opacity:1;background:#edf4e5;border-color:#bcccab;color:#4c653b;box-shadow:none}
+
+/* Guidance header meta: current progress and a preview of the next step. */
+.guide-meta{display:none;gap:8px 12px;flex-wrap:wrap;align-items:center;margin-top:9px}
+#guide-progress,#guide-next{display:inline-flex;align-items:center;font-size:10px;line-height:1.5;letter-spacing:.2px;border-radius:20px;padding:4px 9px;white-space:nowrap}
+#guide-progress{color:#846b42;background:#fff7e2;border:1px solid #e8d6ac;font-weight:500}
+#guide-next{color:#9a8358;background:#fffaf0;border:1px dashed #ddc9a1;white-space:normal;max-width:100%;text-align:left}
+#guide-progress:empty,#guide-next:empty{display:none}
+@media(max-width:640px){.guide-meta{display:flex;max-width:100%;margin-top:8px}#guide-progress,#guide-next{font-size:10px;padding:4px 8px}}
+@media(min-width:641px){.guide-meta{display:none}}
+.guide-source-halo{fill:#e7ca8118;stroke:#b9934c;stroke-width:1.6;stroke-dasharray:3 7;stroke-linecap:round;animation:source-halo-pulse 2.4s ease-in-out infinite}
+@keyframes source-halo-pulse{0%,100%{stroke-opacity:.9;fill-opacity:1}50%{stroke-opacity:.35;fill-opacity:.45}}
+@media(prefers-reduced-motion:reduce){.guide-source-halo{animation:none}}
+
+/* When a dedicated operation panel is open, the banner keeps only the headline. */
+@media(max-width:640px){
+ .basic-play:has(#filter-guide:not([hidden])) .guide-detail,
+ .basic-play:has(#pour-guide:not([hidden])) .guide-detail{display:none}
+ .basic-play:has(#filter-guide:not([hidden])) .guide-banner{min-height:0}
+}
+
+/* A single shop entry in the site navigation. Practice modes stay together. */
+.studio-header .studio-shop-link{display:inline-flex;align-items:center;gap:9px;margin-left:auto;min-height:40px;padding:9px 15px;border:1px solid #cbd7bd;border-radius:6px;background:#eef2e5;color:#586f46;font:12px var(--sans);white-space:nowrap;text-decoration:none;transition:background .2s,border-color .2s}
+.studio-shop-link svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}.studio-shop-link .shop-link-arrow{font-size:17px;margin-left:5px}.studio-header .studio-shop-link:hover{background:#e3ebd8;border-color:#a1b98a}.studio-shop-link+.back-home{margin-left:10px}
+@media(max-width:640px){.studio-header{height:auto!important;min-height:68px;flex-wrap:wrap;gap:8px;padding:12px 14px!important}.studio-header .studio-shop-link{display:inline-flex;font-size:11px;padding:8px 10px;min-height:38px;gap:6px}.studio-shop-link+.back-home{font-size:10px;min-height:30px;margin-left:4px}.studio-shop-link .shop-link-arrow{margin-left:0}}
+/* Put the temperature change next to the kettle instead of hiding it in the dashboard. */
+.heat-guide{position:absolute;right:20px;top:57px;width:215px;z-index:8;padding:17px;background:#fff5de;border:1px solid #d8b67b;border-radius:10px;box-shadow:0 8px 25px #8c6d3c16}.heat-guide[hidden]{display:none}.heat-guide>span{font-size:11px;color:#a18651;letter-spacing:1px}.heat-temperatures{display:flex;align-items:baseline;gap:15px;margin:12px 0}.heat-temperatures output{font:36px Georgia,var(--serif);color:#936d39}.heat-temperatures>span{font-size:12px;color:#aa946e}.heat-temperatures b{font-weight:500}.heat-progress{height:6px;background:#eadcc0;overflow:hidden;border-radius:5px}.heat-progress i{height:100%;display:block;width:0;background:#bd9050;transition:width .1s linear}.heat-guide p{font-size:11px;color:#a18b63;line-height:1.7;margin:10px 0}.heat-guide button{border:1px solid #b29b6b;background:#fcf7e9;color:#8d7546;font-size:12px;padding:9px;width:100%;min-height:40px;border-radius:5px}.heat-guide button:disabled{opacity:1;background:#eadebf;color:#95815a;border-color:#ddc79b}.watching-heat #kettle-object{filter:drop-shadow(0 0 9px #c19a5680)}.watching-heat .live-dashboard>div:nth-child(3){background:#f4e7cd;box-shadow:0 0 0 7px #f4e7cd;border-radius:3px}.watching-heat .live-dashboard>div:nth-child(3) strong{color:#a5783c}
+@media(max-width:640px){.heat-guide{right:12px;top:44px;width:175px;padding:12px}.heat-temperatures{gap:10px;margin:9px 0}.heat-temperatures output{font-size:29px}.heat-guide p{font-size:10px}.watching-heat .guide-banner{min-height:105px}}

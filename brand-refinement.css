@@ -1,0 +1,131 @@
+/* 寻萃集 / visual system: paper, forest, warm metal, coffee. */
+:root{
+ --xc-paper:#f5f1e8;--xc-surface:#fffdf7;--xc-ink:#2d3a2b;--xc-copy:#626d58;
+ --xc-forest:#36533a;--xc-sage:#e7eddd;--xc-line:#d4dbc7;--xc-brass:#8b622f;
+ --xc-clay:#9a5036;--xc-serif:'Songti SC','STSong','Noto Serif SC',serif;
+ --xc-sans:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+}
+body.xc-refined{color:var(--xc-ink);font-family:var(--xc-sans);background-color:var(--xc-paper)}
+.xc-refined :is(button,a,input,select,textarea):focus-visible{outline:2px solid var(--xc-brass);outline-offset:4px}
+.xc-refined :is(button,input,select,textarea){font-family:var(--xc-sans)}
+.xc-refined :is(.overline,.eyebrow,.tiny-label){color:var(--xc-copy);letter-spacing:.14em}
+.xc-refined :is(.header,.studio-header,.shop-header,.learn-header){background:#faf7f0;border-color:var(--xc-line)}
+.xc-refined :is(.brand,.studio-brand,.learn-brand){color:var(--xc-ink);font-family:var(--xc-serif);font-weight:500}
+.xc-refined :is(.nav-link,.site-links a,.back-home,.studio-shop-link){font-size:12px;color:#57664c}
+.xc-refined :is(.brand-en,.brand small,.studio-brand small,.learn-brand small){color:#68725d;letter-spacing:.2em}
+.xc-refined :is(.section-description,.hero p,.lead,.title-sub){color:var(--xc-copy);line-height:1.9}
+.xc-refined :is(.button.primary,.solid-button,.pill.dark,.next-action,.report-actions .primary){background:var(--xc-forest);color:#fffdf7;border-color:var(--xc-forest);border-radius:8px;font-weight:500}
+.xc-refined :is(.button.primary,.solid-button,.pill.dark,.next-action):hover:enabled{background:#29432d}
+.xc-refined :is(.soft-button,.secondary,.button.outline){border-color:#bac8ab;color:#4d6642;border-radius:8px}
+.xc-refined :is(.header nav,.site-links){gap:23px}
+.xc-refined .hero-copy .eyebrow{font-size:11px}
+.xc-refined :is(.section-top .eyebrow,.lesson-body .tiny-label,.more-methods-heading .eyebrow){font-size:10px}
+.xc-refined :is(.lesson-body p,.workshop-entry p,.new-method-card p,.shop-promo p){font-size:13px;color:var(--xc-copy);line-height:1.9}
+.xc-refined :is(.lesson-body h3,.new-method-card h3){color:#354b2d}
+.xc-refined :is(.lesson-status,.entry-link,.new-method-modes a,.plain-link){font-size:12px;color:#526e43}
+.xc-refined :is(.lesson-card,.workshop-entry,.new-method-card,.note-card){border-color:var(--xc-line);border-radius:10px}
+.xc-refined :is(.lesson-body,.new-method-card){background:var(--xc-surface)}
+.xc-refined :is(.workshop-entry h3 span,.hands-on-note,.journal-footer,.note-top,.note-recipe){color:var(--xc-copy);font-size:11px}
+.xc-refined .hero-note{font-size:11px;color:#68745b}
+.xc-refined .taste-tag{color:#4e6741;background:var(--xc-sage)}
+.xc-refined :is(.lab-tip,.flavor-desc,.lab-result p){color:var(--xc-copy)}
+/* Studio: one visible instruction, one physical stage, legible readouts. */
+.xc-refined .studio-title .overline{font-size:10px}
+.xc-refined .studio-title h1{font-family:var(--xc-serif);font-weight:400;letter-spacing:.01em;color:#304529}
+.xc-refined .studio-title .title-sub{font-size:13px}
+.xc-refined .workspace{border-color:#cdd6bd;box-shadow:0 8px 34px #3f4b2e08;border-radius:12px}
+.xc-refined :is(.journey-sidebar,.coach-panel){background:#f0f2e6}
+.xc-refined .studio-center{background:var(--xc-surface)}
+.xc-refined .sidebar-heading{color:#526747;font-size:11px}
+.xc-refined #journey-list li{color:#69755e;font-size:12px}
+.xc-refined #journey-list li.active{color:#314b2e;font-weight:500}
+.xc-refined #journey-list li.complete{color:#526e43}
+.xc-refined :is(.recipe-slip p,.recipe-slip>span,.studio-footnote,.studio-bottom){color:#68725b;font-size:11px;line-height:1.8}
+.xc-refined :is(.parameter-heading,.parameter-cards button>span){color:#647258;font-size:11px}
+.xc-refined .parameter-cards strong{color:#344e2b;font-weight:400}
+.xc-refined :is(.parameter-cards small,.parameter-heading small){color:#65735b}
+.xc-refined .guide-banner{background:#f4e8c8;border-color:#dcc799}
+.xc-refined .guide-banner strong{color:#705124;font-size:20px;font-family:var(--xc-serif);font-weight:400}
+.xc-refined :is(.guide-banner small,.guide-banner div>span){color:#78653d;font-size:12px;line-height:1.8}
+.xc-refined.advanced-play .guide-banner{background:#e9efdd;border-color:#ccd9b9}
+.xc-refined.advanced-play .guide-banner strong{color:#405c32}
+.xc-refined.advanced-play :is(.guide-banner small,.guide-banner div>span){color:#61734e}
+.xc-refined :is(.scene-toolbar button,.stage-footer button){font-size:11px;color:#576d48;border-radius:6px}
+.xc-refined .live-dashboard{background:#edf0e3;border-color:#d4dcc7}
+.xc-refined .live-dashboard span{font-size:11px;color:#5f6e51}
+.xc-refined .live-dashboard strong{font-size:27px;color:#344d29;font-weight:400;font-variant-numeric:tabular-nums}
+.xc-refined .live-dashboard small{font-size:12px;color:#60714e}
+.xc-refined :is(.coach-panel #instruction-desc,.gesture-card p,.coach-tip p,.feedback-box p){font-size:12px;line-height:1.9;color:#606f51}
+.xc-refined :is(.coach-eyebrow,.coach-tip>span,.task-progress>div>span,.free-sidebar-desc){font-size:11px;color:#67755b}
+.xc-refined .coach-panel h2{font-family:var(--xc-serif);font-weight:400;color:#3d572f}
+.xc-refined .heat-guide{background:#fff2d2;border-color:#bf9d60;box-shadow:0 8px 25px #74522616}
+.xc-refined :is(.heat-guide>span,.heat-guide p){color:#75562a;font-size:12px}
+.xc-refined .heat-temperatures output{color:#755122}.xc-refined .heat-temperatures>span{color:#795d31}
+.xc-refined .heat-guide button:disabled{color:#70592f;background:#e5d5ad}
+/* Coffee game: display the cups, rather than another row of abstract meters. */
+.xc-refined .shop-intro .overline{font-size:10px;color:#627151}
+.xc-refined .shop-intro h1{font-size:42px;color:#31492b;letter-spacing:.01em}
+.xc-refined .shop-intro h1 span{color:#657f4e}
+.xc-refined .shop-intro p:last-child{color:#69765d;font-size:13px}
+.xc-refined .session-hud span{font-size:11px;color:#657155}
+.xc-refined .session-hud strong{color:#3d5930;font-size:25px}
+.xc-refined :is(.scene-topline,.scene-ticker){color:#657058;font-size:11px}
+.xc-refined :is(.side-card,.scene-card,.batch-workbench){background:var(--xc-surface);border-color:#d0dac0}
+.xc-refined .side-head span{font-size:14px;color:#3c582f}
+.xc-refined :is(.side-head small,#queue-note,.action-hint,.coffee-connection>p:not(.overline)){font-size:12px;color:#667653}
+.xc-refined .order-heading small{font-size:11px;color:#67795a}
+.xc-refined .order-heading h2{color:#3c572f;font-size:26px}
+.xc-refined .order-heading p{font-size:13px;color:#89612e}
+.xc-refined .recipe-pills span{font-size:12px;color:#526b3f;background:#edf2e3;border-color:#d2dec0}
+.xc-refined .flavor-select>span{color:#647653;font-size:11px}
+.xc-refined .flavor-select button{font-size:11px;color:#5d734b;min-height:42px}
+.xc-refined .easy-steps li{font-size:11px;color:#69775b}
+.xc-refined .easy-steps li.current{color:#344f29;border-color:#5f7b46}
+.xc-refined .ticket-sub{color:#617352;font-size:11px}
+.xc-refined .ticket-title b{font-size:13px;color:#415a33}
+.xc-refined .ticket-price{color:#76582e;font-size:14px}
+.xc-refined .coffee-connection .overline{font-size:10px;color:#65794f}
+.xc-refined .coffee-connection h3{color:#3f5b30}
+.xc-refined .batch-heading h2{font-size:23px;color:#405c30}
+.xc-refined .batch-heading>span{color:#667952;font-size:11px}
+.xc-refined .cup-task{position:relative;background:#f1f4e8;border:1px solid #d6dfc7;border-radius:10px;padding:14px;transition:background .2s,border-color .2s}
+.xc-refined .cup-task.chosen{background:#edf2e1;border-color:#91a877}
+.xc-refined .cup-task.ready{background:#edf4e1;border-color:#7c9c5f}
+.xc-refined .task-select{position:relative;z-index:1}
+.xc-refined .task-select span{color:#647654;font-size:11px;letter-spacing:.03em}
+.xc-refined .task-select strong{font-size:21px;color:#3a542b;margin:6px 0 9px}
+.xc-refined .task-select small{display:inline-block;color:#667851;background:#e2e9d5;border-radius:4px;padding:4px 7px;font-size:11px}
+.xc-refined .ready .task-select small{background:#dbe8c8;color:#395527}
+.xc-refined .task-action{font-size:12px;min-height:42px;border-color:#c2d0ae;color:#4d683a}
+.xc-refined .ready .task-action{background:#3f6031;color:#fffdf7}
+.task-art{position:relative;height:105px;display:flex;align-items:center;justify-content:center;gap:7px;margin:3px 0 2px;pointer-events:none}
+.task-art>img{width:85px;height:89px;object-fit:contain;filter:drop-shadow(0 4px 3px #53603a0c);transition:opacity .2s}
+.task-cup{position:relative;width:40px;height:35px;border:1.5px solid #9ba888;border-radius:2px 2px 14px 14px;background:#fffcf3;margin-top:30px;box-shadow:0 7px 0 -4px #d3dac4}
+.task-cup:after{content:'';position:absolute;width:11px;height:15px;border:2px solid #9ba888;border-left:0;right:-12px;top:5px;border-radius:0 7px 7px 0}
+.task-cup-fill{position:absolute;inset:4px 3px 3px;overflow:hidden;border-radius:0 0 10px 10px}
+.task-cup-fill i{position:absolute;bottom:0;width:100%;height:var(--cup-fill,0%);background:#90613b;transition:height .12s linear}
+.task-art[data-drink="latte"] .task-cup-fill i{background:linear-gradient(#b78e5d 0 14%,#dfcbaa 15%)}
+.task-cup-steam{position:absolute;left:10px;bottom:calc(100% + 6px);width:16px;height:20px;border-left:1.5px solid #9daa8a;border-right:1.5px solid #9daa8a;opacity:0;transform:skew(-10deg);border-radius:50%}
+.cup-task[data-phase="brewing"] .task-cup-steam,.cup-task.ready .task-cup-steam{opacity:.7}
+.cup-task[data-phase="brewing"] .task-cup-steam{animation:xc-cup-steam 2s ease-in-out infinite}
+.cup-task[data-phase="waiting"] .task-art{opacity:.5}
+.cup-task[data-phase="grinding"] .task-art>img{animation:xc-grind .18s linear infinite alternate}
+@keyframes xc-cup-steam{0%,100%{translate:0 0;opacity:.35}50%{translate:0 -5px;opacity:.8}}
+@keyframes xc-grind{to{translate:1px -1px;rotate:1deg}}
+.xc-refined .counter-tools>button{background:#f6ebd7;border-color:#d8c4a1}
+.xc-refined .counter-tools b{color:#7e5d2f}.xc-refined .counter-tools small{color:#7c6842;font-size:11px}
+.xc-refined .shop-footer{color:#667454;font-size:11px}
+.xc-refined :is(.welcome-copy,.welcome-foot,.round-options small,.round-options span,.report-note,.best-note){color:#63754e}
+.xc-refined .welcome-copy{font-size:13px}.xc-refined .round-options small{font-size:11px}
+.xc-refined :is(.report-cell span,.report-next a,.welcome-back){color:#5e744b;font-size:12px}
+/* The classroom keeps its diagram colors, with the same readable text hierarchy. */
+.xc-refined :is(.section-heading>p:not(.eyebrow),.brewer-copy>p,.recipe-detail>p,.brewer-facts,.recipe-footnote,.footer-note){color:#5f6e54;line-height:1.9}
+.xc-refined .chapter-nav a{color:#617352;font-size:12px}
+.xc-refined .chapter-nav a.active{color:#fffdf7;background:#36533a}
+.xc-refined .hero-meta{color:#617352;font-size:11px}
+@media(max-width:1050px){.xc-refined :is(.header nav,.site-links){gap:17px}.xc-refined .batch-heading h2{font-size:21px}.task-art>img{width:68px}}
+@media(max-width:800px){.xc-refined .shop-intro h1{font-size:33px}.xc-refined .cup-task{padding:11px 8px}.xc-refined .task-select strong{font-size:18px}.xc-refined .task-select span,.xc-refined .task-select small{font-size:11px}.task-art{height:87px;gap:3px}.task-art>img{width:56px;height:70px}.task-cup{width:28px;height:29px;margin-top:22px}.task-cup:after{height:12px;width:7px;right:-8px}.task-cup-steam{left:6px;width:13px;height:15px}.xc-refined .task-action{font-size:11px;min-height:44px}.xc-refined .shop-main{gap:15px}.xc-refined .batch-heading>span{font-size:11px}.xc-refined .scene-topline{font-size:9px}}
+@media(max-width:640px){.xc-refined .studio-title h1{font-size:29px}.xc-refined .studio-title .title-sub{font-size:12px}.xc-refined .guide-banner strong{font-size:18px}.xc-refined .guide-banner div>span{font-size:12px}.xc-refined .live-dashboard strong{font-size:24px}.xc-refined .live-dashboard span{font-size:11px}.xc-refined .heat-guide p{font-size:11px}.xc-refined .hero-copy .eyebrow{font-size:10px}.xc-refined .workshop-entry p{font-size:12px}.xc-refined .header nav{flex-wrap:wrap;gap:10px 20px}.xc-refined .session-hud strong{font-size:23px}.xc-refined .session-hud span{font-size:11px}.xc-refined .scene-ticker{font-size:12px;line-height:1.85}.xc-refined .counter-tools small{font-size:11px}.xc-refined .easy-steps li{font-size:11px}.xc-refined .shop-dialog{padding:25px 20px}.xc-refined .welcome-copy{font-size:12px}.xc-refined .site-links{gap:10px}.xc-refined .site-links a{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.task-cup-steam,.task-art>img{animation:none!important}.task-cup-fill i{transition:none}}
+@media(max-width:440px){.task-art{justify-content:flex-start;padding-left:1px}.task-art>img{width:53px}.task-art .task-cup{position:absolute;right:6px;bottom:12px;width:25px;height:27px}.task-art .task-cup:after{right:-7px;width:6px}.xc-refined .batch-heading h2{font-size:20px}}
+@media(max-width:370px){.xc-refined .task-select strong{font-size:15px}.xc-refined .cup-task{padding:10px 6px}.xc-refined .task-select span,.xc-refined .task-select small{font-size:11px}.task-art>img{width:48px}.xc-refined .task-action{font-size:11px}.xc-refined .session-hud>div{padding-right:8px}.xc-refined .session-hud strong{font-size:20px}}

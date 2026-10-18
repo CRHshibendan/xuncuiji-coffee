@@ -1,0 +1,183 @@
+/* Phone layout and touch controls. Kept separate from desktop art direction. */
+.mobile-nav,.mobile-scene-controls{display:none}
+@media(max-width:760px){
+ html{scroll-padding-top:80px;scroll-padding-bottom:100px}
+ html:has(.chapter-nav){--header-height:58px;--nav-height:50px;scroll-padding-top:124px}
+ body.xc-refined{padding-bottom:calc(76px + env(safe-area-inset-bottom));overscroll-behavior-y:none}
+ .mobile-nav{position:fixed;z-index:60;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;padding:7px 8px calc(7px + env(safe-area-inset-bottom));border-top:1px solid #d4dcc8;background:#faf8f1f5;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+ .mobile-nav a{display:flex;min-height:48px;flex-direction:column;align-items:center;justify-content:center;gap:5px;color:#66725c;text-decoration:none;border-radius:8px;font-size:11px;line-height:1.2;white-space:nowrap}
+ .mobile-nav a[aria-current]{color:#35532c;background:#e9efdd;font-weight:500}
+ .mobile-nav svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+ .mobile-keyboard .mobile-nav{display:none}
+ .xc-refined :is(input:not([type=range]):not([type=radio]):not([type=checkbox]),textarea,select){font-size:16px}
+ .xc-refined :is(button,.button,.pill,.secondary,.solid-button,.soft-button){touch-action:manipulation}
+ .xc-refined :is(.dialog-close,.close-dialog){display:grid;place-items:center;min-width:44px;min-height:44px;right:8px;top:7px;padding:0;z-index:2}
+ .xc-refined dialog{max-height:calc(100dvh - 24px);overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scroll-padding-bottom:24px}
+ .xc-refined input[type=range]{min-height:36px;touch-action:pan-y;accent-color:#53733f}
+ .xc-refined input[type=range]::-webkit-slider-thumb{min-width:24px;min-height:24px}
+ .xc-refined input[type=range]::-moz-range-thumb{width:24px;height:24px}
+ .xc-refined :is(.header,.studio-header,.shop-header){position:sticky;top:0;z-index:35;min-height:58px;height:58px!important;flex-wrap:nowrap;padding:9px 16px!important;gap:12px;background:#faf7f0f7;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+ .xc-refined :is(.brand,.studio-brand){font-size:23px;letter-spacing:2px}
+ .xc-refined :is(.brand small,.studio-brand small,.brand-en){display:none}
+ .xc-refined :is(.brand svg,.studio-brand svg){width:25px;height:29px}
+ .xc-refined .header :is(nav,.menu-button),.xc-refined .studio-header :is(.header-divider,.studio-name,.back-home),.xc-refined .shop-header .site-links{display:none!important}
+ .xc-refined .studio-header .studio-shop-link{margin-left:auto;min-height:40px;padding:8px 11px;font-size:12px}
+ .xc-refined .header .nav-cta{min-height:40px;display:flex;align-items:center;padding:6px 0;font-size:12px}
+ .xc-refined .shop-header .hud-button{margin-left:auto;min-height:42px;font-size:12px}
+ .xc-refined .hero{padding-top:26px;gap:23px}
+ .xc-refined .hero h1{font-size:38px;margin:13px 0 18px}
+ .xc-refined .hero p{font-size:14px;line-height:1.85}
+ .xc-refined .hero-visual{height:285px;margin-left:0;border-radius:48px 6px 6px 6px}
+ .xc-refined .hero-note{margin-top:18px}
+ .xc-refined .hero-actions{gap:20px;flex-wrap:wrap;margin-top:19px}
+ .xc-refined .hero-actions :is(a,button){min-height:46px}
+ .xc-refined .section{padding-top:46px;padding-bottom:46px}
+ .xc-refined .section-top{gap:18px;align-items:flex-start;flex-direction:column}
+ .xc-refined .section-top h2{font-size:30px;line-height:1.5}
+ .xc-refined .section-description{font-size:13px;margin:0}
+ .xc-refined .workshop-entry{padding:20px 15px;grid-template-columns:75px 1fr;gap:14px}
+ .xc-refined .entry-art{height:145px}.xc-refined .entry-art img{width:95px;height:140px}
+ .xc-refined .new-method-modes a{min-height:46px;display:flex;align-items:center;justify-content:center}
+ .xc-refined #note-dialog{padding:50px 20px 24px}
+ .xc-refined #note-form :is(input:not([type=radio]):not([type=checkbox]),textarea){width:100%;min-height:46px}
+ .xc-refined #note-form .form-grid{gap:10px}
+ .xc-refined .taste-options label{position:relative}
+ .xc-refined .taste-options input{width:1px;height:1px;min-height:0;overflow:hidden;clip-path:inset(50%)}
+ .xc-refined .taste-options label span{min-height:44px;display:flex;align-items:center;justify-content:center}
+ .xc-refined .note-top button{min-height:44px;min-width:44px}
+ /* Reading and interactive examples stay in one usable phone column. */
+ .xc-refined .learn-header{height:58px;--header-height:58px;padding:0 15px;gap:9px}
+ .xc-refined .learn-brand{font-size:23px}.xc-refined .learn-brand small{display:none}
+ .xc-refined .header-actions{margin-left:auto;gap:8px}
+ .xc-refined #motion-toggle{font-size:11px;min-height:44px;padding:6px}
+ .xc-refined .header-actions .pill{font-size:11px;min-height:42px;padding:9px 11px}
+ .xc-refined .chapter-nav{top:58px;min-height:50px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;scroll-snap-type:x proximity}
+ .xc-refined .chapter-nav::-webkit-scrollbar{display:none}
+ .xc-refined .chapter-nav a{flex-shrink:0;min-height:40px;display:flex;align-items:center;padding:8px 12px;scroll-snap-align:start}
+ .xc-refined .brewer-tabs{overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory}
+ .xc-refined .brewer-tabs button{flex-shrink:0;min-width:90px;min-height:62px;scroll-snap-align:start}
+ .xc-refined .recipe-timeline{display:flex;overflow-x:auto;gap:8px;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding:4px 1px 12px}
+ .xc-refined .recipe-timeline button{flex:0 0 142px;min-height:62px;scroll-snap-align:start}
+ .xc-refined .step-navigation{gap:10px}.xc-refined .step-navigation button{min-height:46px;flex:1}
+ .xc-refined .recipe-detail{padding:22px 18px}.xc-refined .recipe-detail h3{font-size:25px}
+ .xc-refined .recipe-step-top{gap:10px;flex-wrap:wrap}.xc-refined #play-recipe{min-height:42px;font-size:12px}
+ /* Studio controls get space without shrinking the SVG into a long empty box. */
+ .xc-refined .studio-main{padding:16px 12px 0}
+ .xc-refined .studio-title{margin-bottom:13px!important;display:block}
+ .xc-refined .studio-title :is(.overline,.title-sub){display:none}
+ .xc-refined .studio-title h1{font-size:27px;line-height:1.4;margin:0 0 13px}
+ .xc-refined .session-options{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)!important;gap:7px;margin-top:0;max-width:none}
+ .xc-refined #studio-tool{width:100%;min-width:0;min-height:44px;max-width:none;font-size:13px;padding:9px 24px 9px 10px}
+ .xc-refined .play-mode-tabs{min-width:0;display:flex;padding:3px;border-radius:8px}
+ .xc-refined .play-mode-tabs button{min-width:0;min-height:38px;flex:1;padding:7px 4px;font-size:12px;white-space:nowrap}
+ .xc-refined #restart{position:static;grid-column:1/-1;justify-self:end;min-height:36px;margin:0;padding:4px 5px;font-size:11px}
+ .xc-refined .workspace{grid-template-columns:minmax(0,1fr)!important;border-radius:10px;overflow:clip}
+ .xc-refined .coach-panel{min-height:0}
+ .xc-refined .journey-sidebar{padding:10px 12px}
+ .xc-refined .journey-sidebar .sidebar-heading{display:none}
+ .xc-refined #journey-list{gap:4px;justify-content:space-between;width:100%}
+ .xc-refined #journey-list li{font-size:10px;min-width:0}
+ .xc-refined #journey-list .step-dot{width:22px;height:22px;flex-shrink:0}
+ .xc-refined #journey-list .active>span:last-child{display:none}
+ .xc-refined .guide-banner{padding:12px 14px!important;gap:0!important;min-height:0!important;position:sticky;top:58px;z-index:12}
+ .xc-refined .guide-banner .mentor-avatar,.xc-refined .guide-meta,.xc-refined #replay-demo{display:none!important}
+ .xc-refined .guide-banner strong{font-family:var(--sans);font-size:16px;line-height:1.6}
+ .xc-refined .guide-banner small{font-size:10px;margin-bottom:3px}
+ .xc-refined .guide-banner .guide-detail{font-size:12px;line-height:1.7;max-width:none;margin-top:4px}
+ .xc-refined .parameter-strip{padding:11px 10px}
+ .xc-refined .parameter-heading{margin-bottom:7px;font-size:11px}.xc-refined .parameter-heading small{font-size:10px}
+ .xc-refined .parameter-cards{gap:5px}
+ .xc-refined .parameter-cards button{padding:8px 6px;min-height:65px;border-radius:8px}
+ .xc-refined .parameter-cards button>span{font-size:10px;white-space:nowrap}
+ .xc-refined .parameter-cards strong{font-size:20px;margin-top:7px}.xc-refined .parameter-cards strong small{font-size:10px}
+ .xc-refined .parameter-cards button i{display:none}
+ .xc-refined .mobile-scene-controls{display:flex;flex-direction:column;gap:5px;padding:10px 10px 6px;background:#f4f3e8;border-top:1px solid #d9dfcb}
+ .mobile-scene-controls>div{display:flex;gap:6px}
+ .mobile-scene-controls button{flex:1;min-height:44px;border:1px solid #ccd7ba;background:#fbfcf4;border-radius:7px;font-size:12px;color:#5d714b}
+ .mobile-scene-controls button[aria-pressed=true]{background:#e4ecd5;color:#39572a;border-color:#8fa875}
+ .mobile-scene-controls p{font-size:11px;color:#6d785e;margin:0;line-height:1.7;text-align:center}
+ .xc-refined :is(.scene-toolbar,.stage-topline){display:none!important}
+ .xc-refined .scene-wrap,.xc-refined.equipment-studio .scene-wrap{min-height:0!important;width:100%}
+ .xc-refined #scene,.xc-refined.equipment-studio #scene{display:block;width:100%;height:auto!important;min-height:0!important;max-height:none!important;aspect-ratio:var(--mobile-scene-ratio,900 / 490);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+ .xc-refined .scene-caption{font-size:14px}
+ .xc-refined .live-dashboard{padding:12px 10px;gap:4px}.xc-refined .live-dashboard>div{padding-left:7px}
+ .xc-refined .live-dashboard span{font-size:10px}.xc-refined .live-dashboard strong{font-size:21px}.xc-refined .live-dashboard small{font-size:10px}
+ .xc-refined .stage-footer{padding:5px 10px;font-size:10px}.xc-refined .stage-footer button{min-height:44px;font-size:12px}
+ .xc-refined .coach-panel{padding:18px 16px}.xc-refined .coach-panel h2{font-size:23px}
+ .xc-refined #parameter-dialog{max-height:86dvh;padding-bottom:calc(24px + env(safe-area-inset-bottom));overscroll-behavior:contain}
+ .xc-refined .setting-tabs button{min-height:44px;font-size:13px}
+ .xc-refined #parameter-dialog header{gap:10px}.xc-refined #close-parameters{min-height:44px;white-space:nowrap;font-size:13px}
+ .xc-refined #parameter-dialog h2{font-size:22px}.xc-refined .sheet-note{font-size:12px;line-height:1.8}
+ .xc-refined .heat-guide{position:static;width:auto;display:grid;grid-template-columns:minmax(0,1fr) 132px;gap:5px 12px;padding:13px 14px;margin:8px 10px;border-radius:9px;box-shadow:none}
+ .xc-refined .heat-guide[hidden]{display:none!important}.xc-refined .heat-guide>span{grid-column:1;font-size:11px}
+ .xc-refined .heat-temperatures{grid-column:1;margin:0;gap:9px}.xc-refined .heat-temperatures output{font-size:29px}
+ .xc-refined .heat-guide .heat-progress{grid-column:1/-1}.xc-refined .heat-guide p{grid-column:1/-1;margin:3px 0 0;font-size:11px}
+ .xc-refined .heat-guide button{grid-column:2;grid-row:1/3;min-height:46px;align-self:center;font-size:12px}
+ .xc-refined .operation-guide{padding:12px;gap:8px}.xc-refined .operation-guide strong{font-size:14px}
+ .xc-refined .selection-caption:not(:empty){font-size:11px;padding:7px 9px;bottom:6px;left:6px;right:6px}
+ .xc-refined .scene-toast{font-size:11px;bottom:8px;max-width:94%;padding:8px 11px}
+ /* Game: bring the three workstations closer to the scene and the thumb. */
+ .xc-refined.easy-shop{padding-bottom:calc(150px + env(safe-area-inset-bottom))}
+ .xc-refined .easy-main{padding:0 12px}
+ .xc-refined .shop-intro{padding:17px 0 14px;gap:13px}
+ .xc-refined .shop-intro .overline{display:none}
+ .xc-refined .shop-intro h1{font-size:28px;line-height:1.3;margin:0 0 6px}
+ .xc-refined .shop-intro p:last-child{font-size:12px}
+ .xc-refined .session-hud{gap:8px}
+ .xc-refined .session-hud>div{padding-right:10px;flex:1;min-width:0}
+ .xc-refined .session-hud span{font-size:10px}.xc-refined .session-hud strong{font-size:21px;margin-top:4px}
+ .xc-refined .session-hud .hud-button{min-height:44px;padding:7px 9px;font-size:11px}
+ .xc-refined .shop-left,.xc-refined .shop-side{display:contents}
+ .xc-refined .shop-main{display:flex;flex-direction:column;gap:12px}
+ .xc-refined .shop-main>:is(.scene-card,.batch-workbench,.counter-tools,.side-card){width:100%;min-width:0}
+ .xc-refined .scene-card{order:1}.xc-refined .batch-workbench{order:2}.xc-refined .brew-panel{order:3}.xc-refined .counter-tools{order:4}.xc-refined .queue-card{order:5}.xc-refined .coffee-connection{order:6}
+ .xc-refined .shop-scene{aspect-ratio:900/480}
+ .xc-refined #scene-svg{height:100%;object-fit:cover}
+ .xc-refined .shop-scene .guest{bottom:23%}
+ .xc-refined .shop-scene .guest .avatar{width:47px}
+ .xc-refined .scene-topline{height:31px;font-size:8px;padding:0 10px}
+ .xc-refined #scene-status{font-size:9px}
+ .xc-refined .scene-ticker{padding:9px 11px;min-height:42px;font-size:11px;line-height:1.7}
+ .xc-refined .batch-workbench{padding:13px 11px}
+ .xc-refined .batch-heading h2{font-size:20px}.xc-refined .batch-heading>span{font-size:11px}
+ .xc-refined .batch-heading{margin-bottom:10px}
+ .xc-refined .cup-task{padding:10px 7px}
+ .xc-refined .task-select strong{font-size:17px}.xc-refined .task-select span{font-size:11px}
+ .xc-refined .task-art{height:68px}.xc-refined .task-select small{font-size:11px;padding:3px 5px}
+ .xc-refined .task-action{min-height:46px;font-size:11px}
+ .xc-refined .task-progress{margin:10px 0}
+ .xc-refined .batch-board{gap:7px}
+ .xc-refined.easy-shop #main-action{bottom:calc(77px + env(safe-area-inset-bottom));left:12px;width:calc(100% - 24px);min-height:48px!important;font-size:13px}
+ body.xc-refined:has(dialog[open]) #main-action,.mobile-keyboard #main-action{visibility:hidden}
+ .xc-refined .side-card{padding:16px}
+ .xc-refined .order-heading img{width:64px;height:70px}.xc-refined .order-heading h2{font-size:23px}
+ .xc-refined .report-actions{grid-template-columns:1fr}.xc-refined .report-actions button{min-height:46px;font-size:13px}
+ .xc-refined .shop-dialog{max-height:calc(100dvh - 24px);padding:24px 18px}
+ .xc-refined .welcome-art{height:70px;margin-top:14px}.xc-refined .welcome-art img{height:76px}
+ .xc-refined .welcome-dialog h2{font-size:27px}.xc-refined .round-options{margin:17px 0}
+ .xc-refined .round-options button{padding:13px 10px}.xc-refined .round-options b{font-size:19px}
+ .xc-refined .welcome-dialog>.primary{min-height:48px}
+}
+@media(max-width:370px){
+ .xc-refined :is(.brand,.studio-brand){font-size:21px}
+ .xc-refined .studio-title h1{font-size:24px}
+ .xc-refined .play-mode-tabs button{font-size:11px}.xc-refined #studio-tool{font-size:12px}
+ .xc-refined .task-select strong{font-size:15px}.xc-refined .cup-task{padding:9px 5px}
+ .xc-refined .task-select small{font-size:10px}.xc-refined .task-action{font-size:10px}
+ .xc-refined .shop-intro h1{font-size:26px}.xc-refined .session-hud strong{font-size:18px}
+ .xc-refined .hero h1{font-size:34px}.xc-refined .heat-guide{grid-template-columns:minmax(0,1fr) 116px;padding:11px}
+ .xc-refined .heat-guide button{font-size:11px}.xc-refined .heat-temperatures output{font-size:26px}
+ .xc-refined .header-actions .pill{font-size:10px;padding:8px}.xc-refined #motion-toggle{font-size:10px;padding:4px}
+}
+@media(max-width:760px) and (orientation:landscape){.xc-refined .scene-wrap{max-width:590px;margin-inline:auto}.xc-refined .studio-title{margin-bottom:9px!important}.xc-refined .guide-banner{position:static}.mobile-nav{padding-top:4px;padding-bottom:calc(4px + env(safe-area-inset-bottom))}.mobile-nav a{min-height:40px;flex-direction:row;gap:6px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mobile-nav{backdrop-filter:none;-webkit-backdrop-filter:none}}
+@media(max-width:760px){
+ .xc-refined .studio-center{overflow:visible!important}
+ .xc-refined .studio-title{position:relative}
+ .xc-refined .studio-title h1{padding-right:40px}
+ .xc-refined #restart{position:absolute;right:0;top:0;min-height:36px;min-width:36px;width:36px;padding:0;font-size:0;border:1px solid #d3dcc6;border-radius:7px;background:#f9faf0}
+ .xc-refined #restart:before{content:'↻';font-size:20px;color:#697c56}
+}
+@media(max-width:370px){.xc-refined .studio-title h1{font-size:23px}}
+
+@media(max-width:760px) and (orientation:landscape){.xc-refined #scene,.xc-refined.equipment-studio #scene{max-height:calc(100svh - 124px)!important}}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#f4f1e9"><meta name="description" content="来寻萃集当一日店长。接单、冲煮、递杯，三步招待五位客人。零基础也能开店，还能拿手冲壶赶客。"><title>一日店长 — 寻萃集</title><link rel="icon" href="assets/favicon.svg"><link rel="stylesheet" href="shop.css?v=4"><link rel="stylesheet" href="brand-refinement.css?v=1"><link rel="stylesheet" href="mobile-experience.css?v=1"><script src="mobile-experience.js?v=1" defer></script></head>
+<body class="shop-page easy-shop xc-refined">
+<header class="shop-header"><a class="brand" href="index.html" aria-label="回到寻萃集首页"><svg viewBox="0 0 36 36" aria-hidden="true"><ellipse cx="18" cy="18" rx="9" ry="14" transform="rotate(35 18 18)"/><path d="M27 8C10 9 27 27 9 28"/></svg><span>寻萃集<small>XUNCUIJI</small></span></a><nav class="site-links" aria-label="网站导航"><a href="learn.html">冲煮课堂</a><a href="workshop.html?tool=melitta&mode=basic">冲煮工坊</a><a href="shop.html" aria-current="page">一日店长</a><a href="index.html#journal">咖啡手记</a></nav><button class="hud-button" id="help-button">怎么玩 ↗</button></header>
+<main class="easy-main">
+<section class="shop-intro"><div><p class="overline">A LITTLE COFFEE BREAK / 寻萃集小店</p><h1>今天，<span>你是店长。</span></h1><p>接一单，冲一杯，把好心情递出去。</p></div><div class="session-hud"><div><span>今日出杯</span><strong id="hud-served">0 / 5</strong></div><div><span>小店收入</span><strong id="hud-money">¥0</strong></div><div><span id="clock-label">今天的节奏</span><strong id="hud-clock">慢慢来</strong></div><button id="pause-game" class="hud-button" disabled>暂停 Ⅱ</button></div></section>
+<div class="shop-main">
+<div class="shop-left"><section class="scene-card"><div class="scene-topline"><span><i></i> XUNCUIJI COFFEE STAND</span><span id="scene-status">等你开店</span></div><div class="shop-scene" id="shop-scene">
+   <svg id="scene-svg" viewBox="0 0 900 560" role="img" aria-label="寻萃集小店：木质吧台、手冲器具、意式机与窗边的客人">
+    <defs>
+     <linearGradient id="wall-grad" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f8f1e1"/><stop offset="1" stop-color="#ece1cb"/></linearGradient>
+     <linearGradient id="wood-grad" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b58a5c"/><stop offset=".55" stop-color="#9a724a"/><stop offset="1" stop-color="#7c5938"/></linearGradient>
+     <linearGradient id="counter-top" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d7b487"/><stop offset="1" stop-color="#b58e60"/></linearGradient>
+     <linearGradient id="glass-grad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffdf5" stop-opacity=".85"/><stop offset=".55" stop-color="#e9efe6" stop-opacity=".45"/><stop offset="1" stop-color="#cfd8cc" stop-opacity=".7"/></linearGradient>
+     <linearGradient id="sky-grad" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e7eee4"/><stop offset="1" stop-color="#f7efd8"/></linearGradient>
+     <linearGradient id="metal-grad" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#dfe3d7"/><stop offset=".45" stop-color="#f4f5ec"/><stop offset="1" stop-color="#b9c0b1"/></linearGradient>
+     <radialGradient id="lamp-glow"><stop stop-color="#ffdf9d" stop-opacity=".55"/><stop offset="1" stop-color="#ffdf9d" stop-opacity="0"/></radialGradient>
+     <radialGradient id="window-glow"><stop stop-color="#fff6d9" stop-opacity=".7"/><stop offset="1" stop-color="#fff6d9" stop-opacity="0"/></radialGradient>
+    </defs>
+    <rect width="900" height="400" fill="url(#wall-grad)"/>
+    <rect y="330" width="900" height="70" fill="#e8dcc4"/>
+    <path d="M0 330h900" stroke="#d2c3a5"/>
+
+    <g class="scene-menu" transform="translate(34 42)">
+     <rect width="198" height="200" rx="7" fill="#3d4b39" stroke="#2c3729" stroke-width="2"/>
+     <rect x="9" y="9" width="180" height="182" rx="4" fill="#47553f"/>
+     <text x="99" y="40" text-anchor="middle" fill="#efe5cc" font-size="11" letter-spacing="4">MENU</text>
+     <path d="M34 52h130" stroke="#8f9c7a" stroke-width="1"/>
+     <text x="28" y="82" fill="#e9dec4" font-size="13">手冲 <tspan fill="#bdbca2">· 30</tspan></text>
+     <text x="28" y="110" fill="#e9dec4" font-size="13">法压 <tspan fill="#bdbca2">· 30</tspan></text>
+     <text x="28" y="138" fill="#e9dec4" font-size="13">拿铁 <tspan fill="#bdbca2">· 34</tspan></text>
+     <path d="M28 152h142" stroke="#6e7b5c" stroke-width="1" stroke-dasharray="3 4"/>
+     <text x="28" y="174" fill="#b9c0a4" font-size="9" letter-spacing="1">今日豆 · 埃塞俄比亚</text>
+    </g>
+
+    <g class="scene-shelf">
+     <rect x="252" y="176" width="206" height="9" rx="3" fill="#b08c60" stroke="#8d6c46"/>
+     <path d="M270 185v14m170-14v14" stroke="#8d6c46" stroke-width="3"/>
+     <g class="jar">
+      <rect x="266" y="112" width="50" height="66" rx="7" fill="#fdf8e9" fill-opacity=".55" stroke="#c2b08f"/>
+      <rect x="266" y="178" width="50" height="0" fill="#5a3b25" opacity=".75"/>
+      <g fill="#6b4a2f"><ellipse cx="281" cy="164" rx="6" ry="8" transform="rotate(-25 281 164)"/><ellipse cx="296" cy="168" rx="6" ry="8" transform="rotate(20 296 168)"/><ellipse cx="289" cy="155" rx="6" ry="8" transform="rotate(50 289 155)"/></g>
+      <rect x="272" y="106" width="38" height="9" rx="3" fill="#b59a72"/>
+     </g>
+     <g class="jar">
+      <g fill="#faf6ea" stroke="#d3c6ac"><rect x="337" y="151" width="40" height="26" rx="5"/><rect x="337" y="132" width="38" height="20" rx="5"/><rect x="339" y="116" width="34" height="17" rx="5"/></g>
+      <path d="M343 152h28" stroke="#e2d6bd"/>
+     </g>
+     <g class="jar">
+      <path d="M399 178V126l15-9h16v61Z" fill="#fbf7ea" stroke="#cfc0a5"/>
+      <path d="M399 126l15-9v20z" fill="#eae2ce"/>
+      <rect x="403" y="140" width="23" height="22" rx="2" fill="#8fa07b"/>
+      <text x="414" y="155" text-anchor="middle" fill="#f6f3e6" font-size="6">MILK</text>
+     </g>
+    </g>
+
+    <g class="scene-window">
+     <rect x="704" y="42" width="170" height="204" rx="5" fill="#e6d8bc"/>
+     <rect x="712" y="50" width="154" height="188" fill="url(#sky-grad)"/>
+     <g opacity=".5" fill="#a9b98d"><ellipse cx="760" cy="150" rx="30" ry="18"/><ellipse cx="800" cy="132" rx="24" ry="14"/><ellipse cx="838" cy="162" rx="22" ry="12"/><path d="M780 172v46m0-40-14-12m14 18 13-11" stroke="#8fa07b" stroke-width="2" fill="none"/></g>
+     <path d="M789 50v188M712 144h154" stroke="#d9c9a9" stroke-width="4"/>
+     <rect x="704" y="240" width="170" height="10" rx="3" fill="#cdbb97"/>
+     <circle cx="842" cy="254" r="60" fill="url(#window-glow)"/>
+    </g>
+
+    <g class="scene-lamps" opacity=".95">
+     <path d="M148 0v64M420 0v52M692 0v66" stroke="#7f8a72" stroke-width="2"/>
+     <path d="M126 64h44l-8 18h-28Z" fill="#6f7d61"/><path d="M400 52h40l-7 16h-26Z" fill="#6f7d61"/><path d="M672 66h40l-7 16h-26Z" fill="#6f7d61"/>
+     <circle cx="148" cy="96" r="42" fill="url(#lamp-glow)"/><circle cx="420" cy="84" r="40" fill="url(#lamp-glow)"/><circle cx="692" cy="98" r="40" fill="url(#lamp-glow)"/>
+     <circle cx="148" cy="84" r="4" fill="#f8e2ae"/><circle cx="420" cy="70" r="3.5" fill="#f8e2ae"/><circle cx="692" cy="84" r="3.5" fill="#f8e2ae"/>
+    </g>
+
+    <g class="scene-bar">
+     <g class="espresso-machine" transform="translate(52 296)">
+      <rect x="0" y="0" width="152" height="90" rx="9" fill="url(#metal-grad)" stroke="#9ba48f" stroke-width="1.5"/>
+      <rect x="6" y="5" width="140" height="11" rx="3" fill="#cfd3c4"/>
+      <circle cx="30" cy="34" r="12" fill="#f7f2e4" stroke="#96a08a"/>
+      <path d="M30 34l7-5" stroke="#6d7a60" stroke-width="1.5"/>
+      <circle cx="30" cy="34" r="1.8" fill="#6d7a60"/>
+      <text x="78" y="30" text-anchor="middle" fill="#7c8672" font-size="7" letter-spacing="1.5">XUNCUIJI</text>
+      <rect x="52" y="50" width="48" height="13" rx="3" fill="#a9b19c" stroke="#8b957f"/>
+      <path d="M54 63v8m44-8v8" stroke="#8b957f" stroke-width="4"/>
+      <path d="M118 46h8q8 0 8-8t-8-8h-8" fill="none" stroke="#a0aa93" stroke-width="3"/>
+      <path d="M104 34v18q0 6 6 6" fill="none" stroke="#a0aa93" stroke-width="3"/>
+      <rect x="18" y="80" width="116" height="7" rx="2" fill="#c2bba9"/>
+     </g>
+     <g class="grinder" transform="translate(220 318)">
+      <path d="M4 0h38l-4 16H8Z" fill="#c9d1bf" stroke="#95a087"/>
+      <rect x="2" y="16" width="42" height="56" rx="4" fill="#8e9a7e" stroke="#748162"/>
+      <rect x="10" y="46" width="26" height="16" rx="2" fill="#c6cfb6"/>
+      <circle cx="35" cy="22" r="3" fill="#6f7b5f"/>
+      <path d="M35 22l14-8" stroke="#7b876a" stroke-width="2.5"/>
+      <circle cx="49" cy="13" r="4" fill="#b08a55"/>
+     </g>
+     <g class="brew-station" transform="translate(300 292)">
+      <path d="M12 36h58l-9 44H21Z" fill="#f6f1e5" stroke="#c8bca4" stroke-width="1.5"/>
+      <ellipse cx="41" cy="40" rx="28" ry="7" fill="#fffaf0" stroke="#cbbfa7"/>
+      <ellipse cx="41" cy="41" rx="20" ry="4.5" fill="#6f4c30" opacity=".65"/>
+      <path d="M20 80h42l7 46H13Z" fill="url(#glass-grad)" stroke="#b9c4b4" stroke-width="1.5"/>
+      <rect id="brew-liquid" x="15" y="118" width="52" height="0" fill="#8a5a32" opacity=".8" rx="2"/>
+      <path d="M20 80h42" stroke="#c6d0bf"/>
+      <g class="steam" stroke="#b9c2ae" fill="none" stroke-width="2" opacity=".7"><path d="M30 22q-5-10 0-18"/><path d="M41 18q-5-10 0-18"/><path d="M52 22q-5-10 0-18"/></g>
+     </g>
+     <g class="register" transform="translate(470 342)">
+      <rect x="0" y="0" width="92" height="46" rx="6" fill="#465541" stroke="#354234"/>
+      <rect x="10" y="8" width="38" height="15" rx="2" fill="#cdd6b8"/>
+      <circle cx="68" cy="16" r="6" fill="#b9c5a0"/><path d="M66 16h4m-2-2v4" stroke="#5c6b50"/>
+      <g fill="#748361"><rect x="11" y="30" width="12" height="8" rx="1.5"/><rect x="26" y="30" width="12" height="8" rx="1.5"/><rect x="41" y="30" width="12" height="8" rx="1.5"/><rect x="56" y="30" width="12" height="8" rx="1.5"/><rect x="71" y="30" width="12" height="8" rx="1.5"/></g>
+      <path d="M14 46v8h16" fill="none" stroke="#465541" stroke-width="2"/>
+     </g>
+     <g class="cat" transform="translate(792 208)">
+      <ellipse cx="18" cy="22" rx="30" ry="12" fill="#c8a97e"/>
+      <circle cx="42" cy="12" r="12" fill="#d3b58a"/>
+      <path d="M34 2l4-8 5 7Zm14 0 5-8 4 8Z" fill="#c8a97e"/>
+      <path d="M38 12q4 3 8 0" stroke="#8d6d47" fill="none" stroke-width="1.3"/>
+      <circle cx="38" cy="10" r="1" fill="#7b5c3b"/><circle cx="46" cy="10" r="1" fill="#7b5c3b"/>
+      <path d="M2 24q-12-3-8-13 3-7 9-2" fill="none" stroke="#c8a97e" stroke-width="5" stroke-linecap="round"/>
+     </g>
+     <g class="plant" transform="translate(24 322)">
+      <path d="M8 44h34l-5 22H13Z" fill="#b78e64" stroke="#97724d"/>
+      <g fill="#7f9370"><ellipse cx="16" cy="26" rx="7" ry="16" transform="rotate(-32 16 26)"/><ellipse cx="32" cy="22" rx="7" ry="18" transform="rotate(18 32 22)"/><ellipse cx="24" cy="30" rx="6" ry="14" transform="rotate(-5 24 30)"/></g>
+     </g>
+    </g>
+
+    <g class="scene-counter">
+     <rect x="-10" y="388" width="920" height="20" rx="4" fill="url(#counter-top)" stroke="#9a764c"/>
+     <rect x="-10" y="406" width="920" height="154" fill="url(#wood-grad)"/>
+     <path d="M0 406h900" stroke="#6d4d2e" opacity=".5"/>
+     <g stroke="#6f4f30" opacity=".35"><path d="M120 410v150M260 410v150M400 410v150M540 410v150M680 410v150M820 410v150"/></g>
+     <rect x="-10" y="500" width="920" height="9" fill="#b28a5c" opacity=".65"/>
+     <path d="M40 536h820" stroke="#c6a26c" stroke-width="4" opacity=".55"/>
+     <path d="M0 560h900" stroke="#5f4226" opacity=".35"/>
+     <g class="counter-details" opacity=".9">
+      <path d="M96 410h56l6 112H90Z" fill="#e9e1cc" stroke="#c9bda4" stroke-width="1.2"/>
+      <path d="M114 410v-9q0-6 10-6t10 6v9" fill="none" stroke="#c9bda4" stroke-width="3"/>
+      <path d="M108 438h32v24h-32Z" fill="#ded4bd" stroke="#c9bda4"/>
+      <path d="M108 516h32" stroke="#c9bda4"/>
+      <rect x="780" y="420" width="54" height="15" rx="4" fill="#d9cfb8" stroke="#bfb29a"/>
+      <rect x="784" y="435" width="46" height="13" rx="4" fill="#e4dbc6" stroke="#c9bda4"/>
+      <rect x="788" y="448" width="38" height="12" rx="4" fill="#efe7d3" stroke="#d3c7b0"/>
+      <path d="M780 506h54" stroke="#c6b393" stroke-width="2" opacity=".5"/>
+     </g>
+    </g>
+   </svg>
+
+<div class="scene-guests" id="scene-guests" aria-label="点击顾客接单，拿壶时点击顾客赶客"></div><div class="open-sign" id="open-sign">一杯一份好心情</div><div id="scene-fx" aria-hidden="true"></div><div class="scene-toast" id="scene-toast" role="status" aria-live="polite"></div>
+</div><div class="scene-ticker" id="scene-ticker" role="status">窗边有光，台上有壶。你的小店，准备开门。</div></section>
+<section class="batch-workbench" aria-label="三杯并行制作"><div class="batch-heading"><h2>三杯，各自慢慢变香。</h2><span>备粉、冲煮、出杯可以同时进行</span></div><div id="batch-board" class="batch-board"></div></section>
+<div class="counter-tools"><button id="bonk-button" aria-pressed="false" disabled><span id="kettle-icon" aria-hidden="true"></span><span><b>手冲壶出击</b><small id="bonk-hint">拿起壶，再点顾客 · 少赚一单，积分 −20</small></span><span class="tool-arrow">↗</span></button><p>壶也能赶客，<br>今天的小店由你做主。</p></div>
+</div>
+<aside class="shop-side">
+<section class="side-card brew-panel" aria-label="跟着三步出杯"><div class="side-head"><div><span>你的小小冲煮台</span><small id="round-label">轻松开店</small></div><span id="step-count">01 / 03</span></div><ol class="easy-steps"><li data-step="0" class="current"><span>01</span>接单备粉</li><li data-step="1"><span>02</span>动手冲煮</li><li data-step="2"><span>03</span>递上咖啡</li></ol>
+<div id="order-detail"><div class="counter-empty"><img src="assets/melitta.svg" alt="Melitta 手冲滤杯"><h2>第一杯，从这里开始。</h2><p>不用记参数，跟着亮起的按钮来。</p></div></div>
+<div class="brew-meter" id="brew-meter" role="progressbar" aria-label="本步制作进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden><i></i></div>
+<button class="primary wide next-action" id="main-action" disabled>等你开门 →</button><p class="action-hint" id="action-hint" aria-live="polite">最多三杯同时制作，参数会帮你准备好。</p></section>
+<section class="side-card queue-card"><div class="side-head"><div><span>窗边的客人</span><small id="queue-count">还没开门</small></div><span id="queue-note">三杯可以同时做</span></div><div class="ticket-list" id="ticket-list"></div></section>
+<section class="side-card coffee-connection"><p class="overline">PLAY A LITTLE. LEARN A LITTLE.</p><h3>玩一杯，也懂一点。</h3><p id="coffee-tip">15g 粉配 225g 水。今天的小店，也从寻萃集的第一份手冲配方开始。</p><a id="lesson-link" href="learn.html?tool=melitta#recipe">看看这杯的冲煮原理 ↗</a></section>
+</aside></div>
+</main><footer class="shop-footer"><span>寻萃集 · 从第一杯开始，找到自己的节奏。</span><span>轻松咖啡小游戏 · 冲煮经过加速演示</span></footer>
+<dialog id="welcome-dialog" class="shop-dialog welcome-dialog" aria-labelledby="welcome-title"><p class="overline">YOUR FIRST DAY / 欢迎当店长</p><div class="welcome-art"><img src="assets/melitta.svg" alt=""><span>☀</span></div><h2 id="welcome-title">一家小店，<br>从你的第一杯开张。</h2><p class="welcome-copy">不用学会所有冲法，也能招待好第一位客人。<br>接单备粉 → 点一下冲煮 → 递上咖啡。<br>一杯冲着，可以先做另一杯。</p><div class="round-options" role="group" aria-label="选择营业节奏"><button data-mode="relax" class="chosen" aria-pressed="true"><span>第一次来，选这个</span><b>☕ 轻松开店</b><small>5 位客人 · 不限时 · 三杯并行</small></button><button data-mode="rush" aria-pressed="false"><span>想热闹一点</span><b>↗ 忙碌挑战</b><small>8 位客人 · 90 秒 · 首杯教学不限时</small></button></div><button class="primary wide" id="start-day">开门，迎接第一位客人 →</button><p class="welcome-foot">备料自动完成。想认真练手，随时去 <a href="workshop.html?tool=melitta&mode=basic">冲煮工坊 ↗</a></p><a class="welcome-back" href="index.html">← 回到寻萃集</a></dialog>
+<dialog id="report-dialog" class="shop-dialog report-dialog" aria-labelledby="report-title"><p class="overline">ONE DAY, ONE LITTLE MEMORY.</p><div class="report-stamp" aria-hidden="true">☕</div><h2 id="report-title">今日满杯店长</h2><p id="report-sub"></p><div id="report-stats" class="report-grid"></div><p class="report-note" id="report-note"></p><p class="best-note" id="best-note"></p><div class="report-actions"><button class="primary" id="share-result">保存店长成绩卡 ↓</button><button class="secondary" id="copy-invite">复制挑战文案 ↗</button><button class="secondary" id="save-note">收进咖啡手记 ＋</button><button class="secondary" id="play-again">再开一店 ↻</button></div><p class="report-feedback" id="report-feedback" role="status" aria-live="polite"></p><div class="report-next"><a id="practice-link" href="workshop.html?tool=melitta&mode=basic">把游戏里的一杯，带去工坊亲手冲 ↗</a><a href="index.html#journal">去看我的咖啡手记 →</a><a href="index.html">回到寻萃集首页 →</a></div></dialog>
+<dialog id="help-dialog" class="shop-dialog help-dialog" aria-labelledby="help-title"><button class="dialog-close" id="close-help" aria-label="关闭玩法说明">×</button><p class="overline">ONE CUP AT A TIME</p><h2 id="help-title">三个动作，就能开店。</h2><ol class="help-steps"><li><b>接单备粉</b><span>点顾客、订单，或底部的亮色按钮。粉量和研磨会自动准备好，最多三杯并行。</span></li><li><b>动手冲煮</b><span>点「开始冲煮」，会自动停在配方水量。口味已按客人偏好选好，也可以自己试试。</span></li><li><b>递上咖啡</b><span>冲好后点「递给客人」收钱。等一杯冲煮时，可以在台位卡上接另一单。</span></li></ol><div class="help-notes"><p><b>轻松开店：</b>接待 5 位客人，不限时，客人会一直等你。</p><p><b>忙碌挑战：</b>第一位离开后开始 90 秒倒计时，最多 3 位客人排队，每位等 35 秒。页面隐藏或查看说明时自动暂停。</p><p><b>手冲壶出击：</b>点「手冲壶出击」再点顾客或订单，挥壶把人赶走。不收这单的钱，积分扣 20（最低 0 分）。按 Escape 或再点一次水壶取消。</p><p><b>积分：</b>符合口味每杯 100 分，尝试其他口味每杯 70 分；赶客不算出杯。配方与时间为小游戏简化，不代替工坊的完整练习。</p></div><button class="primary" id="help-ok">明白了，继续开店 →</button></dialog>
+<div id="float-layer" class="float-layer" aria-hidden="true"></div><script src="shop-round.js?v=5"></script><script src="shop.js?v=5"></script></body></html>
