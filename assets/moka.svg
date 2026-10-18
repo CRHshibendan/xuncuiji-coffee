@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" fill="none"><title>摩卡壶</title><g stroke="#493F36" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+<g id="handle"><path d="M426 198C493 177 521 194 521 233L504 326C499 351 479 364 448 360L443 332C461 336 473 327 475 311L490 235C493 217 481 213 444 225Z" fill="#6F7C78"/></g>
+<g id="upper-chamber"><path d="M211 190L382 178L423 210L402 349L361 375H242L200 346Z" fill="#E2E7E3"/><path d="M211 190L242 215H382L423 210M242 215L258 352L242 375M382 215L361 352V375M258 352H361" stroke="#95A59A" stroke-width="3"/><path d="M226 224L243 331" stroke="#FFF" stroke-width="9"/><path d="M201 227L153 207L182 286L204 300Z" fill="#CFD8D0"/></g>
+<g id="lid"><path d="M208 190L242 165H378L417 188L382 204H244Z" fill="#ACBAB0"/><path d="M289 164V145C289 130 326 130 326 145V164Z" fill="#6F7C78"/></g>
+<g id="waist"><path d="M242 375H361V395H242Z" fill="#7E8B82"/></g>
+<g id="boiler"><path d="M242 395H361L405 496L374 535H230L198 496Z" fill="#D5DDD6"/><path d="M242 395L258 407H346L361 395M258 407L245 516L230 535M346 407L359 516L374 535M245 516H359" stroke="#95A59A" stroke-width="3"/><path d="M229 435L214 489" stroke="#FFF" stroke-width="8"/><ellipse cx="379" cy="472" rx="10" ry="12" fill="#8F9B91"/><ellipse cx="379" cy="472" rx="3" ry="4" fill="#493F36" stroke="none"/></g>
+</g></svg>

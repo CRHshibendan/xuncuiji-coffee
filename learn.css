@@ -20,3 +20,8 @@
 /* The illustration changes focus; the teaching text stays readable throughout. */
 .story-step{opacity:1}.story-step.active .step-kicker{color:#496b37}
 @media(max-width:760px){.story-step{opacity:1}}
+
+/* Seven methods, each with its own process. */
+.brewer-tabs{display:flex;overflow-x:auto;gap:8px;padding:7px 3px 14px;scrollbar-width:thin;max-width:100%}.brewer-tabs button{flex:0 0 auto;min-width:123px;padding:17px 20px}.method-source{display:inline-block;margin-top:20px;color:#60784c;font-size:12px;text-decoration:underline}.step-visual.new-method{width:100%;height:225px;background:#eef2e7;border-radius:20px}.step-visual.new-method>:not(.method-step-art):not(#step-visual-label){display:none}.method-step-art{position:absolute;inset:0 0 18px;display:flex;justify-content:center}.method-step-art svg{height:100%;max-width:100%}.method-step-art text{font:14px system-ui;fill:#5c7050;stroke:none}.step-visual.new-method #step-visual-label{bottom:8px;font-size:11px;left:10px;right:10px}.method-step-art .art-flow{stroke-dasharray:10 8;animation:step-stream 1.5s linear infinite}@media(max-width:760px){.brewer-tabs button{min-width:110px;padding:13px 16px}.step-visual.new-method{height:210px}.recipe-detail{min-height:565px}}
+
+.tools-caption{margin-top:45px}.tools-caption+.toolkit{margin-top:20px}
