@@ -1,12 +1,13 @@
 'use strict';
 (()=>{
 const $=s=>document.querySelector(s),q=new URLSearchParams(location.search),id=CoffeeMethods.methods[q.get('tool')]?q.get('tool'):'moka',m=CoffeeMethods.methods[id],experimental=q.get('mode')==='experiment',p=CoffeeMethods.defaults(id),state={done:[],dose:0,water:0,contact:0,yield:0,brew:0},labels={water:'水壶 → 加水',basket:'粉槽 → 放入',coffee:'咖啡粉 → 投入',serve:'咖啡 → 出杯',lid:'盖子 → 盖好',filter:'滤器 → 放入',lock:'手柄 → 锁入'},clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+if(['advanced','experiment'].includes(q.get('mode'))){CoffeeFreeUI.start(id);return;}
 let index=0,progress=0,selected=false,busy=false,frame=0,lastTime=0,held=false,locked=false,gestureStart=null,angle=null,turn=0,drag=null,suppressClick=false,completion=0;
 const current=()=>m.steps[index],timeText=s=>s>=3600?(s/3600).toFixed(1)+' 小时':s>=60?(s/60).toFixed(1)+' 分钟':Math.round(s)+' 秒';
 $('#title').textContent=m.name+'，亲手做一杯。';$('#category').textContent=m.english+' / '+(experimental?'RECIPE EXPERIMENT':'GUIDED PRACTICE');$('#principle').textContent=m.principle;$('#back').href='learn.html?tool='+id+'#equipment';$('#source').href=m.source[1];$('#source').textContent=m.source[0]+' ↗';
-['basic','experiment'].forEach(mode=>{const a=$('#'+mode+'-link');a.href=`method-lab.html?tool=${id}&mode=${mode}`;a.classList.toggle('active',experimental=== (mode==='experiment'));});
+['basic','advanced'].forEach(mode=>{const a=$(mode==='advanced'?'#experiment-link':'#basic-link');a.href=`method-lab.html?tool=${id}&mode=${mode}`;a.classList.toggle('active',mode==='basic');});
 $('#jump-parameters').textContent=experimental?'动手前，调整本杯参数 ↓':'查看本杯配方 · 参数 ↓';$('#jump-parameters').onclick=()=>{$('#parameters').open=true;$('#parameters').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth',block:'start'});};$('#back-to-bench').onclick=()=>$('.bench').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth',block:'start'});
-$('#parameter-label').textContent=experimental?'动手前可调整':'本课起点';$('#parameter-note').textContent=experimental?'先改参数，再开始。投粉或加水后锁定本杯配方；计时与萃取还可由你提前结束。研磨数字仅作本演示的细→粗对照。':'跟练使用本课起点。想调参数，切换“配方对照”。所有时间均为加速模拟。';
+$('#parameter-label').textContent=experimental?'动手前可调整':'本课起点';$('#parameter-note').textContent=experimental?'先改参数，再开始。投粉或加水后锁定本杯配方；计时与萃取还可由你提前结束。研磨数字仅作本演示的细→粗对照。':'跟练使用本课起点。想调参数，切换“进阶自由”。所有时间均为加速模拟。';
 $('#controls').innerHTML=m.params.map(([key,label,unit,min,max,step,value])=>`<label for="param-${key}">${label}<output id="out-${key}">${value} ${unit}</output></label><input id="param-${key}" type="range" min="${min}" max="${max}" step="${step}" value="${value}" ${experimental?'':'disabled'}>`).join('');
 m.params.forEach(([key,,unit])=>$('#param-'+key).addEventListener('input',e=>{const v=Number(e.target.value);p[key]=key==='time'&&unit==='小时'?v*3600:v;$('#out-'+key).textContent=v+' '+unit;}));
 function freeze(){if(locked)return;locked=true;document.querySelectorAll('#controls input').forEach(e=>e.disabled=true);$('#parameter-label').textContent='本杯已记录';}
