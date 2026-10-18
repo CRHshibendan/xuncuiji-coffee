@@ -113,7 +113,7 @@ function refreshAction(){renderTools();renderTargets();renderGuide();updateHUD()
 function prepFilter(){clearPick();if(!state.folded){state.folded=true;if(brewer==='melitta')state.oriented=true;message(brewer==='chemex'?'厚滤纸展开了。再点一下，让三层面朝向壶嘴。':'接缝折好了。现在拖动滤纸，放进壶口。');}else if(!state.oriented){state.oriented=true;message('三层面已对准壶嘴，现在把滤纸拖进器具。');}refreshAction();}
 function heatLabel(){if($('#heat-control'))$('#heat-control').textContent=state.heating?'停止加热':'开始加热';$('#steam').classList.toggle('heating',state.heating&&state.temp>75);}
 function toggleHeat(){state.started=true;if(basic()&&state.step===3){if(state.heating){message(`正在升温：${Math.round(state.temp)}°C → ${recipe().temp}°C，不用重复点击。`);return;}state.heating=true;state.cooling=false;record(`开始加热，目标 ${recipe().temp}°C`);message('开始烧水了。看水壶旁的温度进度，到温会自动保温。');heatLabel();renderGuide();updateHeatGuide();return;}if(state.heating){state.heating=false;record(`关闭加热，水温 ${Math.round(state.temp)}°C`);}else{state.heating=true;state.cooling=false;record(`开始加热，目标 ${state.targetTemp}°C`);message('水壶开始加热。你可以随时停下。');}heatLabel();renderGuide();}
-function updateHeatGuide(){const visible=basic()&&state.step===3;$('#heat-guide').hidden=!visible;document.body.classList.toggle('watching-heat',visible);if(!visible)return;const target=recipe().temp,ready=state.temp>=target-.01;$('#heat-now').textContent=Math.round(state.temp)+'°C';$('#heat-target').textContent=target+'°C';const progress=clamp((state.temp-20)/(target-20)*100,0,100);$('#heat-progress i').style.width=progress+'%';$('#heat-progress').setAttribute('aria-valuenow',String(Math.round(progress)));$('#heat-guide-state').textContent=ready?'温度到了，已保温。接下来润湿滤纸。':state.heating?'正在升温，等进度到目标就好。':'点一次开始，不用连续点击。';$('#heat-start').disabled=state.heating||ready;$('#heat-start').textContent=ready?'热水准备好 ✓':state.heating?'正在烧水…':'开始烧水 →';if(state.heating)$('#guide-command').textContent=`正在烧水：${Math.round(state.temp)}°C → ${target}°C`;}
+function updateHeatGuide(){const visible=basic()&&state.step===3;$('#heat-guide').hidden=!visible;document.body.classList.toggle('watching-heat',visible);if(!visible)return;const target=recipe().temp,ready=state.temp>=target-.01;CoffeePaint.text($('#heat-now'),Math.round(state.temp)+'°C');CoffeePaint.text($('#heat-target'),target+'°C');const progress=clamp((state.temp-20)/(target-20)*100,0,100);$('#heat-progress i').style.width=progress+'%';CoffeePaint.attr($('#heat-progress'),'aria-valuenow',String(Math.round(progress)));CoffeePaint.text($('#heat-guide-state'),ready?'温度到了，已保温。接下来润湿滤纸。':state.heating?'正在升温，等进度到目标就好。':'点一次开始，不用连续点击。');$('#heat-start').disabled=state.heating||ready;CoffeePaint.text($('#heat-start'),ready?'热水准备好 ✓':state.heating?'正在烧水…':'开始烧水 →');if(state.heating)CoffeePaint.text($('#guide-command'),`正在烧水：${Math.round(state.temp)}°C → ${target}°C`);}
 $('#heat-start').addEventListener('click',toggleHeat);
 
 function loadGrinder(amount){if(amount<.01){message('秤上还没有豆子。先放一点豆子上去。',true);return;}state.grinderBeans+=amount;state.grindLoad=state.grinderBeans;state.turns=0;state.grindQueue=0;record(`把 ${amount.toFixed(1)}g 豆子送进磨豆机`);message('豆子进去了。拿住顶部木柄，沿椭圆轨迹转动。');refreshAction();}
@@ -121,15 +121,15 @@ function loadGrinder(amount){if(amount<.01){message('秤上还没有豆子。先
 // Keep the shaft and body fixed, rather than rotating an upright arm in screen space.
 function drawCrank(){
  const a=state.displayAngle,x=201+76*Math.cos(a),y=258+22*Math.sin(a);
- $('#crank-arm').setAttribute('d',`M201 258L${x} ${y}`);
- $('#crank-arm-shine').setAttribute('d',`M201 256L${x} ${y-2}`);
- $('#crank-grip').setAttribute('transform',`translate(${x} ${y})`);
+ CoffeePaint.attr($('#crank-arm'),'d',`M201 258L${x} ${y}`);
+ CoffeePaint.attr($('#crank-arm-shine'),'d',`M201 256L${x} ${y-2}`);
+ CoffeePaint.attr($('#crank-grip'),'transform',`translate(${x} ${y})`);
  const loaded=state.grinderBeans>.001&&!state.done,active=!!drag&&drag.object==='grinder'||grindKey||state.grindQueue>0;
- $('#crank-orbit').setAttribute('opacity',loaded&&(grindFocus||basic()&&state.step===1)?'.7':'0');
- $('#crank-direction').setAttribute('opacity',loaded&&(grindFocus||basic()&&state.step===1)?'.8':'0');
+ CoffeePaint.attr($('#crank-orbit'),'opacity',loaded&&(grindFocus||basic()&&state.step===1)?'.7':'0');
+ CoffeePaint.attr($('#crank-direction'),'opacity',loaded&&(grindFocus||basic()&&state.step===1)?'.8':'0');
  obj('grinder').classList.toggle('grinding',active&&loaded);
- $('#grind-scene-progress').textContent=state.grindLoad>0?`${Math.round(Math.min(1,state.turns/3)*100)}%`:'';
- $('#grind-output-fill').setAttribute('y',445-Math.min(1,state.turns/3)*29);
+ CoffeePaint.text($('#grind-scene-progress'),state.grindLoad>0?`${Math.round(Math.min(1,state.turns/3)*100)}%`:'');
+ CoffeePaint.attr($('#grind-output-fill'),'y',445-Math.min(1,state.turns/3)*29);
 }
 function queueGrind(radians=Math.PI/2){
  if(state.paused||state.done||state.served||!allowed().includes('grinder'))return;
@@ -203,14 +203,14 @@ function progressInfo(){
 }
 function renderProgress(){
  const p=progressInfo(),pct=clamp(p.current/p.target*100,0,100);
- $('#progress-label').textContent=p.label;$('#progress-value').textContent=p.value;$('#progress-fill').style.width=pct+'%';
+ CoffeePaint.text($('#progress-label'),p.label);CoffeePaint.text($('#progress-value'),p.value);$('#progress-fill').style.width=pct+'%';
  const bar=document.querySelector('.progress-bar');
- if(bar){bar.setAttribute('role','progressbar');bar.setAttribute('aria-valuemin','0');bar.setAttribute('aria-valuemax','100');bar.setAttribute('aria-valuenow',String(Math.round(pct)));bar.setAttribute('aria-label',`${p.label} ${p.value}`);}
+ if(bar){CoffeePaint.attr(bar,'role','progressbar');CoffeePaint.attr(bar,'aria-valuemin','0');CoffeePaint.attr(bar,'aria-valuemax','100');CoffeePaint.attr(bar,'aria-valuenow',String(Math.round(pct)));CoffeePaint.attr(bar,'aria-label',`${p.label} ${p.value}`);}
  return p;
 }
-function updateHUD(){const m=state.model;updateQuickControls();updateHeatGuide();if(!basic())syncFreeTip();renderOperationHints();$('#live-dose').innerHTML=(m.dose||state.scaleDose||(state.grinderBeans+state.groundsReady)).toFixed(1)+' <small>g</small>';$('#live-water').innerHTML=Math.round(m.brewWater||m.water)+' <small>g</small>';$('#live-temp').innerHTML=Math.round(state.temp)+' <small>°C</small>';$('#live-time').textContent=fmt(m.brewStart===null?0:m.simTime-m.brewStart);$('#kettle-temp').textContent=Math.round(state.temp)+'°C';$('#steam').classList.toggle('heating',state.heating&&state.temp>75);$('#scale-display').textContent=state.scaleDose.toFixed(1)+' g';const groundsLabel=obj('grounds').querySelector('.scene-caption');if(groundsLabel)groundsLabel.textContent=`接粉杯 · ${state.groundsReady.toFixed(1)}g`;const beansLabel=obj('beans').querySelector('.scene-caption');if(beansLabel)beansLabel.textContent=`咖啡豆 · 每份 ${state.spoon}g`;
- if(basic()){const s=state.step;renderProgress();if(s===1&&!state.done&&state.scaleDose===0)$('#guide-detail').textContent=`已经磨了 ${Math.min(3,state.turns).toFixed(1)} / 3 圈。拖动顶部木柄，或聚焦磨豆机后按住空格连续磨豆。`;if(s===6&&state.waiting>0){$('#step-action').innerHTML=`<div class="basic-wait"><strong>${Math.ceil(state.waiting/speed)} 秒</strong>屏幕剩余时间 · 实物参考 ${recipe().wait} 秒<br>不用点下一步，等一等就好。</div>`;}if(s===3&&!state.done){$('#guide-detail').textContent=state.temp>=recipe().temp-1?`温度到 ${Math.round(state.temp)}°C 了！现在点一下水壶，停止加热。`:guide()[1];}
- }else{for(const [id,val] of [['stock-scale',state.scaleDose],['stock-grinder',state.grinderBeans],['stock-grounds',state.groundsReady],['stock-dose',m.dose],['side-dose',m.dose],['side-liquid',m.liquid],['side-bed',m.bed]])if($('#'+id))$('#'+id).textContent=val.toFixed(1)+'g';if($('#actual-temp'))$('#actual-temp').textContent=Math.round(state.temp);if($('#free-log'))$('#free-log').innerHTML=m.events.slice(-4).reverse().map(e=>`<div class="free-event"><small>${fmt(e.time)}</small>${esc(e.text)}</div>`).join('');}
+function updateHUD(){const m=state.model;updateQuickControls();updateHeatGuide();if(!basic())syncFreeTip();renderOperationHints();CoffeePaint.html($('#live-dose'),(m.dose||state.scaleDose||(state.grinderBeans+state.groundsReady)).toFixed(1)+' <small>g</small>');CoffeePaint.html($('#live-water'),Math.round(m.brewWater||m.water)+' <small>g</small>');CoffeePaint.html($('#live-temp'),Math.round(state.temp)+' <small>°C</small>');CoffeePaint.text($('#live-time'),fmt(m.brewStart===null?0:m.simTime-m.brewStart));CoffeePaint.text($('#kettle-temp'),Math.round(state.temp)+'°C');$('#steam').classList.toggle('heating',state.heating&&state.temp>75);CoffeePaint.text($('#scale-display'),state.scaleDose.toFixed(1)+' g');const groundsLabel=obj('grounds').querySelector('.scene-caption');if(groundsLabel)CoffeePaint.text(groundsLabel,`接粉杯 · ${state.groundsReady.toFixed(1)}g`);const beansLabel=obj('beans').querySelector('.scene-caption');if(beansLabel)CoffeePaint.text(beansLabel,`咖啡豆 · 每份 ${state.spoon}g`);
+ if(basic()){const s=state.step;renderProgress();if(s===1&&!state.done&&state.scaleDose===0)CoffeePaint.text($('#guide-detail'),`已经磨了 ${Math.min(3,state.turns).toFixed(1)} / 3 圈。拖动顶部木柄，或聚焦磨豆机后按住空格连续磨豆。`);if(s===6&&state.waiting>0){CoffeePaint.html($('#step-action'),`<div class="basic-wait"><strong>${Math.ceil(state.waiting/speed)} 秒</strong>屏幕剩余时间 · 实物参考 ${recipe().wait} 秒<br>不用点下一步，等一等就好。</div>`);}if(s===3&&!state.done){CoffeePaint.text($('#guide-detail'),state.temp>=recipe().temp-1?`温度到 ${Math.round(state.temp)}°C 了！现在点一下水壶，停止加热。`:guide()[1]);}
+ }else{for(const [id,val] of [['stock-scale',state.scaleDose],['stock-grinder',state.grinderBeans],['stock-grounds',state.groundsReady],['stock-dose',m.dose],['side-dose',m.dose],['side-liquid',m.liquid],['side-bed',m.bed]])if($('#'+id))$('#'+id).textContent=val.toFixed(1)+'g';if($('#actual-temp'))CoffeePaint.text($('#actual-temp'),Math.round(state.temp));if($('#free-log'))CoffeePaint.html($('#free-log'),m.events.slice(-4).reverse().map(e=>`<div class="free-event"><small>${fmt(e.time)}</small>${esc(e.text)}</div>`).join(''));}
 }
 function frame(now){const dt=lastFrame?Math.min((now-lastFrame)/1000,.1):0;lastFrame=now;if(!document.hidden&&!state.paused&&!state.served){
  if((state.grindQueue>0||grindKey)&&state.grinderBeans>.001){const radians=grindKey?dt*Math.PI*2:Math.min(state.grindQueue,dt*Math.PI*2);if(!grindKey)state.grindQueue=Math.max(0,state.grindQueue-radians);rotateGrinder(radians);}
@@ -262,10 +262,10 @@ $('#parameter-dialog').addEventListener('cancel',e=>{e.preventDefault();closePar
 $('#parameter-dialog').addEventListener('click',e=>{if(e.target===$('#parameter-dialog')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeParameters();}});
 function updateQuickControls(){
  if(basic())return;
- $('#quick-spoon').innerHTML=state.spoon+' <small>g</small>';
- $('#quick-grind').textContent=['','细','中细','中','中粗','粗'][state.grind];
- $('#quick-temp').innerHTML=state.targetTemp+' <small>°C</small>';
- $('#quick-flow').innerHTML=state.flow+' <small>g/s</small>';
+ CoffeePaint.html($('#quick-spoon'),state.spoon+' <small>g</small>');
+ CoffeePaint.text($('#quick-grind'),['','细','中细','中','中粗','粗'][state.grind]);
+ CoffeePaint.html($('#quick-temp'),state.targetTemp+' <small>°C</small>');
+ CoffeePaint.html($('#quick-flow'),state.flow+' <small>g/s</small>');
  $('[data-setting="2"]').classList.toggle('is-heating',state.heating);
  $('#pour-hold').disabled=state.paused||state.served;
  $('#quick-serve').disabled=state.served;

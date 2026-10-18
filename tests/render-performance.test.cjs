@@ -1,0 +1,37 @@
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+const dist=path.resolve(__dirname,'..'),Paint=require(path.join(dist,'render-updates.js'));
+test('live counters preserve existing children until the displayed value changes',()=>{
+ let value='15 <small>g</small>',child={},writes=0;
+ const el={get innerHTML(){return value},set innerHTML(v){value=v;child={};writes++}};
+ const initial=child;
+ for(let i=0;i<120;i++)Paint.html(el,'15 <small>g</small>');
+ assert.equal(child,initial);assert.equal(writes,0);
+ Paint.html(el,'20 <small>g</small>');assert.notEqual(child,initial);assert.equal(writes,1);
+});
+test('equipment idle rendering is skipped while inventory changes and timed pours still render',()=>{
+ const source=fs.readFileSync(path.join(dist,'equipment-studio.js'),'utf8');
+ const art=source.slice(source.indexOf(' function art()'),source.indexOf(' function beans('));
+ const nodes=new Map(),node=key=>{if(!nodes.has(key))nodes.set(key,{innerHTML:'',textContent:'',classList:{remove(){},toggle(){},add(){}},querySelector(){return node(key+' label')}});return nodes.get(key)};
+ const ctx={s:{grounds:0,beans:0},u:{scale:0},p:{spoon:5},id:'frenchpress',selected:null,drag:null,lastArtState:'',lastMarkup:'',lastGrounds:'',clock:0,renders:0,stocks:[],CoffeePaint:Paint,EquipmentArt:{render(){ctx.renders++;return '<g/>'},grounds(n){ctx.stocks.push(n);return String(n)}},performance:{now:()=>ctx.clock},$:(id)=>node(id),$$:()=>[],object:(id)=>node(id),patch:(el,html)=>el.innerHTML=html,beans:()=>'',clamp:(v,a,b)=>Math.max(a,Math.min(b,v)),drawCrank(){}};
+ vm.createContext(ctx);vm.runInContext(art,ctx);
+ ctx.art();for(let i=0;i<120;i++)ctx.art();assert.equal(ctx.renders,1);
+ ctx.s.grounds=15;ctx.art();assert.equal(ctx.renders,2);
+ ctx.s.grounds=0;ctx.u.pourGrounds=700;ctx.u.pourStock=15;
+ ctx.clock=100;ctx.art();const first=ctx.stocks.at(-1);
+ ctx.clock=400;ctx.art();assert.ok(ctx.stocks.at(-1)<first);
+ ctx.clock=800;ctx.art();assert.equal(ctx.stocks.at(-1),0);
+ const final=ctx.renders;ctx.art();assert.equal(ctx.renders,final);
+});
+test('the homepage needs no external font stylesheet and has a compact responsive hero',()=>{
+ const css=fs.readFileSync(path.join(dist,'style.css'),'utf8'),html=fs.readFileSync(path.join(dist,'index.html'),'utf8');
+ assert.doesNotMatch(css,/@import.*fonts\.googleapis/);
+ assert.match(html,/srcset="assets\/hero-coffee-640.webp 640w, assets\/hero-coffee-1280.webp 1280w"/);
+ assert.ok(fs.statSync(path.join(dist,'assets/hero-coffee-640.webp')).size<50000);
+ assert.ok(fs.statSync(path.join(dist,'assets/hero-coffee-1280.webp')).size<120000);
+});
+test('serialized SVG markup does not recreate stable children and external edits are repaired',()=>{
+ let value='',writes=0;
+ const el={get innerHTML(){return value},set innerHTML(v){writes++;value=v.replace('<g/>','<g></g>')}};
+ Paint.html(el,'<g/>');for(let i=0;i<30;i++)Paint.html(el,'<g/>');assert.equal(writes,1);
+ value='<path></path>';Paint.html(el,'<g/>');assert.equal(writes,2);assert.equal(value,'<g></g>');
+});

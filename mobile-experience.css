@@ -97,7 +97,7 @@
  .mobile-scene-controls button[aria-pressed=true]{background:#e4ecd5;color:#39572a;border-color:#8fa875}
  .mobile-scene-controls p{font-size:11px;color:#6d785e;margin:0;line-height:1.7;text-align:center}
  .xc-refined :is(.scene-toolbar,.stage-topline){display:none!important}
- .xc-refined .scene-wrap,.xc-refined.equipment-studio .scene-wrap{min-height:0!important;width:100%}
+ .xc-refined .scene-wrap,.xc-refined.equipment-studio .scene-wrap{min-height:0!important;width:100%;flex-direction:column;align-items:stretch}
  .xc-refined #scene,.xc-refined.equipment-studio #scene{display:block;width:100%;height:auto!important;min-height:0!important;max-height:none!important;aspect-ratio:var(--mobile-scene-ratio,900 / 490);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
  .xc-refined .scene-caption{font-size:14px}
  .xc-refined .live-dashboard{padding:12px 10px;gap:4px}.xc-refined .live-dashboard>div{padding-left:7px}
@@ -108,9 +108,9 @@
  .xc-refined .setting-tabs button{min-height:44px;font-size:13px}
  .xc-refined #parameter-dialog header{gap:10px}.xc-refined #close-parameters{min-height:44px;white-space:nowrap;font-size:13px}
  .xc-refined #parameter-dialog h2{font-size:22px}.xc-refined .sheet-note{font-size:12px;line-height:1.8}
- .xc-refined .heat-guide{position:static;width:auto;display:grid;grid-template-columns:minmax(0,1fr) 132px;gap:5px 12px;padding:13px 14px;margin:8px 10px;border-radius:9px;box-shadow:none}
+ .xc-refined .heat-guide{position:static;flex:none;align-self:stretch;min-width:0;width:auto;display:grid;grid-template-columns:minmax(0,1fr) 132px;gap:5px 12px;padding:13px 14px;margin:8px 10px;border-radius:9px;box-shadow:none}
  .xc-refined .heat-guide[hidden]{display:none!important}.xc-refined .heat-guide>span{grid-column:1;font-size:11px}
- .xc-refined .heat-temperatures{grid-column:1;margin:0;gap:9px}.xc-refined .heat-temperatures output{font-size:29px}
+ .xc-refined .heat-temperatures{grid-column:1;min-width:0;flex-wrap:wrap;margin:0;gap:2px 9px}.xc-refined .heat-temperatures>span{white-space:nowrap}.xc-refined .heat-temperatures output{font-size:29px}
  .xc-refined .heat-guide .heat-progress{grid-column:1/-1}.xc-refined .heat-guide p{grid-column:1/-1;margin:3px 0 0;font-size:11px}
  .xc-refined .heat-guide button{grid-column:2;grid-row:1/3;min-height:46px;align-self:center;font-size:12px}
  .xc-refined .operation-guide{padding:12px;gap:8px}.xc-refined .operation-guide strong{font-size:14px}
@@ -181,3 +181,6 @@
 @media(max-width:370px){.xc-refined .studio-title h1{font-size:23px}}
 
 @media(max-width:760px) and (orientation:landscape){.xc-refined #scene,.xc-refined.equipment-studio #scene{max-height:calc(100svh - 124px)!important}}
+
+/* Solid paper headers avoid repeated backdrop blurs while scrolling on phones. */
+@media(max-width:760px){.xc-refined :is(.header,.studio-header,.shop-header,.learn-header),.mobile-nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:#faf7f0}}

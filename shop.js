@@ -17,7 +17,7 @@
   return `<svg class="avatar" viewBox="0 0 64 76" aria-hidden="true"><path d="M6 76c1-16 12-24 26-24s25 8 26 24Z" fill="${shirt}"/><path d="M24 52h16v9a8 8 0 0 1-16 0Z" fill="${skin}"/><circle cx="32" cy="33" r="17" fill="${skin}"/>${HAIR[style](hair)}<circle cx="26" cy="35" r="1.6" fill="#463a30"/><circle cx="38" cy="35" r="1.6" fill="#463a30"/><path d="M29 42q3 2.5 6 0" stroke="#b4836a" fill="none" stroke-width="1.3" stroke-linecap="round"/><path d="M18 59c8 3 20 3 28 0" stroke="#ffffff44" stroke-width="2" fill="none"/></svg>`;
  }
  const kettle='<svg viewBox="0 0 120 100" aria-hidden="true"><path d="M35 38Q13 27 12 48q0 21 21 18" fill="none" stroke="#586a51" stroke-width="7"/><path d="M32 38h47l11 40q-27 12-65 0Z" fill="#a5b596" stroke="#586a51" stroke-width="2"/><path d="M77 45q18-2 28-23l7 2q-7 34-27 41" fill="#a5b596" stroke="#586a51" stroke-width="2"/><ellipse cx="55" cy="36" rx="24" ry="6" fill="#dce4cd" stroke="#586a51" stroke-width="2"/><path d="M43 30q12-13 24 0" fill="none" stroke="#586a51" stroke-width="4"/><path d="M39 44l-4 30" stroke="#dce4cd" stroke-width="3"/></svg>';
- let game=null,mode='relax',armed=false,paused=false,last=0,raf=0,renderKey='',toastTimer=0,report=null,noteSaved=false;
+ let game=null,mode='relax',armed=false,paused=false,last=0,lastPaint=0,raf=0,renderKey='',toastTimer=0,report=null,noteSaved=false;
  let records={};try{const saved=JSON.parse(localStorage.getItem(KEY)||'{}');records=saved&&typeof saved==='object'&&!Array.isArray(saved)?saved:{};}catch{}
  const say=t=>{$('#scene-ticker').textContent=t;};
  function toast(t){$('#scene-toast').textContent=t;$('#scene-toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#scene-toast').classList.remove('visible'),2400);}
@@ -73,15 +73,15 @@
    $('#coffee-tip').textContent=d?d.note:'每一杯，都是下一次动手的起点。';
    $('#lesson-link').href=`learn.html?tool=${d?d.tool:'melitta'}#recipe`;
   }
-  $('#hud-served').textContent=`${game.served} / ${game.total}`;$('#hud-money').textContent=`¥${game.revenue}`;
-  $('#clock-label').textContent=game.mode==='rush'?'挑战倒计时':'今天的节奏';
-  $('#hud-clock').textContent=game.mode==='rush'?(game.clockStarted?`${Math.max(0,Math.ceil(90-game.elapsed))} 秒`:'首杯不计时'):'慢慢来';
-  for(const g of game.queue){const el=$(`[data-wait="${g.id}"]`);if(el)el.textContent=game.mode==='rush'&&game.clockStarted?`${Math.max(0,Math.ceil(35-g.wait))}s`:'';}
-  for(const g of game.queue){const meter=$(`[data-cup-progress="${g.id}"]`);if(meter){const progress=g.phase==='ready'?100:Math.round(g.progress*100);const card=$(`[data-cup="${g.id}"]`);if(card)card.style.setProperty('--cup-fill',(g.phase==='ready'?84:g.phase==='brewing'?g.progress*84:0)+'%');meter.setAttribute('aria-valuenow',String(progress));meter.querySelector('i').style.width=progress+'%';}}
+  CoffeePaint.text($('#hud-served'),`${game.served} / ${game.total}`);CoffeePaint.text($('#hud-money'),`¥${game.revenue}`);
+  CoffeePaint.text($('#clock-label'),game.mode==='rush'?'挑战倒计时':'今天的节奏');
+  CoffeePaint.text($('#hud-clock'),game.mode==='rush'?(game.clockStarted?`${Math.max(0,Math.ceil(90-game.elapsed))} 秒`:'首杯不计时'):'慢慢来');
+  for(const g of game.queue){const el=$(`[data-wait="${g.id}"]`);if(el)CoffeePaint.text(el,game.mode==='rush'&&game.clockStarted?`${Math.max(0,Math.ceil(35-g.wait))}s`:'');}
+  for(const g of game.queue){const meter=$(`[data-cup-progress="${g.id}"]`);if(meter){const progress=g.phase==='ready'?100:Math.round(g.progress*100);const card=$(`[data-cup="${g.id}"]`);if(card)CoffeePaint.style(card,'--cup-fill',(g.phase==='ready'?84:g.phase==='brewing'?g.progress*84:0)+'%');CoffeePaint.attr(meter,'aria-valuenow',String(progress));CoffeePaint.style(meter.querySelector('i'),'width',progress+'%');}}
   const working=active&&['grinding','brewing'].includes(active.phase),p=working?active.progress:0;
-  $('#brew-meter').hidden=!working;$('#brew-meter').setAttribute('aria-valuenow',String(Math.round(p*100)));$('#brew-meter i').style.width=`${p*100}%`;
+  $('#brew-meter').hidden=!working;CoffeePaint.attr($('#brew-meter'),'aria-valuenow',String(Math.round(p*100)));CoffeePaint.style($('#brew-meter i'),'width',`${p*100}%`);
   $('#shop-scene').classList.toggle('is-grinding',game.queue.some(g=>g.phase==='grinding'));$('#shop-scene').classList.toggle('is-brewing',game.queue.some(g=>g.phase==='brewing'));
-  $('#brew-liquid').setAttribute('height',active&&active.phase==='ready'?25:active&&active.phase==='brewing'?p*25:0);$('#brew-liquid').setAttribute('y',active&&active.phase==='ready'?93:118-p*25);
+  CoffeePaint.attr($('#brew-liquid'),'height',active&&active.phase==='ready'?25:active&&active.phase==='brewing'?p*25:0);CoffeePaint.attr($('#brew-liquid'),'y',active&&active.phase==='ready'?93:118-p*25);
  }
  function action(){
   if(!game||paused||game.status!=='playing')return;
@@ -108,7 +108,7 @@
  function loop(now){
   if(!game||game.status!=='playing')return;
   const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;
-  if(!paused&&!document.hidden&&!document.querySelector('dialog[open]')){R.tick(game,dt);render();if(game.status==='finished'){finish();return;}}
+  if(!paused&&!document.hidden&&!document.querySelector('dialog[open]')){R.tick(game,dt);if(now-lastPaint>=66||game.status==='finished'){render();lastPaint=now;}if(game.status==='finished'){finish();return;}}
   raf=requestAnimationFrame(loop);
  }
  function feedback(t){$('#report-feedback').textContent=t;}
