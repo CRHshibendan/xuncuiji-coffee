@@ -21,7 +21,6 @@
   for(const [selector,field] of [['[data-brewer-art]','brewerArt'],['[data-brewer-copy]','brewerCopy']]){
    $$(selector).forEach(el=>{el.hidden=el.dataset[field]!==key;if(!el.hidden)enter(el);});
   }
-  heroShow(key);
  }));
  const heroArt=$$('[data-hero-art]'),heroCaption=$('[data-hero-caption]');
  const heroOrder=[
@@ -30,11 +29,12 @@
   ['espresso','ESPRESSO / 意式浓缩'],
   ['siphon','SIPHON / 虹吸壶']
  ];
- const HERO_DRAW_MS=2000,HERO_FADE_MS=300,HERO_RETRACT_MS=1000;
- let heroIndex=0,heroBusy=false,heroRun=0,heroAuto=null;
+ const HERO_DRAW_MS=2000,HERO_RETRACT_MS=1000;
+ let heroIndex=0,heroBusy=false,heroRun=0,heroAuto=null,heroQueued=null;
  const HERO_AUTO_MS=6500;
- function heroSchedule(){if(heroAuto!==null){clearTimeout(heroAuto);heroAuto=null;}if(reduce.matches)return;heroAuto=setTimeout(()=>{heroAuto=null;const next=(heroIndex+1)%heroArt.length;heroShow(heroArt[next].dataset.heroArt);},HERO_AUTO_MS);}
+ function heroSchedule(){if(heroAuto!==null){clearTimeout(heroAuto);heroAuto=null;}if(reduce.matches||document.hidden||!heroArt.length)return;heroAuto=setTimeout(()=>{heroAuto=null;const next=(heroIndex+1)%heroArt.length;heroShow(heroArt[next].dataset.heroArt);},HERO_AUTO_MS);}
  function prepareHeroArt(art){
+  if(!art)return;
   if(art.dataset.heroPrepared==='1')return;
   art.dataset.heroPrepared='1';
   const shapes=[...art.querySelectorAll('path,ellipse,circle')];
@@ -61,18 +61,21 @@
   });
  }
  function fadeFills(art,to,duration){
+  const easing=getComputedStyle(art).getPropertyValue('--hero-ease-both').trim()||'ease-in-out';
   art.querySelectorAll('.hero-fill').forEach(el=>{
    el.getAnimations().forEach(a=>{try{a.cancel();}catch(e){}});
-   el.animate([{opacity:to===1?0:1},{opacity:to}],{duration,easing:'cubic-bezier(.65,.05,.35,.95)',fill:'both'});
+   el.animate([{opacity:to===1?0:1},{opacity:to}],{duration,easing,fill:'both'});
   });
  }
  function heroSwap(art){
+  if(!art)return;
   heroArt.forEach(a=>{const active=a===art;a.classList.toggle('is-active',active);a.classList.remove('is-line','is-details','is-filled','is-leaving');a.querySelectorAll('.hero-fill').forEach(el=>{el.getAnimations().forEach(x=>x.cancel());el.style.opacity='';});a.setAttribute('aria-hidden',String(!active));});
   heroIndex=heroArt.indexOf(art);
   if(heroCaption)heroCaption.textContent=heroOrder[heroIndex][1];
   heroSchedule();
  }
  function heroDraw(art){
+  if(!art)return;
   prepareHeroArt(art);
   heroArt.forEach(a=>{const active=a===art;a.classList.toggle('is-active',active);a.classList.toggle('is-line',active&&!reduce.matches);a.classList.remove('is-details','is-filled','is-leaving');a.setAttribute('aria-hidden',String(!active));});
   heroIndex=heroArt.indexOf(art);
@@ -100,21 +103,37 @@
   },520);
  }
  function heroShow(slug){
-  if(heroAuto!==null){clearTimeout(heroAuto);heroAuto=null;}
   const art=heroArt.find(a=>a.dataset.heroArt===slug);
   if(!art)return;
+  // Keep the latest click during retraction; consume it before drawing again.
+  if(heroBusy){heroQueued=slug;return;}
+  if(heroAuto!==null){clearTimeout(heroAuto);heroAuto=null;}
   const current=heroArt[heroIndex];
-  if(art===current){if(!reduce.matches&&!art.classList.contains('is-line'))heroDraw(art);return;}
-  if(heroBusy)return;
   if(reduce.matches){heroSwap(art);return;}
   heroBusy=true;
   if(!current||!current.classList.contains('is-line')){heroDraw(art);heroBusy=false;return;}
-  heroRetract(current,()=>{heroDraw(art);heroBusy=false;});
+  heroRetract(current,()=>{
+   const next=heroArt.find(a=>a.dataset.heroArt===heroQueued)||art;
+   heroQueued=null;
+   heroDraw(next);
+   heroBusy=false;
+  });
  }
- heroArt.forEach(prepareHeroArt);
- heroDraw(heroArt[0]);
- reduce.addEventListener?.('change',()=>{if(reduce.matches){if(heroAuto!==null){clearTimeout(heroAuto);heroAuto=null;}heroSwap(heroArt[heroIndex]);}else heroSchedule();});
- document.addEventListener('visibilitychange',()=>{if(document.hidden){if(heroAuto!==null){clearTimeout(heroAuto);heroAuto=null;}}else heroSchedule();});
+ // This script is also shared by the journal and methods pages.
+ if(heroArt.length){
+  heroArt.forEach(prepareHeroArt);
+  heroDraw(heroArt[0]);
+  reduce.addEventListener?.('change',()=>{
+   if(reduce.matches){
+    // Invalidate delayed detail/fill callbacks as well as existing animations.
+    heroRun++;heroBusy=false;heroQueued=null;
+    if(heroAuto!==null){clearTimeout(heroAuto);heroAuto=null;}
+    heroSwap(heroArt[heroIndex]);
+   }else heroSchedule();
+  });
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){if(heroAuto!==null){clearTimeout(heroAuto);heroAuto=null;}}else heroSchedule();});
+ }
+
 
  let grind='medium';
  function updateLab(){
