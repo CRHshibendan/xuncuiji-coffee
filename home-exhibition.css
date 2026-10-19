@@ -28,8 +28,11 @@
 .gallery-orbit{position:absolute;left:12%;top:16%;width:76%;height:66%;border:1px solid #b2cba530;border-radius:50%;transform:rotateX(20deg) rotateZ(-24deg)}
 .gallery-orbit:after{content:'';position:absolute;inset:22px;border:1px solid #b2cba518;border-radius:50%}
 .gallery-objects{position:absolute;inset:25px 0 95px;perspective:1100px;transform-style:preserve-3d}
-.gallery-object{position:absolute;inset:0;opacity:0;transform:translate3d(110px,30px,-130px) rotateY(-28deg) rotateZ(6deg) scale(.7);transition:opacity .55s ease,transform .75s cubic-bezier(.22,.68,.16,1);pointer-events:none;transform-style:preserve-3d}
-.gallery-object.is-current{opacity:1;transform:translate3d(0,var(--object-y,0px),35px) rotateX(5deg) rotateY(var(--object-turn,-10deg)) rotateZ(var(--object-roll,-5deg)) scale(var(--object-scale,1.12))}
+.gallery-object{position:absolute;inset:0;opacity:0;visibility:hidden;transform:translate3d(110px,30px,-130px) rotateY(-28deg) rotateZ(6deg) scale(.7);transition:transform .75s cubic-bezier(.22,.68,.16,1);pointer-events:none;transform-style:preserve-3d}
+.gallery-object[hidden],.gallery-object:not(.is-current){display:none!important}
+.gallery-object.is-current{opacity:1;visibility:visible;animation:specimen-arrive .3s ease-out;transform:translate3d(0,var(--object-y,0px),35px) rotateX(5deg) rotateY(var(--object-turn,-10deg)) rotateZ(var(--object-roll,-5deg)) scale(var(--object-scale,1.12))}
+@keyframes specimen-arrive{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.gallery-object.is-current{animation:none}}
 .gallery-object img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(14px 20px 9px #061c2270);transform:translateZ(35px)}
 .gallery-object[data-object=espresso] img{padding:16px}.object-shadow{position:absolute;bottom:5%;left:23%;width:54%;height:9%;border-radius:50%;background:radial-gradient(ellipse,#071d1899,transparent 70%);transform:translateZ(-40px) rotateX(25deg)}
 .gallery-spec{position:absolute;bottom:80px;left:20px;right:20px;display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#c9d5c4;letter-spacing:.06em}.gallery-spec>span:last-child{font-size:8px;color:#a6bda7}

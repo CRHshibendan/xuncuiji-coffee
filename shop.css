@@ -494,3 +494,13 @@ body.kettle-dragging{cursor:grabbing;user-select:none}
 .guest.guest-bonked{animation:guest-bonk .22s ease-out}
 @keyframes guest-bonk{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-3px,-2px) rotate(-2deg)}65%{transform:translate(3px,1px) rotate(1.5deg)}}
 @media(max-width:800px){.coin{width:13px;height:13px;font-size:8px}.combo-badge{font-size:11px;padding:4px 9px}.combo-badge b{font-size:15px}}
+/* A small easy-mode cue and one recognisable, impatient guest. */
+.easy-kettle-tip{margin:0;padding:13px 18px 14px;background:#f9ecd6;border-top:1px solid #e7d1aa;color:#654a28;font-size:13px;line-height:1.8}
+.easy-kettle-tip[hidden]{display:none!important}.easy-kettle-tip>span{display:inline-block;margin-right:10px;padding:1px 7px;border-radius:5px;background:#e5c58f;color:#503a20;font-size:10px;font-weight:600;vertical-align:1px}.easy-kettle-tip small{display:block;margin-top:4px;font-size:11px;color:#745c3a;line-height:1.7}
+.welcome-kettle-tip{margin:0 0 17px;padding:10px 12px;border:1px solid #e7d1aa;border-radius:9px;font-size:12px;text-align:left}
+.guest-trouble .guest-speech{border-color:#bd6d4e;background:#fff1e4;color:#7c3e2b;white-space:normal;width:150px;min-width:0;font-size:13px;line-height:1.5;right:-16px;z-index:1}.guest-trouble .guest-speech small{color:#945b3f;margin-top:4px}
+.trouble-badge{position:absolute;right:-12px;bottom:1px;background:#a44831;border:1px solid #fff0d3;color:#fff7e8;border-radius:12px;padding:3px 7px;font-size:9px;line-height:1.3;white-space:nowrap;box-shadow:0 2px 4px #43201c22;pointer-events:none}
+.easy-shop .ticket-trouble{border-color:#cb9275;background:#fcf0e6}.easy-shop .ticket-trouble .ticket-title b{color:#8e402b}.easy-shop .ticket-trouble.is-active{border-color:#994b32;box-shadow:inset 3px 0 #a44831}
+@media(max-width:440px){.easy-kettle-tip{padding:11px 13px;font-size:12px}.easy-kettle-tip small{font-size:11px}.guest-trouble .guest-speech{width:115px;font-size:11px;right:-7px;padding:7px 9px}.guest-trouble .guest-speech small{font-size:9px}.trouble-badge{font-size:8px;right:-9px;padding:2px 5px}.welcome-kettle-tip{padding:10px 11px}}
+.trouble-badge{z-index:2;right:-3px}
+@media(max-width:440px){.session-hud>div{padding-right:10px}.session-hud>div:nth-child(3) strong{font-size:17px;white-space:nowrap}.session-hud .hud-button{flex-shrink:0}}

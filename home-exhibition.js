@@ -8,7 +8,13 @@
   const progress=clamp(.5+(line-(centres[index]||0))/Math.max(height,1),0,1);
   return {index,progress,scale:1.03+Math.sin(progress*Math.PI)*.18,turn:-17+progress*34,roll:-7+progress*10,y:18-progress*36};
  }
- if(typeof module==='object'&&module.exports)module.exports={focusFrame};
+ function showObject(objects,index){
+  // Remove outgoing glass layers before revealing the next object. Opacity alone
+  // leaves overlapping transparent artwork during a crossfade in a 3D context.
+  objects.forEach(el=>{el.hidden=true;el.classList.remove('is-current');});
+  if(objects[index]){objects[index].hidden=false;objects[index].classList.add('is-current');}
+ }
+ if(typeof module==='object'&&module.exports)module.exports={focusFrame,showObject};
  if(!root.document)return;
  const gallery=document.querySelector('.brewer-gallery');if(!gallery)return;
  const chapters=[...gallery.querySelectorAll('[data-brewer]')],objects=[...gallery.querySelectorAll('[data-object]')],selectors=[...gallery.querySelectorAll('[data-select]')];
@@ -22,7 +28,7 @@
    const frame=focusFrame(chapters.map(c=>{const r=c.getBoundingClientRect();return r.top+r.height/2;}),height*(phone.matches?.78:.52),height*.8);
    if(current!==frame.index){
     current=frame.index;
-    objects.forEach((el,i)=>el.classList.toggle('is-current',i===current));
+    showObject(objects,current);
     chapters.forEach((el,i)=>el.classList.toggle('is-current',i===current));
     selectors.forEach((el,i)=>{if(i===current)el.setAttribute('aria-current','true');else el.removeAttribute('aria-current');});
     document.getElementById('gallery-count').textContent=String(current+1).padStart(2,'0')+' / 04';

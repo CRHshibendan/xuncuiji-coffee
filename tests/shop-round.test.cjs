@@ -98,3 +98,23 @@ test('an expelled guest leaves a half-price comfort fee plus combo coins',()=>{
  assert.equal(res2.comp,Math.round(R.menuFor(o2).price*.5));
  assert.equal(r2.revenue,res2.comp);assert.equal(r2.compensation,res2.comp);
 });
+test('each round has one identifiable troublemaker, while ordinary guests stay ordinary',()=>{
+ for(const mode of ['relax','rush']){
+  const r=R.createRound(mode),seen=[];
+  while(r.queue.length){const o=r.queue[0];seen.push(o);R.resolve(r,o.id,'expelled');}
+  assert.equal(seen.filter(o=>o.trouble).length,1);
+  assert.equal(seen.find(o=>o.trouble).name,'阿刺');
+  assert.equal(seen[0].trouble,false);
+  assert.equal(r.status,'finished');
+ }
+});
+test('clearing the troublemaker preserves earned points and other cups, and cannot pay twice',()=>{
+ const r=R.createRound();serve(r);const trouble=r.queue.find(o=>o.trouble),normal=r.queue.find(o=>!o.trouble);
+ R.accept(r,trouble.id);R.accept(r,normal.id);advance(r,1);R.focus(r,normal.id);R.brew(r);
+ const points=r.points,money=r.revenue,slot=normal.slot;
+ const result=R.resolve(r,trouble.id,'expelled',4);
+ assert.equal(result.penalty,0);assert.equal(r.points,points);assert.equal(r.revenue,money+19);
+ assert.equal(R.summary(r).troubleCleared,1);assert.equal(normal.slot,slot);assert.equal(normal.phase,'brewing');
+ advance(r,4);assert.equal(normal.phase,'ready');assert.equal(R.resolve(r,trouble.id,'expelled',4),null);
+ R.resolve(r,normal.id,'expelled');assert.equal(r.points,points-20);
+});

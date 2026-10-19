@@ -12,9 +12,9 @@
   s=>`<path d="M15 30c0-11 8-17 17-17s17 6 17 17c-4-5-9-7-17-7s-13 2-17 7Z" fill="${s}"/>`,
   s=>`<path d="M13 46c0-18 7-27 19-27s19 9 19 27c-3-8-3-16-6-19-5 5-9 6-13 6s-8-1-13-6c-3 3-3 11-6 19Z" fill="${s}"/>`
  ];
- function avatarSVG(look){
-  const {skin,hair,shirt,style}=look;
-  return `<svg class="avatar" viewBox="0 0 64 76" aria-hidden="true"><path d="M6 76c1-16 12-24 26-24s25 8 26 24Z" fill="${shirt}"/><path d="M24 52h16v9a8 8 0 0 1-16 0Z" fill="${skin}"/><circle cx="32" cy="33" r="17" fill="${skin}"/>${HAIR[style](hair)}<circle cx="26" cy="35" r="1.6" fill="#463a30"/><circle cx="38" cy="35" r="1.6" fill="#463a30"/><path d="M29 42q3 2.5 6 0" stroke="#b4836a" fill="none" stroke-width="1.3" stroke-linecap="round"/><path d="M18 59c8 3 20 3 28 0" stroke="#ffffff44" stroke-width="2" fill="none"/></svg>`;
+ function avatarSVG(look,trouble=false){
+  const {skin,hair,style}=look,shirt=trouble?'#ad5138':look.shirt;
+  return `<svg class="avatar" viewBox="0 0 64 76" aria-hidden="true"><path d="M6 76c1-16 12-24 26-24s25 8 26 24Z" fill="${shirt}"/><path d="M24 52h16v9a8 8 0 0 1-16 0Z" fill="${skin}"/><circle cx="32" cy="33" r="17" fill="${skin}"/>${HAIR[style](hair)}<circle cx="26" cy="35" r="1.6" fill="#463a30"/><circle cx="38" cy="35" r="1.6" fill="#463a30"/>${trouble?'<path d="m22 30 7 3m6 0 7-3M28 44q4-3 8 0" stroke="#633a2b" stroke-width="1.8" fill="none" stroke-linecap="round"/>':'<path d="M29 42q3 2.5 6 0" stroke="#b4836a" fill="none" stroke-width="1.3" stroke-linecap="round"/>'}<path d="M18 59c8 3 20 3 28 0" stroke="#ffffff44" stroke-width="2" fill="none"/></svg>`;
  }
  const kettle='<svg viewBox="0 0 120 100" aria-hidden="true"><path d="M35 38Q13 27 12 48q0 21 21 18" fill="none" stroke="#586a51" stroke-width="7"/><path d="M32 38h47l11 40q-27 12-65 0Z" fill="#a5b596" stroke="#586a51" stroke-width="2"/><path d="M77 45q18-2 28-23l7 2q-7 34-27 41" fill="#a5b596" stroke="#586a51" stroke-width="2"/><ellipse cx="55" cy="36" rx="24" ry="6" fill="#dce4cd" stroke="#586a51" stroke-width="2"/><path d="M43 30q12-13 24 0" fill="none" stroke="#586a51" stroke-width="4"/><path d="M39 44l-4 30" stroke="#dce4cd" stroke-width="3"/></svg>';
  let game=null,mode='relax',armed=false,paused=false,last=0,lastPaint=0,raf=0,renderKey='',toastTimer=0,report=null,noteSaved=false;
@@ -25,7 +25,7 @@
  function setArmed(value){
   armed=value;document.body.classList.toggle('kettle-armed',armed);$('#bonk-button').setAttribute('aria-pressed',String(armed));
   const sceneKettle=$('#scene-kettle');if(sceneKettle){sceneKettle.setAttribute('aria-pressed',String(armed));sceneKettle.classList.toggle('is-armed',armed);}
-  $('#bonk-hint').textContent=armed?'点一位顾客挥壶！再点此处或 Esc 放下':'拿起壶，再点顾客 · 少赚一单，积分 −20';
+  $('#bonk-hint').textContent=armed?'点一位顾客挥壶！再点此处或 Esc 放下':'拿起壶，再点顾客 · 普通客人 −20，找事客人不扣分';
   if(armed)toast('手冲壶已拿起，点顾客或订单出击！');
  }
  function pick(id){
@@ -33,13 +33,20 @@
   if(armed){bonk(id);return;}
   const o=game.queue.find(x=>x.id===id);if(!o)return;
   if(o.phase!=='waiting'){R.focus(game,id);render(true);return;}
-  if(R.accept(game,id)){say(`${o.name}：想要一杯${R.menuFor(o).name}，${R.FLAVORS[o.flavor]}。豆子已经帮你称好，粉量、水量和水温都可以自己调。`);render(true);}
+  if(R.accept(game,id)){say(o.trouble?`阿刺拍着吧台：“${guestSpeech(o)}”`:`${o.name}：想要一杯${R.menuFor(o).name}，${R.FLAVORS[o.flavor]}。豆子已经帮你称好，粉量、水量和水温都可以自己调。`);render(true);}
+ }
+ function guestSpeech(guest){
+  if(guest.trouble)return {waiting:'先做我的，我不排队！',grinding:'磨这么久？快一点！',prepared:'别管别人，先做我的！',brewing:'怎么还没好？',ready:'哼，这杯还差不多。'}[guest.phase];
+  return guest.phase==='ready'?'闻到香味了！':R.menuFor(guest).name;
+ }
+ function updateModeHints(){
+  $$('[data-easy-kettle-tip]').forEach(el=>{el.hidden=mode!=='relax';});
  }
  function start(){
   $('#welcome-dialog').close();if($('#report-dialog').open)$('#report-dialog').close();
   game=R.createRound(mode);paused=false;document.body.classList.remove('game-paused');setArmed(false);report=null;noteSaved=false;renderKey='';
   $('#scene-fx').replaceChildren();$('#bonk-button').disabled=false;$('#scene-kettle').disabled=false;$('#pause-game').disabled=false;$('#pause-game').textContent='暂停 Ⅱ';
-  say('客人们来了。按住吧台左边的手冲壶，在客人身上来回扫：扫过一记连击、出金币，连到 4 下就把人打飞。');render(true);
+  updateModeHints();say('小店开门了。阿刺挤到窗边：“先做我的，我不排队！” 你也可以先招待其他客人。');render(true);
   cancelAnimationFrame(raf);last=performance.now();raf=requestAnimationFrame(loop);
  }
  function updateGuests(markup){
@@ -68,11 +75,11 @@
    $('#scene-status').textContent=game.status==='finished'?'今天打烊了':`营业中 · 已招待 ${game.served+game.expelled+game.lost} / ${game.total} 位`;
    $('#queue-count').textContent=`${game.queue.length} 位在店里`;
    $('#queue-note').textContent=game.mode==='rush'?'客人最多等 35 秒':'不用赶，客人会等你';
-   updateGuests(game.queue.map((g,i)=>`<button class="guest ${g.id===game.activeId?'is-active':''}" data-guest="${g.id}" data-position="${i}" style="left:${game.queue.length===1?76:64+i*13}%" aria-label="接待${g.name}，${R.menuFor(g).name}">${(g.id===game.activeId||(!active&&i===0))?`<div class="guest-speech">${g.id===game.activeId&&g.phase==='ready'?'闻到香味了！':R.menuFor(g).name}<small>${R.FLAVORS[g.flavor]}</small></div>`:''}<span class="guest-name">${g.name}</span>${avatarSVG(LOOKS[g.look])}</button>`).join(''));
-   $('#ticket-list').innerHTML=game.queue.map(g=>`<button class="ticket ${g.id===game.activeId?'is-active':''}" data-guest="${g.id}" aria-label="接待${g.name}的${R.menuFor(g).name}">${avatarSVG(LOOKS[g.look])}<span class="ticket-main"><span class="ticket-title"><b>${g.name} · ${R.menuFor(g).name}</b></span><span class="ticket-sub">${R.FLAVORS[g.flavor]} · ${g.phase==='waiting'?'点我接单':'正在制作'}<span data-wait="${g.id}"></span></span></span><span class="ticket-price">¥${R.menuFor(g).price}</span></button>`).join('')||'<p class="empty-hint">今天的客人都招待过啦。</p>';
+   updateGuests(game.queue.map((g,i)=>`<button class="guest ${g.trouble?'guest-trouble':''} ${g.id===game.activeId?'is-active':''}" data-guest="${g.id}" data-position="${i}" style="left:${game.queue.length===1?76:64+i*13}%" aria-label="接待${g.name}${g.trouble?'，找事的客人':''}，${R.menuFor(g).name}">${(g.id===game.activeId||(!active&&i===0))?`<div class="guest-speech">${guestSpeech(g)}<small>${g.trouble?'插队 · 催单':R.FLAVORS[g.flavor]}</small></div>`:''}<span class="guest-name">${g.name}</span>${g.trouble?'<span class="trouble-badge">找事中 !</span>':''}${avatarSVG(LOOKS[g.look],g.trouble)}</button>`).join(''));
+   $('#ticket-list').innerHTML=game.queue.map(g=>`<button class="ticket ${g.trouble?'ticket-trouble':''} ${g.id===game.activeId?'is-active':''}" data-guest="${g.id}" aria-label="接待${g.name}的${R.menuFor(g).name}">${avatarSVG(LOOKS[g.look],g.trouble)}<span class="ticket-main"><span class="ticket-title"><b>${g.name}${g.trouble?' · 找事的客人':' · '+R.menuFor(g).name}</b></span><span class="ticket-sub">${g.trouble?'插队催单 · ':''}${R.FLAVORS[g.flavor]} · ${g.phase==='waiting'?'点我接单':'正在制作'}<span data-wait="${g.id}"></span></span></span><span class="ticket-price">¥${R.menuFor(g).price}</span></button>`).join('')||'<p class="empty-hint">今天的客人都招待过啦。</p>';
    const taskLabels={waiting:'接单备粉',grinding:'备粉中…',prepared:'开始冲煮',brewing:'冲煮中…',ready:'递杯收钱'};
    $('#batch-board').innerHTML=Array.from({length:3},(_,i)=>{const g=game.queue.find(order=>order.slot===i);if(!g)return '<article class="cup-task empty-task"><span>台位空闲</span><small>下一杯，留一点期待。</small></article>';const d=R.menuFor(g),busy=['grinding','brewing'].includes(g.phase);return `<article class="cup-task ${g.id===game.activeId?'chosen':''} ${g.phase==='ready'?'ready':''}" data-cup="${g.id}" data-phase="${g.phase}"><button class="task-select" data-guest="${g.id}" aria-label="查看${g.name}的制作进度"><span>0${i+1} / ${g.name}</span><strong>${d.name}</strong><small data-cup-state="${g.id}">${taskLabels[g.phase]}</small></button><div class="task-art" data-drink="${g.drink}" aria-hidden="true"><img src="assets/${d.tool}.svg" alt=""><div class="task-cup"><span class="task-cup-steam"></span><div class="task-cup-fill"><i></i></div></div></div><div class="task-progress" role="progressbar" aria-label="${g.name}的制作进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-cup-progress="${g.id}"><i></i></div><button class="task-action" data-cup-action="${g.id}" ${busy||paused?'disabled':''}>${taskLabels[g.phase]}${busy?'':' →'}</button></article>`;}).join('');
-   $('#order-detail').innerHTML=o?`<div class="order-heading"><img src="assets/${d.tool}.svg" alt="${d.name}器具"><div><small>${o.name} 的这一杯</small><h2>${d.name}</h2><p>“${R.FLAVORS[o.flavor]}。”</p></div></div><div class="recipe-pills" role="group" aria-label="调整冲煮参数">${paramPill('dose',pv.dose,'g 粉','粉量',canTune)}${paramPill('water',pv.water,`g ${d.tool==='espresso'?'咖啡液':'水'}`,'水量',canTune)}${paramPill('temp',pv.temp,'°C','水温',canTune)}</div>${active&&['prepared','ready'].includes(active.phase)?flavorChips(o):''}`:'<div class="counter-empty"><h2>这一班，辛苦啦。</h2><p>好心情和咖啡香，都留在小店里。</p></div>';
+   $('#order-detail').innerHTML=o?`<div class="order-heading"><img src="assets/${d.tool}.svg" alt="${d.name}器具"><div><small>${o.name}${o.trouble?' · 找事的客人':' 的这一杯'}</small><h2>${d.name}</h2><p>“${R.FLAVORS[o.flavor]}。”</p></div></div><div class="recipe-pills" role="group" aria-label="调整冲煮参数">${paramPill('dose',pv.dose,'g 粉','粉量',canTune)}${paramPill('water',pv.water,`g ${d.tool==='espresso'?'咖啡液':'水'}`,'水量',canTune)}${paramPill('temp',pv.temp,'°C','水温',canTune)}</div>${active&&['prepared','ready'].includes(active.phase)?flavorChips(o):''}`:'<div class="counter-empty"><h2>这一班，辛苦啦。</h2><p>好心情和咖啡香，都留在小店里。</p></div>';
    const phase=active?active.phase:'waiting';
    const labels={waiting:'① 接单备粉 →',grinding:'称豆、研磨中…',prepared:`② 开始${d?d.action:'冲煮'} →`,brewing:'咖啡正在变香…',ready:`③ 递给${o?o.name:'客人'} · 收钱 →`};
    $('#main-action').textContent=labels[phase];$('#main-action').disabled=paused||!o||['grinding','brewing'].includes(phase);
@@ -100,7 +107,7 @@
   else if(active.phase==='ready'){
    const result=R.resolve(game,active.id,'served');if(!result)return;
    toast(`${result.order.choice===result.order.flavor?'正合口味！':'新口味，也收下啦。'} +¥${result.sale}`);
-   say(`${result.order.name}接过咖啡：谢谢店长！${game.served===1&&mode==='rush'?'第一杯完成，90 秒挑战开始。':''}`);
+   say(`${result.order.name}接过咖啡：${result.order.trouble?'哼……这杯还算不错。':'谢谢店长！'}${game.served===1&&mode==='rush'?'第一杯完成，90 秒挑战开始。':''}`);
   }
   render(true);if(game.status==='finished')finish();
  }
@@ -124,8 +131,8 @@
   setTimeout(()=>{const scene=$('#shop-scene');scene.classList.add('bonk-shake');if(navigator.vibrate)navigator.vibrate([10,24,18]);setTimeout(()=>scene.classList.remove('bonk-shake'),330);},400);
   setTimeout(()=>{guest.remove();swing.remove();burst.remove();},1600);
   const res=R.resolve(game,id,'expelled',coins),comp=res?.comp||0;setArmed(false);
-  say(`${order.name}捂着头，把一半咖啡钱拍在桌上就跑了。压惊费 ¥${comp} 已进账，积分 −20。`);
-  toast(`手冲壶出击！压惊费 ¥${comp}${coins>0?`（含金币 ×${coins}）`:''} · 积分 −20`);render(true);
+  say(order.trouble?`阿刺嘟囔着跑出了门，小店又安静了。压惊费 ¥${comp} 已进账，赶走找事客人不扣积分。`:`${order.name}捂着头，把一半咖啡钱拍在桌上就跑了。压惊费 ¥${comp} 已进账，积分 −20。`);
+  toast(`手冲壶出击！压惊费 ¥${comp}${coins>0?`（含金币 ×${coins}）`:''} · ${res?.penalty===0?'找事客人，不扣积分':'积分 −20'}`);render(true);
   if(game.status==='finished')finish();
   return res;
  }
@@ -195,8 +202,8 @@ function setKettleTarget(next){if(!kettleDrag||kettleDrag.target===next)return;i
   setKettleTarget(null);
   kettleCombo.targetId=null;kettleCombo.targetHits=0;kettleCombo.inside=false;
   const res=bonk(id,{x:r.left+r.width/2,y:r.top+r.height*.42},coins);
-  toast(`连击 ×${count} · 金币 ×${coins} · 压惊费 ¥${res?.comp||0} · 积分 −20`);
-  say(`${name} 被连击 ×${count} 打飞，金币撒了一地。压惊费 ¥${res?.comp||0} 已进账，积分 −20。`);
+  toast(`连击 ×${count} · 金币 ×${coins} · 压惊费 ¥${res?.comp||0} · ${res?.penalty===0?'不扣积分':'积分 −20'}`);
+  say(`${name} 被连击 ×${count} 打飞，金币撒了一地。压惊费 ¥${res?.comp||0} 已进账，${res?.penalty===0?'赶走找事客人不扣积分':'积分 −20'}。`);
  }
  function onKettleMove(e){
   if(!kettleDrag||e.pointerId!==kettleDrag.id)return;
@@ -223,7 +230,7 @@ function setKettleTarget(next){if(!kettleDrag||kettleDrag.target===next)return;i
      const nameNode=t.querySelector('.guest-name');const name=nameNode?nameNode.textContent.trim():'客人';
      const r=t.getBoundingClientRect();
      const res=bonk(combo.targetId,{x:r.left+r.width/2,y:r.top+r.height*.42},combo.coins);
-     if(combo.count>1){toast(`连击 ×${combo.count} · 金币 ×${combo.coins} · 压惊费 ¥${res?.comp||0} · 积分 −20`);say(`${name} 被连击 ×${combo.count} 请出了门。压惊费 ¥${res?.comp||0} 已进账，积分 −20。`);}
+     if(combo.count>1){toast(`连击 ×${combo.count} · 金币 ×${combo.coins} · 压惊费 ¥${res?.comp||0} · ${res?.penalty===0?'不扣积分':'积分 −20'}`);say(`${name} 被连击 ×${combo.count} 请出了门。压惊费 ¥${res?.comp||0} 已进账，${res?.penalty===0?'赶走找事客人不扣积分':'积分 −20'}。`);}
     }
     return;
    }
@@ -248,7 +255,7 @@ function setKettleTarget(next){if(!kettleDrag||kettleDrag.target===next)return;i
   records[mode]={best,last:report,date:new Date().toISOString()};let stored=true;try{localStorage.setItem(KEY,JSON.stringify(records));}catch{stored=false;}
   $('#report-title').textContent=report.title;$('#report-sub').textContent=`${mode==='rush'?'忙碌挑战':'轻松开店'} · 你的寻萃集小店，今天打烊啦。`;
   $('#report-stats').innerHTML=[['今日出杯',report.served+' 杯'],['小店收入','¥'+report.revenue],['今日积分',report.points+' 分']].map(([k,v])=>`<div class="report-cell"><span>${k}</span><b>${v}</b></div>`).join('');
-  $('#report-note').textContent=`正合口味 ${report.perfect} 杯 · 手冲壶赶客 ${report.expelled} 位${report.compensation?`（压惊费 ¥${report.compensation}）`:''} · 等候离开 ${report.lost} 位。${report.served?'玩过简化版，下一杯可以去工坊认真动手。':'挥壶很解压，下次也试着递出第一杯咖啡。'}`;
+  $('#report-note').textContent=`正合口味 ${report.perfect} 杯 · 手冲壶赶客 ${report.expelled} 位${report.troubleCleared?`，其中找事客人 ${report.troubleCleared} 位（不扣分）`:''}${report.compensation?`（压惊费 ¥${report.compensation}）`:''} · 等候离开 ${report.lost} 位。${report.served?'玩过简化版，下一杯可以去工坊认真动手。':'挥壶很解压，下次也试着递出第一杯咖啡。'}`;
   $('#best-note').textContent=`${stored?'本机同模式最佳':'本次最高'}：${best} 分${stored?' · 成绩保存在当前浏览器':' · 浏览器暂时无法保存成绩'}`;
   $('#save-note').textContent='收进咖啡手记 ＋';$('#save-note').disabled=false;feedback('');$('#practice-link').href=`workshop.html?tool=${report.tool}&mode=basic`;
   $('#scene-status').textContent='打烊了 · 下次见';say('今天的小店已打烊。把这一点咖啡香，留在手记里。');
@@ -293,7 +300,7 @@ function setKettleTarget(next){if(!kettleDrag||kettleDrag.target===next)return;i
  }
  $('#kettle-icon').innerHTML=kettle;
  $('#scene-kettle-icon').innerHTML=kettle;
- $$('.round-options button').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.mode;$$('.round-options button').forEach(v=>{v.classList.toggle('chosen',v===b);v.setAttribute('aria-pressed',String(v===b));});}));
+ $$('.round-options button').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.mode;updateModeHints();$$('.round-options button').forEach(v=>{v.classList.toggle('chosen',v===b);v.setAttribute('aria-pressed',String(v===b));});}));
  if(new URLSearchParams(location.search).get('mode')==='rush')$('[data-mode="rush"]').click();
  $('#start-day').addEventListener('click',start);$('#main-action').addEventListener('click',action);
  document.addEventListener('click',e=>{const step=e.target.closest('[data-param]');if(step){if(game&&!paused&&R.tune(game,step.dataset.param,Number(step.dataset.dir)))render(true);return;}const cup=e.target.closest('[data-cup-action]');if(cup){if(game&&!paused){R.focus(game,cup.dataset.cupAction);action();}return;}const g=e.target.closest('[data-guest]');if(g)pick(g.dataset.guest);});
@@ -316,5 +323,5 @@ function setKettleTarget(next){if(!kettleDrag||kettleDrag.target===next)return;i
  $('#welcome-dialog').addEventListener('cancel',e=>e.preventDefault());$('#report-dialog').addEventListener('cancel',e=>e.preventDefault());
  $('#play-again').addEventListener('click',()=>{$('#report-dialog').close();$('#welcome-dialog').showModal();});
  $('#share-result').addEventListener('click',shareCard);$('#copy-invite').addEventListener('click',copyInvite);$('#save-note').addEventListener('click',saveNote);
- $('#welcome-dialog').showModal();
+ updateModeHints();$('#welcome-dialog').showModal();
 })();

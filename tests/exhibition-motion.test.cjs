@@ -42,3 +42,13 @@ test('native transitions and reduced motion leave browser navigation untouched',
   assert.equal(b.timers.length,0);assert.equal(b.classes.has('coffee-page-leaving'),false);
  }
 });
+test('fast forward and reverse selection never leave two glass objects visible',()=>{
+ const {showObject}=require('../home-exhibition.js');
+ const objects=Array.from({length:4},()=>{const classes=new Set();return{hidden:false,classList:{add:n=>classes.add(n),remove:n=>classes.delete(n),contains:n=>classes.has(n)}};});
+ for(const index of [0,1,2,3,1,3,0,2,1,0]){
+  showObject(objects,index);
+  assert.equal(objects.filter(el=>!el.hidden).length,1);
+  assert.equal(objects.findIndex(el=>!el.hidden),index);
+  assert.equal(objects.filter(el=>el.classList.contains('is-current')).length,1);
+ }
+});

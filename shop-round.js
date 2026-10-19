@@ -18,7 +18,8 @@
   const i=r.spawned++,drink=MENU[[0,0,1,2,3,0,1,3][i%8]];
   const flavor=Object.keys(FLAVORS)[i%3];
   const slot=[0,1,2].find(n=>!r.queue.some(o=>o.slot===n));
-  const o={id:'guest-'+i,slot,name:NAMES[i%NAMES.length],look:i%6,drink:drink.id,flavor,dose:drink.dose,water:drink.water,temp:drink.temp,choice:null,phase:'waiting',progress:0,wait:0};o.choice=flavorFor(o);
+  const trouble=i===2;
+  const o={id:'guest-'+i,slot,name:trouble?'阿刺':NAMES[i%NAMES.length],trouble,look:i%6,drink:drink.id,flavor,dose:drink.dose,water:drink.water,temp:drink.temp,choice:null,phase:'waiting',progress:0,wait:0};o.choice=flavorFor(o);
   r.queue.push(o);return o;
  }
  const menuFor=o=>MENU.find(d=>d.id===o.drink);
@@ -59,13 +60,14 @@
  function resolve(r,id,kind,coins=0){
   if(r.status!=='playing'||!['served','expelled','lost'].includes(kind))return null;
   const o=r.queue.find(o=>o.id===id);if(!o||(kind==='served'&&o.phase!=='ready'))return null;
-  let sale=0,comp=0;
+  let sale=0,comp=0,penalty=0;
   if(kind==='served'){
    const perfect=o.choice===o.flavor;sale=menuFor(o).price+(perfect?4:0);
    r.served++;r.perfect+=Number(perfect);r.revenue+=sale;r.points+=perfect?100:70;
    r.cups.push({drink:o.drink,flavor:o.choice,perfect,dose:o.dose,water:o.water,temp:o.temp});
   }else if(kind==='expelled'){
-   r.expelled++;comp=Math.round(menuFor(o).price*.5)+Math.max(0,Math.floor(Number(coins)||0));r.revenue+=comp;r.compensation=(r.compensation||0)+comp;r.points=Math.max(0,r.points-20);
+   r.expelled++;comp=Math.round(menuFor(o).price*.5)+Math.max(0,Math.floor(Number(coins)||0));r.revenue+=comp;r.compensation=(r.compensation||0)+comp;penalty=o.trouble?0:20;r.points=Math.max(0,r.points-penalty);
+   if(o.trouble)r.troubleCleared=(r.troubleCleared||0)+1;
   }
   else{r.lost++;}
   r.queue=r.queue.filter(x=>x!==o);if(r.activeId===id)r.activeId=null;
@@ -73,7 +75,7 @@
   if(r.mode==='relax')while(r.queue.length<3&&r.spawned<r.total)spawn(r);
   if(r.mode==='rush'&&!r.queue.length&&r.spawned<r.total)spawn(r);
   if(r.spawned===r.total&&!r.queue.length)r.status='finished';
-  return{order:o,kind,sale,comp};
+  return{order:o,kind,sale,comp,penalty};
  }
  function tick(r,seconds){
   if(r.status!=='playing'||!Number.isFinite(seconds)||seconds<=0)return;
@@ -94,7 +96,7 @@
   }
  }
  function summary(r){
-  return{served:r.served,expelled:r.expelled,lost:r.lost,revenue:r.revenue,compensation:r.compensation||0,points:r.points,perfect:r.perfect,mode:r.mode,
+  return{served:r.served,expelled:r.expelled,lost:r.lost,revenue:r.revenue,compensation:r.compensation||0,troubleCleared:r.troubleCleared||0,points:r.points,perfect:r.perfect,mode:r.mode,
    title:r.served===r.total?'今日满杯店长':r.served>=3?'有点手艺的店长':r.expelled>=3?'手冲壶守门员':'随心开店的店长',
    tool:r.cups.length?menuFor({drink:r.cups[r.cups.length-1].drink}).tool:'melitta'};
  }
