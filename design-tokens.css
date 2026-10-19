@@ -1,0 +1,25 @@
+/* Xuncuiji design system v1. All homepage UI values are drawn from these tokens. */
+@font-face{font-family:'Noto Serif SC';src:url('assets/fonts/noto-serif-sc-500.woff2') format('woff2');font-weight:500 600;font-style:normal;font-display:swap}
+@font-face{font-family:'Noto Sans SC';src:url('assets/fonts/noto-sans-sc-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+:root{
+ --color-bg:#f6f3ec;
+ --color-text:#1f2a26;
+ --color-primary:#1f3d34;
+ --color-accent:#b8794a;
+ /* Approved card-surface exception; no additional palette colors. */
+ --color-surface:#fbf9f4;
+ --font-heading:'Noto Serif SC',serif;
+ --font-body:'Noto Sans SC',sans-serif;
+ --text-xs:12px;--text-sm:14px;--text-base:16px;--text-lg:20px;--text-xl:32px;--text-display:56px;
+ /* Approved, mobile hero only. */
+ --text-mobile-hero:40px;
+ --weight-body:400;--weight-heading:500;--weight-emphasis:600;
+ --leading-heading:1.35;--leading-body:1.75;--tracking-label:.16em;
+ --radius-small:8px;--radius-large:20px;
+ --space-8:8px;--space-16:16px;--space-24:24px;--space-48:48px;--space-96:96px;
+ --card-bg:var(--color-surface);--card-radius:var(--radius-large);--card-padding:var(--space-24);
+ --card-border:color-mix(in srgb,var(--color-text) 16%,transparent);
+ --control-height:48px;--control-padding-inline:var(--space-24);
+ --illustration-stroke:1.5px;--anchor-offset:var(--space-96);
+ --motion-duration:250ms;--motion-easing:ease-out;
+}

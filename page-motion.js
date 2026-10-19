@@ -19,7 +19,7 @@
   const link=event.target.closest?.('a[href]'),url=transitionTarget(event,link,location);if(!url)return;
   event.preventDefault();if(timer!==null)return;
   // Arm navigation before visual work so an animation failure cannot strand a link.
-  timer=setTimeout(()=>location.assign(url),170);html.classList.add('coffee-page-leaving');
+  timer=setTimeout(()=>location.assign(url),250);html.classList.add('coffee-page-leaving');
  });
  addEventListener('pageshow',()=>{clearTimeout(timer);timer=null;html.classList.remove('coffee-page-leaving');});
 })(typeof window==='undefined'?globalThis:window);

@@ -22,12 +22,16 @@ test('equipment idle rendering is skipped while inventory changes and timed pour
  ctx.clock=800;ctx.u.visualGrounds=0;ctx.art();assert.equal(ctx.stocks.at(-1),0);
  const final=ctx.renders;ctx.art();assert.equal(ctx.renders,final);
 });
-test('the homepage needs no external font stylesheet and has a compact responsive hero',()=>{
- const css=fs.readFileSync(path.join(dist,'style.css'),'utf8'),html=fs.readFileSync(path.join(dist,'index.html'),'utf8');
- assert.doesNotMatch(css,/@import.*fonts\.googleapis/);
- assert.match(html,/srcset="assets\/hero-coffee-640.webp 640w, assets\/hero-coffee-1280.webp 1280w"/);
- assert.ok(fs.statSync(path.join(dist,'assets/hero-coffee-640.webp')).size<50000);
- assert.ok(fs.statSync(path.join(dist,'assets/hero-coffee-1280.webp')).size<120000);
+test('the homepage keeps art compact and fonts self-hosted without external requests',()=>{
+ const css=fs.readFileSync(path.join(dist,'design-tokens.css'),'utf8'),html=fs.readFileSync(path.join(dist,'index.html'),'utf8');
+ assert.doesNotMatch(css+html,/https?:\/\/[^\s"']*(?:fonts|googleapis)/);
+ assert.doesNotMatch(html,/hero-coffee|\.png|linearGradient|radialGradient/);
+ const assets=[...html.matchAll(/src="(assets\/[^"?]+)"/g)].map(m=>m[1]);
+ assert.ok(assets.length>0);
+ for(const asset of assets)assert.ok(fs.statSync(path.join(dist,asset)).size<10000);
+ const fonts=[...css.matchAll(/url\('([^']+\.woff2)'\)/g)].map(m=>m[1]);
+ assert.equal(fonts.length,2);
+ assert.ok(fonts.reduce((sum,f)=>sum+fs.statSync(path.join(dist,f)).size,0)<200000);
 });
 test('serialized SVG markup does not recreate stable children and external edits are repaired',()=>{
  let value='',writes=0;

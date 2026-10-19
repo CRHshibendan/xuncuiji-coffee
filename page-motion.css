@@ -1,10 +1,10 @@
-/* Native cross-document transitions, with a short fallback for other browsers. */
+/* Shared page transitions follow the homepage motion system. */
 @view-transition{navigation:auto}
-::view-transition-old(root){animation:coffee-page-out .23s cubic-bezier(.4,0,1,1) both}
-::view-transition-new(root){animation:coffee-page-in .42s cubic-bezier(.16,.8,.25,1) both}
-@keyframes coffee-page-out{to{opacity:0;transform:translateY(-12px) scale(.995)}}
-@keyframes coffee-page-in{from{opacity:0;transform:translateY(20px) scale(1.008)}to{opacity:1;transform:none}}
-html.coffee-motion-fallback main{animation:coffee-page-in .42s cubic-bezier(.16,.8,.25,1) both}
-html.coffee-page-leaving main{animation:coffee-page-out .17s ease both;pointer-events:none}
+::view-transition-old(root){animation:coffee-page-out var(--motion-duration,250ms) var(--motion-easing,ease-out) both}
+::view-transition-new(root){animation:coffee-page-in var(--motion-duration,250ms) var(--motion-easing,ease-out) both}
+@keyframes coffee-page-out{to{opacity:0;transform:translateY(-8px)}}
+@keyframes coffee-page-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+html.coffee-motion-fallback main{animation:coffee-page-in var(--motion-duration,250ms) var(--motion-easing,ease-out) both}
+html.coffee-page-leaving main{animation:coffee-page-out var(--motion-duration,250ms) var(--motion-easing,ease-out) both;pointer-events:none}
 html.coffee-page-leaving{cursor:progress}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}@view-transition{navigation:none}::view-transition-old(root),::view-transition-new(root),html.coffee-motion-fallback main,html.coffee-page-leaving main{animation:none!important}}

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f6f3ec">
+<meta name="description" content="记下喜欢的风味，留给下一杯。">
+<title>咖啡手记 — 寻萃集</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/noto-serif-sc-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/noto-sans-sc-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="design-tokens.css?v=1">
+<link rel="stylesheet" href="home.css?v=1">
+<script src="home.js?v=1" defer>
+</script>
+</head>
+<body>
+<header class="site-header">
+<div class="header-inner">
+<a class="brand" href="index.html" aria-label="寻萃集首页">
+<svg viewBox="0 0 32 40" aria-hidden="true">
+<ellipse cx="16" cy="20" rx="10" ry="16" transform="rotate(30 16 20)"/>
+<path d="M23 7C10 12 22 28 9 33"/>
+</svg>
+<span>寻萃集</span>
+</a>
+<button class="menu-toggle" type="button" aria-controls="site-navigation" aria-expanded="false">菜单 <svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M4 8h16M4 16h16"/>
+</svg>
+</button>
+<nav id="site-navigation" aria-label="主导航">
+<a href="index.html#brewer-gallery">器具巡游</a>
+<a href="learn.html">冲煮课堂</a>
+<a href="index.html#lab">参数实验室</a>
+<a href="workshop.html?tool=melitta&amp;mode=basic">冲煮工坊</a>
+<a href="shop.html">一日店长</a>
+<a href="journal.html">咖啡手记</a>
+<a href="explore.html">更多冲法</a>
+</nav>
+</div>
+</header>
+<main class="page-width">
+<section class="journal-wrap standalone-section" id="journal">
+<div class="section page-width">
+<div class="section-top">
+<div>
+<div class="eyebrow">YOUR BREW JOURNAL / 咖啡手记</div>
+<h2>记住的，是你喜欢的味道。</h2>
+</div>
+<button class="button primary" id="add-note">
+<svg>
+<use href="#i-plus"/>
+</svg> 记下这一杯</button>
+</div>
+<div id="journal-list" class="journal-list">
+</div>
+<div class="journal-footer">
+<svg>
+<use href="#i-book"/>
+</svg>
+<span>每一杯都有自己的答案。手记仅保存在当前浏览器。</span>
+<button id="export-notes">导出手记 ↗</button>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer page-width">
+<div class="footer-entries">
+<a class="card entry-card" href="workshop.html?tool=melitta&amp;mode=basic">
+<span class="label">WORKSHOP</span>
+<h3>冲煮工坊</h3>
+<p>亲手冲一杯。</p>
+<span class="entry-action">进入工坊 <span aria-hidden="true">→</span>
+</span>
+</a>
+<a class="card entry-card" href="shop.html">
+<span class="label">COFFEE SHOP</span>
+<h3>一日店长</h3>
+<p>开间小店吧。</p>
+<span class="entry-action">开始营业 <span aria-hidden="true">→</span>
+</span>
+</a>
+</div>
+<nav class="footer-links" aria-label="更多探索">
+<a href="workshop.html?tool=melitta&amp;mode=basic">冲煮工坊</a>
+<a href="shop.html">一日店长</a>
+<a href="journal.html">咖啡手记</a>
+<a href="explore.html">更多冲法</a>
+</nav>
+<div class="footer-meta">
+<a class="footer-wordmark" href="index.html">寻萃集</a>
+<p>从第一杯开始，找到自己的节奏。</p>
+<span class="label">© 2026 XUNCUIJI</span>
+</div>
+</footer>
+<dialog id="note-dialog">
+<button class="close-dialog" aria-label="关闭">×</button>
+<div class="eyebrow">ONE CUP, ONE MEMORY</div>
+<h2>今天这杯，是什么味道？</h2>
+<form id="note-form">
+<label>咖啡豆 / 给这杯取个名字<input name="name" placeholder="例如：周末的第一杯" maxlength="60" required>
+</label>
+<div class="form-grid">
+<label>咖啡粉（g）<input name="dose" type="number" min="1" max="100" step="0.1" required value="15">
+</label>
+<label>注水量（g）<input name="water" type="number" min="1" max="2000" required value="225">
+</label>
+<label>水温（°C）<input name="temp" type="number" min="1" max="100" required value="92">
+</label>
+</div>
+<fieldset>
+<legend>喝起来的感受</legend>
+<div class="taste-options">
+<label>
+<input type="radio" name="taste" value="清甜平衡" checked>
+<span>清甜平衡</span>
+</label>
+<label>
+<input type="radio" name="taste" value="偏酸">
+<span>有点酸</span>
+</label>
+<label>
+<input type="radio" name="taste" value="偏苦">
+<span>有点苦</span>
+</label>
+<label>
+<input type="radio" name="taste" value="偏淡">
+<span>有点淡</span>
+</label>
+</div>
+</fieldset>
+<p id="taste-advice" class="taste-advice">喜欢这杯？保留配方，下次试着复现它。</p>
+<label>留给下一杯的话<textarea name="memo" rows="3" placeholder="闻到了什么？下次想做什么调整？" maxlength="500">
+</textarea>
+</label>
+<button class="button primary" type="submit">保存这一杯 <svg>
+<use href="#i-check"/>
+</svg>
+</button>
+</form>
+</dialog>
+<div id="toast" class="toast" role="status" aria-live="polite">
+</div>
+<svg class="icon-library" aria-hidden="true">
+<defs>
+<symbol id="i-check" viewBox="0 0 24 24">
+<path d="m5 12 4 4L19 6"/>
+</symbol>
+<symbol id="i-book" viewBox="0 0 24 24">
+<path d="M12 5C8 2 3 3 3 3v16s5-1 9 2c4-3 9-2 9-2V3s-5-1-9 2Zm0 0v16"/>
+</symbol>
+<symbol id="i-plus" viewBox="0 0 24 24">
+<path d="M12 5v14M5 12h14"/>
+</symbol>
+</defs>
+</svg>
+<script src="journal.js?v=1">
+</script>
+</body>
+</html>
