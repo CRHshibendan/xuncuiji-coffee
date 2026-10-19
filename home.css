@@ -83,3 +83,8 @@ dialog{max-width:min(640px,calc(100% - var(--space-48)));max-height:calc(100svh 
 :is(.hero-art,.brewer-display) svg.is-leaving.is-click-exit .hero-main-line{animation-duration:.4s}
 :is(.hero-art,.brewer-display) svg.is-leaving.is-click-exit .hero-detail,:is(.hero-art,.brewer-display) svg.is-leaving.is-click-exit .hero-caramel-line{animation-duration:.112s}
 :is(.hero-art,.brewer-display) svg.is-leaving.is-click-exit .hero-caramel{animation-duration:.096s}
+
+/* non-scaling-stroke also fixes dash lengths in screen space: pathLength=1
+   then leaves a gap when the SVG grows. Let dashes scale, compensate ink only. */
+:is(.hero-art,.brewer-display) svg > :is(path,ellipse,circle){vector-effect:none;stroke-width:calc(1.5px / var(--art-scale,1))}
+:is(.hero-art,.brewer-display) svg > .hero-caramel-line{stroke-width:calc(1.2px / var(--art-scale,1))}

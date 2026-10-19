@@ -1,7 +1,8 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync(require.resolve('../home.js'),'utf8');
 class Element{
- constructor(tag='div',attributes={}){this.tagName=tag;this.attrs={...attributes};this.dataset={};this.children=[];this.events={};this.hidden=false;this.textContent='';this.style={opacity:''};this.animations=[];this.offsetWidth=240;const names=new Set((attributes.class||'').split(' ').filter(Boolean));this.classList={add:(...v)=>v.forEach(x=>names.add(x)),remove:(...v)=>v.forEach(x=>names.delete(x)),contains:x=>names.has(x),toggle:(x,yes)=>{if(yes??!names.has(x)){names.add(x);return true;}names.delete(x);return false;}};this.names=names;}
+ constructor(tag='div',attributes={}){this.tagName=tag;this.attrs={...attributes};this.dataset={};this.children=[];this.events={};this.hidden=false;this.textContent='';this.style={opacity:'',setProperty(n,v){this[n]=v;}};this.animations=[];this.offsetWidth=240;const names=new Set((attributes.class||'').split(' ').filter(Boolean));this.classList={add:(...v)=>v.forEach(x=>names.add(x)),remove:(...v)=>v.forEach(x=>names.delete(x)),contains:x=>names.has(x),toggle:(x,yes)=>{if(yes??!names.has(x)){names.add(x);return true;}names.delete(x);return false;}};this.names=names;}
+ getBoundingClientRect(){return{width:480};}
  getAttribute(n){return n==='class'?[...this.names].join(' '):(this.attrs[n]??null);}
  setAttribute(n,v){this.attrs[n]=String(v);}
  cloneNode(){return new Element(this.tagName,{...this.attrs,class:[...this.names].join(' ')});}

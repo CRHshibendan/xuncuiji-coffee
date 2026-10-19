@@ -17,6 +17,13 @@
  const heroLabels={chemex:'CHEMEX / 玻璃滤壶',melitta:'MELITTA / 陶瓷滤杯',espresso:'ESPRESSO / 意式浓缩',siphon:'SIPHON / 虹吸壶'};
  // Wait for the dedicated closing stroke before revealing the detail lines.
  const HERO_DRAW_MS=2200,HERO_RETRACT_MS=1000;
+ // Normalized dashes must scale with SVG geometry. Compensate stroke width
+ // separately so a larger exhibition still has the same 1.5px ink weight.
+ function sizeArtStroke(art){
+  const width=art.getBoundingClientRect().width;
+  const viewWidth=Number((art.getAttribute('viewBox')||'0 0 400 400').split(/\s+/)[2]);
+  art.style.setProperty('--art-scale',String(width>0?width/viewWidth:1));
+ }
  function prepareHeroArt(art){
   if(!art)return;
   if(art.dataset.heroPrepared==='1')return;
@@ -115,7 +122,11 @@
     busy=false;
    },manual);
   }
-  arts.forEach(prepareHeroArt);
+  arts.forEach(art=>{prepareHeroArt(art);sizeArtStroke(art);});
+  if(typeof ResizeObserver!=='undefined'){
+   const resize=new ResizeObserver(()=>arts.forEach(sizeArtStroke));
+   resize.observe(arts[0].parentElement);
+  }
   draw(arts[index]);
   reduce.addEventListener?.('change',()=>{
    if(reduce.matches){
