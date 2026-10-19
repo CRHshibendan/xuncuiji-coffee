@@ -1,6 +1,14 @@
 const test=require('node:test'),assert=require('node:assert/strict'),R=require('../shop-round.js');
 const advance=(r,seconds)=>{for(let t=0;t<seconds;t+=.05)R.tick(r,.05);};
-const serve=r=>{const o=r.queue[0];assert.ok(R.accept(r,o.id));advance(r,1);assert.equal(o.phase,'prepared');assert.ok(R.brew(r));advance(r,4);assert.equal(o.phase,'ready');return R.resolve(r,o.id,'served');};
+const align=(r,o)=>{
+ for(let i=0;i<20&&o.choice!==o.flavor;i++){
+  if(o.flavor==='light')R.tune(r,'water',1);
+  else if(o.flavor==='rich')R.tune(r,'water',-1);
+  else break;
+ }
+ assert.equal(o.choice,o.flavor);
+};
+const serve=r=>{const o=r.queue[0];assert.ok(R.accept(r,o.id));advance(r,1);assert.equal(o.phase,'prepared');align(r,o);assert.ok(R.brew(r));advance(r,4);assert.equal(o.phase,'ready');return R.resolve(r,o.id,'served');};
 
 test('the first customer never times out in either mode',()=>{
  for(const mode of ['relax','rush']){const r=R.createRound(mode);advance(r,120);assert.equal(r.elapsed,0);assert.equal(r.queue.length,3);assert.equal(r.lost,0);assert.equal(r.spawned,3);}
@@ -13,12 +21,12 @@ test('a relaxed round resolves five guests and finishes with an achievable perfe
 test('grinding, brewing and serving are gated, duplicate clicks cannot award money',()=>{
  const r=R.createRound(),id=r.queue[0].id;
  assert.equal(R.resolve(r,id,'served'),null);assert.equal(R.brew(r),false);assert.ok(R.accept(r,id));assert.equal(R.accept(r,id),false);assert.equal(R.brew(r),false);
- advance(r,1);assert.ok(R.brew(r));assert.equal(R.brew(r),false);assert.equal(R.resolve(r,id,'served'),null);advance(r,4);assert.ok(R.resolve(r,id,'served'));assert.equal(R.resolve(r,id,'served'),null);assert.equal(r.points,100);
+ advance(r,1);align(r,r.queue[0]);assert.ok(R.brew(r));assert.equal(R.brew(r),false);assert.equal(R.resolve(r,id,'served'),null);advance(r,4);assert.ok(R.resolve(r,id,'served'));assert.equal(R.resolve(r,id,'served'),null);assert.equal(r.points,100);
 });
-test('expelling an active brewing guest clears the station without money or a ghost cup',()=>{
+test('expelling an active brewing guest clears the station, pays a comfort fee and leaves no ghost cup',()=>{
  const r=R.createRound();serve(r);const id=r.queue[0].id;
- R.accept(r,id);advance(r,1);R.brew(r);advance(r,1);const money=r.revenue;assert.ok(R.resolve(r,id,'expelled'));
- assert.equal(r.activeId,null);assert.equal(r.revenue,money);assert.equal(r.points,80);advance(r,5);assert.equal(r.served,1);assert.equal(r.queue[0].phase,'waiting');assert.equal(R.resolve(r,id,'expelled'),null);
+ R.accept(r,id);advance(r,1);R.brew(r);advance(r,1);const money=r.revenue,price=R.menuFor(r.queue.find(o=>o.id===id)).price;assert.ok(R.resolve(r,id,'expelled'));
+ assert.equal(r.activeId,null);assert.equal(r.revenue,money+Math.round(price*.5));assert.equal(r.points,80);advance(r,5);assert.equal(r.served,1);assert.equal(r.queue[0].phase,'waiting');assert.equal(R.resolve(r,id,'expelled'),null);
 });
 test('expelling all guests still ends the round and score never goes negative',()=>{
  const r=R.createRound();for(let i=0;i<5;i++)R.resolve(r,r.queue[0].id,'expelled');assert.equal(r.status,'finished');assert.equal(r.points,0);assert.equal(r.served,0);assert.equal(r.expelled,5);
@@ -29,6 +37,19 @@ test('rush clocks start after the tutorial, queues cap at three and deadline end
 test('relaxed guests wait indefinitely and recipes open gradually',()=>{
  const r=R.createRound();serve(r);advance(r,120);assert.equal(r.lost,0);assert.equal(r.queue[0].drink,'melitta');serve(r);assert.equal(r.queue[0].drink,'frenchpress');
 });
+test('player-tuned parameters decide the flavor result and respect limits',()=>{
+ const r=R.createRound(),o=r.queue[0];
+ assert.equal(R.flavorFor(o),'balanced');
+ assert.equal(R.tune(r,'water',1),null);
+ assert.ok(R.accept(r,o.id));advance(r,1);
+ assert.equal(R.tune(r,'nope',1),null);
+ R.tune(r,'water',1);R.tune(r,'water',1);R.tune(r,'water',1);
+ assert.equal(o.water,240);assert.equal(R.flavorFor(o),'light');assert.equal(o.choice,'light');
+ for(let i=0;i<30;i++)R.tune(r,'water',-1);
+ assert.equal(o.water,165);assert.equal(R.flavorFor(o),'rich');
+ assert.equal(R.tune(r,'temp',99).value,98);
+ assert.ok(R.brew(r));assert.equal(R.tune(r,'water',1),null);
+});
 test('a different flavor remains a valid sale but earns fewer points',()=>{
  const r=R.createRound(),id=r.queue[0].id;R.accept(r,id);advance(r,1);assert.equal(R.choose(r,'rich'),true);assert.equal(R.choose(r,'invalid'),false);R.brew(r);assert.equal(R.choose(r,'light'),false);advance(r,4);R.resolve(r,id,'served');assert.equal(r.points,70);assert.equal(r.perfect,0);assert.equal(r.revenue,30);
 });
@@ -36,7 +57,7 @@ test('three cups progress independently while focus changes',()=>{
  const r=R.createRound(),ids=r.queue.map(o=>o.id);
  for(const id of ids)assert.ok(R.accept(r,id));advance(r,1);
  for(const o of r.queue)assert.equal(o.phase,'prepared');
- for(const id of ids){assert.ok(R.focus(r,id));assert.ok(R.brew(r));}
+ for(const id of ids){assert.ok(R.focus(r,id));align(r,r.queue.find(o=>o.id===id));assert.ok(R.brew(r));}
  advance(r,2);for(const o of r.queue){assert.equal(o.phase,'brewing');assert.ok(o.progress>.5);}
  R.focus(r,ids[0]);advance(r,2);for(const o of r.queue)assert.equal(o.phase,'ready');
  for(const id of ids)assert.ok(R.resolve(r,id,'served'));
@@ -64,4 +85,16 @@ test('a vacated station remains empty until a new guest uses it in rush mode',()
  const r=R.createRound('rush'),middle=r.queue[1];R.resolve(r,middle.id,'expelled');
  assert.deepEqual(r.queue.map(o=>o.slot),[0,2]);advance(r,11);
  assert.equal(new Set(r.queue.map(o=>o.slot)).size,3);assert.ok(r.queue.some(o=>o.slot===1));
+});
+test('an expelled guest leaves a half-price comfort fee plus combo coins',()=>{
+ const r=R.createRound('relax'),o=r.queue[0],price=R.menuFor(o).price;
+ const res=R.resolve(r,o.id,'expelled',6);
+ assert.equal(res.comp,Math.round(price*.5)+6);
+ assert.equal(r.expelled,1);assert.equal(r.served,0);
+ assert.equal(r.revenue,res.comp);assert.equal(r.compensation,res.comp);
+ assert.equal(r.points,0);assert.equal(R.summary(r).compensation,res.comp);
+ const r2=R.createRound(),o2=r2.queue[1];
+ const res2=R.resolve(r2,o2.id,'expelled',0);
+ assert.equal(res2.comp,Math.round(R.menuFor(o2).price*.5));
+ assert.equal(r2.revenue,res2.comp);assert.equal(r2.compensation,res2.comp);
 });

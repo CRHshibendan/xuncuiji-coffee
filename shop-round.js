@@ -18,10 +18,29 @@
   const i=r.spawned++,drink=MENU[[0,0,1,2,3,0,1,3][i%8]];
   const flavor=Object.keys(FLAVORS)[i%3];
   const slot=[0,1,2].find(n=>!r.queue.some(o=>o.slot===n));
-  const o={id:'guest-'+i,slot,name:NAMES[i%NAMES.length],look:i%6,drink:drink.id,flavor,choice:flavor,phase:'waiting',progress:0,wait:0};
+  const o={id:'guest-'+i,slot,name:NAMES[i%NAMES.length],look:i%6,drink:drink.id,flavor,dose:drink.dose,water:drink.water,temp:drink.temp,choice:null,phase:'waiting',progress:0,wait:0};o.choice=flavorFor(o);
   r.queue.push(o);return o;
  }
  const menuFor=o=>MENU.find(d=>d.id===o.drink);
+ const PARAM_STEP={dose:1,water:5,temp:1};
+ const PARAM_LIMIT={dose:4,water:60,temp:6};
+ const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
+ // 1.0 = the drink's own recipe; water/dose up or temp down tastes lighter.
+ function flavorFor(o){
+  const m=menuFor(o),dose=o.dose??m.dose,water=o.water??m.water,temp=o.temp??m.temp;
+  const strength=(m.water/m.dose)/(water/dose)*(temp/m.temp);
+  return strength<.94?'light':strength>1.06?'rich':'balanced';
+ }
+ function paramsFor(o){const m=menuFor(o);return{dose:o.dose??m.dose,water:o.water??m.water,temp:o.temp??m.temp};}
+ function tune(r,param,dir){
+  const o=active(r);
+  if(!o||o.phase!=='prepared'||!Object.prototype.hasOwnProperty.call(PARAM_STEP,param))return null;
+  const m=menuFor(o),base=paramsFor(o)[param],limit=PARAM_LIMIT[param];
+  const min=param==='water'?Math.max(10,m.water-limit):m[param]-limit,max=m[param]+limit;
+  o[param]=clamp(Math.round(base+(Number(dir)||0)*PARAM_STEP[param]),min,max);
+  o.choice=flavorFor(o);
+  return{param,value:o[param],flavor:o.choice};
+ }
  const active=r=>r.queue.find(o=>o.id===r.activeId);
  function focus(r,id){if(r.status!=='playing'||!r.queue.some(o=>o.id===id))return false;r.activeId=id;return true;}
  function accept(r,id){
@@ -37,22 +56,24 @@
   const o=active(r);if(!o||o.phase!=='prepared'||!FLAVORS[flavor])return false;
   o.choice=flavor;return true;
  }
- function resolve(r,id,kind){
+ function resolve(r,id,kind,coins=0){
   if(r.status!=='playing'||!['served','expelled','lost'].includes(kind))return null;
   const o=r.queue.find(o=>o.id===id);if(!o||(kind==='served'&&o.phase!=='ready'))return null;
-  let sale=0;
+  let sale=0,comp=0;
   if(kind==='served'){
    const perfect=o.choice===o.flavor;sale=menuFor(o).price+(perfect?4:0);
    r.served++;r.perfect+=Number(perfect);r.revenue+=sale;r.points+=perfect?100:70;
-   r.cups.push({drink:o.drink,flavor:o.choice,perfect});
-  }else if(kind==='expelled'){r.expelled++;r.points=Math.max(0,r.points-20);}
+   r.cups.push({drink:o.drink,flavor:o.choice,perfect,dose:o.dose,water:o.water,temp:o.temp});
+  }else if(kind==='expelled'){
+   r.expelled++;comp=Math.round(menuFor(o).price*.5)+Math.max(0,Math.floor(Number(coins)||0));r.revenue+=comp;r.compensation=(r.compensation||0)+comp;r.points=Math.max(0,r.points-20);
+  }
   else{r.lost++;}
   r.queue=r.queue.filter(x=>x!==o);if(r.activeId===id)r.activeId=null;
   r.clockStarted=true;
   if(r.mode==='relax')while(r.queue.length<3&&r.spawned<r.total)spawn(r);
   if(r.mode==='rush'&&!r.queue.length&&r.spawned<r.total)spawn(r);
   if(r.spawned===r.total&&!r.queue.length)r.status='finished';
-  return{order:o,kind,sale};
+  return{order:o,kind,sale,comp};
  }
  function tick(r,seconds){
   if(r.status!=='playing'||!Number.isFinite(seconds)||seconds<=0)return;
@@ -73,10 +94,10 @@
   }
  }
  function summary(r){
-  return{served:r.served,expelled:r.expelled,lost:r.lost,revenue:r.revenue,points:r.points,perfect:r.perfect,mode:r.mode,
+  return{served:r.served,expelled:r.expelled,lost:r.lost,revenue:r.revenue,compensation:r.compensation||0,points:r.points,perfect:r.perfect,mode:r.mode,
    title:r.served===r.total?'今日满杯店长':r.served>=3?'有点手艺的店长':r.expelled>=3?'手冲壶守门员':'随心开店的店长',
    tool:r.cups.length?menuFor({drink:r.cups[r.cups.length-1].drink}).tool:'melitta'};
  }
- const api={FLAVORS,MENU,createRound,menuFor,active,focus,accept,brew,choose,resolve,tick,summary};
+ const api={FLAVORS,MENU,createRound,menuFor,paramsFor,flavorFor,tune,active,focus,accept,brew,choose,resolve,tick,summary};
  root.CoffeeRound=api;if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);
