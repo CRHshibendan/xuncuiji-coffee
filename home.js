@@ -29,7 +29,8 @@
   ['espresso','ESPRESSO / 意式浓缩'],
   ['siphon','SIPHON / 虹吸壶']
  ];
- const HERO_DRAW_MS=2000,HERO_RETRACT_MS=1000;
+ // Wait for the dedicated closing stroke before revealing the detail lines.
+ const HERO_DRAW_MS=2600,HERO_RETRACT_MS=1000;
  let heroIndex=0,heroBusy=false,heroRun=0,heroAuto=null,heroQueued=null;
  const HERO_AUTO_MS=6500;
  function heroSchedule(){if(heroAuto!==null){clearTimeout(heroAuto);heroAuto=null;}if(reduce.matches||document.hidden||!heroArt.length)return;heroAuto=setTimeout(()=>{heroAuto=null;const next=(heroIndex+1)%heroArt.length;heroShow(heroArt[next].dataset.heroArt);},HERO_AUTO_MS);}

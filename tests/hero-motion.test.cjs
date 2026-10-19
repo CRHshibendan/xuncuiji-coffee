@@ -39,9 +39,9 @@ function browser({page='index.html',reduced=false}={}){
 test('shared script initializes pages without a hero and still reaches navigation setup',()=>{
  for(const page of ['journal.html','explore.html']){const b=browser({page});assert.equal(b.timers.size,0);assert.ok(b.html.classList.contains('home-motion-fallback'));}
 });
-test('hero keeps independent contours, 2s outline, later details and fill timing',()=>{
+test('hero keeps independent contours, closing stroke before details and fill timing',()=>{
  const b=browser();assert.equal(b.active(),'chemex');for(const a of b.arts){const expected=['melitta','siphon'].includes(a.dataset.heroArt)?2:1;assert.equal(a.querySelectorAll('.hero-main-line').length,expected);assert.ok(a.querySelectorAll('.hero-main-line').every(l=>l.getAttribute('pathLength')==='1'&&!l.classList.contains('hero-fill')));}
- b.advance(1999);assert.ok(!b.arts[0].classList.contains('is-details'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-details'));b.advance(699);assert.ok(!b.arts[0].classList.contains('is-filled'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-filled'));
+ b.advance(2599);assert.ok(!b.arts[0].classList.contains('is-details'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-details'));b.advance(699);assert.ok(!b.arts[0].classList.contains('is-filled'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-filled'));
  const fills=b.arts[0].querySelectorAll('.hero-fill');assert.ok(fills.length);assert.ok(fills.every(e=>e.animations.at(-1).options.easing===b.easing&&e.animations.at(-1).options.duration===600));
 });
 test('clicking the current hero replays it and autoplay continues afterwards',()=>{
