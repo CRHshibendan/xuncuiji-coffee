@@ -14,12 +14,12 @@ test('equipment idle rendering is skipped while inventory changes and timed pour
  const nodes=new Map(),node=key=>{if(!nodes.has(key))nodes.set(key,{innerHTML:'',textContent:'',classList:{remove(){},toggle(){},add(){}},querySelector(){return node(key+' label')}});return nodes.get(key)};
  const ctx={s:{grounds:0,beans:0},u:{scale:0},p:{spoon:5},id:'frenchpress',selected:null,drag:null,lastArtState:'',lastMarkup:'',lastGrounds:'',clock:0,renders:0,stocks:[],CoffeePaint:Paint,EquipmentArt:{render(){ctx.renders++;return '<g/>'},grounds(n){ctx.stocks.push(n);return String(n)}},performance:{now:()=>ctx.clock},$:(id)=>node(id),$$:()=>[],object:(id)=>node(id),patch:(el,html)=>el.innerHTML=html,beans:()=>'',clamp:(v,a,b)=>Math.max(a,Math.min(b,v)),drawCrank(){}};
  vm.createContext(ctx);vm.runInContext(art,ctx);
- ctx.art();for(let i=0;i<120;i++)ctx.art();assert.equal(ctx.renders,1);
+ ctx.art();for(let i=0;i<120;i++){ctx.s.contact=i/10;ctx.s.events=['history '+i];ctx.u.angle=i;ctx.u.display=i;ctx.art();}assert.equal(ctx.renders,1);
  ctx.s.grounds=15;ctx.art();assert.equal(ctx.renders,2);
- ctx.s.grounds=0;ctx.u.pourGrounds=700;ctx.u.pourStock=15;
+ ctx.s.grounds=0;ctx.u.visualGrounds=15;
  ctx.clock=100;ctx.art();const first=ctx.stocks.at(-1);
- ctx.clock=400;ctx.art();assert.ok(ctx.stocks.at(-1)<first);
- ctx.clock=800;ctx.art();assert.equal(ctx.stocks.at(-1),0);
+ ctx.clock=400;ctx.u.visualGrounds=7.5;ctx.art();assert.ok(ctx.stocks.at(-1)<first);
+ ctx.clock=800;ctx.u.visualGrounds=0;ctx.art();assert.equal(ctx.stocks.at(-1),0);
  const final=ctx.renders;ctx.art();assert.equal(ctx.renders,final);
 });
 test('the homepage needs no external font stylesheet and has a compact responsive hero',()=>{

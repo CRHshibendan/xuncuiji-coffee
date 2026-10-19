@@ -151,3 +151,7 @@ button{transition:background .2s,color .2s,box-shadow .2s,scale .18s}button:acti
 @media(max-width:640px){.heat-guide{right:12px;top:44px;width:175px;padding:12px}.heat-temperatures{gap:10px;margin:9px 0}.heat-temperatures output{font-size:29px}.heat-guide p{font-size:10px}.watching-heat .guide-banner{min-height:105px}}
 
 .studio-shop-link svg.shop-link-arrow{width:16px;height:16px;flex:none;stroke-width:1.5}
+/* During a finite transfer the moving object stays legible and cannot be picked twice. */
+#scene [data-transfer-pose]{opacity:1!important;filter:none!important;pointer-events:none}
+.material-transferring #scene{cursor:progress}.material-transferring #scene [data-object],.material-transferring #scene [data-target]{pointer-events:none}
+.transfer-stream{stroke-linecap:round}#cup-liquid{transition:none!important}
