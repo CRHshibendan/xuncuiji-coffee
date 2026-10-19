@@ -50,13 +50,13 @@ dialog{max-width:min(640px,calc(100% - var(--space-48)));max-height:calc(100svh 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}@view-transition{navigation:none}*,*::before,*::after{animation:none!important;transition:none!important}}
 @media(prefers-reduced-motion:reduce){.hero-art svg path,.hero-art svg ellipse,.hero-art svg circle{stroke-dashoffset:0!important;opacity:var(--o,1)!important}.hero-art svg path[fill]:not([fill="none"]),.hero-art svg ellipse[fill]:not([fill="none"]),.hero-art svg circle[fill]:not([fill="none"]){fill-opacity:var(--fo,1)!important}}
 .hero-main-line{display:none}
-.hero-art svg.is-line .hero-main-line{display:block;opacity:1;stroke-dasharray:1;stroke-dashoffset:1;animation:hero-main-draw 2.6s var(--hero-ease-both) forwards}
+.hero-art svg.is-line .hero-main-line{display:block;opacity:1;stroke-dasharray:1;stroke-dashoffset:1;animation:hero-main-draw 2.2s var(--hero-ease-both) forwards}
 .hero-art svg.is-leaving .hero-main-line{animation:hero-main-retract 1s var(--hero-ease-both) forwards}
-/* The last 12% gets a 650ms closing stroke. Keep timing functions literal:
+/* Only the last 3% gets a brief 220ms closing stroke. Keep timing functions literal:
    var() in keyframe timing functions resolved to linear in the target browser. */
 @keyframes hero-main-draw{
- 0%{stroke-dashoffset:1;animation-timing-function:cubic-bezier(.85,0,.15,.55)}
- 75%{stroke-dashoffset:.12;animation-timing-function:cubic-bezier(.2,.26,.55,1)}
+ 0%{stroke-dashoffset:1;animation-timing-function:cubic-bezier(.85,0,.15,.35)}
+ 90%{stroke-dashoffset:.03;animation-timing-function:cubic-bezier(.2,.55,.55,1)}
  100%{stroke-dashoffset:0}
 }
 @keyframes hero-main-retract{from{stroke-dashoffset:0}to{stroke-dashoffset:1}}

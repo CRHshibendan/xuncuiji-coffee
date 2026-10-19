@@ -41,7 +41,7 @@ test('shared script initializes pages without a hero and still reaches navigatio
 });
 test('hero keeps independent contours, closing stroke before details and fill timing',()=>{
  const b=browser();assert.equal(b.active(),'chemex');for(const a of b.arts){const expected=['melitta','siphon'].includes(a.dataset.heroArt)?2:1;assert.equal(a.querySelectorAll('.hero-main-line').length,expected);assert.ok(a.querySelectorAll('.hero-main-line').every(l=>l.getAttribute('pathLength')==='1'&&!l.classList.contains('hero-fill')));}
- b.advance(2599);assert.ok(!b.arts[0].classList.contains('is-details'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-details'));b.advance(699);assert.ok(!b.arts[0].classList.contains('is-filled'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-filled'));
+ b.advance(2199);assert.ok(!b.arts[0].classList.contains('is-details'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-details'));b.advance(699);assert.ok(!b.arts[0].classList.contains('is-filled'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-filled'));
  const fills=b.arts[0].querySelectorAll('.hero-fill');assert.ok(fills.length);assert.ok(fills.every(e=>e.animations.at(-1).options.easing===b.easing&&e.animations.at(-1).options.duration===600));
 });
 test('clicking the current hero replays it and autoplay continues afterwards',()=>{
