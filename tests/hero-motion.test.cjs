@@ -22,7 +22,7 @@ function browser({page='index.html',reduced=false}={}){
   return a;
  }):[];
  const buttons=arts.map(a=>{const b=new Element('button',{'aria-pressed':String(a.dataset.heroArt==='melitta')});b.dataset.brewerSelect=a.dataset.heroArt;const mark=new Element('span',{class:'selector-mark'});b.appendChild(mark);return b;});
- const lower=keys.map(key=>{const e=new Element();e.dataset.brewerArt=key;return e;});
+ const lower=page==='index.html'?['melitta','chemex','espresso','siphon'].map(key=>{const e=new Element('svg');e.dataset.brewerArt=key;e.children=[new Element('path',{fill:'#f6f3ec',d:'M0 0h10v10Z'}),new Element('path',{d:'M0 0h4'}),new Element('path',{fill:'#b8794a',d:'M1 1h2v2Z'})];return e;}):[];
  const copy=keys.map(key=>{const e=new Element();e.dataset.brewerCopy=key;return e;});
  const menu=new Element(),nav=new Element(),html=new Element(),caption=new Element();
  const media={matches:reduced,events:{},addEventListener(n,f){(this.events[n]??=[]).push(f);}};
@@ -48,11 +48,28 @@ test('clicking the current hero replays it and autoplay continues afterwards',()
  const b=browser();b.advance(3300);b.click('chemex');b.advance(1520);assert.equal(b.active(),'chemex');b.advance(6500+1520);assert.equal(b.active(),'melitta');
 });
 test('rapid selection keeps the latest requested hero instead of dropping it',()=>{
- const b=browser();b.advance(3300);b.click('melitta');b.click('espresso');b.click('siphon');b.advance(1520);assert.equal(b.active(),'siphon');assert.equal(b.buttons.find(e=>e.getAttribute('aria-pressed')==='true').dataset.brewerSelect,'siphon');assert.deepEqual(b.lower.filter(e=>!e.hidden).map(e=>e.dataset.brewerArt),['siphon']);
+ const b=browser();b.advance(3300);b.click('melitta');b.click('espresso');b.click('siphon');b.advance(1520);assert.equal(b.active(),'siphon');assert.equal(b.buttons.find(e=>e.getAttribute('aria-pressed')==='true').dataset.brewerSelect,'siphon');assert.deepEqual(b.lower.filter(e=>e.classList.contains('is-active')).map(e=>e.dataset.brewerArt),['siphon']);
 });
 test('reduced motion cancels pending stages and shows static art without new animations',()=>{
  const b=browser();b.advance(400);b.reduce(true);const before=b.arts.flatMap(a=>a.children).reduce((n,e)=>n+e.animations.length,0);b.advance(10000);assert.equal(b.arts.flatMap(a=>a.children).reduce((n,e)=>n+e.animations.length,0),before);assert.equal(b.active(),'chemex');b.click('siphon');assert.equal(b.active(),'siphon');assert.ok(b.arts.every(a=>!a.classList.contains('is-line')));
 });
 test('hidden page does not restart autoplay when an in-flight switch finishes',()=>{
  const b=browser();b.advance(3300);b.click('melitta');b.hide(true);b.advance(10000);assert.equal(b.active(),'melitta');assert.ok(![...b.timers.values()].some(t=>t.ms===6500));b.hide(false);b.advance(6500+1520);assert.equal(b.active(),'espresso');
+});
+
+test('gallery shares the drawing stages but keeps its selection when the hero autoplays',()=>{
+ const b=browser();b.advance(3300);b.click('espresso');
+ assert.ok(b.lower[0].classList.contains('is-active'));
+ b.advance(1520);const art=b.lower.find(e=>e.dataset.brewerArt==='espresso');
+ assert.ok(art.classList.contains('is-line'));assert.ok(!art.classList.contains('is-details'));
+ b.advance(2200);assert.ok(art.classList.contains('is-details'));assert.ok(!art.classList.contains('is-filled'));
+ b.advance(700);assert.ok(art.classList.contains('is-filled'));
+ b.advance(10000);assert.ok(art.classList.contains('is-active'));assert.equal(b.active(),'siphon');
+});
+test('gallery replays the current selection and cancels unfinished stages for reduced motion',()=>{
+ const b=browser();b.advance(3300);b.click('melitta');b.advance(1520);
+ assert.ok(b.lower[0].classList.contains('is-line'));assert.ok(!b.lower[0].classList.contains('is-details'));
+ b.advance(400);b.reduce(true);b.advance(5000);
+ assert.ok(b.lower.every(a=>!a.classList.contains('is-line')&&!a.classList.contains('is-details')));
+ b.click('siphon');assert.equal(b.lower.find(a=>a.classList.contains('is-active')).dataset.brewerArt,'siphon');
 });

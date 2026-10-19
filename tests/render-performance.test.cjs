@@ -27,7 +27,8 @@ test('the homepage keeps art compact and fonts self-hosted without external requ
  assert.doesNotMatch(css+html,/https?:\/\/[^\s"']*(?:fonts|googleapis)/);
  assert.doesNotMatch(html,/hero-coffee|\.png|linearGradient|radialGradient/);
  const assets=[...html.matchAll(/src="(assets\/[^"?]+)"/g)].map(m=>m[1]);
- assert.ok(assets.length>0);
+ // Inline SVGs replace image requests; keep their markup within a small page budget.
+ assert.ok(Buffer.byteLength(html)<40000);
  for(const asset of assets)assert.ok(fs.statSync(path.join(dist,asset)).size<10000);
  const fonts=[...css.matchAll(/url\('([^']+\.woff2)'\)/g)].map(m=>m[1]);
  assert.equal(fonts.length,2);

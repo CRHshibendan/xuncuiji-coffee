@@ -13,27 +13,10 @@
  document.addEventListener('click',e=>{if(!e.target.closest('.site-header'))closeMenu();});
  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
  function enter(el){el.classList.remove('selection-enter');if(!reduce.matches){void el.offsetWidth;el.classList.add('selection-enter');}}
- $$('[data-brewer-select]').forEach(button=>button.addEventListener('click',()=>{
-  const key=button.dataset.brewerSelect;
-  heroShow(key);
-  if(button.getAttribute('aria-pressed')==='true')return;
-  $$('[data-brewer-select]').forEach(b=>{const active=b===button;b.setAttribute('aria-pressed',String(active));b.querySelector('.selector-mark').textContent=active?'−':'+';});
-  for(const [selector,field] of [['[data-brewer-art]','brewerArt'],['[data-brewer-copy]','brewerCopy']]){
-   $$(selector).forEach(el=>{el.hidden=el.dataset[field]!==key;if(!el.hidden)enter(el);});
-  }
- }));
- const heroArt=$$('[data-hero-art]'),heroCaption=$('[data-hero-caption]');
- const heroOrder=[
-  ['chemex','CHEMEX / 玻璃滤壶'],
-  ['melitta','MELITTA / 陶瓷滤杯'],
-  ['espresso','ESPRESSO / 意式浓缩'],
-  ['siphon','SIPHON / 虹吸壶']
- ];
+ const heroArt=$$('[data-hero-art]'),galleryArt=$$('[data-brewer-art]'),heroCaption=$('[data-hero-caption]');
+ const heroLabels={chemex:'CHEMEX / 玻璃滤壶',melitta:'MELITTA / 陶瓷滤杯',espresso:'ESPRESSO / 意式浓缩',siphon:'SIPHON / 虹吸壶'};
  // Wait for the dedicated closing stroke before revealing the detail lines.
  const HERO_DRAW_MS=2200,HERO_RETRACT_MS=1000;
- let heroIndex=0,heroBusy=false,heroRun=0,heroAuto=null,heroQueued=null;
- const HERO_AUTO_MS=6500;
- function heroSchedule(){if(heroAuto!==null){clearTimeout(heroAuto);heroAuto=null;}if(reduce.matches||document.hidden||!heroArt.length)return;heroAuto=setTimeout(()=>{heroAuto=null;const next=(heroIndex+1)%heroArt.length;heroShow(heroArt[next].dataset.heroArt);},HERO_AUTO_MS);}
  function prepareHeroArt(art){
   if(!art)return;
   if(art.dataset.heroPrepared==='1')return;
@@ -68,72 +51,90 @@
    el.animate([{opacity:to===1?0:1},{opacity:to}],{duration,easing,fill:'both'});
   });
  }
- function heroSwap(art){
-  if(!art)return;
-  heroArt.forEach(a=>{const active=a===art;a.classList.toggle('is-active',active);a.classList.remove('is-line','is-details','is-filled','is-leaving');a.querySelectorAll('.hero-fill').forEach(el=>{el.getAnimations().forEach(x=>x.cancel());el.style.opacity='';});a.setAttribute('aria-hidden',String(!active));});
-  heroIndex=heroArt.indexOf(art);
-  if(heroCaption)heroCaption.textContent=heroOrder[heroIndex][1];
-  heroSchedule();
- }
- function heroDraw(art){
-  if(!art)return;
-  prepareHeroArt(art);
-  heroArt.forEach(a=>{const active=a===art;a.classList.toggle('is-active',active);a.classList.toggle('is-line',active&&!reduce.matches);a.classList.remove('is-details','is-filled','is-leaving');a.setAttribute('aria-hidden',String(!active));});
-  heroIndex=heroArt.indexOf(art);
-  if(heroCaption)heroCaption.textContent=heroOrder[heroIndex][1];
-  const lines=[...art.querySelectorAll('.hero-main-line')];
-  if(!lines.length)return;
-  if(reduce.matches)return;
-  heroRun++;
-  const run=heroRun;
-  setTimeout(()=>{if(run!==heroRun)return;art.classList.add('is-details');},HERO_DRAW_MS);
-  setTimeout(()=>{if(run!==heroRun)return;art.classList.add('is-filled');fadeFills(art,1,600);},HERO_DRAW_MS+700);
-  heroSchedule();
- }
- function heroRetract(art,done){
-  heroRun++;
-  const run=heroRun;
-  if(heroAuto!==null){clearTimeout(heroAuto);heroAuto=null;}
-  fadeFills(art,0,500);
-  setTimeout(()=>{
-   if(run!==heroRun)return;
-   art.classList.remove('is-filled');
-   art.classList.remove('is-details');
-   art.classList.add('is-leaving');
-   setTimeout(()=>{if(run!==heroRun)return;done();},HERO_RETRACT_MS);
-  },520);
- }
- function heroShow(slug){
-  const art=heroArt.find(a=>a.dataset.heroArt===slug);
-  if(!art)return;
-  // Keep the latest click during retraction; consume it before drawing again.
-  if(heroBusy){heroQueued=slug;return;}
-  if(heroAuto!==null){clearTimeout(heroAuto);heroAuto=null;}
-  const current=heroArt[heroIndex];
-  if(reduce.matches){heroSwap(art);return;}
-  heroBusy=true;
-  if(!current||!current.classList.contains('is-line')){heroDraw(art);heroBusy=false;return;}
-  heroRetract(current,()=>{
-   const next=heroArt.find(a=>a.dataset.heroArt===heroQueued)||art;
-   heroQueued=null;
-   heroDraw(next);
-   heroBusy=false;
-  });
- }
- // This script is also shared by the journal and methods pages.
- if(heroArt.length){
-  heroArt.forEach(prepareHeroArt);
-  heroDraw(heroArt[0]);
+ // Both exhibitions share one choreography, with separate clocks and selection state.
+ function createLinePlayer(arts,{field,initial=0,autoplay=false,onChange=()=>{}}){
+  if(!arts.length)return ()=>{};
+  let index=initial,busy=false,runId=0,autoTimer=null,queued=null;
+  const AUTO_MS=6500;
+  function schedule(){
+   if(autoTimer!==null){clearTimeout(autoTimer);autoTimer=null;}
+   if(!autoplay||reduce.matches||document.hidden)return;
+   autoTimer=setTimeout(()=>{autoTimer=null;show(arts[(index+1)%arts.length].dataset[field]);},AUTO_MS);
+  }
+  function swap(art){
+   if(!art)return;
+   arts.forEach(a=>{const active=a===art;a.classList.toggle('is-active',active);a.classList.remove('is-line','is-details','is-filled','is-leaving');a.querySelectorAll('.hero-fill').forEach(el=>{el.getAnimations().forEach(x=>x.cancel());el.style.opacity='';});a.setAttribute('aria-hidden',String(!active));});
+   index=arts.indexOf(art);
+   onChange(art.dataset[field]);
+   schedule();
+  }
+  function draw(art){
+   if(!art)return;
+   prepareHeroArt(art);
+   arts.forEach(a=>{const active=a===art;a.classList.toggle('is-active',active);a.classList.toggle('is-line',active&&!reduce.matches);a.classList.remove('is-details','is-filled','is-leaving');a.setAttribute('aria-hidden',String(!active));});
+   index=arts.indexOf(art);
+   onChange(art.dataset[field]);
+   const lines=[...art.querySelectorAll('.hero-main-line')];
+   if(!lines.length)return;
+   if(reduce.matches)return;
+   runId++;
+   const run=runId;
+   setTimeout(()=>{if(run!==runId)return;art.classList.add('is-details');},HERO_DRAW_MS);
+   setTimeout(()=>{if(run!==runId)return;art.classList.add('is-filled');fadeFills(art,1,600);},HERO_DRAW_MS+700);
+   schedule();
+  }
+  function retract(art,done){
+   runId++;
+   const run=runId;
+   if(autoTimer!==null){clearTimeout(autoTimer);autoTimer=null;}
+   fadeFills(art,0,500);
+   setTimeout(()=>{
+    if(run!==runId)return;
+    art.classList.remove('is-filled');
+    art.classList.remove('is-details');
+    art.classList.add('is-leaving');
+    setTimeout(()=>{if(run!==runId)return;done();},HERO_RETRACT_MS);
+   },520);
+  }
+  function show(slug){
+   const art=arts.find(a=>a.dataset[field]===slug);
+   if(!art)return;
+   // Keep the latest click during retraction; consume it before drawing again.
+   if(busy){queued=slug;return;}
+   if(autoTimer!==null){clearTimeout(autoTimer);autoTimer=null;}
+   const current=arts[index];
+   if(reduce.matches){swap(art);return;}
+   busy=true;
+   if(!current||!current.classList.contains('is-line')){draw(art);busy=false;return;}
+   retract(current,()=>{
+    const next=arts.find(a=>a.dataset[field]===queued)||art;
+    queued=null;
+    draw(next);
+    busy=false;
+   });
+  }
+  arts.forEach(prepareHeroArt);
+  draw(arts[index]);
   reduce.addEventListener?.('change',()=>{
    if(reduce.matches){
-    // Invalidate delayed detail/fill callbacks as well as existing animations.
-    heroRun++;heroBusy=false;heroQueued=null;
-    if(heroAuto!==null){clearTimeout(heroAuto);heroAuto=null;}
-    heroSwap(heroArt[heroIndex]);
-   }else heroSchedule();
+    runId++;busy=false;queued=null;
+    if(autoTimer!==null){clearTimeout(autoTimer);autoTimer=null;}
+    swap(arts[index]);
+   }else schedule();
   });
-  document.addEventListener('visibilitychange',()=>{if(document.hidden){if(heroAuto!==null){clearTimeout(heroAuto);heroAuto=null;}}else heroSchedule();});
+  if(autoplay)document.addEventListener('visibilitychange',()=>{if(document.hidden){if(autoTimer!==null){clearTimeout(autoTimer);autoTimer=null;}}else schedule();});
+  return show;
  }
+ const heroShow=createLinePlayer(heroArt,{field:'heroArt',autoplay:true,onChange:key=>{if(heroCaption)heroCaption.textContent=heroLabels[key];}});
+ const galleryShow=createLinePlayer(galleryArt,{field:'brewerArt'});
+ $$('[data-brewer-select]').forEach(button=>button.addEventListener('click',()=>{
+  const key=button.dataset.brewerSelect;
+  heroShow(key);
+  galleryShow(key);
+  if(button.getAttribute('aria-pressed')==='true')return;
+  $$('[data-brewer-select]').forEach(b=>{const active=b===button;b.setAttribute('aria-pressed',String(active));b.querySelector('.selector-mark').textContent=active?'−':'+';});
+  $$('[data-brewer-copy]').forEach(el=>{el.hidden=el.dataset.brewerCopy!==key;if(!el.hidden)enter(el);});
+ }));
 
 
  let grind='medium';

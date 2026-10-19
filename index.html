@@ -10,9 +10,9 @@
 <link rel="preload" href="assets/fonts/noto-serif-sc-500.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/noto-sans-sc-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="design-tokens.css?v=1">
-<link rel="stylesheet" href="home.css?v=34">
+<link rel="stylesheet" href="home.css?v=35">
 <noscript><style>.hero-art svg .hero-fill[fill]:not([fill="none"]){fill-opacity:var(--fo,1)}</style></noscript>
-<script src="home.js?v=27" defer>
+<script src="home.js?v=28" defer>
 </script>
 </head>
 <body>
@@ -106,10 +106,49 @@
 </div>
 <div class="brewer-layout">
 <div class="brewer-display">
-<img data-brewer-art="melitta" src="assets/flat-melitta.svg" width="400" height="400" alt="Melitta的扁平细线插画" loading="lazy">
-<img data-brewer-art="chemex" src="assets/flat-chemex.svg" width="400" height="400" alt="Chemex的扁平细线插画" loading="lazy" hidden>
-<img data-brewer-art="espresso" src="assets/flat-espresso.svg" width="400" height="400" alt="意式浓缩的扁平细线插画" loading="lazy" hidden>
-<img data-brewer-art="siphon" src="assets/flat-siphon.svg" width="400" height="400" alt="虹吸壶的扁平细线插画" loading="lazy" hidden>
+<svg class="hero-drawing is-active" data-brewer-art="melitta" viewBox="0 0 400 400" role="img" aria-hidden="false" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <title>细线描绘的 Melitta 陶瓷滤杯</title>
+  <path d="M104 88h192l-64 128h-64Z" fill="#f6f3ec" pathLength="1"/>
+  <ellipse cx="200" cy="88" rx="96" ry="14" pathLength="1"/>
+  <path d="m131 107 43 92m-15-94 27 96m14-95v95m40-96-27 96m56-94-43 92" style="--o:.4" pathLength="1"/>
+  <path d="M146 217h108v13H146Z" pathLength="1"/>
+  <defs><mask id="gallery-liq-melitta" maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="400"><path d="M171 230v22h58v-22m-58 22-34 68c-10 23 8 40 63 40s73-17 63-40l-34-68" fill="#fff" stroke="#000" stroke-width="12"/></mask></defs><defs><mask id="gallery-behind-melitta" maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="400"><rect x="0" y="0" width="400" height="400" fill="#fff"/><path d="M171 230v22h58v-22m-58 22-34 68c-10 23 8 40 63 40s73-17 63-40l-34-68" fill="#000" stroke="none"/></mask></defs>
+  <path d="M171 230v22h58v-22m-58 22-34 68c-10 23 8 40 63 40s73-17 63-40l-34-68" fill="#f6f3ec" pathLength="1"/>
+  <rect class="hero-fill" x="0" y="314" width="400" height="86" fill="#b8794a" style="--fo:.24" mask="url(#gallery-liq-melitta)"/>
+  <path d="M245 268h18c37 0 36 49 1 49h-9M162 263h76" mask="url(#gallery-behind-melitta)" pathLength="1"/>
+ </svg>
+<svg class="hero-drawing" data-brewer-art="chemex" viewBox="0 0 400 400" role="img" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <title>细线描绘的 Chemex 玻璃咖啡壶</title>
+  <path d="M116 66h168l-56 133c-4 10-4 20 1 31l42 89c16 35 0 51-71 51s-87-16-71-51l42-89c5-11 5-21 1-31Z" fill="#f6f3ec" pathLength="1"/>
+  <ellipse cx="200" cy="66" rx="84" ry="16" pathLength="1"/>
+  <path d="M144 114h112M156 143h88" style="--o:.2" pathLength="1"/>
+  <path d="M154 283h92l18 36c10 27-4 43-64 43s-74-16-64-43Z" fill="#b8794a" stroke="none" style="--fo:.24" pathLength="1"/>
+  <path d="m164 188 72 0-8 39h-56Z" fill="#b8794a" pathLength="1"/>
+  <path d="M167 204h66M200 189v45m0-27c-24-21-38 4 0 7 38-3 24-28 0-7Zm0 7-12 47m12-47 20 40" pathLength="1"/>
+ </svg>
+<svg class="hero-drawing" data-brewer-art="espresso" viewBox="0 0 400 400" role="img" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <title>细线描绘的意式浓缩咖啡机</title>
+  <path d="M88 94h224v221H88Z" fill="#f6f3ec" pathLength="1"/>
+  <path d="M88 94V74h224v20M109 115h181v74H109Z" pathLength="1"/>
+  <circle cx="147" cy="150" r="17" pathLength="1"/>
+  <path d="m147 150 7-8M180 139h86m-86 18h65M112 207h100v19H112Z" pathLength="1"/>
+  <path d="M142 226v13h34v-13M180 217h78" stroke-width="1.5" pathLength="1"/>
+  <path d="m258 211 42 9-3 12-43-9Z" fill="#b8794a" pathLength="1"/>
+  <path d="M133 253h54v34c0 22-54 22-54 0ZM187 260h9c22 0 22 26 0 26h-9" pathLength="1"/>
+  <path d="M140 275h40v14c0 12-40 12-40 0Z" fill="#b8794a" stroke="none" style="--fo:.24" pathLength="1"/>
+  <path d="M112 311h176v15H112Zm7 15v13m160-13v13M273 205v45l-8 19" pathLength="1"/>
+ </svg>
+<svg class="hero-drawing" data-brewer-art="siphon" viewBox="0 0 400 400" role="img" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <title>细线描绘的虹吸壶</title>
+  <path d="M127 61h96v109c0 20-13 31-37 31h-22c-24 0-37-11-37-31Z" fill="#f6f3ec" pathLength="1"/>
+  <ellipse cx="175" cy="61" rx="48" ry="10" pathLength="1"/>
+  <defs><mask id="gallery-liq-siphon" maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="400"><path d="M157 198v44h36v-44M143 237a65 65 0 1 0 64 0" fill="#fff" stroke="#000" stroke-width="12"/></mask></defs><defs><mask id="gallery-behind-siphon" maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="400"><rect x="0" y="0" width="400" height="400" fill="#fff"/><path d="M143 237a65 65 0 1 0 64 0" fill="#000" stroke="none"/><rect x="109" y="278" width="133" height="8" fill="#000"/></mask></defs>
+  <path d="M157 198v44h36v-44M143 237a65 65 0 1 0 64 0" fill="#f6f3ec" pathLength="1"/>
+  <rect class="hero-fill" x="0" y="291" width="400" height="109" fill="#b8794a" style="--fo:.24" mask="url(#gallery-liq-siphon)"/>
+  <path d="M109 282h133M261 117v234m-30 0h60m-75-215h45m-45 11h45M151 355h48v15h-48Z" mask="url(#gallery-behind-siphon)" pathLength="1"/>
+  <path d="m166 341 8-22 9 22Z" fill="#b8794a" pathLength="1"/>
+  <path d="M137 109h76m-76 15h76" style="--o:.3" pathLength="1"/>
+ </svg>
 </div>
 <div class="brewer-information">
 <div class="brewer-selector" role="group" aria-label="选择展示器具">
