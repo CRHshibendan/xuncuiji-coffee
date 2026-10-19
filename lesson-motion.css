@@ -1,0 +1,23 @@
+/* Small responses with no idle animation loop. */
+.coffee-home .lesson-card{transition:transform .28s cubic-bezier(.2,.75,.25,1),box-shadow .28s}
+.coffee-home .lesson-status>span,.coffee-home .lesson-body h3>span{transition:transform .28s ease}
+.coffee-home .lesson-card:is(:hover,:focus-visible) .lesson-status>span{transform:translateX(5px)}
+.coffee-home .lesson-card:is(:hover,:focus-visible) .lesson-body h3>span{transform:translate(3px,-3px)}
+.coffee-home .bean-shape{transition:transform .5s cubic-bezier(.2,.75,.25,1)}
+.coffee-home .lesson-card:is(:hover,:focus-visible) .bean-shape.b1{transform:translate(-5px,18px) rotate(-37deg)}
+.coffee-home .lesson-card:is(:hover,:focus-visible) .bean-shape.b2{transform:translateY(-26px) rotate(36deg)}
+.coffee-home .lesson-card:is(:hover,:focus-visible) .bean-shape.b3{transform:translate(7px,25px) rotate(66deg)}
+.coffee-home .ratio-art>span:first-child{transition:transform .45s cubic-bezier(.2,.75,.25,1)}
+.coffee-home .lesson-card:is(:hover,:focus-visible) .ratio-art>span:first-child{transform:translateY(-6px) scale(1.035)}
+.coffee-home .lesson-card:is(:hover,:focus-visible) .ratio-dots{animation:ratio-response .6s ease-out}
+.coffee-home .lesson-card:focus-visible .tools-art>img{transform:rotate(-5deg) translateY(-8px)}
+.coffee-home .lesson-card:active{transform:translateY(-2px) scale(.982);box-shadow:0 7px 16px #173f3510}
+@keyframes ratio-response{0%,100%{opacity:1;transform:translateY(0)}40%{opacity:.5;transform:translateY(4px)}}
+.brewer-portrait{perspective:1000px}.brewer-portrait img{transform-origin:50% 65%}
+.brewer-tabs button,.roast-options button,.variable-tabs button{transition:background .2s,border-color .2s,transform .2s,box-shadow .2s}
+.brewer-tabs button:active,.roast-options button:active,.variable-tabs button:active{transform:scale(.96)}
+@media(hover:hover) and (pointer:fine){.brewer-tabs button:hover,.roast-options button:hover,.variable-tabs button:hover{transform:translateY(-2px)}}
+@media(hover:none){.coffee-home .lesson-card:hover{transform:none}.coffee-home .lesson-card:active{transform:scale(.982)}.coffee-home .lesson-card:active .tools-art>img{transform:rotate(-6deg) translateY(-6px)}}
+@media(prefers-reduced-motion:reduce){.coffee-home .lesson-card,.coffee-home .lesson-card *,.brewer-tabs button,.roast-options button,.variable-tabs button{animation:none!important;transition:none!important}.coffee-home .lesson-card:is(:hover,:active,:focus-visible),.coffee-home .lesson-card:is(:hover,:active,:focus-visible) .lesson-status>span,.coffee-home .lesson-card:is(:hover,:active,:focus-visible) .lesson-body h3>span,.coffee-home .lesson-card:is(:hover,:active,:focus-visible) .ratio-art>span:first-child,.brewer-tabs button:hover,.brewer-tabs button:active,.roast-options button:hover,.roast-options button:active,.variable-tabs button:hover,.variable-tabs button:active{transform:none}.coffee-home .lesson-card:is(:hover,:active,:focus-visible) .tools-art>img{transform:rotate(-12deg)}}
+.motion-paused :is(.brewer-tabs,.roast-options,.variable-tabs) button{transition:none;transform:none}
+@media(prefers-reduced-motion:reduce){.coffee-home .lesson-card:is(:hover,:active,:focus-visible) .bean-shape.b1{transform:translateY(26px) rotate(-28deg)}.coffee-home .lesson-card:is(:hover,:active,:focus-visible) .bean-shape.b2{transform:translateY(-16px) rotate(25deg)}.coffee-home .lesson-card:is(:hover,:active,:focus-visible) .bean-shape.b3{transform:translateY(32px) rotate(55deg)}}

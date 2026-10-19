@@ -5,13 +5,14 @@ const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
 const readSetting=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback;}catch{return fallback;}};
 const saveSetting=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value));}catch{}};
 let motionPaused=reduceMotion.matches||readSetting('xuncuiji-motion-paused',false),selectedBrewer=['melitta','chemex',...Object.keys(CoffeeMethods.methods)].includes(new URLSearchParams(location.search).get('tool'))?new URLSearchParams(location.search).get('tool'):'melitta',activeVariable='ratio',recipeStep=0,recipeTimer=null,lastPhase=-1,scrollFrame=0,activeChapter='';
+const lessonMotion=window.CoffeeLessonMotion?.create(()=>!motionPaused&&!reduceMotion.matches&&!document.hidden)||{reveal(){},brewer(){},stop(){}};
 const recipes={melitta:{name:'Melitta',water:225,temp:92,grind:'中细',bloom:30,wait:30,split:125},chemex:{name:'Chemex',water:240,temp:93,grind:'中',bloom:40,wait:45,split:140}};
 const brewerContent={melitta:{alt:'Melitta 梯形陶瓷滤杯与独立侧把手',tag:'滤杯 + 分享壶，彼此分开。',subtitle:'THE EVERYDAY CLASSIC',title:'Melitta，<br>先把接缝折平。',intro:'上面是滤杯，下面是承接咖啡的分享壶或杯子。它们是分开的，出杯前先把滤杯移走。',facts:[['匹配扇形滤纸','按器具型号选对滤纸尺寸。先折平底部与侧面接缝，再展开贴合。'],['先润纸，再倒掉水','把滤纸放进滤杯后润湿、预热。正式投粉前，把预热水倒掉。'],['从中细研磨试起','这里用 15g 粉、225g 水作为练习起点，再按下水速度和口感微调。']]},chemex:{alt:'Chemex 木领沙漏形一体玻璃咖啡壶',tag:'上面过滤，下面接液，是同一只玻璃壶。',subtitle:'THE GLASS HOURGLASS',title:'Chemex，<br>认准滤纸的三层面。',intro:'漏斗与承接咖啡的壶身连成一体。准备好滤纸后放入上半部，完成冲煮时取出滤纸和粉渣。',facts:[['使用适配的专用滤纸','圆形或方形滤纸展开后，一面三层、一面一层；不同型号按包装说明准备。'],['三层面朝向壶嘴','让较厚的一侧靠在导流嘴处，支撑滤纸，并为排气通道留出空间。'],['留意厚滤纸的下水','本课以 15g 粉、240g 水、中研磨为起点。观察水位，别因为滴得慢就不断补水。']]}};
-function swapAnimation(el){if(motionPaused||reduceMotion.matches)return;el.classList.remove('animate-swap');requestAnimationFrame(()=>el.classList.add('animate-swap'));}
+function swapAnimation(el){lessonMotion.reveal(el);}
 function setMotion(){
  document.body.classList.toggle('motion-paused',motionPaused);document.body.classList.toggle('motion-enabled',!motionPaused);
  $('#motion-toggle').setAttribute('aria-pressed',String(motionPaused));$('#motion-toggle').textContent=reduceMotion.matches?'已减少动态效果':motionPaused?'开启动画 ▷':'暂停动画 Ⅱ';$('#motion-toggle').disabled=reduceMotion.matches;
- if(motionPaused)stopRecipe();
+ if(motionPaused){stopRecipe();lessonMotion.stop();}
 }
 $('#motion-toggle').addEventListener('click',()=>{motionPaused=!motionPaused;saveSetting('xuncuiji-motion-paused',motionPaused);setMotion();});
 reduceMotion.addEventListener('change',()=>{motionPaused=reduceMotion.matches||readSetting('xuncuiji-motion-paused',false);setMotion();});
@@ -22,7 +23,7 @@ function selectBrewer(name){
  $('#brewer-image').src=`assets/${name}.svg`;$('#brewer-image').alt=data.alt;$('#brewer-tag').textContent=data.tag;
  $('#brewer-copy').innerHTML=`<p class="brewer-subtitle">${data.subtitle}</p><h3>${data.title}</h3><p>${data.intro}</p><div class="brewer-facts">${data.facts.map(([a,b],i)=>`<div><b>${i+1}</b><div><strong>${a}</strong>${b}</div></div>`).join('')}</div>`;
  if(method)$('#brewer-copy').insertAdjacentHTML('beforeend',`<a class="method-source" href="${method.source[1]}" target="_blank" rel="noopener">${method.source[0]} ↗</a><div class="brewer-practice-links"><a href="workshop.html?tool=${name}&mode=basic">基础跟练 →</a><a href="workshop.html?tool=${name}&mode=advanced">进阶自由 · 由你决定 ↗</a></div>`);
- swapAnimation($('#brewer-copy'));swapAnimation($('#brewer-image'));
+ const portrait=$('#brewer-image').getBoundingClientRect();if(portrait.bottom>0&&portrait.top<innerHeight)lessonMotion.brewer($('#brewer-image'),$('#brewer-copy'));
  $$('[data-practice]').forEach(a=>{const advanced=a.dataset.practice==='advanced';a.href=`workshop.html?tool=${name}&mode=${a.dataset.practice}`;if(a.closest('.finale-buttons'))a.innerHTML=advanced?(method?'进阶自由 · 冲法由你决定 <span>↗</span>':'进阶自由 · 试自己的配方 <span>↗</span>'):(method?'动作跟练 · 一步步做 <span>↗</span>':'基础跟练 · 一步步做 <span>↗</span>');});
  const r=recipes[name];if(method){$('#recipe-meta').innerHTML=`<div><span>今天的器具</span><strong>${method.name}</strong></div>${method.meta.map(([a,b])=>`<div><span>${a}</span><strong>${b}</strong></div>`).join('')}`;}else $('#recipe-meta').innerHTML=`<div><span>今天的器具</span><strong>${r.name}</strong></div><div><span>咖啡粉 / 冲煮用水</span><strong>15 <small>g</small> / ${r.water} <small>g</small></strong></div><div><span>起点水温</span><strong>${r.temp} <small>°C</small></strong></div><div><span>起点研磨</span><strong>${r.grind}<small>研磨</small></strong></div>`;
  stopRecipe();renderRecipe();
@@ -92,3 +93,9 @@ window.addEventListener('scroll',()=>{if(!scrollFrame)scrollFrame=requestAnimati
 $('#story-grains').innerHTML=Array.from({length:62},(_,i)=>`<circle cx="${100+(i*37)%265}" cy="${125+(i*23)%116}" r="${2+i%3}" fill="${i%2?'#62462c':'#d3b57c'}"/>`).join('');
 $('#grind-particles').innerHTML=Array.from({length:30},(_,i)=>`<i style="--particle-angle:${i*47%90}deg"></i>`).join('');
 setMotion();selectBrewer(selectedBrewer);updateVariable();chooseTaste('sour');onScroll();
+
+// Let the chapter illustration greet a reader arriving from a homepage card.
+const lessonArrival=new IntersectionObserver(entries=>{for(const entry of entries){if(!entry.isIntersecting)continue;if(entry.target.id==='brewer-image')lessonMotion.brewer(entry.target,$('#brewer-copy'));else lessonMotion.reveal(entry.target);lessonArrival.unobserve(entry.target);}},{threshold:.16});
+function observeLessonEntry(){['#brewer-image','.bean-world','.variable-visual'].forEach(selector=>lessonArrival.observe($(selector)));}
+observeLessonEntry();addEventListener('hashchange',observeLessonEntry);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)lessonMotion.stop();});
