@@ -45,10 +45,10 @@ test('hero keeps independent contours, closing stroke before details and fill ti
  const fills=b.arts[0].querySelectorAll('.hero-fill');assert.ok(fills.length);assert.ok(fills.every(e=>e.animations.at(-1).options.easing===b.easing&&e.animations.at(-1).options.duration===600));
 });
 test('clicking the current hero replays it and autoplay continues afterwards',()=>{
- const b=browser();b.advance(3300);b.click('chemex');b.advance(1520);assert.equal(b.active(),'chemex');b.advance(6500+1520);assert.equal(b.active(),'melitta');
+ const b=browser();b.advance(3300);b.click('chemex');b.advance(608);assert.equal(b.active(),'chemex');b.advance(6500+1520);assert.equal(b.active(),'melitta');
 });
 test('rapid selection keeps the latest requested hero instead of dropping it',()=>{
- const b=browser();b.advance(3300);b.click('melitta');b.click('espresso');b.click('siphon');b.advance(1520);assert.equal(b.active(),'siphon');assert.equal(b.buttons.find(e=>e.getAttribute('aria-pressed')==='true').dataset.brewerSelect,'siphon');assert.deepEqual(b.lower.filter(e=>e.classList.contains('is-active')).map(e=>e.dataset.brewerArt),['siphon']);
+ const b=browser();b.advance(3300);b.click('melitta');b.click('espresso');b.click('siphon');b.advance(608);assert.equal(b.active(),'siphon');assert.equal(b.buttons.find(e=>e.getAttribute('aria-pressed')==='true').dataset.brewerSelect,'siphon');assert.deepEqual(b.lower.filter(e=>e.classList.contains('is-active')).map(e=>e.dataset.brewerArt),['siphon']);
 });
 test('reduced motion cancels pending stages and shows static art without new animations',()=>{
  const b=browser();b.advance(400);b.reduce(true);const before=b.arts.flatMap(a=>a.children).reduce((n,e)=>n+e.animations.length,0);b.advance(10000);assert.equal(b.arts.flatMap(a=>a.children).reduce((n,e)=>n+e.animations.length,0),before);assert.equal(b.active(),'chemex');b.click('siphon');assert.equal(b.active(),'siphon');assert.ok(b.arts.every(a=>!a.classList.contains('is-line')));
@@ -60,16 +60,34 @@ test('hidden page does not restart autoplay when an in-flight switch finishes',(
 test('gallery shares the drawing stages but keeps its selection when the hero autoplays',()=>{
  const b=browser();b.advance(3300);b.click('espresso');
  assert.ok(b.lower[0].classList.contains('is-active'));
- b.advance(1520);const art=b.lower.find(e=>e.dataset.brewerArt==='espresso');
+ b.advance(608);const art=b.lower.find(e=>e.dataset.brewerArt==='espresso');
  assert.ok(art.classList.contains('is-line'));assert.ok(!art.classList.contains('is-details'));
  b.advance(2200);assert.ok(art.classList.contains('is-details'));assert.ok(!art.classList.contains('is-filled'));
  b.advance(700);assert.ok(art.classList.contains('is-filled'));
  b.advance(10000);assert.ok(art.classList.contains('is-active'));assert.equal(b.active(),'siphon');
 });
 test('gallery replays the current selection and cancels unfinished stages for reduced motion',()=>{
- const b=browser();b.advance(3300);b.click('melitta');b.advance(1520);
+ const b=browser();b.advance(3300);b.click('melitta');b.advance(608);
  assert.ok(b.lower[0].classList.contains('is-line'));assert.ok(!b.lower[0].classList.contains('is-details'));
  b.advance(400);b.reduce(true);b.advance(5000);
  assert.ok(b.lower.every(a=>!a.classList.contains('is-line')&&!a.classList.contains('is-details')));
  b.click('siphon');assert.equal(b.lower.find(a=>a.classList.contains('is-active')).dataset.brewerArt,'siphon');
+});
+
+test('manual exits finish earlier without changing automatic exit or subsequent drawing timing',()=>{
+ const manual=browser();manual.advance(3300);manual.click('espresso');
+ for(const art of [manual.arts[0],manual.lower[0]]){
+  assert.ok(art.classList.contains('is-click-exit'));
+  assert.equal(art.querySelectorAll('.hero-fill')[0].animations.at(-1).options.duration,200);
+ }
+ manual.advance(607);assert.equal(manual.active(),'chemex');manual.advance(1);assert.equal(manual.active(),'espresso');
+ assert.ok(manual.arts.every(a=>!a.classList.contains('is-click-exit')));
+ manual.advance(2199);assert.ok(!manual.arts[2].classList.contains('is-details'));
+ manual.advance(1);assert.ok(manual.arts[2].classList.contains('is-details'));
+ const auto=browser();auto.advance(6500);
+ assert.ok(!auto.arts[0].classList.contains('is-click-exit'));
+ assert.equal(auto.arts[0].querySelectorAll('.hero-fill')[0].animations.at(-1).options.duration,500);
+ auto.advance(519);assert.ok(!auto.arts[0].classList.contains('is-leaving'));
+ auto.advance(1);assert.ok(auto.arts[0].classList.contains('is-leaving'));
+ auto.advance(999);assert.equal(auto.active(),'chemex');auto.advance(1);assert.equal(auto.active(),'melitta');
 });

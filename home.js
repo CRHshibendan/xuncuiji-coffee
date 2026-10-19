@@ -63,7 +63,7 @@
   }
   function swap(art){
    if(!art)return;
-   arts.forEach(a=>{const active=a===art;a.classList.toggle('is-active',active);a.classList.remove('is-line','is-details','is-filled','is-leaving');a.querySelectorAll('.hero-fill').forEach(el=>{el.getAnimations().forEach(x=>x.cancel());el.style.opacity='';});a.setAttribute('aria-hidden',String(!active));});
+   arts.forEach(a=>{const active=a===art;a.classList.toggle('is-active',active);a.classList.remove('is-line','is-details','is-filled','is-leaving','is-click-exit');a.querySelectorAll('.hero-fill').forEach(el=>{el.getAnimations().forEach(x=>x.cancel());el.style.opacity='';});a.setAttribute('aria-hidden',String(!active));});
    index=arts.indexOf(art);
    onChange(art.dataset[field]);
    schedule();
@@ -71,7 +71,7 @@
   function draw(art){
    if(!art)return;
    prepareHeroArt(art);
-   arts.forEach(a=>{const active=a===art;a.classList.toggle('is-active',active);a.classList.toggle('is-line',active&&!reduce.matches);a.classList.remove('is-details','is-filled','is-leaving');a.setAttribute('aria-hidden',String(!active));});
+   arts.forEach(a=>{const active=a===art;a.classList.toggle('is-active',active);a.classList.toggle('is-line',active&&!reduce.matches);a.classList.remove('is-details','is-filled','is-leaving','is-click-exit');a.setAttribute('aria-hidden',String(!active));});
    index=arts.indexOf(art);
    onChange(art.dataset[field]);
    const lines=[...art.querySelectorAll('.hero-main-line')];
@@ -83,20 +83,22 @@
    setTimeout(()=>{if(run!==runId)return;art.classList.add('is-filled');fadeFills(art,1,600);},HERO_DRAW_MS+700);
    schedule();
   }
-  function retract(art,done){
+  function retract(art,done,manual){
    runId++;
    const run=runId;
    if(autoTimer!==null){clearTimeout(autoTimer);autoTimer=null;}
-   fadeFills(art,0,500);
+   const speed=manual ? 0.4 : 1;
+   art.classList.toggle('is-click-exit',manual);
+   fadeFills(art,0,500*speed);
    setTimeout(()=>{
     if(run!==runId)return;
     art.classList.remove('is-filled');
     art.classList.remove('is-details');
     art.classList.add('is-leaving');
-    setTimeout(()=>{if(run!==runId)return;done();},HERO_RETRACT_MS);
-   },520);
+    setTimeout(()=>{if(run!==runId)return;done();},HERO_RETRACT_MS*speed);
+   },520*speed);
   }
-  function show(slug){
+  function show(slug,manual=false){
    const art=arts.find(a=>a.dataset[field]===slug);
    if(!art)return;
    // Keep the latest click during retraction; consume it before drawing again.
@@ -111,7 +113,7 @@
     queued=null;
     draw(next);
     busy=false;
-   });
+   },manual);
   }
   arts.forEach(prepareHeroArt);
   draw(arts[index]);
@@ -129,8 +131,8 @@
  const galleryShow=createLinePlayer(galleryArt,{field:'brewerArt'});
  $$('[data-brewer-select]').forEach(button=>button.addEventListener('click',()=>{
   const key=button.dataset.brewerSelect;
-  heroShow(key);
-  galleryShow(key);
+  heroShow(key,true);
+  galleryShow(key,true);
   if(button.getAttribute('aria-pressed')==='true')return;
   $$('[data-brewer-select]').forEach(b=>{const active=b===button;b.setAttribute('aria-pressed',String(active));b.querySelector('.selector-mark').textContent=active?'−':'+';});
   $$('[data-brewer-copy]').forEach(el=>{el.hidden=el.dataset.brewerCopy!==key;if(!el.hidden)enter(el);});

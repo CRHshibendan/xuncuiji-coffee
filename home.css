@@ -78,3 +78,8 @@ dialog{max-width:min(640px,calc(100% - var(--space-48)));max-height:calc(100svh 
 @keyframes hero-caramel-out{0%{opacity:1;fill-opacity:var(--fo,1);transform:none}100%{opacity:0;fill-opacity:0;transform:translate(calc(var(--fx,14px)*.5),calc(var(--fy,-12px)*.5)) rotate(calc(var(--fr,4deg)*.5))}}
 @media(prefers-reduced-motion:reduce){:is(.hero-art,.brewer-display) svg .hero-fill[fill]:not([fill="none"]){fill-opacity:var(--fo,1)}}
 :is(.hero-art,.brewer-display) svg mask path{opacity:1!important;stroke-dasharray:none!important;stroke-dashoffset:0!important;fill-opacity:1!important;stroke-opacity:1!important;animation:none!important}
+
+/* Only user-triggered exits run at 2.5x speed; autoplay keeps its original timing. */
+:is(.hero-art,.brewer-display) svg.is-leaving.is-click-exit .hero-main-line{animation-duration:.4s}
+:is(.hero-art,.brewer-display) svg.is-leaving.is-click-exit .hero-detail,:is(.hero-art,.brewer-display) svg.is-leaving.is-click-exit .hero-caramel-line{animation-duration:.112s}
+:is(.hero-art,.brewer-display) svg.is-leaving.is-click-exit .hero-caramel{animation-duration:.096s}
