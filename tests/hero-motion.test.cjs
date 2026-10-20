@@ -6,6 +6,7 @@ const templates=[...markup.matchAll(/<template data-brewer-template="([^"]+)">\s
 class Element{
  constructor(tag='div',attributes={}){this.tagName=tag;this.attrs={...attributes};this.dataset={};this.children=[];this.events={};this.hidden=false;this.textContent='';this.style={opacity:'',setProperty(n,v){this[n]=v;}};this.animations=[];this.offsetWidth=240;const names=new Set((attributes.class||'').split(' ').filter(Boolean));this.classList={add:(...v)=>v.forEach(x=>names.add(x)),remove:(...v)=>v.forEach(x=>names.delete(x)),contains:x=>names.has(x),toggle:(x,yes)=>{if(yes??!names.has(x)){names.add(x);return true;}names.delete(x);return false;}};this.names=names;}
  getBoundingClientRect(){return{width:480};}
+ getBBox(){return{height:100};}
  getAttribute(n){return n==='class'?[...this.names].join(' '):(this.attrs[n]??null);}
  setAttribute(n,v){this.attrs[n]=String(v);}
  hasAttribute(n){return Object.hasOwn(this.attrs,n);}
@@ -165,12 +166,12 @@ test('all inner strokes and color contours are independent normalized lines, sha
  b.advance(2199);assert.ok(!b.arts[0].classList.contains('is-filled'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-details'));b.advance(79);assert.ok(!b.arts[0].classList.contains('is-filled'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-filled'));
 });
 
- test('only the five coffee liquids rise, while lids and wooden parts keep their original fill animation',()=>{
- const b=browser();for(const key of ['chemex','melitta','siphon','frenchpress','coldbrew']){
+ test('all six coffee liquids rise, while lids and wooden parts keep their original fill animation',()=>{
+ const b=browser();for(const key of ['chemex','melitta','espresso','siphon','frenchpress','coldbrew']){
  b.click(key);b.advance(608+2280);const art=b.lower.find(a=>a.dataset.brewerArt===key);
  const liquid=art.querySelectorAll('.hero-fill').filter(p=>p.hasAttribute('data-liquid'));assert.equal(liquid.length,1,key);
  const fill=liquid[0];assert.match(fill.getAttribute('clip-path'),/^url\(#brewer-liquid-/);
- const motion=fill.animations.at(-1);assert.equal(motion.options.duration,1100);assert.equal(motion.frames[2].transform,'scaleY(1.06)');assert.equal(motion.frames.at(-1).transform,'scaleY(1)');
+ const motion=fill.animations.at(-1);assert.equal(motion.options.duration,1100);assert.equal(motion.frames[2].transform,'scaleY(1.025)');assert.equal(motion.frames.at(-1).transform,'scaleY(1)');
  for(const part of art.querySelectorAll('.hero-fill').filter(p=>!p.hasAttribute('data-liquid')))assert.equal(part.animations.at(-1).options.duration,600);
  assert.ok(art.querySelectorAll('.hero-ink-line').every(p=>!p.hasAttribute('data-liquid')&&!p.getAttribute('clip-path')));
  b.advance(1000);

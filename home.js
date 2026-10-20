@@ -120,9 +120,12 @@
     try{
      if(typeof el.animate!=='function'||typeof reveal.animate!=='function')throw new Error('No Web Animations');
      el.style.transform='';el.style.willChange='transform, opacity';reveal.style.willChange='transform';
+     // Cap the surface lift in drawing units, so a deep vessel cannot bounce farther.
+     let lift=.06;try{const height=el.getBBox().height;if(height>0)lift=Math.min(lift,2.5/height);}catch{}
+     const peak='scaleY('+(1+lift)+')';
      // One small settling movement at the end; no looping or spring oscillation.
      const rise=reveal.animate([{transform:'translateY(1.05px)',offset:0,easing:'cubic-bezier(.22,0,.36,1)'},{transform:'translateY(0px)',offset:.64},{transform:'translateY(0px)',offset:1}],{duration:1100,fill:'both'});
-     const settle=el.animate([{opacity:1,transform:'scaleY(1)',offset:0},{opacity:1,transform:'scaleY(1)',offset:.6,easing:'ease-out'},{opacity:1,transform:'scaleY(1.06)',offset:.76,easing:'ease-in-out'},{opacity:1,transform:'scaleY(1)',offset:1}],{duration:1100,fill:'both'});
+     const settle=el.animate([{opacity:1,transform:'scaleY(1)',offset:0},{opacity:1,transform:'scaleY(1)',offset:.6,easing:'ease-out'},{opacity:1,transform:peak,offset:.76,easing:'ease-in-out'},{opacity:1,transform:'scaleY(1)',offset:1}],{duration:1100,fill:'both'});
      rise.onfinish=()=>{reveal.style.willChange='';};settle.onfinish=()=>{el.style.willChange='';};return;
     }catch{reveal.style.transform='';el.style.transform='';reveal.style.willChange='';el.style.willChange='';}
    }
