@@ -11,7 +11,7 @@
 
 .bed-svg:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px;border-radius:8px}.bed-svg:focus:not(:focus-visible){outline:none}.bed-landing>circle:first-child{fill:var(--color-surface);fill-opacity:.8}
 
-.bed-tool{pointer-events:none}.bed-tool-inner{transform-origin:577px 216px;transition:transform .28s var(--motion-easing,cubic-bezier(.4,0,.2,1))}.bed-pouring .bed-tool-inner{transform:rotate(-8deg)}.bed-tool-water{fill:none;stroke:#9fbbb1;stroke-width:3;stroke-linecap:round;stroke-dasharray:6 4;opacity:0;transition:opacity .18s var(--motion-easing,cubic-bezier(.4,0,.2,1));animation:stream .4s linear infinite}.bed-pouring .bed-tool-water{opacity:1}
+.bed-tool{pointer-events:none}.bed-tool-inner{transform-origin:577px 216px;transition:transform .28s var(--motion-easing,cubic-bezier(.4,0,.2,1))}.bed-pouring .bed-tool-inner{transform:rotate(-8deg)}.bed-tool-water{fill:none;stroke:#9fbbb1;stroke-width:3;stroke-linecap:round;stroke-dasharray:6 4;opacity:0;transition:opacity .16s var(--motion-easing,cubic-bezier(.4,0,.2,1));animation:stream .4s linear infinite}.bed-pouring .bed-tool-water{opacity:1;transition-duration:0s}
 
 .bed-mouse-input .bed-svg{outline:none!important}
 
