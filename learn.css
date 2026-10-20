@@ -56,13 +56,23 @@
 }
 @media(prefers-reduced-motion:reduce){.lesson-change,.lesson-flow{animation:none!important;transform:none!important}.lesson-tabs button{transition:none}}
 
-/* 100ms exit + 320ms entrance = one 420ms copy change; controls remain stationary. */
-.classroom-page .copy-out{animation:copy-out var(--motion-press) var(--ease-soft) both}
-.classroom-page .copy-in{animation:copy-in calc(var(--motion-slow) - var(--motion-press)) var(--ease-soft) both}
-.classroom-page .copy-reduced{animation:copy-fade var(--motion-reduced) ease-out both!important}
-@keyframes copy-out{from{opacity:var(--copy-from,1)}to{opacity:0}}
-@keyframes copy-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@keyframes copy-fade{from{opacity:.4}to{opacity:1}}
+/* Old and new copy overlap; the layout is measured before interaction. */
+.copy-host{position:relative}
+.copy-ghost{position:absolute!important;z-index:1;pointer-events:none!important;margin:0!important}
+#taste>.lesson-layout,.recipe-layout{align-items:start}
+.pour-kettle{transform-box:view-box;transform-origin:291px 82px}
+#hero-pour.demo-running .pour-kettle{animation:pour-tilt var(--motion-slow) var(--ease-soft) both,pour-rest var(--motion-slow) var(--ease-soft) 1900ms forwards}
+#hero-pour.demo-running .demo-water{animation-delay:420ms,1500ms}
+#hero-pour.demo-running .demo-drift-one{animation-delay:620ms}
+#hero-pour.demo-running .demo-drift-two{animation-delay:920ms}
+#hero-pour.demo-running .demo-drift-three{animation-delay:1220ms}
+#hero-pour.demo-running .demo-wet{animation-delay:650ms}
+#hero-pour.demo-running .demo-drop-one{animation-delay:1050ms}
+#hero-pour.demo-running .demo-drop-two{animation-delay:1250ms}
+#hero-pour.demo-running .demo-drop-three{animation-delay:1450ms}
+#hero-pour.demo-running .demo-fill{animation-delay:1500ms}
+@keyframes pour-tilt{from{transform:rotate(0deg)}to{transform:rotate(12deg)}}
+@keyframes pour-rest{from{transform:rotate(12deg)}to{transform:rotate(0deg)}}
 /* One finite teaching sequence. Each visual step uses the shared 420ms timing. */
 .demo-water{stroke-opacity:.35}
 .demo-grains{opacity:.18}
@@ -86,8 +96,6 @@
 @keyframes demo-dissolve{from{opacity:1;transform:none}to{opacity:.18;transform:translateY(4px)}}
 @keyframes demo-fill{from{opacity:.2;transform:translateY(12px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){
- .classroom-page .copy-out,.classroom-page .copy-in{animation:none!important;transform:none!important}
- .classroom-page .copy-reduced{animation:copy-fade var(--motion-reduced) ease-out both!important}
  .bean-tone,.bean-depth,.bean-seam-light{transition:opacity var(--motion-reduced) ease-out!important}
- .demo-running [class*="demo-"]{animation:none!important;transform:none!important}
+ .demo-running [class*="demo-"],#hero-pour.demo-running .pour-kettle{animation:none!important;transform:none!important}
 }

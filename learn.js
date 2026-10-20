@@ -40,6 +40,11 @@ function variableDrawing(name,input){const v=variableValues(input);
  const waterY=230-v.water/540*140,groundsY=230-v.dose/30*65;
  return svg(`<path d="M55 125h105v110q0 19-52.5 19T55 235ZM160 140h14c32 0 32 50 0 50h-14M225 65h120v170q0 19-60 19t-60-19Z"/><path class="lesson-accent" d="M63 ${groundsY}h89V235q0 11-44.5 11T63 235Z"/><path class="lesson-flow" pathLength="1" d="M233 ${waterY}h104"/><path d="M325 90h12m-12 30h12m-12 30h12m-12 30h12m-12 30h12" opacity=".4"/>`,'咖啡粉量与冲煮用水量的量杯示意','0 0 400 300');
 }
+function variableCopy(name,input){const v=variableValues(input),names=['','细','中细','中','中粗','粗'];
+ if(name==='grind')return{kicker:'颗粒示意',number:names[v.grind],title:v.grind<=2?'磨细一点，接触面积更多。':v.grind>=4?'磨粗一点，水通常更快流过。':'先观察，这杯的下水。',description:'细颗粒通常让溶出更充分，也可能使下水变慢。磨豆机刻度不能照搬，保持其他条件不变，再比较这一次的口感。',caption:'颗粒大小为变化方向示意，不代表实际磨豆机刻度。'};
+ if(name==='temperature')return{kicker:'设定水温',number:v.temp+'°C',title:'从这里开始，再用味觉决定。',description:'相同条件下，较高水温往往有助于溶出。设定值与实际粉层温度不同，下一杯只调整一个变量。',caption:'设定温度 ≠ 每一刻的粉层温度'};
+ return{kicker:'冲煮用水',number:v.water+' g',title:`${v.dose}g 咖啡，搭配 ${v.water}g 水。`,description:`1:${v.ratio} 是每 1g 咖啡配 ${v.ratio}g 冲煮用水。粉层会留住部分水，杯中液体通常少于注水量。`,caption:'水量 = 咖啡粉量 × 比例'};
+}
 function createPlayback({getLength,getStep,onStep,onState=()=>{},allowed=()=>true,setTimer=setTimeout,clearTimer=clearTimeout}){
  let timer=null,version=0,playing=false;
  function stop(){version++;if(timer!==null)clearTimer(timer);timer=null;playing=false;onState(false);}
@@ -58,22 +63,27 @@ function lessonSteps(selectedBrewer){if(CoffeeMethods.methods[selectedBrewer])re
  {name:'滴滤出杯',hint:'观察，再品尝',title:'等它滴下，留一口给自己。',text:selectedBrewer==='melitta'?'观察水位下降、滴滤基本结束，移开上面的 Melitta 滤杯。轻轻晃匀分享壶里的咖啡，倒入杯中，稍放凉后尝一尝。':'观察水位下降、滴滤基本结束，取出滤纸和粉渣。轻轻晃匀 Chemex 壶中的咖啡，倒入杯中，稍放凉后再尝。',observe:'记下总时间与口感。下一杯保留配方，只改一个变量。',visual:'记录味道，让下一杯有方向'}
  ];}
 const tasteAdvice={sour:{title:'先试着，只磨细一点。',description:'如果酸得尖、又有空薄感，可能是萃取不够，也可能和豆子本身有关。用同一支豆子，把研磨小幅调细，比较口感有没有变得更完整。',keep:'同一支豆、粉量、水量与水温',change:'研磨小幅调细一次',context:'明亮、清爽的酸质也可能是好喝的风味，先以自己的喜好判断。'},bitter:{title:'先试着，只磨粗一点。',description:'如果苦感伴随干涩、且下水很慢，可以先小幅调粗研磨。记录滴滤时间有没有缩短，口腔里是否更柔和，再决定下一步。',keep:'同一支豆、粉量、水量与水温',change:'研磨小幅调粗一次',context:'烘焙风味、细粉或不均匀注水也会影响口感，这只是一次对照实验。'},weak:{title:'先分清，淡还是萃取不足。',description:'如果味道完整、只是浓度低，可先减少同样粉量的用水，例如从 1:16 改到 1:15。若同时尖酸空薄，则优先尝试调整研磨。',keep:'同一支豆、粉量、研磨与水温',change:'只减少一点冲煮用水',context:'喝起来清淡不一定是缺点；选择你愿意每天喝的那种浓度。'},good:{title:'喜欢这一杯，就把它留下。',description:'记录豆子、器具、粉量、水量、水温、研磨和大致时间。再写一句自己的味觉联想，下次用同一套条件试着复现。',keep:'这一次的参数与动作',change:'先不改，下一杯尝试复现',context:'风味词没有标准答案。你喜欢的感觉，比漂亮的术语更值得记录。'}};
-const api={variableValues,processDrawing,variableDrawing,lessonSteps,brewerInfo,createPlayback};
+const api={variableCopy,variableValues,processDrawing,variableDrawing,lessonSteps,brewerInfo,createPlayback};
 if(typeof module==='object'&&module.exports)module.exports=api;
 root.CoffeeLearn=api;if(!root.document)return;
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],reduced=matchMedia('(prefers-reduced-motion: reduce)');
 let ready=false;
 let selectedBrewer=Object.hasOwn(brewerInfo,new URLSearchParams(location.search).get('tool'))?new URLSearchParams(location.search).get('tool'):'melitta',activeVariable='ratio',recipeStep=0;
 function motionMs(name,fallback){return Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name))||fallback;}
-const copyTotal=motionMs('--motion-slow',420),copyExit=motionMs('--motion-press',100),copyReduced=motionMs('--motion-reduced',150);
+const copyTotal=motionMs('--motion-slow',420),copyReduced=motionMs('--motion-reduced',150);
 const copyPlayers=new Map(),hintTimers=new Map();
 function hint(nodes){for(const node of nodes){clearTimeout(hintTimers.get(node));node.style.willChange='transform, opacity';hintTimers.set(node,setTimeout(()=>{node.style.removeProperty('will-change');hintTimers.delete(node);},copyTotal));}}
 function clearHints(){for(const [node,timer]of hintTimers){clearTimeout(timer);node.style.removeProperty('will-change');}hintTimers.clear();}
-function copy(selector,write,animate=ready){const nodes=$$(selector),key=nodes[0];let player=copyPlayers.get(key);if(!player){player=CoffeeLearnMotion.createCopyTransition({outMs:copyExit,inMs:copyTotal-copyExit,reducedMs:copyReduced,reduced:()=>reduced.matches,onState:state=>{for(const node of nodes){if(state==='out')node.style.setProperty('--copy-from',getComputedStyle(node).opacity);node.classList.remove('copy-out','copy-in','copy-reduced');node.dataset.copyState=state;if(state==='idle'){node.style.removeProperty('will-change');node.style.removeProperty('--copy-from');}else{node.classList.add('copy-'+state);node.style.willChange=state==='reduced'?'opacity':'transform, opacity';}}}});copyPlayers.set(key,player);}player.change(write,animate);}
+function copy(selector,write,animate=ready){const nodes=$$(selector),key=nodes[0];let player=copyPlayers.get(key);if(!player){let animations=[],ghosts=[];
+ function clean(){for(const animation of animations)animation.cancel();animations=[];for(const ghost of ghosts)ghost.remove();ghosts=[];for(const node of nodes)node.style.removeProperty('will-change');}
+ player=CoffeeLearnMotion.createCopyTransition({duration:copyTotal,reducedMs:copyReduced,reduced:()=>reduced.matches,prepare:()=>nodes.map(node=>{const parent=node.parentElement;if(getComputedStyle(parent).position==='static')parent.classList.add('copy-host');const rect=node.getBoundingClientRect(),box=parent.getBoundingClientRect(),opacity=getComputedStyle(node).opacity,clone=node.cloneNode(true);clone.removeAttribute('id');clone.querySelectorAll('[id]').forEach(n=>n.removeAttribute('id'));clone.querySelectorAll('a,button,input,[tabindex]').forEach(n=>n.tabIndex=-1);clone.setAttribute('aria-hidden','true');clone.setAttribute('inert','');clone.classList.add('copy-ghost');clone.style.cssText=`left:${rect.left-box.left+parent.scrollLeft-parent.clientLeft}px;top:${rect.top-box.top+parent.scrollTop-parent.clientTop}px;width:${rect.width}px;min-height:0;opacity:${opacity};`;return{parent,clone,opacity};}),onState:(state,snapshot)=>{
+  if(state==='cancel'||state==='idle')clean();for(const node of nodes)node.dataset.copyState=state;
+  if(state==='in'||state==='reduced')try{nodes.forEach((node,i)=>{node.style.willChange=state==='reduced'?'opacity':'transform, opacity';if(state==='in'){const old=snapshot[i];old.parent.append(old.clone);ghosts.push(old.clone);animations.push(old.clone.animate([{opacity:old.opacity},{opacity:0}],{duration:150,easing:'ease-out',fill:'both'}));}animations.push(node.animate(state==='reduced'?[{opacity:.4},{opacity:1}]:[{opacity:0,transform:'translateY(4px)'},{opacity:1,transform:'translateY(0)'}],{duration:state==='reduced'?copyReduced:copyTotal-80,delay:state==='reduced'?0:80,easing:getComputedStyle(document.documentElement).getPropertyValue('--ease-soft').trim(),fill:'both'}));});}catch{clean();}
+ }});copyPlayers.set(key,player);}player.change(write,animate);}
 function respond(node){node.classList.remove('lesson-change');if(ready&&!reduced.matches){void node.offsetWidth;hint([node]);node.classList.add('lesson-change');}}
 let demo=null,demoStart=null,demoEnd=null;
-function stopDemo(){clearTimeout(demoStart);clearTimeout(demoEnd);if(demo){demo.classList.remove('demo-running');demo.dataset.demoState='complete';demo.querySelectorAll('[class*="demo-"]').forEach(node=>node.style.removeProperty('will-change'));}demo=null;}
-function playDemo(svg,delay=0){stopDemo();if(!svg||reduced.matches||document.hidden)return;demo=svg;demo.dataset.demoState='waiting';demoStart=setTimeout(()=>{if(demo!==svg)return;svg.querySelectorAll('[class*="demo-"]').forEach(node=>node.style.willChange='transform, opacity');svg.classList.add('demo-running');svg.dataset.demoState='playing';demoEnd=setTimeout(stopDemo,1600);},delay);}
+function stopDemo(){clearTimeout(demoStart);clearTimeout(demoEnd);if(demo){demo.classList.remove('demo-running');demo.dataset.demoState='complete';if(demo.id==='hero-pour')demo.dataset.pourState='rest';demo.querySelectorAll('[class*="demo-"],.pour-kettle').forEach(node=>node.style.removeProperty('will-change'));}demo=null;}
+function playDemo(svg,delay=0){stopDemo();if(!svg||reduced.matches||document.hidden)return;demo=svg;demo.dataset.demoState='waiting';demoStart=setTimeout(()=>{if(demo!==svg)return;svg.querySelectorAll('[class*="demo-"],.pour-kettle').forEach(node=>node.style.willChange='transform, opacity');svg.classList.add('demo-running');svg.dataset.demoState='playing';if(svg.id==='hero-pour')svg.dataset.pourState='tilting';demoEnd=setTimeout(stopDemo,svg.id==='hero-pour'?2450:1600);},delay);}
 function tabs(selector,attribute,selected){$$(selector).forEach(button=>{const yes=button.getAttribute(attribute)===String(selected);button.setAttribute(button.getAttribute('role')==='tab'?'aria-selected':'aria-pressed',String(yes));if(button.getAttribute('role')==='tab')button.tabIndex=yes?0:-1;});}
 function keyboardTabs(selector,attribute,select){$$(selector).forEach(button=>button.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const all=$$(selector),at=all.indexOf(button),next=event.key==='Home'?0:event.key==='End'?all.length-1:(at+(event.key==='ArrowRight'?1:-1)+all.length)%all.length;select(all[next].getAttribute(attribute));all[next].focus();}));}
 const phases=[
@@ -95,18 +105,7 @@ function inputs(){return variableValues({dose:$('#learn-dose').value,ratio:$('#l
 function updateVariable(animate=false){const v=inputs(),names=['','细','中细','中','中粗','粗'];
  $('#dose-value').textContent=v.dose+' g';$('#ratio-value').textContent='1 : '+v.ratio;$('#grind-value').textContent=names[v.grind];$('#temperature-value').textContent=v.temp+'°C';
  $('#variable-drawing').innerHTML=variableDrawing(activeVariable,v);
- copy('#variable-copy,#variable-readout,#variable-caption',()=>{if(activeVariable==='ratio'){
-  $('#visual-kicker').textContent='冲煮用水';$('#visual-number').textContent=v.water+' g';$('#variable-title').textContent=`${v.dose}g 咖啡，搭配 ${v.water}g 水。`;
-  $('#variable-description').textContent=`1:${v.ratio} 是每 1g 咖啡配 ${v.ratio}g 冲煮用水。粉层会留住部分水，杯中液体通常少于注水量。`;
-  $('#variable-caption').textContent='水量 = 咖啡粉量 × 比例';
- }else if(activeVariable==='grind'){
-  $('#visual-kicker').textContent='颗粒示意';$('#visual-number').textContent=names[v.grind];$('#variable-title').textContent=v.grind<=2?'磨细一点，接触面积更多。':v.grind>=4?'磨粗一点，水通常更快流过。':'先观察，这杯的下水。';
-  $('#variable-description').textContent='细颗粒通常让溶出更充分，也可能使下水变慢。磨豆机刻度不能照搬，保持其他条件不变，再比较这一次的口感。';
-  $('#variable-caption').textContent='颗粒大小为变化方向示意，不代表实际磨豆机刻度。';
- }else{
-  $('#visual-kicker').textContent='设定水温';$('#visual-number').textContent=v.temp+'°C';$('#variable-title').textContent='从这里开始，再用味觉决定。';
-  $('#variable-description').textContent='相同条件下，较高水温往往有助于溶出。设定值与实际粉层温度不同，下一杯只调整一个变量。';$('#variable-caption').textContent='设定温度 ≠ 每一刻的粉层温度';
- }},animate);
+ const data=variableCopy(activeVariable,v);copy('#variable-copy,#variable-readout,#variable-caption',()=>{$('#visual-kicker').textContent=data.kicker;$('#visual-number').textContent=data.number;$('#variable-title').textContent=data.title;$('#variable-description').textContent=data.description;$('#variable-caption').textContent=data.caption;},animate);
 }
 function selectVariable(name){activeVariable=name;tabs('button[data-variable]','data-variable',name);$$('[data-variable-control]').forEach(p=>p.hidden=p.dataset.variableControl!==name);$('#variable-panel').setAttribute('aria-labelledby','tab-'+name);stopDemo();updateVariable(ready);respond($('#variable-panel'));}
 $$('button[data-variable]').forEach(b=>b.addEventListener('click',()=>selectVariable(b.dataset.variable)));keyboardTabs('button[data-variable]','data-variable',selectVariable);$$('#variable-panel input').forEach(input=>input.addEventListener('input',()=>updateVariable(false)));
@@ -118,13 +117,13 @@ function renderRecipe(){stopDemo();const all=lessonSteps(selectedBrewer),step=al
  $('#previous-step').disabled=recipeStep===0;$('#next-step').textContent=recipeStep===all.length-1?'重新看一遍':'下一步';
 }
 function selectBrewer(name){if(!Object.hasOwn(brewerInfo,name))name='melitta';playback.stop();selectedBrewer=name;recipeStep=0;const data=brewerInfo[name],method=CoffeeMethods.methods[name];
- tabs('[data-learn-brewer]','data-learn-brewer',name);$('#brewer-panel').setAttribute('aria-labelledby','tab-'+name);$('#brewer-use').setAttribute('href','assets/lesson-brewers.svg#'+name);$('#brewer-drawing').setAttribute('aria-label',data.name+'细线器具图');copy('#brewer-tag',()=>{$('#brewer-tag').textContent=data.tag;});copy('#brewer-copy',()=>{$('#brewer-subtitle').textContent=data.subtitle;$('#brewer-title').textContent=data.title;$('#brewer-description').textContent=data.description;});
+ tabs('[data-learn-brewer]','data-learn-brewer',name);copy('#brewer-tag',()=>{$('#brewer-tag').textContent=data.tag;});copy('#brewer-copy',()=>{$('#brewer-subtitle').textContent=data.subtitle;$('#brewer-title').textContent=data.title;$('#brewer-description').textContent=data.description;});
  $('#equipment-practice').href=`workshop.html?tool=${name}&mode=basic`;$$('[data-practice]').forEach(a=>a.href=`workshop.html?tool=${name}&mode=${a.dataset.practice}`);
  const meta=method?[['今天的器具',data.name],...method.meta]:[['今天的器具',data.name],['咖啡粉 / 用水','15 g / '+recipes[name].water+' g'],['起点水温',recipes[name].temp+'°C'],['起点研磨',recipes[name].grind]];
- copy('#recipe-meta',()=>{$('#recipe-meta').innerHTML=meta.map(([title,value])=>`<div><dt>${escapeHTML(title)}</dt><dd>${escapeHTML(value)}</dd></div>`).join('');});renderRecipe();respond($('#brewer-drawing'));
+ copy('#recipe-meta',()=>{$('#recipe-meta').innerHTML=meta.map(([title,value])=>`<div><dt>${escapeHTML(title)}</dt><dd>${escapeHTML(value)}</dd></div>`).join('');});renderRecipe();
  const url=new URL(location.href);url.searchParams.set('tool',name);history.replaceState(null,'',url);
 }
-$$('[data-learn-brewer]').forEach(b=>b.addEventListener('click',()=>selectBrewer(b.dataset.learnBrewer)));keyboardTabs('[data-learn-brewer]','data-learn-brewer',selectBrewer);
+$$('[data-learn-brewer]').forEach(b=>b.addEventListener('click',()=>selectBrewer(b.dataset.learnBrewer)));keyboardTabs('[data-learn-brewer]','data-learn-brewer',name=>$('#tab-'+name).click());
 $('#play-recipe').addEventListener('click',()=>{if(playback.playing)playback.stop();else playback.start();});$('#previous-step').addEventListener('click',()=>{playback.stop();recipeStep=Math.max(0,recipeStep-1);renderRecipe();});$('#next-step').addEventListener('click',()=>{playback.stop();recipeStep=recipeStep===lessonSteps(selectedBrewer).length-1?0:recipeStep+1;renderRecipe();});
 function chooseTaste(name){const data=tasteAdvice[name];tabs('[data-taste]','data-taste',name);stopDemo();copy('#taste-copy',()=>{$('#taste-title').textContent=data.title;$('#taste-description').textContent=data.description;$('#taste-keep').textContent=data.keep;$('#taste-change').textContent=data.change;});}
 $$('[data-taste]').forEach(b=>b.addEventListener('click',()=>chooseTaste(b.dataset.taste)));
@@ -132,6 +131,29 @@ function motionChanged(){playback.stop();stopDemo();clearHints();for(const playe
 if(typeof reduced.addEventListener==='function')reduced.addEventListener('change',motionChanged);else reduced.addListener?.(motionChanged);
 function pauseLesson(){playback.stop();stopDemo();clearHints();for(const player of copyPlayers.values())player.finish();}addEventListener('pagehide',pauseLesson);document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseLesson();});
 selectPhase(0);selectBrewer(selectedBrewer);selectRoast(1);selectVariable('ratio');chooseTaste('sour');motionChanged();ready=true;
+// Measure candidate copy offscreen at the current width, once per responsive layout.
+// No height animation and no layout measurement in the frame-by-frame fade.
+function reserveCopySpace(){
+ const fit=(selector,samples)=>{const node=$(selector);if(!node)return;const width=node.getBoundingClientRect().width;if(!width)return;const probe=node.cloneNode(true),refs=new Map();
+  for(const sample of samples)for(const field of Object.keys(sample))if(field!=='html'&&!refs.has(field))refs.set(field,node.matches(field)?probe:probe.querySelector(field));
+  probe.removeAttribute('id');probe.querySelectorAll('[id]').forEach(n=>n.removeAttribute('id'));probe.setAttribute('aria-hidden','true');probe.setAttribute('inert','');probe.style.cssText=`position:absolute;visibility:hidden;pointer-events:none;width:${width}px;min-height:0;left:0;top:0;`;node.parentElement.append(probe);let height=0;
+  for(const sample of samples){for(const [field,value]of Object.entries(sample))if(field==='html')probe.innerHTML=value;else if(refs.get(field))refs.get(field).textContent=value;height=Math.max(height,probe.getBoundingClientRect().height);}
+  probe.remove();node.style.minHeight=Math.ceil(height)+'px';
+ };
+ fit('#story-copy',phases.map((p,i)=>({'#story-count':`0${i+1} / 03`,'#story-title':p.title,'#story-description':p.description})));
+ fit('#roast-copy',roasts.map(r=>({'#roast-title':r.title,'#roast-desc':r.description})));
+ fit('#brewer-copy',Object.values(brewerInfo).map(b=>({'#brewer-subtitle':b.subtitle,'#brewer-title':b.title,'#brewer-description':b.description})));
+ const variableSamples=['ratio','grind','temperature'].flatMap(name=>[variableCopy(name,{dose:10,ratio:13,grind:1,temp:80}),variableCopy(name,{dose:30,ratio:18,grind:5,temp:100}),variableCopy(name,{grind:3})]);
+ fit('#variable-copy',variableSamples.map(v=>({'#variable-title':v.title,'#variable-description':v.description})));
+ fit('#variable-caption',variableSamples.map(v=>({'#variable-caption':v.caption})));
+ fit('#brewer-tag',Object.values(brewerInfo).map(v=>({'#brewer-tag':v.tag})));
+ fit('#taste-copy',Object.values(tasteAdvice).map(t=>({'#taste-title':t.title,'#taste-description':t.description,'#taste-keep':t.keep,'#taste-change':t.change})));
+ fit('#recipe-copy',Object.keys(brewerInfo).flatMap(key=>lessonSteps(key).map(step=>({'#recipe-action':step.name,'#recipe-step-title':step.title,'#recipe-step-description':step.text,'#recipe-step-observe':'看一看：'+step.observe}))));
+}
+reserveCopySpace();document.fonts?.ready.then(reserveCopySpace);
+let copyWidth=$('main').getBoundingClientRect().width,copyResize=null;
+if(typeof ResizeObserver==='function')new ResizeObserver(()=>{const width=$('main').getBoundingClientRect().width;if(Math.abs(width-copyWidth)<1)return;copyWidth=width;clearTimeout(copyResize);copyResize=setTimeout(reserveCopySpace,150);}).observe($('main'));
+$('#hero-pour .pour-kettle').addEventListener('animationend',event=>{$('#hero-pour').dataset.pourState=event.animationName==='pour-tilt'?'pouring':'rest';});
 $('#replay-pour').addEventListener('click',()=>playDemo($('#hero-pour')));$('#replay-process').addEventListener('click',()=>playDemo($('#story-drawing svg')));
 if(typeof IntersectionObserver==='function'){const observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){observer.unobserve(entry.target);playDemo(entry.target.matches('svg')?entry.target:entry.target.querySelector('svg'),copyTotal);}},{threshold:.4});observer.observe($('#hero-pour'));observer.observe($('#story-drawing'));}else playDemo($('#hero-pour'),copyTotal);
 })(typeof window==='undefined'?globalThis:window,typeof module==='object'&&module.exports?require('./methods.js'):CoffeeMethods);
