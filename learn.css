@@ -14,10 +14,15 @@
 .lesson-svg{display:block;width:100%;height:auto;color:var(--color-primary);stroke:currentColor;stroke-width:var(--illustration-stroke);stroke-linecap:round;stroke-linejoin:round;fill:none}
 .lesson-svg *{vector-effect:non-scaling-stroke}
 .lesson-accent{fill:var(--color-accent);fill-opacity:.24;stroke:var(--color-primary)}
+/* Flat tones share the existing palette; the deep layer distinguishes roast at a glance. */
+#bean-figure{--bean-caramel:.48;--bean-dark:0;--bean-light-seam:0}
+#bean-figure[data-roast="0"]{--bean-caramel:.14;--bean-dark:0;--bean-light-seam:0}
+#bean-figure[data-roast="2"]{--bean-caramel:.48;--bean-dark:.78;--bean-light-seam:1}
+.bean-tone{fill:var(--color-accent);stroke:none;opacity:var(--bean-caramel)}
+.bean-depth{fill:var(--color-text);stroke:none;opacity:var(--bean-dark)}
 .bean-seam{stroke:var(--color-accent)}
-#bean-figure[data-roast="0"] .bean-seam{opacity:.4}
-#bean-figure[data-roast="1"] .bean-seam{opacity:.7}
-#bean-figure[data-roast="2"] .bean-seam{opacity:1}
+.bean-seam-light{stroke:var(--color-bg);opacity:var(--bean-light-seam)}
+.bean-tone,.bean-depth,.bean-seam-light{transition:opacity var(--motion-slow) var(--ease-soft)}
 .lesson-tabs{flex-direction:row;flex-wrap:wrap}
 .lesson-tabs button{flex:1 0 auto;min-width:var(--control-height);font-size:var(--text-sm)}
 .lesson-tabs button[aria-selected="true"]{background:var(--color-primary);color:var(--color-bg);border-color:var(--color-primary)}
@@ -37,10 +42,10 @@
 .taste-comparison>div{display:flex;gap:var(--space-24)}
 .taste-comparison dt{font-size:var(--text-sm);flex-shrink:0}
 .taste-comparison dd{margin:0}
-.lesson-change{animation:lesson-change var(--motion-duration) var(--motion-easing) both}
-.lesson-flow{stroke-dasharray:1;animation:lesson-flow var(--motion-duration) var(--motion-easing) both}
+.lesson-change{animation:lesson-change var(--motion-slow) var(--ease-soft) both}
+.lesson-flow{animation:lesson-flow var(--motion-slow) var(--ease-soft) both}
 @keyframes lesson-change{from{opacity:.4;transform:translateY(var(--space-8))}to{opacity:1;transform:none}}
-@keyframes lesson-flow{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes lesson-flow{from{opacity:.2}to{opacity:1}}
 @media(max-width:760px){
  .lesson-content{padding-top:var(--space-48)}
  .lesson-layout{grid-template-columns:minmax(0,1fr);gap:var(--space-24)}
@@ -49,4 +54,40 @@
  .recipe-meta{flex-direction:column}
  .lesson-tabs button{flex:1 0 auto}
 }
-@media(prefers-reduced-motion:reduce){.lesson-change,.lesson-flow{animation:none!important;transform:none!important;stroke-dashoffset:0}.lesson-tabs button{transition:none}}
+@media(prefers-reduced-motion:reduce){.lesson-change,.lesson-flow{animation:none!important;transform:none!important}.lesson-tabs button{transition:none}}
+
+/* 100ms exit + 320ms entrance = one 420ms copy change; controls remain stationary. */
+.classroom-page .copy-out{animation:copy-out var(--motion-press) var(--ease-soft) both}
+.classroom-page .copy-in{animation:copy-in calc(var(--motion-slow) - var(--motion-press)) var(--ease-soft) both}
+.classroom-page .copy-reduced{animation:copy-fade var(--motion-reduced) ease-out both!important}
+@keyframes copy-out{from{opacity:var(--copy-from,1)}to{opacity:0}}
+@keyframes copy-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes copy-fade{from{opacity:.4}to{opacity:1}}
+/* One finite teaching sequence. Each visual step uses the shared 420ms timing. */
+.demo-water{stroke-opacity:.35}
+.demo-grains{opacity:.18}
+.demo-water,.demo-drift,.demo-drop,.demo-bubbles,.demo-soluble{opacity:0}
+.demo-running .demo-water{animation:demo-appear var(--motion-slow) var(--ease-soft) both,demo-vanish var(--motion-slow) var(--ease-soft) 1000ms forwards}
+.demo-running .demo-drift{animation:demo-fall var(--motion-slow) var(--ease-soft) 200ms both}
+.demo-running .demo-drift-two{animation-delay:500ms}
+.demo-running .demo-drift-three{animation-delay:800ms}
+.demo-running .demo-wet{animation:demo-appear var(--motion-slow) var(--ease-soft) 240ms both}
+.demo-running .demo-bubbles{animation:demo-rise var(--motion-slow) var(--ease-soft) 500ms both}
+.demo-running .demo-grains{animation:demo-dissolve var(--motion-slow) var(--ease-soft) 500ms both}
+.demo-running .demo-soluble{animation:demo-fall var(--motion-slow) var(--ease-soft) 720ms both}
+.demo-running .demo-drop-one{animation:demo-fall var(--motion-slow) var(--ease-soft) 480ms both}
+.demo-running .demo-drop-two{animation:demo-fall var(--motion-slow) var(--ease-soft) 680ms both}
+.demo-running .demo-drop-three{animation:demo-fall var(--motion-slow) var(--ease-soft) 880ms both}
+.demo-running .demo-fill{animation:demo-fill var(--motion-slow) var(--ease-soft) 1000ms both}
+@keyframes demo-appear{from{opacity:0}to{opacity:1}}
+@keyframes demo-vanish{from{opacity:1}to{opacity:0}}
+@keyframes demo-fall{0%{opacity:0;transform:translateY(-4px)}30%{opacity:1}75%{opacity:1}100%{opacity:0;transform:translateY(8px)}}
+@keyframes demo-rise{0%{opacity:0;transform:translateY(4px)}35%{opacity:1}100%{opacity:0;transform:translateY(-8px)}}
+@keyframes demo-dissolve{from{opacity:1;transform:none}to{opacity:.18;transform:translateY(4px)}}
+@keyframes demo-fill{from{opacity:.2;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){
+ .classroom-page .copy-out,.classroom-page .copy-in{animation:none!important;transform:none!important}
+ .classroom-page .copy-reduced{animation:copy-fade var(--motion-reduced) ease-out both!important}
+ .bean-tone,.bean-depth,.bean-seam-light{transition:opacity var(--motion-reduced) ease-out!important}
+ .demo-running [class*="demo-"]{animation:none!important;transform:none!important}
+}
