@@ -59,7 +59,7 @@ dialog{max-width:min(640px,calc(100% - var(--space-48)));max-height:calc(100svh 
  77.272727%{stroke-dashoffset:.04;animation-timing-function:cubic-bezier(.25,.4,.65,1)}
  100%{stroke-dashoffset:0}
 }
-@keyframes hero-main-retract{from{stroke-dashoffset:0}to{stroke-dashoffset:1}}
+@keyframes hero-main-retract{from{stroke-dashoffset:var(--ink-retract-from,0)}to{stroke-dashoffset:1}}
 :is(.hero-art,.brewer-display) svg.is-line .hero-main-static{display:none}
 :is(.hero-art,.brewer-display) svg.is-line .hero-detail,:is(.hero-art,.brewer-display) svg.is-line .hero-caramel{opacity:0}
 :is(.hero-art,.brewer-display) svg.is-line .hero-detail,:is(.hero-art,.brewer-display) svg.is-line .hero-caramel-line,:is(.hero-art,.brewer-display) svg.is-line .hero-caramel{animation:none}
@@ -97,3 +97,12 @@ html[data-art-motion="off"] :is(.hero-art,.brewer-display) svg > .hero-fill[fill
 html[data-art-motion="off"] :is(.hero-art,.brewer-display) svg > .hero-main-line{display:none!important}
 /* An explicit play request overrides reduction only for the brewer artwork. */
 @media(prefers-reduced-motion:reduce){html[data-art-motion="on"] :is(.hero-art,.brewer-display) svg.is-active > :is(path,ellipse,circle){animation-play-state:running}}
+
+/* All pen strokes: same slow start, fast middle and short slow closing segment. */
+.hero-ink-line{display:none}
+:is(.hero-art,.brewer-display) svg.is-line .hero-ink-line{display:block;opacity:var(--o,1);stroke-dasharray:1;stroke-dashoffset:1;transform:none;animation:hero-main-draw 2.2s cubic-bezier(.55,0,.45,1) forwards;animation-delay:0s}
+:is(.hero-art,.brewer-display) svg.is-line .hero-detail{display:none}
+:is(.hero-art,.brewer-display) svg.is-details .hero-detail{display:none;animation:none}
+:is(.hero-art,.brewer-display) svg.is-leaving .hero-ink-line{animation:hero-main-retract 1s var(--hero-ease-both) forwards;animation-delay:0s}
+:is(.hero-art,.brewer-display) svg.is-leaving.is-click-exit .hero-ink-line{animation-duration:.4s}
+html[data-art-motion="off"] :is(.hero-art,.brewer-display) svg > .hero-ink-line{display:none!important}

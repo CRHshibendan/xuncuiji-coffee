@@ -1,6 +1,31 @@
 /* The quiet homepage owns its controls; it has no scroll listener or scroll lock. */
 (function(){
  'use strict';
+ // Each pen-down segment gets its own normalized clock, including compound SVG paths.
+ function splitSubpaths(d){
+  const tokens=(d||'').match(/[MmLlHhVvCcSsQqTtAaZz]|[-+]?(?:\d*\.\d+|\d+\.?\d*)(?:[eE][-+]?\d+)?/g)||[];
+  const counts={M:2,L:2,H:1,V:1,C:6,S:4,Q:4,T:2,A:7};
+  let i=0,command='',x=0,y=0,sx=0,sy=0,part=[],result=[];
+  while(i<tokens.length){
+   if(/^[A-Za-z]$/.test(tokens[i]))command=tokens[i++];
+   const upper=command.toUpperCase(),relative=command!==upper;
+   if(upper==='Z'){part.push(command);x=sx;y=sy;command='';continue;}
+   const count=counts[upper];if(!count||i+count>tokens.length)break;
+   const raw=tokens.slice(i,i+count);if(raw.some(t=>/^[A-Za-z]$/.test(t)))break;
+   const values=raw.map(Number);i+=count;
+   if(upper==='M'){
+    if(part.length)result.push(part.join(' '));
+    x=(relative?x:0)+values[0];y=(relative?y:0)+values[1];sx=x;sy=y;part=['M',String(x),String(y)];command=relative?'l':'L';
+   }else{
+    part.push(command,...raw);
+    if(upper==='H')x=(relative?x:0)+values[0];
+    else if(upper==='V')y=(relative?y:0)+values[0];
+    else{x=(relative?x:0)+values[count-2];y=(relative?y:0)+values[count-1];}
+   }
+  }
+  if(part.length)result.push(part.join(' '));return result;
+ }
+ if(typeof module==='object'&&module.exports){module.exports={splitSubpaths};if(typeof document==='undefined')return;}
  const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
  // Preserve older links from saved notes and existing workshop navigation.
  const oldHash={ '#journal':'journal.html','#practice':'explore.html','#more-methods':'explore.html'};
@@ -39,7 +64,7 @@
  });
  const heroArt=$$('[data-hero-art]'),galleryArt=$$('[data-brewer-art]'),heroCaption=$('[data-hero-caption]');
  const heroLabels={chemex:'CHEMEX / 玻璃滤壶',melitta:'MELITTA / 陶瓷滤杯',espresso:'ESPRESSO / 意式浓缩',siphon:'SIPHON / 虹吸壶',moka:'MOKA POT / 摩卡壶',frenchpress:'FRENCH PRESS / 法压壶',coldbrew:'COLD BREW / 浸泡式冷萃'};
- // Wait for the dedicated closing stroke before revealing the detail lines.
+ // All independent ink strokes share the contour clock; color follows the completed ink.
  const HERO_DRAW_MS=2200,HERO_RETRACT_MS=1000;
  // Normalized dashes must scale with SVG geometry. Compensate stroke width
  // separately so a larger exhibition still has the same 1.5px ink weight.
@@ -60,26 +85,26 @@
   main.forEach(el=>el.classList.add('hero-main-static'));
   details.forEach(el=>el.classList.add('hero-detail'));
   caramel.forEach(el=>el.classList.add('hero-caramel'));
-  caramel.forEach(el=>{if(el.tagName!=='path')return;const line=el.cloneNode(false);line.setAttribute('fill','none');line.setAttribute('stroke','currentColor');line.setAttribute('stroke-width','1.5');line.classList.remove('hero-caramel','hero-fill');line.classList.add('hero-caramel-line');art.appendChild(line);});
-  main.forEach(el=>{
-   const line=el.cloneNode(false);
-   line.classList.remove('hero-main-static','hero-fill');
-   line.classList.add('hero-main-line');
-   line.setAttribute('fill','none');
-   const ink=getComputedStyle(details[0]||el).stroke;
-   line.setAttribute('stroke',ink&&ink!=='none'?ink:'#1f2a26');
-   line.setAttribute('stroke-width','1.5');
-   line.setAttribute('pathLength','1');
-   line.setAttribute('stroke-linecap','round');
-   line.setAttribute('stroke-linejoin','round');
-   art.appendChild(line);
+  // All visible strokes use the exact same draw/retract animation as the outline.
+  // Original fill geometry stays separate, so color cannot appear before the ink finishes.
+  shapes.forEach(el=>{
+   const role=main.includes(el)?'hero-main-line':caramel.includes(el)?'hero-caramel-line':'hero-detail-line';
+   const pieces=el.tagName.toLowerCase()==='path'?splitSubpaths(el.getAttribute('d')):[null];
+   for(const piece of pieces){
+    const line=el.cloneNode(false);if(piece!==null)line.setAttribute('d',piece);
+    line.classList.remove('hero-main-static','hero-fill','hero-detail','hero-caramel');
+    line.classList.add('hero-ink-line',role);line.setAttribute('fill','none');line.setAttribute('stroke','currentColor');
+    line.setAttribute('stroke-width','1.5');line.setAttribute('pathLength','1');line.setAttribute('stroke-linecap','round');line.setAttribute('stroke-linejoin','round');
+    art.appendChild(line);
+   }
   });
  }
  function fadeFills(art,to,duration){
   const easing=getComputedStyle(art).getPropertyValue('--hero-ease-both').trim()||'ease-in-out';
   art.querySelectorAll('.hero-fill').forEach(el=>{
    for(const animation of el.getAnimations?.()||[]){try{animation.cancel();}catch{}}
-   try{if(typeof el.animate!=='function')throw new Error('No Web Animations');el.animate([{opacity:to===1?0:1},{opacity:to}],{duration,easing,fill:'both'});}
+   const current=Number.parseFloat(getComputedStyle(el).opacity);
+   try{if(typeof el.animate!=='function')throw new Error('No Web Animations');el.animate([{opacity:to===1?0:Number.isFinite(current)?current:1},{opacity:to}],{duration,easing,fill:'both'});}
    catch{el.style.opacity=String(to);}
   });
  }
@@ -107,13 +132,13 @@
    arts.forEach(a=>{const active=a===art;a.classList.toggle('is-active',active);a.classList.toggle('is-line',active&&!artReduced());a.classList.remove('is-details','is-filled','is-leaving','is-click-exit');a.setAttribute('aria-hidden',String(!active));});
    index=arts.indexOf(art);
    onChange(art.dataset[field]);
-   const lines=[...art.querySelectorAll('.hero-main-line')];
+   const lines=[...art.querySelectorAll('.hero-ink-line')];
    if(!lines.length)return;
    if(artReduced())return;
    runId++;
    const run=runId;
    setTimeout(()=>{if(run!==runId)return;art.classList.add('is-details');},HERO_DRAW_MS);
-   setTimeout(()=>{if(run!==runId)return;art.classList.add('is-filled');fadeFills(art,1,600);},HERO_DRAW_MS+700);
+   setTimeout(()=>{if(run!==runId)return;art.classList.add('is-filled');fadeFills(art,1,600);},HERO_DRAW_MS+80);
    schedule();
   }
   function retract(art,done,manual){
@@ -127,6 +152,7 @@
     if(run!==runId)return;
     art.classList.remove('is-filled');
     art.classList.remove('is-details');
+    const ink=art.querySelector('.hero-ink-line');art.style.setProperty('--ink-retract-from',ink?getComputedStyle(ink).strokeDashoffset||'0':'0');
     art.classList.add('is-leaving');
     setTimeout(()=>{if(run!==runId)return;done();},HERO_RETRACT_MS*speed);
    },520*speed);

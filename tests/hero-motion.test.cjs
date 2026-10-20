@@ -1,5 +1,6 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync(require.resolve('../home.js'),'utf8');
+const {splitSubpaths}=require('../home.js');
 const markup=fs.readFileSync(require.resolve('../index.html'),'utf8');
 const templates=[...markup.matchAll(/<template data-brewer-template="([^"]+)">\s*(<svg[\s\S]+?<\/svg>)\s*<\/template>/g)];
 class Element{
@@ -51,8 +52,8 @@ test('shared script initializes pages without a hero and still reaches navigatio
  for(const page of ['journal.html','explore.html']){const b=browser({page});assert.equal(b.timers.size,0);assert.ok(b.html.classList.contains('home-motion-fallback'));}
 });
 test('hero keeps independent contours, closing stroke before details and fill timing',()=>{
- const b=browser();assert.equal(b.active(),'chemex');for(const a of b.arts){const expected=['melitta','siphon','moka','frenchpress','coldbrew'].includes(a.dataset.heroArt)?2:1;assert.equal(a.querySelectorAll('.hero-main-line').length,expected);assert.ok(a.querySelectorAll('.hero-main-line').every(l=>l.getAttribute('pathLength')==='1'&&!l.classList.contains('hero-fill')));}
- b.advance(2199);assert.ok(!b.arts[0].classList.contains('is-details'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-details'));b.advance(699);assert.ok(!b.arts[0].classList.contains('is-filled'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-filled'));
+ const b=browser();assert.equal(b.active(),'chemex');for(const a of b.arts){const expected=a.querySelectorAll('.hero-main-static').reduce((sum,p)=>sum+splitSubpaths(p.getAttribute('d')).length,0);assert.equal(a.querySelectorAll('.hero-main-line').length,expected);assert.ok(a.querySelectorAll('.hero-main-line').every(l=>l.getAttribute('pathLength')==='1'&&!l.classList.contains('hero-fill')));}
+ b.advance(2199);assert.ok(!b.arts[0].classList.contains('is-details'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-details'));b.advance(79);assert.ok(!b.arts[0].classList.contains('is-filled'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-filled'));
  const fills=b.arts[0].querySelectorAll('.hero-fill');assert.ok(fills.length);assert.ok(fills.every(e=>e.animations.at(-1).options.easing===b.easing&&e.animations.at(-1).options.duration===600));
 });
 test('clicking the current hero replays it and autoplay continues afterwards',()=>{
@@ -74,7 +75,7 @@ test('gallery shares the drawing stages but keeps its selection when the hero au
  b.advance(608);const art=b.lower.find(e=>e.dataset.brewerArt==='espresso');
  assert.ok(art.classList.contains('is-line'));assert.ok(!art.classList.contains('is-details'));
  b.advance(2200);assert.ok(art.classList.contains('is-details'));assert.ok(!art.classList.contains('is-filled'));
- b.advance(700);assert.ok(art.classList.contains('is-filled'));
+ b.advance(80);assert.ok(art.classList.contains('is-filled'));
  b.advance(10000);assert.ok(art.classList.contains('is-active'));assert.equal(b.active(),'siphon');
 });
 test('gallery replays the current selection and cancels unfinished stages for reduced motion',()=>{
@@ -123,10 +124,10 @@ test('new artwork mounts the same geometry in both exhibitions and uses every or
   const hero=b.arts.find(a=>a.dataset.heroArt===key),gallery=b.lower.find(a=>a.dataset.brewerArt===key);
   assert.deepEqual(hero.children.map(p=>p.getAttribute('d')),gallery.children.map(p=>p.getAttribute('d')));
   assert.equal(b.active(),key);assert.ok(b.caption.textContent.includes(key==='moka'?'MOKA':key==='coldbrew'?'COLD BREW':'FRENCH PRESS'));
-  for(const art of [hero,gallery])assert.equal(art.querySelectorAll('.hero-main-line').length,2);
+  for(const art of [hero,gallery])assert.equal(art.querySelectorAll('.hero-main-line').length,art.querySelectorAll('.hero-main-static').reduce((sum,p)=>sum+splitSubpaths(p.getAttribute('d')).length,0));
   b.advance(2199);for(const art of [hero,gallery])assert.ok(!art.classList.contains('is-details'));
   b.advance(1);for(const art of [hero,gallery])assert.ok(art.classList.contains('is-details'));
-  b.advance(699);for(const art of [hero,gallery])assert.ok(!art.classList.contains('is-filled'));
+  b.advance(79);for(const art of [hero,gallery])assert.ok(!art.classList.contains('is-filled'));
   b.advance(1);for(const art of [hero,gallery]){assert.ok(art.classList.contains('is-filled'));assert.ok(art.querySelectorAll('.hero-fill').every(p=>p.animations.at(-1).options.duration===600));}
   assert.deepEqual(b.lower.filter(a=>a.classList.contains('is-active')).map(a=>a.dataset.brewerArt),[key]);
  }
@@ -145,8 +146,19 @@ test('real liquid geometry has a complete ink contour in both exhibitions, inclu
    const liquid=art.querySelectorAll('.hero-caramel').find(p=>p.getAttribute('style')==='--fo:.24'&&p.getAttribute('stroke')==='none');
    assert.ok(liquid,key+' liquid must be geometry rather than a clipped rectangle');
    assert.match(liquid.getAttribute('d'),/Z$/);
-   const outline=art.querySelectorAll('.hero-caramel-line').filter(p=>p.getAttribute('d')===liquid.getAttribute('d'));
-   assert.equal(outline.length,1);assert.equal(outline[0].getAttribute('fill'),'none');assert.equal(outline[0].getAttribute('stroke-width'),'1.5');
+   const outline=art.querySelectorAll('.hero-caramel-line').filter(p=>splitSubpaths(liquid.getAttribute('d')).includes(p.getAttribute('d')));
+   assert.equal(outline.length,splitSubpaths(liquid.getAttribute('d')).length);assert.equal(outline[0].getAttribute('fill'),'none');assert.equal(outline[0].getAttribute('stroke-width'),'1.5');
   }
  }
+});
+
+test('all inner strokes and color contours are independent normalized lines, sharing the outer clock',()=>{
+ const b=browser();for(const art of [...b.arts,...b.lower]){
+  const originals=art.children.filter(p=>!p.classList.contains('hero-ink-line'));
+  const expected=originals.reduce((n,p)=>n+(p.tagName==='path'?splitSubpaths(p.getAttribute('d')).length:1),0);
+  const ink=art.querySelectorAll('.hero-ink-line');assert.equal(ink.length,expected);
+  assert.ok(ink.every(p=>p.getAttribute('pathLength')==='1'&&p.getAttribute('fill')==='none'&&!p.classList.contains('hero-fill')));
+  assert.ok(art.querySelectorAll('.hero-detail-line').length>0);
+ }
+ b.advance(2199);assert.ok(!b.arts[0].classList.contains('is-filled'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-details'));b.advance(79);assert.ok(!b.arts[0].classList.contains('is-filled'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-filled'));
 });

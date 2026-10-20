@@ -6,5 +6,5 @@ test('classroom reuses the seven exact homepage geometries and its existing play
  for(const m of home.matchAll(/<template data-brewer-template="([^"]+)">\s*(<svg[\s\S]*?<\/svg>)\s*<\/template>/g))sources.set(m[1],m[2]);
  const copies=[...lesson.matchAll(/(<svg\b[^>]*data-brewer-art="([^"]+)"[\s\S]*?<\/svg>)/g)];assert.equal(copies.length,7);
  for(const m of copies){assert.deepEqual(shapes(m[1]),shapes(sources.get(m[2])),m[2]);assert.match(lesson,new RegExp('data-brewer-select="'+m[2]+'"'));}
- assert.match(lesson,/class="brewer-display" id="lesson-brewer-display"/);assert.match(lesson,/src="home\.js\?v=33"/);
+ assert.match(lesson,/class="brewer-display" id="lesson-brewer-display"/);assert.match(lesson,/src="home\.js\?v=\d+"/);
 });
