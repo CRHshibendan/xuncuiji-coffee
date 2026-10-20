@@ -99,3 +99,42 @@
  .bean-tone,.bean-depth,.bean-seam-light{transition:opacity var(--motion-reduced) ease-out!important}
  .demo-running [class*="demo-"],#hero-pour.demo-running .pour-kettle{animation:none!important;transform:none!important}
 }
+
+/* A quiet cutaway: the coffee bed stays still; only water, wetting and extract move. */
+.process-paper,.process-bed-edge{opacity:.35}
+.process-dry{fill:var(--color-accent);fill-opacity:.08;stroke:none}
+.process-grounds{stroke:var(--color-primary);opacity:.5}
+.process-wet{transform-box:view-box;transform-origin:200px 194px}
+.process-wet path,.process-extract,.process-coffee{fill:var(--color-accent);fill-opacity:.2;stroke:none}
+.process-extract{fill-opacity:.14}
+.process-water{opacity:0;stroke-opacity:.45;transform-box:view-box;transform-origin:200px 48px}
+.process-current{stroke-opacity:.75}
+.process-bubble,.process-soluble,.process-drop{opacity:0;stroke:var(--color-accent)}
+.process-soluble,.process-drop{fill:var(--color-accent);fill-opacity:.35}
+.process-reveal{fill:var(--color-primary);stroke:none;transform-box:view-box;transform-origin:0 0}
+.process-svg[data-demo-state="waiting"] :is(.process-wet,.process-extract,.process-coffee){opacity:0}
+.process-svg.demo-running .process-water{animation:process-water-in var(--motion-slow) var(--ease-soft) both,process-water-out var(--motion-slow) var(--ease-soft) 980ms forwards}
+.process-svg.demo-running .process-current{animation:process-current var(--motion-slow) var(--ease-soft) 300ms both}
+.process-svg.demo-running .process-wet{animation:process-wet var(--motion-slow) var(--ease-soft) 240ms both}
+.process-svg.demo-running .process-bubble{animation:process-bubble var(--motion-slow) var(--ease-soft) 620ms both}
+.process-svg.demo-running .process-bubble:nth-child(2){animation-delay:780ms}
+.process-svg.demo-running .process-bubble:nth-child(3){animation-delay:920ms}
+.process-svg.demo-running .process-extract{animation:process-extract var(--motion-slow) var(--ease-soft) 580ms both}
+.process-svg.demo-running .process-soluble{animation:process-soluble var(--motion-slow) var(--ease-soft) var(--particle-delay) both}
+.process-svg.demo-running .process-drop{animation:process-drop var(--motion-slow) var(--ease-soft) 460ms both}
+.process-svg.demo-running .process-drop:nth-child(2){animation-delay:700ms}
+.process-svg.demo-running .process-drop:nth-child(3){animation-delay:940ms}
+.process-svg.demo-running .process-reveal{animation:process-cup var(--motion-slow) var(--ease-soft) 1120ms both}
+@keyframes process-water-in{from{opacity:0;transform:scaleY(.05)}to{opacity:1;transform:scaleY(1)}}
+@keyframes process-water-out{to{opacity:0}}
+@keyframes process-current{from{opacity:0;transform:translateY(-4px)}45%{opacity:1}to{opacity:0;transform:translateY(8px)}}
+@keyframes process-wet{from{opacity:0;transform:scaleX(.05)}to{opacity:1;transform:scaleX(1)}}
+@keyframes process-bubble{from{opacity:0;transform:translateY(2px)}35%{opacity:.7}to{opacity:0;transform:translateY(-6px)}}
+@keyframes process-extract{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@keyframes process-soluble{from{opacity:0;transform:none}30%{opacity:.8}to{opacity:0;transform:translate(var(--drift-x),var(--drift-y))}}
+@keyframes process-drop{from{opacity:0;transform:translateY(-2px)}25%,60%{opacity:.8}to{opacity:0;transform:translateY(8px)}}
+@keyframes process-cup{from{transform:translateY(1.05px)}to{transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){
+ .process-svg .process-animated{animation:none!important;transform:none!important}
+ .process-svg[data-demo-state="waiting"] :is(.process-wet,.process-extract,.process-coffee){opacity:1}
+}

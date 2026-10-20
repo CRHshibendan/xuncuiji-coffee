@@ -30,3 +30,12 @@ test('stop, hidden-page and reduced-motion cancellation cannot advance a stale s
  const b=player();b.p.start();const stale=[...b.queue.values()][0];b.p.stop();stale();assert.equal(b.step,0);assert.equal(b.queue.size,0);
  b.p.start();b.deny();b.tick();assert.equal(b.step,0);assert.equal(b.p.playing,false);assert.equal(b.p.start(),false);assert.equal(b.queue.size,0);
 });
+
+test('process stages keep the grounds in place and reserve motion for wetting, dissolved material and drops',()=>{
+ const drawings=[0,1,2].map(lesson.processDrawing);
+ const grains=drawings.map(s=>s.match(/<g class="process-grounds">([\s\S]*?)<\/g>/)[1]);assert.equal(new Set(grains).size,1);
+ assert.match(drawings[0],/process-wet process-animated/);assert.match(drawings[0],/process-bubble/);assert.doesNotMatch(drawings[0],/process-coffee/);
+ assert.match(drawings[1],/process-soluble process-animated/);assert.doesNotMatch(drawings[1],/process-bubble/);
+ assert.match(drawings[2],/process-drop process-animated/);assert.match(drawings[2],/clipPathUnits="objectBoundingBox"/);assert.match(drawings[2],/class="process-reveal process-animated"/);assert.doesNotMatch(drawings[2],/process-water/);
+ for(const drawing of drawings)assert.doesNotMatch(drawing,/M110 118h180|demo-grains/);
+});
