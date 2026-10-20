@@ -20,3 +20,14 @@ test('each page ships one accessible real-link dock and correct no-JS current st
   assert.doesNotMatch(html,/class="mobile-nav/);assert.match(html,/site-dock\.js/);
  }
 });
+const {freshDestination,release}=require('../site-dock.js');
+test('navigation pins the release without losing the chosen brewer, mode or section',()=>{
+ const base='https://example.com/xuncuiji-coffee/index.html?v=old';
+ const target=new URL(freshDestination('workshop.html?tool=chemex&mode=gesture#scene',base),base);
+ assert.equal(target.searchParams.get('tool'),'chemex');assert.equal(target.searchParams.get('mode'),'gesture');assert.equal(target.hash,'#scene');assert.equal(target.searchParams.get('v'),release);
+ assert.equal(new URL(freshDestination('learn.html?v=old',base),base).searchParams.get('v'),release);
+});
+test('release pinning leaves in-page navigation and unrelated destinations alone',()=>{
+ const base='https://example.com/xuncuiji-coffee/index.html';
+ for(const href of ['#brewer-gallery','mailto:hello@example.com','https://elsewhere.test/learn.html','/other-project/index.html','assets/fonts/noto-sans-sc-400.woff2'])assert.equal(freshDestination(href,base),href);
+});

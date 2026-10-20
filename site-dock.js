@@ -1,10 +1,20 @@
 /* One set of centers moves both the real cutout and its orb. Links work without JS. */
 (function(root){
  'use strict';
+ const RELEASE='20261020-dock2';
  const destinations=['index.html','learn.html','workshop.html','shop.html','journal.html'];
  function positionsFor(width){return Array.from({length:5},(_,i)=>60+(width-120)*i/4);}
  function currentIndex(path){const page=path.split('/').pop()||'index.html';if(page==='explore.html')return 1;if(page==='method-lab.html')return 2;return Math.max(0,destinations.indexOf(page));}
- const api={positionsFor,currentIndex};if(typeof module==='object'&&module.exports)module.exports=api;root.CoffeeSiteDock=api;if(!root.document)return;
+ function freshDestination(href,base){
+  if(!href||href.trim().startsWith('#'))return href;
+  try{const to=new URL(href,base),from=new URL(base),folder=path=>path.slice(0,path.lastIndexOf('/')+1),page=to.pathname.split('/').pop();
+   if(to.origin!==from.origin||folder(to.pathname)!==folder(from.pathname)||![...destinations,'explore.html','method-lab.html'].includes(page))return href;
+   to.searchParams.set('v',RELEASE);return to.pathname+to.search+to.hash;
+  }catch{return href;}
+ }
+ const api={positionsFor,currentIndex,freshDestination,release:RELEASE};if(typeof module==='object'&&module.exports)module.exports=api;root.CoffeeSiteDock=api;if(!root.document)return;
+ function refreshLink(link){const old=link.getAttribute('href'),fresh=freshDestination(old,location.href);if(fresh!==old)link.setAttribute('href',fresh);}
+ document.querySelectorAll('a[href]').forEach(refreshLink);
  const nav=document.querySelector('.site-dock');if(!nav)return;
  const links=[...nav.querySelectorAll('.dock-link')],orb=nav.querySelector('.dock-orb'),notch=nav.querySelector('.dock-notch'),ball=nav.querySelector('.dock-ball-shift'),phone=matchMedia('(max-width:768px)'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
  let selected=currentIndex(location.pathname),positions=[],navigation=null,cleanup=null,iconCleanup=null,iconVersion=0;
@@ -28,6 +38,7 @@
  nav.addEventListener('pointerdown',event=>{const link=event.target.closest('.dock-link');if(link){link.querySelector('.dock-hit').style.willChange='transform';}if(link&&links.indexOf(link)===selected){nav.classList.add('is-pressing');orb.style.willChange='transform';}});
  for(const event of ['pointerup','pointercancel','pointerleave'])nav.addEventListener(event,()=>{nav.classList.remove('is-pressing');setTimeout(clearHints,duration('--motion-release',200));});
  document.addEventListener('click',event=>{
+  const anchor=event.target.closest?.('a[href]');if(anchor)refreshLink(anchor);
   const link=event.target.closest?.('.site-dock .dock-link');if(!link||!phone.matches||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.altKey||event.shiftKey||link.target||link.hasAttribute('download'))return;
   const index=links.indexOf(link);if(index<0)return;
   event.preventDefault();clearTimeout(navigation);
