@@ -278,7 +278,7 @@ window.addEventListener('blur',()=>{finishPour();grindKey=false;state.grindQueue
 
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 function setSceneView(closeUp){
- const mobile=matchMedia('(max-width:760px)').matches,view=mobileCamera==='brew'?'brew':closeUp?'grind':'overview',target=mobile?(view==='brew'?'300 110 570 490':view==='grind'?'45 180 325 380':'0 120 900 490'):(playMode==='gesture'&&view==='brew'?'245 70 600 540':closeUp?'50 165 302 335':'0 0 900 640');const box=target.split(' ').map(Number);scene.style.setProperty('--mobile-scene-ratio',`${box[2]} / ${box[3]}`);document.dispatchEvent(new CustomEvent('coffee-camera-change',{detail:{view}}));if(viewTarget===target)return;
+ const mobile=matchMedia('(max-width:760px)').matches||document.body.classList.contains('workshop-play'),view=mobileCamera==='brew'?'brew':closeUp?'grind':'overview',target=mobile?(view==='brew'?'300 110 570 490':view==='grind'?'45 180 325 380':'0 120 900 490'):(playMode==='gesture'&&view==='brew'?'245 70 600 540':closeUp?'50 165 302 335':'0 0 900 640');const box=target.split(' ').map(Number);scene.style.setProperty('--mobile-scene-ratio',`${box[2]} / ${box[3]}`);document.dispatchEvent(new CustomEvent('coffee-camera-change',{detail:{view}}));if(viewTarget===target)return;
  viewTarget=target;cancelAnimationFrame(viewAnimation);
  const from=scene.getAttribute('viewBox').split(' ').map(Number),to=target.split(' ').map(Number),start=performance.now();
  function zoom(now){const t=reducedMotion.matches?1:clamp((now-start)/360,0,1),ease=1-Math.pow(1-t,3);scene.setAttribute('viewBox',from.map((v,i)=>v+(to[i]-v)*ease).join(' '));if(t<1)viewAnimation=requestAnimationFrame(zoom);}
@@ -286,7 +286,7 @@ function setSceneView(closeUp){
 }
 function setGrindFocus(on){if(basic())return;finishPour();stopInput();grindFocus=on;renderTools();if(on&&state.grinderBeans<.001)message('先返回全景，把豆子放进磨豆机。');}
 $('#grind-focus').addEventListener('click',()=>setGrindFocus(!grindFocus));
-document.addEventListener('coffee-camera',e=>{finishPour();drag=null;const view=e.detail.view;mobileCamera=(playMode==='gesture'||matchMedia('(max-width:760px)').matches)&&view!=='auto'?view:null;grindFocus=mobileCamera==='grind';renderTools();});
+document.addEventListener('coffee-camera',e=>{finishPour();drag=null;const view=e.detail.view;mobileCamera=(playMode==='gesture'||document.body.classList.contains('workshop-play')||matchMedia('(max-width:760px)').matches)&&view!=='auto'?view:null;grindFocus=mobileCamera==='grind';renderTools();});
 function selectSetting(index){activeSetting=Number(index);$$('#free-controls .free-setting').forEach((el,i)=>el.hidden=i!==activeSetting);$$('.setting-tabs [data-setting]').forEach(b=>{b.classList.toggle('active',Number(b.dataset.setting)===activeSetting);b.setAttribute('aria-pressed',String(Number(b.dataset.setting)===activeSetting));});}
 $$('[data-setting]').forEach(b=>b.addEventListener('click',()=>{if(basic()||playMode==='gesture')return;selectSetting(b.dataset.setting);if(!$('#parameter-dialog').open){finishPour();stopInput();$('#parameter-dialog').showModal();}}));
 function closeParameters(){const dialog=$('#parameter-dialog');if(reducedMotion.matches){dialog.close();return;}dialog.classList.add('closing');setTimeout(()=>{dialog.classList.remove('closing');dialog.close();},160);}

@@ -47,8 +47,8 @@ dialog{max-width:min(640px,calc(100% - var(--space-48)));max-height:calc(100svh 
  .entry-card h3{white-space:nowrap}.entry-card p{font-size:var(--text-sm)}.entry-action{gap:var(--space-8)}.footer-links{flex-direction:column;gap:0}.footer-meta{align-items:flex-start;flex-direction:column;gap:var(--space-16)}
  .section-top,.journal-footer{align-items:flex-start;flex-direction:column}.section-top .button{width:100%}.journal-footer span{max-width:100%}.standalone-section{padding-top:var(--space-48)}dialog .form-grid{gap:var(--space-16)}
 }
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}@view-transition{navigation:none}*,*::before,*::after{animation:none!important;transition:none!important}}
-@media(prefers-reduced-motion:reduce){:is(.hero-art,.brewer-display) svg path,:is(.hero-art,.brewer-display) svg ellipse,:is(.hero-art,.brewer-display) svg circle{stroke-dashoffset:0!important;opacity:var(--o,1)!important}:is(.hero-art,.brewer-display) svg path[fill]:not([fill="none"]),:is(.hero-art,.brewer-display) svg ellipse[fill]:not([fill="none"]),:is(.hero-art,.brewer-display) svg circle[fill]:not([fill="none"]){fill-opacity:var(--fo,1)!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}@view-transition{navigation:none}*:not(.hero-drawing):not(.hero-drawing *){animation:none!important;transition:none!important}html:not([data-art-motion="on"]) .hero-drawing *{animation:none!important;transition:none!important}*::before,*::after{animation:none!important;transition:none!important}}
+@media(prefers-reduced-motion:reduce){html:not([data-art-motion="on"]) :is(.hero-art,.brewer-display) svg path,:is(.hero-art,.brewer-display) svg ellipse,:is(.hero-art,.brewer-display) svg circle{stroke-dashoffset:0!important;opacity:var(--o,1)!important}:is(.hero-art,.brewer-display) svg path[fill]:not([fill="none"]),:is(.hero-art,.brewer-display) svg ellipse[fill]:not([fill="none"]),:is(.hero-art,.brewer-display) svg circle[fill]:not([fill="none"]){fill-opacity:var(--fo,1)!important}}
 .hero-main-line{display:none}
 :is(.hero-art,.brewer-display) svg.is-line .hero-main-line{display:block;opacity:1;stroke-dasharray:1;stroke-dashoffset:1;animation:hero-main-draw 2.2s cubic-bezier(.55,0,.45,1) forwards}
 :is(.hero-art,.brewer-display) svg.is-leaving .hero-main-line{animation:hero-main-retract 1s var(--hero-ease-both) forwards}
@@ -76,7 +76,7 @@ dialog{max-width:min(640px,calc(100% - var(--space-48)));max-height:calc(100svh 
 @keyframes hero-detail-out{0%{opacity:var(--o,1);stroke-dashoffset:0;transform:none}100%{opacity:0;stroke-dashoffset:1;transform:translate(calc(var(--fx,14px)*.7),calc(var(--fy,-12px)*.7)) rotate(calc(var(--fr,4deg)*.7))}}
 @keyframes hero-caramel-in{0%{opacity:0;fill-opacity:0;transform:translate(calc(var(--fx,14px)*.5),calc(var(--fy,-12px)*.5)) rotate(calc(var(--fr,4deg)*.5))}100%{opacity:1;fill-opacity:var(--fo,1);transform:none}}
 @keyframes hero-caramel-out{0%{opacity:1;fill-opacity:var(--fo,1);transform:none}100%{opacity:0;fill-opacity:0;transform:translate(calc(var(--fx,14px)*.5),calc(var(--fy,-12px)*.5)) rotate(calc(var(--fr,4deg)*.5))}}
-@media(prefers-reduced-motion:reduce){:is(.hero-art,.brewer-display) svg .hero-fill[fill]:not([fill="none"]){fill-opacity:var(--fo,1)}}
+@media(prefers-reduced-motion:reduce){html:not([data-art-motion="on"]) :is(.hero-art,.brewer-display) svg .hero-fill[fill]:not([fill="none"]){fill-opacity:var(--fo,1)}}
 :is(.hero-art,.brewer-display) svg mask path{opacity:1!important;stroke-dasharray:none!important;stroke-dashoffset:0!important;fill-opacity:1!important;stroke-opacity:1!important;animation:none!important}
 
 /* Only user-triggered exits run at 2.5x speed; autoplay keeps its original timing. */
@@ -88,3 +88,12 @@ dialog{max-width:min(640px,calc(100% - var(--space-48)));max-height:calc(100svh 
    then leaves a gap when the SVG grows. Let dashes scale, compensate ink only. */
 :is(.hero-art,.brewer-display) svg > :is(path,ellipse,circle){vector-effect:none;stroke-width:calc(1.5px / var(--art-scale,1))}
 :is(.hero-art,.brewer-display) svg > .hero-caramel-line{stroke-width:calc(1.2px / var(--art-scale,1))}
+
+.hero-motion-controls{display:flex;flex-direction:column;align-items:center;gap:var(--space-8)}
+.hero-motion-controls button{min-height:var(--control-height);font-size:var(--text-sm);padding:var(--space-8) var(--space-24);border:1px solid var(--card-border);border-radius:var(--radius-small)}
+.hero-motion-controls p{font-size:var(--text-sm);max-width:28em}
+html[data-art-motion="off"] :is(.hero-art,.brewer-display) svg > :is(path,ellipse,circle){animation:none!important;stroke-dashoffset:0!important;opacity:var(--o,1)!important}
+html[data-art-motion="off"] :is(.hero-art,.brewer-display) svg > .hero-fill[fill]{fill-opacity:var(--fo,1)!important}
+html[data-art-motion="off"] :is(.hero-art,.brewer-display) svg > .hero-main-line{display:none!important}
+/* An explicit play request overrides reduction only for the brewer artwork. */
+@media(prefers-reduced-motion:reduce){html[data-art-motion="on"] :is(.hero-art,.brewer-display) svg.is-active > :is(path,ellipse,circle){animation-play-state:running}}

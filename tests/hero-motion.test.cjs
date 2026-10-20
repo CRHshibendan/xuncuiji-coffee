@@ -14,7 +14,7 @@ class Element{
  getAnimations(){return this.animations.filter(a=>!a.cancelled);}
  animate(frames,options){const a={frames,options,cancelled:false,cancel(){this.cancelled=true;}};this.animations.push(a);return a;}
 }
-function browser({page='index.html',reduced=false}={}){
+function browser({page='index.html',reduced=false,noWebAnimations=false,throwWebAnimations=false}={}){
  let clock=0,id=0;const timers=new Map(),docEvents={},winEvents={};
  const keys=['chemex','melitta','espresso','siphon'];
  const arts=page==='index.html'?keys.map(key=>{const a=new Element('svg');a.dataset.heroArt=key;
@@ -27,7 +27,10 @@ function browser({page='index.html',reduced=false}={}){
  const copy=keys.map(key=>{const e=new Element();e.dataset.brewerCopy=key;return e;});
  const menu=new Element(),nav=new Element(),html=new Element(),caption=new Element();
  const media={matches:reduced,events:{},addEventListener(n,f){(this.events[n]??=[]).push(f);}};
- const single={'.menu-toggle':menu,'#site-navigation':nav,'[data-hero-caption]':caption};
+ if(noWebAnimations)for(const art of [...arts,...lower])for(const shape of art.children){shape.getAnimations=undefined;shape.animate=undefined;}
+ if(throwWebAnimations)for(const art of [...arts,...lower])for(const shape of art.children)shape.animate=()=>{throw Error('animation unsupported');};
+ const motionButton=new Element('button'),motionNote=new Element();
+ const single={'#hero-motion-toggle':motionButton,'#hero-motion-note':motionNote,'.menu-toggle':menu,'#site-navigation':nav,'[data-hero-caption]':caption};
  const lists={'[data-hero-art]':arts,'[data-brewer-select]':buttons,'[data-brewer-art]':lower,'[data-brewer-copy]':copy};
  const document={hidden:false,documentElement:html,querySelector:s=>single[s]??null,querySelectorAll:s=>lists[s]??[],addEventListener:(n,f)=>(docEvents[n]??=[]).push(f)};
  const easing='cubic-bezier(.85, 0, .15, 1)';
@@ -35,7 +38,7 @@ function browser({page='index.html',reduced=false}={}){
  vm.runInNewContext(source,context);
  function advance(ms){const end=clock+ms;let count=0;while(true){const due=[...timers].filter(([,t])=>t.at<=end).sort((a,b)=>a[1].at-b[1].at)[0];if(!due)break;assert.ok(++count<200);clock=due[1].at;timers.delete(due[0]);due[1].fn();}clock=end;}
  const fire=(events,n)=>{for(const fn of events[n]||[])fn();};
- return{arts,buttons,lower,copy,html,timers,advance,easing,active:()=>arts.find(a=>a.classList.contains('is-active'))?.dataset.heroArt,click:key=>buttons.find(b=>b.dataset.brewerSelect===key).click(),reduce(value){media.matches=value;fire(media.events,'change');},hide(value){document.hidden=value;fire(docEvents,'visibilitychange');}};
+ return{arts,buttons,lower,copy,html,timers,advance,easing,motionButton,motionNote,active:()=>arts.find(a=>a.classList.contains('is-active'))?.dataset.heroArt,click:key=>buttons.find(b=>b.dataset.brewerSelect===key).click(),reduce(value){media.matches=value;fire(media.events,'change');},hide(value){document.hidden=value;fire(docEvents,'visibilitychange');}};
 }
 test('shared script initializes pages without a hero and still reaches navigation setup',()=>{
  for(const page of ['journal.html','explore.html']){const b=browser({page});assert.equal(b.timers.size,0);assert.ok(b.html.classList.contains('home-motion-fallback'));}
@@ -91,4 +94,13 @@ test('manual exits finish earlier without changing automatic exit or subsequent 
  auto.advance(519);assert.ok(!auto.arts[0].classList.contains('is-leaving'));
  auto.advance(1);assert.ok(auto.arts[0].classList.contains('is-leaving'));
  auto.advance(999);assert.equal(auto.active(),'chemex');auto.advance(1);assert.equal(auto.active(),'melitta');
+});
+
+test('a Windows-style reduced-motion preference still permits explicit artwork playback and pause',()=>{
+ const b=browser({reduced:true});assert.ok(!b.arts[0].classList.contains('is-line'));assert.equal(b.motionButton.textContent,'播放器具动画');
+ b.motionButton.click();assert.equal(b.html.dataset.artMotion,'on');assert.ok(b.arts[0].classList.contains('is-line'));b.advance(2900);assert.ok(b.arts[0].classList.contains('is-filled'));
+ b.motionButton.click();assert.equal(b.html.dataset.artMotion,'off');assert.ok(!b.arts[0].classList.contains('is-line'));assert.ok(![...b.timers.values()].some(t=>t.ms===6500));
+});
+test('missing or failing Web Animations does not break the line drawing or later selection',()=>{
+ for(const options of [{noWebAnimations:true},{throwWebAnimations:true}]){const b=browser(options);b.advance(3300);assert.ok(b.arts[0].classList.contains('is-filled'));b.click('espresso');b.advance(608+2900);assert.equal(b.active(),'espresso');assert.ok(b.arts[2].classList.contains('is-filled'));}
 });

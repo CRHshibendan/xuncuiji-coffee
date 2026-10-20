@@ -241,6 +241,7 @@
   if(typeof ResizeObserver!=='undefined'){layoutObserver=new ResizeObserver(fitStage);layoutObserver.observe(panel);layoutObserver.observe(panel.querySelector('.gesture-livebar'));layoutObserver.observe(adapter.scene);}
   if(typeof MutationObserver!=='undefined'){heatObserver=new MutationObserver(placeHeat);heatObserver.observe(adapter.scene,{attributes:true,attributeFilter:['viewBox']});}
   fitStage();const destroy=current.destroy;current.destroy=()=>{readoutObserver?.disconnect();layoutObserver?.disconnect();heatObserver?.disconnect();document.body.style.removeProperty('--gesture-top');document.body.style.removeProperty('--gesture-bottom');destroy();};
+  document.dispatchEvent(new CustomEvent('coffee-gesture-mounted'));
   $('gesture-help-dialog').showModal();
   return current;
  }

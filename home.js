@@ -12,6 +12,22 @@
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu?.getAttribute('aria-expanded')==='true'){closeMenu();menu.focus();}});
  document.addEventListener('click',e=>{if(!e.target.closest('.site-header'))closeMenu();});
  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
+ const motionButton=$('#hero-motion-toggle'),motionNote=$('#hero-motion-note'),motionRefresh=[];
+ let artMotion=null;
+ try{const saved=localStorage.getItem('xuncuiji-art-motion');if(saved==='on'||saved==='off')artMotion=saved==='on';}catch{}
+ const artReduced=()=>artMotion===null?reduce.matches:!artMotion;
+ function updateMotionControl(){
+  const paused=artReduced();document.documentElement.dataset.artMotion=paused?'off':'on';
+  if(motionButton){motionButton.hidden=false;motionButton.textContent=paused?'播放器具动画':'暂停器具动画';motionButton.setAttribute('aria-pressed',String(!paused));}
+  if(motionNote)motionNote.textContent=paused?(reduce.matches&&artMotion===null?'当前已按系统偏好简化动态，可手动播放。':'器具动画已暂停。'):'';
+ }
+ function refreshMotion(){updateMotionControl();motionRefresh.forEach(refresh=>refresh());}
+ motionButton?.addEventListener('click',()=>{artMotion=artReduced();try{localStorage.setItem('xuncuiji-art-motion',artMotion?'on':'off');}catch{}refreshMotion();});
+ if(typeof reduce.addEventListener==='function')reduce.addEventListener('change',()=>{artMotion=null;refreshMotion();});
+ else reduce.addListener?.(()=>{artMotion=null;refreshMotion();});
+ updateMotionControl();
+ function cancelFills(art){art.querySelectorAll('.hero-fill').forEach(el=>{for(const animation of el.getAnimations?.()||[]){try{animation.cancel();}catch{}}el.style.opacity='';});}
+
  function enter(el){el.classList.remove('selection-enter');if(!reduce.matches){void el.offsetWidth;el.classList.add('selection-enter');}}
  const heroArt=$$('[data-hero-art]'),galleryArt=$$('[data-brewer-art]'),heroCaption=$('[data-hero-caption]');
  const heroLabels={chemex:'CHEMEX / 玻璃滤壶',melitta:'MELITTA / 陶瓷滤杯',espresso:'ESPRESSO / 意式浓缩',siphon:'SIPHON / 虹吸壶'};
@@ -43,7 +59,7 @@
    line.classList.add('hero-main-line');
    line.setAttribute('fill','none');
    const ink=getComputedStyle(details[0]||el).stroke;
-   line.setAttribute('stroke',ink&&ink!=='none'?ink:'#2f3b2f');
+   line.setAttribute('stroke',ink&&ink!=='none'?ink:'#1f2a26');
    line.setAttribute('stroke-width','1.5');
    line.setAttribute('pathLength','1');
    line.setAttribute('stroke-linecap','round');
@@ -54,8 +70,9 @@
  function fadeFills(art,to,duration){
   const easing=getComputedStyle(art).getPropertyValue('--hero-ease-both').trim()||'ease-in-out';
   art.querySelectorAll('.hero-fill').forEach(el=>{
-   el.getAnimations().forEach(a=>{try{a.cancel();}catch(e){}});
-   el.animate([{opacity:to===1?0:1},{opacity:to}],{duration,easing,fill:'both'});
+   for(const animation of el.getAnimations?.()||[]){try{animation.cancel();}catch{}}
+   try{if(typeof el.animate!=='function')throw new Error('No Web Animations');el.animate([{opacity:to===1?0:1},{opacity:to}],{duration,easing,fill:'both'});}
+   catch{el.style.opacity=String(to);}
   });
  }
  // Both exhibitions share one choreography, with separate clocks and selection state.
@@ -65,12 +82,12 @@
   const AUTO_MS=6500;
   function schedule(){
    if(autoTimer!==null){clearTimeout(autoTimer);autoTimer=null;}
-   if(!autoplay||reduce.matches||document.hidden)return;
+   if(!autoplay||artReduced()||document.hidden)return;
    autoTimer=setTimeout(()=>{autoTimer=null;show(arts[(index+1)%arts.length].dataset[field]);},AUTO_MS);
   }
   function swap(art){
    if(!art)return;
-   arts.forEach(a=>{const active=a===art;a.classList.toggle('is-active',active);a.classList.remove('is-line','is-details','is-filled','is-leaving','is-click-exit');a.querySelectorAll('.hero-fill').forEach(el=>{el.getAnimations().forEach(x=>x.cancel());el.style.opacity='';});a.setAttribute('aria-hidden',String(!active));});
+   arts.forEach(a=>{const active=a===art;a.classList.toggle('is-active',active);a.classList.remove('is-line','is-details','is-filled','is-leaving','is-click-exit');cancelFills(a);a.setAttribute('aria-hidden',String(!active));});
    index=arts.indexOf(art);
    onChange(art.dataset[field]);
    schedule();
@@ -78,12 +95,13 @@
   function draw(art){
    if(!art)return;
    prepareHeroArt(art);
-   arts.forEach(a=>{const active=a===art;a.classList.toggle('is-active',active);a.classList.toggle('is-line',active&&!reduce.matches);a.classList.remove('is-details','is-filled','is-leaving','is-click-exit');a.setAttribute('aria-hidden',String(!active));});
+   cancelFills(art);art.classList.remove('is-line');void art.getBoundingClientRect().width;
+   arts.forEach(a=>{const active=a===art;a.classList.toggle('is-active',active);a.classList.toggle('is-line',active&&!artReduced());a.classList.remove('is-details','is-filled','is-leaving','is-click-exit');a.setAttribute('aria-hidden',String(!active));});
    index=arts.indexOf(art);
    onChange(art.dataset[field]);
    const lines=[...art.querySelectorAll('.hero-main-line')];
    if(!lines.length)return;
-   if(reduce.matches)return;
+   if(artReduced())return;
    runId++;
    const run=runId;
    setTimeout(()=>{if(run!==runId)return;art.classList.add('is-details');},HERO_DRAW_MS);
@@ -112,7 +130,7 @@
    if(busy){queued=slug;return;}
    if(autoTimer!==null){clearTimeout(autoTimer);autoTimer=null;}
    const current=arts[index];
-   if(reduce.matches){swap(art);return;}
+   if(artReduced()){swap(art);return;}
    busy=true;
    if(!current||!current.classList.contains('is-line')){draw(art);busy=false;return;}
    retract(current,()=>{
@@ -128,12 +146,10 @@
    resize.observe(arts[0].parentElement);
   }
   draw(arts[index]);
-  reduce.addEventListener?.('change',()=>{
-   if(reduce.matches){
-    runId++;busy=false;queued=null;
-    if(autoTimer!==null){clearTimeout(autoTimer);autoTimer=null;}
-    swap(arts[index]);
-   }else schedule();
+  motionRefresh.push(()=>{
+   runId++;busy=false;queued=null;
+   if(autoTimer!==null){clearTimeout(autoTimer);autoTimer=null;}
+   if(artReduced())swap(arts[index]);else draw(arts[index]);
   });
   if(autoplay)document.addEventListener('visibilitychange',()=>{if(document.hidden){if(autoTimer!==null){clearTimeout(autoTimer);autoTimer=null;}}else schedule();});
   return show;

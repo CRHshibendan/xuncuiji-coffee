@@ -1,0 +1,40 @@
+/* A phone workbench, shared by the original and gesture input modes. */
+.workshop-display-toggle,.workshop-play-toolbar button,.workshop-play-toolbar select{min-height:44px;min-width:44px;padding:8px 16px;border:1px solid #1f3d3440;border-radius:8px;background:#fbf9f4;color:#1f3d34;font:400 14px/1.5 sans-serif;cursor:pointer}
+#workshop-display-prompt{box-sizing:border-box;width:min(480px,calc(100% - 32px));max-height:calc(100dvh - 32px);padding:24px;border:1px solid #1f3d3440;border-radius:20px;background:#fbf9f4;color:#1f2a26;overflow:auto;text-align:center}
+#workshop-display-prompt::backdrop{background:#1f2a2680}
+#workshop-display-prompt h2{font-size:20px;font-weight:500;line-height:1.5;text-wrap:balance;margin:16px 0}
+#workshop-display-prompt p{font-size:14px;line-height:1.75;margin:0 0 16px}
+#workshop-display-prompt button{display:block;width:100%;min-height:48px;padding:8px 16px;border:1px solid #1f3d3440;border-radius:8px;font:400 14px/1.5 sans-serif;margin-top:8px;background:#f6f3ec;color:#1f3d34}
+#workshop-display-prompt #workshop-display-start{background:#1f3d34;color:#fbf9f4}
+.workshop-rotate-icon{width:80px;height:64px;margin:0 auto;fill:none;stroke:#1f3d34;stroke-width:1.5}
+.workshop-play-toolbar[hidden]{display:none!important}
+body.workshop-play{height:100dvh;min-height:0!important;overflow:hidden;padding:0!important;background:#f6f3ec}
+.workshop-play:not(.gesture-mode)>.studio-header,.workshop-play>.mobile-nav,.workshop-play:not(.gesture-mode) :is(.studio-title,.journey-sidebar,.coach-panel,.studio-bottom,.guide-banner,.parameter-strip,.operation-guide,.scene-toolbar,.stage-topline,.stage-footer,.mobile-scene-controls){display:none!important}
+.workshop-play:not(.gesture-mode) .studio-main{position:fixed;inset:0;width:100%;max-width:none;margin:0;padding:0;overflow:hidden}
+.workshop-play:not(.gesture-mode) .workspace{display:block;height:100%;margin:0;border:0;border-radius:0}
+.workshop-play:not(.gesture-mode) .studio-center{display:block;height:100%;background:#f6f3ec;overflow:hidden!important}
+.workshop-play:not(.gesture-mode) .scene-wrap{position:fixed;inset:var(--workshop-play-top,68px) 8px 88px;width:auto;max-width:none;margin:0;padding:0;border:0;min-height:0!important;background:#f6f3ec}
+.workshop-play:not(.gesture-mode) #scene{width:100%;height:100%!important;min-height:0!important;max-height:none!important;aspect-ratio:auto;background:#f6f3ec}
+.workshop-play-toolbar{position:fixed;top:0;left:0;right:0;z-index:75;display:flex;align-items:center;gap:8px;padding:8px;background:#fbf9f4;border-bottom:1px solid #1f3d3430}
+#workshop-play-hint{flex:1;min-width:0;font-size:14px;line-height:1.5;margin:0;color:#1f3d34}
+.workshop-play:not(.gesture-mode) .live-dashboard{position:fixed;left:0;right:0;bottom:0;min-height:80px;padding:8px 244px 8px 8px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:#fbf9f4;border-top:1px solid #1f3d3430}
+.workshop-play:not(.gesture-mode) .live-dashboard>div{padding:8px 0;border:0;background:none!important}
+.workshop-play:not(.gesture-mode) .live-dashboard span{font-size:12px;line-height:1.5;margin-bottom:0;color:#1f2a26}
+.workshop-play:not(.gesture-mode) .live-dashboard strong{font-size:20px;color:#1f3d34}
+.workshop-play:not(.gesture-mode) .hands-on-actions{position:fixed;right:8px;bottom:16px;z-index:60;display:flex;gap:8px;margin:0;padding:0;background:none;border:0;width:auto}
+.workshop-play:not(.gesture-mode) .hands-on-actions button{width:auto;min-width:96px;min-height:48px;padding:8px 16px;font-size:14px;border-radius:8px}
+.workshop-play:not(.gesture-mode) #pour-hold span{display:none}
+.workshop-play:not(.gesture-mode) #heat-guide{position:fixed;right:16px;top:calc(var(--workshop-play-top,68px) + 8px);z-index:60;width:auto;min-width:0;margin:0;padding:0;border:0;background:none;box-shadow:none;display:block}
+.workshop-play:not(.gesture-mode) #heat-guide[hidden]{display:none!important}
+.workshop-play:not(.gesture-mode) #heat-guide>*:not(button){display:none}
+.workshop-play:not(.gesture-mode) #heat-start{min-height:48px;padding:8px 16px;font-size:14px}
+.workshop-play:not(.gesture-mode) .scene-toast{top:auto;bottom:8px;font-size:12px;white-space:normal;text-align:center}
+@media(max-height:500px){#workshop-display-prompt{padding:16px}.workshop-rotate-icon{height:32px}#workshop-display-prompt h2{margin:8px 0}#workshop-display-prompt p{margin-bottom:8px}}
+@media(max-width:700px){.workshop-play-toolbar button{font-size:12px;padding:8px}#workshop-play-hint{font-size:12px}.workshop-play:not(.gesture-mode) .live-dashboard{padding-right:208px;gap:4px}.workshop-play:not(.gesture-mode) .hands-on-actions button{font-size:12px;min-width:88px;padding:8px}.workshop-play:not(.gesture-mode) .live-dashboard span{font-size:12px;letter-spacing:-.04em}}
+
+.workshop-play-toolbar select{min-width:80px;max-width:96px}.workshop-play-toolbar button{white-space:nowrap}
+
+#workshop-display-prompt button:disabled{opacity:.5;cursor:wait}
+/* Basic practice still uses its original physical steps; free-play shortcuts stay hidden. */
+.workshop-play.basic-play:not(.gesture-mode) .hands-on-actions{display:none!important}
+.workshop-play.basic-play:not(.gesture-mode) .live-dashboard{padding-right:8px}
