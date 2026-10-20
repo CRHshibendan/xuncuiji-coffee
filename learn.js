@@ -1,66 +1,51 @@
+/* Classroom controller: homepage tokens/components, local teaching interactions. */
+(function(root,CoffeeMethods){
 'use strict';
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
-const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
-const readSetting=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback;}catch{return fallback;}};
-const saveSetting=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value));}catch{}};
-let motionPaused=reduceMotion.matches||readSetting('xuncuiji-motion-paused',false),selectedBrewer=['melitta','chemex',...Object.keys(CoffeeMethods.methods)].includes(new URLSearchParams(location.search).get('tool'))?new URLSearchParams(location.search).get('tool'):'melitta',activeVariable='ratio',recipeStep=0,recipeTimer=null,lastPhase=-1,scrollFrame=0,activeChapter='';
-const lessonMotion=window.CoffeeLessonMotion?.create(()=>!motionPaused&&!reduceMotion.matches&&!document.hidden)||{reveal(){},brewer(){},stop(){}};
-const recipes={melitta:{name:'Melitta',water:225,temp:92,grind:'中细',bloom:30,wait:30,split:125},chemex:{name:'Chemex',water:240,temp:93,grind:'中',bloom:40,wait:45,split:140}};
-const brewerContent={melitta:{alt:'Melitta 梯形陶瓷滤杯与独立侧把手',tag:'滤杯 + 分享壶，彼此分开。',subtitle:'THE EVERYDAY CLASSIC',title:'Melitta，<br>先把接缝折平。',intro:'上面是滤杯，下面是承接咖啡的分享壶或杯子。它们是分开的，出杯前先把滤杯移走。',facts:[['匹配扇形滤纸','按器具型号选对滤纸尺寸。先折平底部与侧面接缝，再展开贴合。'],['先润纸，再倒掉水','把滤纸放进滤杯后润湿、预热。正式投粉前，把预热水倒掉。'],['从中细研磨试起','这里用 15g 粉、225g 水作为练习起点，再按下水速度和口感微调。']]},chemex:{alt:'Chemex 木领沙漏形一体玻璃咖啡壶',tag:'上面过滤，下面接液，是同一只玻璃壶。',subtitle:'THE GLASS HOURGLASS',title:'Chemex，<br>认准滤纸的三层面。',intro:'漏斗与承接咖啡的壶身连成一体。准备好滤纸后放入上半部，完成冲煮时取出滤纸和粉渣。',facts:[['使用适配的专用滤纸','圆形或方形滤纸展开后，一面三层、一面一层；不同型号按包装说明准备。'],['三层面朝向壶嘴','让较厚的一侧靠在导流嘴处，支撑滤纸，并为排气通道留出空间。'],['留意厚滤纸的下水','本课以 15g 粉、240g 水、中研磨为起点。观察水位，别因为滴得慢就不断补水。']]}};
-function swapAnimation(el){lessonMotion.reveal(el);}
-function setMotion(){
- document.body.classList.toggle('motion-paused',motionPaused);document.body.classList.toggle('motion-enabled',!motionPaused);
- $('#motion-toggle').setAttribute('aria-pressed',String(motionPaused));$('#motion-toggle').textContent=reduceMotion.matches?'已减少动态效果':motionPaused?'开启动画 ▷':'暂停动画 Ⅱ';$('#motion-toggle').disabled=reduceMotion.matches;
- if(motionPaused){stopRecipe();lessonMotion.stop();}
+const safe=(v,fallback)=>Number.isFinite(Number(v))?Number(v):fallback;
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function variableValues({dose=15,ratio=15,grind=2,temp=92}={}){
+ dose=clamp(safe(dose,15),10,30);ratio=clamp(safe(ratio,15),13,18);grind=Math.round(clamp(safe(grind,2),1,5));temp=clamp(safe(temp,92),80,100);
+ return{dose,ratio,grind,temp,water:Math.round(dose*ratio)};
 }
-$('#motion-toggle').addEventListener('click',()=>{motionPaused=!motionPaused;saveSetting('xuncuiji-motion-paused',motionPaused);setMotion();});
-reduceMotion.addEventListener('change',()=>{motionPaused=reduceMotion.matches||readSetting('xuncuiji-motion-paused',false);setMotion();});
-function selectBrewer(name){
- selectedBrewer=name;recipeStep=0;const data=brewerContent[name]||CoffeeMethods.methods[name],method=CoffeeMethods.methods[name];
- $$('[data-learn-brewer]').forEach(b=>{const yes=b.dataset.learnBrewer===name;b.setAttribute('aria-selected',String(yes));b.tabIndex=yes?0:-1;});
- $('#brewer-panel').setAttribute('aria-labelledby','tab-'+name);const toolTabs=$('.brewer-tabs'),toolTab=$('#tab-'+name);toolTabs.scrollTo({left:toolTab.offsetLeft-toolTabs.offsetLeft-toolTabs.clientWidth/2+toolTab.offsetWidth/2,behavior:motionPaused?'instant':'smooth'});
- $('#brewer-image').src=`assets/${name}.svg`;$('#brewer-image').alt=data.alt;$('#brewer-tag').textContent=data.tag;
- $('#brewer-copy').innerHTML=`<p class="brewer-subtitle">${data.subtitle}</p><h3>${data.title}</h3><p>${data.intro}</p><div class="brewer-facts">${data.facts.map(([a,b],i)=>`<div><b>${i+1}</b><div><strong>${a}</strong>${b}</div></div>`).join('')}</div>`;
- if(method)$('#brewer-copy').insertAdjacentHTML('beforeend',`<a class="method-source" href="${method.source[1]}" target="_blank" rel="noopener">${method.source[0]} ↗</a><div class="brewer-practice-links"><a href="workshop.html?tool=${name}&mode=basic">基础跟练 →</a><a href="workshop.html?tool=${name}&mode=advanced">进阶自由 · 由你决定 ↗</a></div>`);
- const portrait=$('#brewer-image').getBoundingClientRect();if(portrait.bottom>0&&portrait.top<innerHeight)lessonMotion.brewer($('#brewer-image'),$('#brewer-copy'));
- $$('[data-practice]').forEach(a=>{const advanced=a.dataset.practice==='advanced';a.href=`workshop.html?tool=${name}&mode=${a.dataset.practice}`;if(a.closest('.finale-buttons'))a.innerHTML=advanced?(method?'进阶自由 · 冲法由你决定 <span>↗</span>':'进阶自由 · 试自己的配方 <span>↗</span>'):(method?'动作跟练 · 一步步做 <span>↗</span>':'基础跟练 · 一步步做 <span>↗</span>');});
- const r=recipes[name];if(method){$('#recipe-meta').innerHTML=`<div><span>今天的器具</span><strong>${method.name}</strong></div>${method.meta.map(([a,b])=>`<div><span>${a}</span><strong>${b}</strong></div>`).join('')}`;}else $('#recipe-meta').innerHTML=`<div><span>今天的器具</span><strong>${r.name}</strong></div><div><span>咖啡粉 / 冲煮用水</span><strong>15 <small>g</small> / ${r.water} <small>g</small></strong></div><div><span>起点水温</span><strong>${r.temp} <small>°C</small></strong></div><div><span>起点研磨</span><strong>${r.grind}<small>研磨</small></strong></div>`;
- stopRecipe();renderRecipe();
+const brewerInfo={
+ melitta:{name:'Melitta',subtitle:'CERAMIC / GRAVITY',title:'经典手冲，从容开始。',description:'扇形滤纸放进梯形滤杯，下面接一只分享壶。先折平滤纸接缝，润湿后倒掉预热水，再开始冲煮。',tag:'滤杯与分享壶，彼此分开。'},
+ chemex:{name:'Chemex',subtitle:'GLASS / PAPER FILTER',title:'给清澈，留一点时间。',description:'沙漏形玻璃壶把过滤与接液连在一起。展开适配滤纸，让三层面朝向壶嘴，为排气留出通道。',tag:'一只玻璃壶，完成过滤与承接。'},
+ moka:{name:'摩卡壶',subtitle:'METAL / HEAT AND PRESSURE',title:'让热力，带香气上来。',description:'下壶装水，粉槽装粉，温和加热后咖啡进入上壶。水位低于安全阀，粉槽装平不压粉，冷却后再拆壶。',tag:'下壶、粉槽与上壶，共同完成一杯。'},
+ coldbrew:{name:'浸泡式冷萃',subtitle:'GLASS / COLD IMMERSION',title:'把时间，也交给咖啡。',description:'咖啡粉与冷水一起浸泡，盖好冷藏。达到计划时间后过滤，再按喜好调整浓淡。',tag:'这里演示浸泡式冷萃，不是冰滴塔。'},
+ espresso:{name:'意式浓缩',subtitle:'METAL / PRESSURE EXTRACTION',title:'短短一瞬，浓缩风味。',description:'热水在压力下穿过细密粉饼，接住一小杯集中的香气。布粉、压粉与停止萃取的时机，都会影响这杯的表现。',tag:'用细密粉饼，承接压力下的热水。'},
+ siphon:{name:'虹吸壶',subtitle:'GLASS / TEMPERATURE AND PRESSURE',title:'上升，回落，风味相遇。',description:'加热让水进入上壶，与咖啡粉接触。停止加热后，咖啡经过滤器，回到下壶。',tag:'上壶浸泡，下壶承接回流。'},
+ frenchpress:{name:'法压壶',subtitle:'GLASS / IMMERSION AND PRESS',title:'慢慢浸泡，轻轻压下。',description:'让咖啡粉与热水相处片刻，再缓慢压下金属滤网。倒出咖啡，避免一直留在粉渣中。',tag:'浸泡之后，用金属滤网分离粉渣。'}
+};
+function svg(body,label,box='0 0 400 360'){return `<svg class="lesson-svg" viewBox="${box}" role="img" aria-label="${escapeHTML(label)}" fill="none">${body}</svg>`;}
+function processDrawing(value){const phase=clamp(Math.round(safe(value,0)),0,2);
+ const stream=phase<2?'<path class="lesson-flow" pathLength="1" d="M200 25v62"/>':'<path class="lesson-flow" pathLength="1" d="M200 222v47"/>';
+ const particles=Array.from({length:12},(_,i)=>`<circle cx="${137+i%4*40}" cy="${132+Math.floor(i/4)*25}" r="${phase===1?3:2}"/>`).join('');
+ const bubbles=phase===0?'<g class="lesson-change"><circle cx="168" cy="107" r="6"/><circle cx="205" cy="100" r="4"/><circle cx="237" cy="107" r="5"/></g>':'';
+ const liquid=phase===2?'<path class="lesson-accent lesson-change" d="M149 304h102v26q0 12-51 12t-51-12Z"/>':'';
+ return svg(`${stream}<path d="M80 100h240l-60 120H140Z"/><ellipse cx="200" cy="100" rx="120" ry="12"/><path d="m106 115 44 88m-12-89 27 89m35-88v88m62-89-27 89m59-88-44 88" opacity=".4"/><g class="lesson-change" stroke="var(--color-accent)">${particles}</g>${bubbles}<path d="M140 270h120v60q0 20-60 20t-60-20ZM260 283h16c35 0 35 42 0 42h-16"/>${liquid}`,['润湿咖啡粉，气体形成小气泡','可溶物进入水中，形成风味','液体经过滤纸流入杯中'][phase]);
 }
-$$('[data-learn-brewer]').forEach(b=>b.addEventListener('click',()=>selectBrewer(b.dataset.learnBrewer)));
-function keyboardTabs(selector,attribute,select){$$(selector).forEach(b=>b.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const tabs=$$(selector),i=tabs.indexOf(b),next=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;select(tabs[next].getAttribute(attribute));tabs[next].focus();}));}
-keyboardTabs('[data-learn-brewer]','data-learn-brewer',selectBrewer);
-const roasts=[{title:'想试试明亮、轻盈的感觉？',desc:'可以从带有花香、水果描述的浅烘焙试起。酸质可能更鲜明；先用自己的味觉分辨是喜欢的清爽，还是不喜欢的尖锐。'},{title:'想从平衡、熟悉的风味开始？',desc:'试试带有坚果、焦糖或巧克力描述的中烘焙。它可以是第一杯的起点，再慢慢探索自己的偏好。'},{title:'想尝尝更明显的烘焙风味？',desc:'试试深烘焙。常见更明显的苦感和烘焙香气；如果觉得苦涩，可以记录水温、研磨与时间，再做小幅调整。'}];
-$$('[data-roast]').forEach(b=>b.addEventListener('click',()=>{const index=Number(b.dataset.roast),r=roasts[index];$$('[data-roast]').forEach(x=>{const yes=x===b;x.classList.toggle('active',yes);x.setAttribute('aria-pressed',String(yes));});$('.bean-world').dataset.roast=index;$('#roast-title').textContent=r.title;$('#roast-desc').textContent=r.desc;swapAnimation($('.roast-description'));}));
-function selectVariable(name){
- activeVariable=name;$$('button[data-variable]').forEach(b=>{const yes=b.dataset.variable===name;b.setAttribute('aria-selected',String(yes));b.tabIndex=yes?0:-1;});
- $$('[data-variable-control]').forEach(p=>p.hidden=p.dataset.variableControl!==name);$('#variable-panel').setAttribute('aria-labelledby','tab-'+name);$('.variable-visual').dataset.variable=name;updateVariable();swapAnimation($('#variable-panel'));
-}
-$$('button[data-variable]').forEach(b=>b.addEventListener('click',()=>selectVariable(b.dataset.variable)));
-keyboardTabs('button[data-variable]','data-variable',selectVariable);
-function updateVariable(){
- const dose=Number($('#learn-dose').value),ratio=Number($('#learn-ratio').value),grind=Number($('#learn-grind').value),temp=Number($('#learn-temperature').value),water=Math.round(dose*ratio),names=['','细','中细','中','中粗','粗'],visual=$('.variable-visual');
- $('#dose-value').textContent=dose+' g';$('#ratio-value').textContent='1 : '+ratio;$('#grind-value').textContent=names[grind];$('#temperature-value').textContent=temp+'°C';
- visual.style.setProperty('--water-height',clamp(water/540*85,20,85)+'%');visual.style.setProperty('--ground-height',dose/30*65+'%');visual.style.setProperty('--ground-size',3+grind*1.7+'px');visual.style.setProperty('--drip-speed',(2.1-grind*.3)+'s');visual.style.setProperty('--temperature-height',(temp-70)/30*85+5+'%');
- if(activeVariable==='ratio'){
-  $('#visual-kicker').textContent='冲煮用水';$('#visual-number').innerHTML=water+' <span>g</span>';$('#visual-dose').textContent=dose+'g 咖啡粉';$('#variable-title').textContent=`${dose}g 咖啡，搭配 ${water}g 水。`;
-  $('#variable-description').textContent=`1:${ratio} 是每 1g 咖啡配 ${ratio}g 冲煮用水。${ratio<15?'相同粉量下，用水少一些，通常更浓。':ratio>16?'相同粉量下，用水多一些，通常更清淡。':'先用它作为起点，再按口感调整浓淡。'}粉层会留住部分水，杯中液体通常少于注水量。`;
-  $('#variable-caption').textContent='水量 = 咖啡粉量 × 比例';visual.setAttribute('aria-label',`${dose}克咖啡粉配${water}克冲煮用水，粉水比1比${ratio}`);
- }else if(activeVariable==='grind'){
-  $('#visual-kicker').textContent='当前研磨示意';$('#visual-number').innerHTML=names[grind]+' <span>研磨</span>';
-  $('#variable-title').textContent=grind<=2?'磨细一点，接触面积更多。':grind>=4?'磨粗一点，水通常更快流过。':'中研磨，先观察这杯的下水。';
-  $('#variable-description').textContent=grind<=2?'细颗粒通常让萃取更充分，也可能使下水变慢。若积水明显、口腔干涩，下一杯可以只试着调粗一点。':grind>=4?'粗颗粒通常下水较快。若这杯尖酸、空薄，下一杯可只试着磨细一点，保持水温和粉水比不变。':'颗粒分布、细粉和滤纸也影响下水。相同刻度在不同磨豆机上不代表相同颗粒，先记录自己的结果。';
-  $('#variable-caption').textContent='水流动画只表示常见变化方向';visual.setAttribute('aria-label',names[grind]+'研磨颗粒与水流变化示意');
- }else{
-  $('#visual-kicker').textContent='当前设定水温';$('#visual-number').innerHTML=temp+' <span>°C</span>';
-  $('#variable-title').textContent=temp<89?'低一些，给萃取一点不同的节奏。':temp>95?'高一些，帮助风味更快溶出。':'从这里开始，再用味觉决定。';
-  $('#variable-description').textContent=`${temp}°C 是这里的设定值。${temp<89?'相同条件下，较低水温往往让溶出变慢。若不喜欢空薄、尖锐的感觉，下次可以只提高水温。':temp>95?'相同条件下，较高水温往往有助于溶出。若觉得苦涩干燥，下次可以只降低一点水温。':'本课以 92–93°C 作为练习起点，不代表所有豆子都适用。'}实际粉层温度还会受器具和注水影响。`;
-  $('#variable-caption').textContent='设定温度 ≠ 每一刻的粉层温度';visual.setAttribute('aria-label',temp+'摄氏度水温示意');
+function variableDrawing(name,input){const v=variableValues(input);
+ if(name==='grind'){
+  const particles=Array.from({length:18},(_,i)=>`<circle cx="${90+i%6*44}" cy="${70+Math.floor(i/6)*50}" r="${1.5+v.grind*1.2}"/>`).join('');
+  return svg(`<g class="lesson-change">${particles}</g><path class="lesson-flow" pathLength="1" d="M120 225v45m-8-12 8 12 8-12M200 225v45m-8-12 8 12 8-12M280 225v45m-8-12 8 12 8-12"/>`,'研磨颗粒大小的变化示意','0 0 400 300');
  }
+ if(name==='temperature'){
+  const y=185-(v.temp-80)*6;
+  return svg(`<path d="M184 218V55a16 16 0 0 1 32 0v163a28 28 0 1 1-32 0Z"/><path d="M236 65h18m-18 30h12m-12 30h18m-18 30h12m-12 30h18"/><circle class="lesson-accent" cx="200" cy="242" r="12"/><path stroke="var(--color-accent)" class="lesson-flow" pathLength="1" d="M200 242V${y}"/>`,'温度计随设定水温变化的示意','0 0 400 300');
+ }
+ const waterY=230-v.water/540*140,groundsY=230-v.dose/30*65;
+ return svg(`<path d="M55 125h105v110q0 19-52.5 19T55 235ZM160 140h14c32 0 32 50 0 50h-14M225 65h120v170q0 19-60 19t-60-19Z"/><path class="lesson-accent" d="M63 ${groundsY}h89V235q0 11-44.5 11T63 235Z"/><path class="lesson-flow" pathLength="1" d="M233 ${waterY}h104"/><path d="M325 90h12m-12 30h12m-12 30h12m-12 30h12m-12 30h12" opacity=".4"/>`,'咖啡粉量与冲煮用水量的量杯示意','0 0 400 300');
 }
-$$('#variable-panel input').forEach(input=>input.addEventListener('input',updateVariable));
-function steps(){if(CoffeeMethods.methods[selectedBrewer])return CoffeeMethods.methods[selectedBrewer].steps;const r=recipes[selectedBrewer];return[
+function createPlayback({getLength,getStep,onStep,onState=()=>{},allowed=()=>true,setTimer=setTimeout,clearTimer=clearTimeout}){
+ let timer=null,version=0,playing=false;
+ function stop(){version++;if(timer!==null)clearTimer(timer);timer=null;playing=false;onState(false);}
+ function schedule(run){timer=setTimer(()=>{timer=null;if(run!==version)return;if(!allowed()){stop();return;}const next=getStep()+1;if(next<getLength())onStep(next);if(next>=getLength()-1)stop();else schedule(run);},6500);}
+ function start(){stop();if(!allowed())return false;if(getStep()>=getLength()-1)onStep(0);playing=true;const run=version;onState(true);schedule(run);return true;}
+ return{start,stop,get playing(){return playing;}};
+}
+const recipes={melitta:{name:'Melitta',water:225,temp:92,grind:'中细',bloom:30,wait:30,split:125},chemex:{name:'Chemex',water:240,temp:93,grind:'中',bloom:40,wait:45,split:140}};
+function lessonSteps(selectedBrewer){if(CoffeeMethods.methods[selectedBrewer])return CoffeeMethods.methods[selectedBrewer].steps;const r=recipes[selectedBrewer];return[
  {name:'准备滤纸',hint:'先折，再放入',title:selectedBrewer==='melitta'?'先折纸，再放入。':'展开滤纸，认准三层面。',text:selectedBrewer==='melitta'?'沿扇形滤纸的底边和侧边接缝折平，再展开贴合梯形滤杯。滤杯稳稳放在分享壶或杯子上。':'展开匹配的 Chemex 滤纸，让三层面朝向导流嘴。一层面在另一边，壶嘴处留出排气的空间。',observe:'滤纸贴合器具，没有塌进壶嘴或堆成一团。',visual:'先把滤纸准备好'},
  {name:'称豆研磨',hint:'15g 咖啡豆',title:`称好 15g，磨成${r.grind}。`,text:`先固定粉量，更容易比较下一杯。将 15g 豆子磨成${r.grind}颗粒；磨豆机刻度不能照搬，先以自己的颗粒与下水表现为准。`,observe:'先闻一闻刚磨好的干粉，记下第一个香气联想。',visual:'豆子变成更小的颗粒'},
  {name:'准备热水',hint:r.temp+'°C 起步',title:`把水准备在 ${r.temp}°C 附近。`,text:'用温控壶或温度计确认水温。准备的水要留出润纸用量；这份配方的冲煮水量不包含稍后倒掉的预热水。',observe:'温度是开始的参考；实物器具和热水都要留意烫手。',visual:'水温是配方的一个变量'},
@@ -69,33 +54,68 @@ function steps(){if(CoffeeMethods.methods[selectedBrewer])return CoffeeMethods.m
  {name:'分段注水',hint:`累计 ${r.split}g → ${r.water}g`,title:`分两段，累计注到 ${r.water}g。`,text:`闷蒸后缓慢绕小圈，先注到累计 ${r.split}g。观察水位回落，再继续到累计 ${r.water}g。落点尽量留在粉层内，避免一直冲刷滤纸边缘。`,observe:'这里都是秤上的累计数值，不是每段要额外再加这么多水。',visual:'细水流，落点留在粉层里'},
  {name:'滴滤出杯',hint:'观察，再品尝',title:'等它滴下，留一口给自己。',text:selectedBrewer==='melitta'?'观察水位下降、滴滤基本结束，移开上面的 Melitta 滤杯。轻轻晃匀分享壶里的咖啡，倒入杯中，稍放凉后尝一尝。':'观察水位下降、滴滤基本结束，取出滤纸和粉渣。轻轻晃匀 Chemex 壶中的咖啡，倒入杯中，稍放凉后再尝。',observe:'记下总时间与口感。下一杯保留配方，只改一个变量。',visual:'记录味道，让下一杯有方向'}
  ];}
-function renderRecipe(){const all=steps(),s=all[recipeStep];
- $('#recipe-timeline').innerHTML=all.map((item,i)=>`<button data-recipe-step="${i}" class="${i===recipeStep?'active':''}" aria-pressed="${i===recipeStep}"><span>${String(i+1).padStart(2,'0')}</span><div><strong>${item.name}</strong><small>${item.hint}</small></div></button>`).join('');
- $$('[data-recipe-step]').forEach(b=>b.addEventListener('click',()=>{stopRecipe();recipeStep=Number(b.dataset.recipeStep);renderRecipe();$('#recipe-timeline .active').focus({preventScroll:true});}));
- const method=CoffeeMethods.methods[selectedBrewer],visual=$('.step-visual');visual.classList.toggle('new-method',!!method);visual.querySelector('.method-step-art')?.remove();if(method){visual.insertAdjacentHTML('afterbegin',`<div class="method-step-art">${MethodArt.render(selectedBrewer,all.slice(0,recipeStep+1).map(v=>v.token),s.token,.6)}</div>`);}else $('#step-heat').textContent=recipes[selectedBrewer].temp+'°C';
- $('#recipe-step-count').textContent=String(recipeStep+1).padStart(2,'0')+' / '+String(all.length).padStart(2,'0');$('.step-visual').dataset.step=recipeStep;$('#step-visual-label').textContent=s.visual;$('#recipe-action').textContent=s.name;$('#recipe-step-title').textContent=s.title;$('#recipe-step-description').textContent=s.text;$('#recipe-step-observe').textContent=s.observe;$('#previous-step').disabled=recipeStep===0;$('#next-step').textContent=recipeStep===steps().length-1?'重新看一遍 ↻':'下一步 →';
- const timeline=$('#recipe-timeline'),active=timeline.querySelector('.active');if(timeline.scrollWidth>timeline.clientWidth&&active)timeline.scrollTo({left:active.offsetLeft-timeline.clientWidth/2+active.offsetWidth/2,behavior:motionPaused?'instant':'smooth'});
-}
-function stopRecipe(){clearInterval(recipeTimer);recipeTimer=null;const button=$('#play-recipe');if(button){button.setAttribute('aria-pressed','false');button.textContent='播放步骤动画 ▷';}}
-$('#play-recipe').addEventListener('click',()=>{if(recipeTimer){stopRecipe();return;}if(recipeStep===steps().length-1)recipeStep=0;renderRecipe();$('#play-recipe').setAttribute('aria-pressed','true');$('#play-recipe').textContent='暂停播放 Ⅱ';recipeTimer=setInterval(()=>{if(document.hidden){stopRecipe();return;}if(recipeStep<steps().length-1){recipeStep++;renderRecipe();}else stopRecipe();},6500);});
-$('#previous-step').addEventListener('click',()=>{stopRecipe();recipeStep=Math.max(0,recipeStep-1);renderRecipe();});$('#next-step').addEventListener('click',()=>{stopRecipe();recipeStep=recipeStep===steps().length-1?0:recipeStep+1;renderRecipe();});
 const tasteAdvice={sour:{title:'先试着，只磨细一点。',description:'如果酸得尖、又有空薄感，可能是萃取不够，也可能和豆子本身有关。用同一支豆子，把研磨小幅调细，比较口感有没有变得更完整。',keep:'同一支豆、粉量、水量与水温',change:'研磨小幅调细一次',context:'明亮、清爽的酸质也可能是好喝的风味，先以自己的喜好判断。'},bitter:{title:'先试着，只磨粗一点。',description:'如果苦感伴随干涩、且下水很慢，可以先小幅调粗研磨。记录滴滤时间有没有缩短，口腔里是否更柔和，再决定下一步。',keep:'同一支豆、粉量、水量与水温',change:'研磨小幅调粗一次',context:'烘焙风味、细粉或不均匀注水也会影响口感，这只是一次对照实验。'},weak:{title:'先分清，淡还是萃取不足。',description:'如果味道完整、只是浓度低，可先减少同样粉量的用水，例如从 1:16 改到 1:15。若同时尖酸空薄，则优先尝试调整研磨。',keep:'同一支豆、粉量、研磨与水温',change:'只减少一点冲煮用水',context:'喝起来清淡不一定是缺点；选择你愿意每天喝的那种浓度。'},good:{title:'喜欢这一杯，就把它留下。',description:'记录豆子、器具、粉量、水量、水温、研磨和大致时间。再写一句自己的味觉联想，下次用同一套条件试着复现。',keep:'这一次的参数与动作',change:'先不改，下一杯尝试复现',context:'风味词没有标准答案。你喜欢的感觉，比漂亮的术语更值得记录。'}};
-function chooseTaste(name){const data=tasteAdvice[name];$$('[data-taste]').forEach(b=>{const yes=b.dataset.taste===name;b.classList.toggle('active',yes);b.setAttribute('aria-pressed',String(yes));});$('#taste-title').textContent=data.title;$('#taste-description').textContent=data.description;$('#taste-keep').textContent=data.keep;$('#taste-change').textContent=data.change;$('#taste-context').textContent=data.context;swapAnimation($('.taste-response'));}
-$$('[data-taste]').forEach(b=>b.addEventListener('click',()=>chooseTaste(b.dataset.taste)));
-const revealObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in-view');revealObserver.unobserve(entry.target);}});},{threshold:.08});$$('.reveal').forEach(el=>revealObserver.observe(el));
-function onScroll(){scrollFrame=0;const max=document.documentElement.scrollHeight-innerHeight;$('#reading-progress').style.width=(max>0?clamp(scrollY/max,0,1)*100:0)+'%';
- const chapters=$$('[data-chapter]');let current=chapters[0].id;chapters.forEach(section=>{if(section.getBoundingClientRect().top<innerHeight*.38)current=section.id;});
- if(current!==activeChapter){activeChapter=current;$$('.chapter-nav a').forEach(a=>{const yes=a.getAttribute('href')==='#'+current;a.classList.toggle('active',yes);if(yes)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});const selected=$('.chapter-nav a.active'),nav=$('.chapter-nav');if(selected&&(selected.offsetLeft<nav.scrollLeft||selected.offsetLeft+selected.offsetWidth>nav.scrollLeft+nav.clientWidth))nav.scrollTo({left:selected.offsetLeft-nav.clientWidth/2+selected.offsetWidth/2,behavior:motionPaused?'instant':'smooth'});}
- let phase=0;$$('.story-step').forEach((el,i)=>{if(el.getBoundingClientRect().top<innerHeight*.82)phase=i;});
- if(phase!==lastPhase){lastPhase=phase;$('.story-simulation').dataset.phase=phase;$('#story-count').textContent='0'+(phase+1)+' / 03';$('.story-simulation').setAttribute('aria-label','当前演示：'+['均匀打湿咖啡粉','可溶物进入水中','液体穿过滤纸流入杯中'][phase]);$$('.story-step').forEach((el,i)=>el.classList.toggle('active',i===phase));}
+const api={variableValues,processDrawing,variableDrawing,lessonSteps,brewerInfo,createPlayback};
+if(typeof module==='object'&&module.exports)module.exports=api;
+root.CoffeeLearn=api;if(!root.document)return;
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],reduced=matchMedia('(prefers-reduced-motion: reduce)');
+let selectedBrewer=Object.hasOwn(brewerInfo,new URLSearchParams(location.search).get('tool'))?new URLSearchParams(location.search).get('tool'):'melitta',activeVariable='ratio',recipeStep=0;
+function respond(node){node.classList.remove('lesson-change');if(!reduced.matches){void node.offsetWidth;node.classList.add('lesson-change');}}
+function tabs(selector,attribute,selected){$$(selector).forEach(button=>{const yes=button.getAttribute(attribute)===String(selected);button.setAttribute(button.getAttribute('role')==='tab'?'aria-selected':'aria-pressed',String(yes));if(button.getAttribute('role')==='tab')button.tabIndex=yes?0:-1;});}
+function keyboardTabs(selector,attribute,select){$$(selector).forEach(button=>button.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const all=$$(selector),at=all.indexOf(button),next=event.key==='Home'?0:event.key==='End'?all.length-1:(at+(event.key==='ArrowRight'?1:-1)+all.length)%all.length;select(all[next].getAttribute(attribute));all[next].focus();}));}
+const phases=[
+ {title:'先让每一粒粉，都遇见水。',description:'少量热水打湿咖啡粉，粉层里会冒出小气泡。均匀润湿干粉，也给气体一点排出的时间。'},
+ {title:'水带走的，才是杯中的风味。',description:'咖啡中的可溶物进入水里，形成香气、滋味与浓度。研磨、水温和接触时间，会一起影响这个过程。'},
+ {title:'留下粉渣，让咖啡流进杯子。',description:'重力让液体穿过粉层和滤纸，与粉渣分开。观察下水速度，给下一杯留下比较的线索。'}
+];
+function selectPhase(value){const phase=clamp(Number(value),0,2),data=phases[phase];tabs('[data-phase]','data-phase',phase);$('#story-drawing').innerHTML=processDrawing(phase);$('#story-copy').setAttribute('aria-labelledby','phase-'+phase);$('#story-count').textContent='0'+(phase+1)+' / 03';$('#story-title').textContent=data.title;$('#story-description').textContent=data.description;respond($('#story-copy'));}
+$$('[data-phase]').forEach(button=>button.addEventListener('click',()=>selectPhase(button.dataset.phase)));keyboardTabs('[data-phase]','data-phase',selectPhase);
+const roasts=[
+ {title:'想试试明亮、轻盈的感觉？',description:'可以从带有花香、水果描述的浅烘焙试起。先用味觉分辨，是喜欢的清爽，还是不喜欢的尖锐。'},
+ {title:'想从平衡、熟悉的风味开始？',description:'试试带有坚果、焦糖或巧克力描述的中烘焙。它可以是第一杯的起点，再慢慢探索自己的偏好。'},
+ {title:'想尝尝更明显的烘焙风味？',description:'试试深烘焙，感受更明显的烘焙香气。烘焙名称没有跨品牌的统一刻度，先买小份尝试。'}
+];
+function selectRoast(value){const index=Number(value),data=roasts[index];$$('button[data-roast]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.roast)===index)));$('#bean-figure').dataset.roast=index;$('#roast-title').textContent=data.title;$('#roast-desc').textContent=data.description;respond($('#bean-figure'));}
+$$('button[data-roast]').forEach(b=>b.addEventListener('click',()=>selectRoast(b.dataset.roast)));
+function inputs(){return variableValues({dose:$('#learn-dose').value,ratio:$('#learn-ratio').value,grind:$('#learn-grind').value,temp:$('#learn-temperature').value});}
+function updateVariable(){const v=inputs(),names=['','细','中细','中','中粗','粗'];
+ $('#dose-value').textContent=v.dose+' g';$('#ratio-value').textContent='1 : '+v.ratio;$('#grind-value').textContent=names[v.grind];$('#temperature-value').textContent=v.temp+'°C';
+ $('#variable-drawing').innerHTML=variableDrawing(activeVariable,v);
+ if(activeVariable==='ratio'){
+  $('#visual-kicker').textContent='冲煮用水';$('#visual-number').textContent=v.water+' g';$('#variable-title').textContent=`${v.dose}g 咖啡，搭配 ${v.water}g 水。`;
+  $('#variable-description').textContent=`1:${v.ratio} 是每 1g 咖啡配 ${v.ratio}g 冲煮用水。粉层会留住部分水，杯中液体通常少于注水量。`;
+  $('#variable-caption').textContent='水量 = 咖啡粉量 × 比例';
+ }else if(activeVariable==='grind'){
+  $('#visual-kicker').textContent='颗粒示意';$('#visual-number').textContent=names[v.grind];$('#variable-title').textContent=v.grind<=2?'磨细一点，接触面积更多。':v.grind>=4?'磨粗一点，水通常更快流过。':'先观察，这杯的下水。';
+  $('#variable-description').textContent='细颗粒通常让溶出更充分，也可能使下水变慢。磨豆机刻度不能照搬，保持其他条件不变，再比较这一次的口感。';
+  $('#variable-caption').textContent='颗粒大小为变化方向示意，不代表实际磨豆机刻度。';
+ }else{
+  $('#visual-kicker').textContent='设定水温';$('#visual-number').textContent=v.temp+'°C';$('#variable-title').textContent='从这里开始，再用味觉决定。';
+  $('#variable-description').textContent='相同条件下，较高水温往往有助于溶出。设定值与实际粉层温度不同，下一杯只调整一个变量。';$('#variable-caption').textContent='设定温度 ≠ 每一刻的粉层温度';
+ }
 }
-window.addEventListener('scroll',()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(onScroll);},{passive:true});window.addEventListener('resize',()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(onScroll);});document.addEventListener('visibilitychange',()=>{if(document.hidden)stopRecipe();});
-$('#story-grains').innerHTML=Array.from({length:62},(_,i)=>`<circle cx="${100+(i*37)%265}" cy="${125+(i*23)%116}" r="${2+i%3}" fill="${i%2?'#62462c':'#d3b57c'}"/>`).join('');
-$('#grind-particles').innerHTML=Array.from({length:30},(_,i)=>`<i style="--particle-angle:${i*47%90}deg"></i>`).join('');
-setMotion();selectBrewer(selectedBrewer);updateVariable();chooseTaste('sour');onScroll();
-
-// Let the chapter illustration greet a reader arriving from a homepage card.
-const lessonArrival=new IntersectionObserver(entries=>{for(const entry of entries){if(!entry.isIntersecting)continue;if(entry.target.id==='brewer-image')lessonMotion.brewer(entry.target,$('#brewer-copy'));else lessonMotion.reveal(entry.target);lessonArrival.unobserve(entry.target);}},{threshold:.16});
-function observeLessonEntry(){['#brewer-image','.bean-world','.variable-visual'].forEach(selector=>lessonArrival.observe($(selector)));}
-observeLessonEntry();addEventListener('hashchange',observeLessonEntry);
-document.addEventListener('visibilitychange',()=>{if(document.hidden)lessonMotion.stop();});
+function selectVariable(name){activeVariable=name;tabs('button[data-variable]','data-variable',name);$$('[data-variable-control]').forEach(p=>p.hidden=p.dataset.variableControl!==name);$('#variable-panel').setAttribute('aria-labelledby','tab-'+name);updateVariable();respond($('#variable-panel'));}
+$$('button[data-variable]').forEach(b=>b.addEventListener('click',()=>selectVariable(b.dataset.variable)));keyboardTabs('button[data-variable]','data-variable',selectVariable);$$('#variable-panel input').forEach(input=>input.addEventListener('input',updateVariable));
+const playback=createPlayback({getLength:()=>lessonSteps(selectedBrewer).length,getStep:()=>recipeStep,onStep:value=>{recipeStep=value;renderRecipe();},allowed:()=>!reduced.matches&&!document.hidden,onState:value=>{$('#play-recipe').setAttribute('aria-pressed',String(value));$('#play-recipe').textContent=reduced.matches?'请逐步查看':value?'停止演示':'自动看一遍';}});
+function renderRecipe(){const all=lessonSteps(selectedBrewer),step=all[recipeStep];
+ $('#recipe-timeline').innerHTML=all.map((item,i)=>`<button type="button" data-recipe-step="${i}" aria-pressed="${i===recipeStep}"><span class="label">${String(i+1).padStart(2,'0')}</span><span>${escapeHTML(item.name)}</span></button>`).join('');
+ $$('[data-recipe-step]').forEach(button=>button.addEventListener('click',()=>{playback.stop();recipeStep=Number(button.dataset.recipeStep);renderRecipe();$('#recipe-timeline [aria-pressed="true"]').focus({preventScroll:true});}));
+ $('#recipe-step-count').textContent=String(recipeStep+1).padStart(2,'0')+' / '+String(all.length).padStart(2,'0');$('#recipe-action').textContent=step.name;$('#recipe-step-title').textContent=step.title;$('#recipe-step-description').textContent=step.text;$('#recipe-step-observe').textContent='看一看：'+step.observe;
+ $('#previous-step').disabled=recipeStep===0;$('#next-step').textContent=recipeStep===all.length-1?'重新看一遍':'下一步';respond($('#recipe-step-title'));
+}
+function selectBrewer(name){if(!Object.hasOwn(brewerInfo,name))name='melitta';playback.stop();selectedBrewer=name;recipeStep=0;const data=brewerInfo[name],method=CoffeeMethods.methods[name];
+ tabs('[data-learn-brewer]','data-learn-brewer',name);$('#brewer-panel').setAttribute('aria-labelledby','tab-'+name);$('#brewer-use').setAttribute('href','assets/lesson-brewers.svg#'+name);$('#brewer-drawing').setAttribute('aria-label',data.name+'细线器具图');$('#brewer-tag').textContent=data.tag;$('#brewer-subtitle').textContent=data.subtitle;$('#brewer-title').textContent=data.title;$('#brewer-description').textContent=data.description;
+ $('#equipment-practice').href=`workshop.html?tool=${name}&mode=basic`;$$('[data-practice]').forEach(a=>a.href=`workshop.html?tool=${name}&mode=${a.dataset.practice}`);
+ const meta=method?[['今天的器具',data.name],...method.meta]:[['今天的器具',data.name],['咖啡粉 / 用水','15 g / '+recipes[name].water+' g'],['起点水温',recipes[name].temp+'°C'],['起点研磨',recipes[name].grind]];
+ $('#recipe-meta').innerHTML=meta.map(([title,value])=>`<div><dt>${escapeHTML(title)}</dt><dd>${escapeHTML(value)}</dd></div>`).join('');renderRecipe();respond($('#brewer-drawing'));respond($('#brewer-copy'));
+ const url=new URL(location.href);url.searchParams.set('tool',name);history.replaceState(null,'',url);
+}
+$$('[data-learn-brewer]').forEach(b=>b.addEventListener('click',()=>selectBrewer(b.dataset.learnBrewer)));keyboardTabs('[data-learn-brewer]','data-learn-brewer',selectBrewer);
+$('#play-recipe').addEventListener('click',()=>{if(playback.playing)playback.stop();else playback.start();});$('#previous-step').addEventListener('click',()=>{playback.stop();recipeStep=Math.max(0,recipeStep-1);renderRecipe();});$('#next-step').addEventListener('click',()=>{playback.stop();recipeStep=recipeStep===lessonSteps(selectedBrewer).length-1?0:recipeStep+1;renderRecipe();});
+function chooseTaste(name){const data=tasteAdvice[name];tabs('[data-taste]','data-taste',name);$('#taste-title').textContent=data.title;$('#taste-description').textContent=data.description;$('#taste-keep').textContent=data.keep;$('#taste-change').textContent=data.change;respond($('#taste-title'));}
+$$('[data-taste]').forEach(b=>b.addEventListener('click',()=>chooseTaste(b.dataset.taste)));
+function motionChanged(){playback.stop();$('#play-recipe').disabled=reduced.matches;}
+if(typeof reduced.addEventListener==='function')reduced.addEventListener('change',motionChanged);else reduced.addListener?.(motionChanged);
+addEventListener('pagehide',()=>playback.stop());document.addEventListener('visibilitychange',()=>{if(document.hidden)playback.stop();});
+selectPhase(0);selectBrewer(selectedBrewer);selectRoast(1);selectVariable('ratio');chooseTaste('sour');motionChanged();
+})(typeof window==='undefined'?globalThis:window,typeof module==='object'&&module.exports?require('./methods.js'):CoffeeMethods);

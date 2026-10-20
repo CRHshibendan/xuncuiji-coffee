@@ -1,14 +1,9 @@
 /* Phone layout and touch controls. Kept separate from desktop art direction. */
-.mobile-nav,.mobile-scene-controls{display:none}
+.mobile-scene-controls{display:none}
 @media(max-width:760px){
  html{scroll-padding-top:80px;scroll-padding-bottom:100px}
  html:has(.chapter-nav){--header-height:58px;--nav-height:50px;scroll-padding-top:124px}
- body.xc-refined{padding-bottom:calc(76px + env(safe-area-inset-bottom));overscroll-behavior-y:none}
- .mobile-nav{position:fixed;z-index:60;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;padding:7px 8px calc(7px + env(safe-area-inset-bottom));border-top:1px solid #d4dcc8;background:#faf8f1f5;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
- .mobile-nav a{display:flex;min-height:48px;flex-direction:column;align-items:center;justify-content:center;gap:5px;color:#66725c;text-decoration:none;border-radius:8px;font-size:11px;line-height:1.2;white-space:nowrap}
- .mobile-nav a[aria-current]{color:#35532c;background:#e9efdd;font-weight:500}
- .mobile-nav svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
- .mobile-keyboard .mobile-nav{display:none}
+ body.xc-refined{overscroll-behavior-y:none}
  .xc-refined :is(input:not([type=range]):not([type=radio]):not([type=checkbox]),textarea,select){font-size:16px}
  .xc-refined :is(button,.button,.pill,.secondary,.solid-button,.soft-button){touch-action:manipulation}
  .xc-refined :is(.dialog-close,.close-dialog){display:grid;place-items:center;min-width:44px;min-height:44px;right:8px;top:7px;padding:0;z-index:2}
@@ -169,8 +164,8 @@
  .xc-refined .heat-guide button{font-size:11px}.xc-refined .heat-temperatures output{font-size:26px}
  .xc-refined .header-actions .pill{font-size:10px;padding:8px}.xc-refined #motion-toggle{font-size:10px;padding:4px}
 }
-@media(max-width:760px) and (orientation:landscape){.xc-refined .scene-wrap{max-width:590px;margin-inline:auto}.xc-refined .studio-title{margin-bottom:9px!important}.xc-refined .guide-banner{position:static}.mobile-nav{padding-top:4px;padding-bottom:calc(4px + env(safe-area-inset-bottom))}.mobile-nav a{min-height:40px;flex-direction:row;gap:6px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mobile-nav{backdrop-filter:none;-webkit-backdrop-filter:none}}
+@media(max-width:760px) and (orientation:landscape){.xc-refined .scene-wrap{max-width:590px;margin-inline:auto}.xc-refined .studio-title{margin-bottom:9px!important}.xc-refined .guide-banner{position:static}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media(max-width:760px){
  .xc-refined .studio-center{overflow:visible!important}
  .xc-refined .studio-title{position:relative}
@@ -183,12 +178,11 @@
 @media(max-width:760px) and (orientation:landscape){.xc-refined #scene,.xc-refined.equipment-studio #scene{max-height:calc(100svh - 124px)!important}}
 
 /* Solid paper headers avoid repeated backdrop blurs while scrolling on phones. */
-@media(max-width:760px){.xc-refined :is(.header,.studio-header,.shop-header,.learn-header),.mobile-nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:#faf7f0}}
+@media(max-width:760px){.xc-refined :is(.header,.studio-header,.shop-header,.learn-header){backdrop-filter:none;-webkit-backdrop-filter:none;background:#faf7f0}}
 
 /* Phone reading sizes: short labels can be quiet without becoming faint or tiny. */
 @media(max-width:760px){
- .xc-refined :is(.header,.studio-header,.shop-header,.learn-header),.mobile-nav{background:#fffdf8}
- .mobile-nav{border-color:#c9d3c8}.mobile-nav a{color:#506055;font-size:12px}.mobile-nav a[aria-current]{color:#234d37;background:#dceadd}
+ .xc-refined :is(.header,.studio-header,.shop-header,.learn-header){background:#fffdf8}
  .xc-refined .hero p{font-size:15px;line-height:1.85}.xc-refined .hero-note{font-size:12px}
  .xc-refined .section-description{font-size:14px}
  .xc-refined .lesson-body{padding:21px}.xc-refined .lesson-body h3{font-size:22px}

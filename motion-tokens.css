@@ -1,0 +1,15 @@
+/* Shared UI motion values. Teaching/illustration sequencing is preserved. */
+:root{
+ --motion-fast:150ms;
+ --motion-base:250ms;
+ --motion-slow:420ms;
+ --ease-soft:cubic-bezier(0.22,1,0.36,1);
+ --motion-press:100ms;
+ --motion-release:200ms;
+ --motion-label:200ms;
+ --motion-icon:250ms;
+ --motion-follow-delay:40ms;
+ --motion-reduced:150ms;
+ --motion-duration:var(--motion-base);
+ --motion-easing:var(--ease-soft);
+}

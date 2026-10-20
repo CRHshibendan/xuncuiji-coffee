@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+<symbol id="melitta" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M104 88h192l-64 128h-64Z" fill="none" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <ellipse cx="200" cy="88" rx="96" ry="14" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="m131 107 43 92m-15-94 27 96m14-95v95m40-96-27 96m56-94-43 92" opacity=".4" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M146 217h108v13H146Z" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+
+  <path d="M171 230v22h58v-22m-58 22-34 68c-10 23 8 40 63 40s73-17 63-40l-34-68" fill="none" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M147 314h106l5 10c8 18-7 28-58 28s-66-10-58-28Z" fill="#b8794a" stroke="currentColor" fill-opacity=".24" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M237 268h26c37 0 36 49 1 49h-2.5" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+ </symbol>
+<symbol id="chemex" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M116 66h168l-56 133c-4 10-4 20 1 31l42 89c16 35 0 51-71 51s-87-16-71-51l42-89c5-11 5-21 1-31Z" fill="none" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <ellipse cx="200" cy="66" rx="84" ry="16" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M144 114h112M156 143h88" opacity=".2" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M154 283h92l18 36c10 27-4 43-64 43s-74-16-64-43Z" fill="#b8794a" stroke="currentColor" fill-opacity=".24" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="m164 188 72 0-8 39h-56Z" fill="#b8794a" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M167 204h66M200 189v45m0-27c-24-21-38 4 0 7 38-3 24-28 0-7Zm0 7-12 47m12-47 20 40" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+ </symbol>
+<symbol id="espresso" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M88 94h224v217H88Z" fill="none" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M88 94V74h224v20M109 115h181v74H109Z" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <circle cx="147" cy="150" r="17" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="m147 150 7-8M180 139h86m-86 18h65M112 207h100v19H112Z" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M142 226v13h34v-13M212 217h44" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+  <path d="m258 211 42 9-3 12-43-9Z" fill="#b8794a" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M133 253h54v34c0 22-54 22-54 0ZM187 260h9c22 0 22 26 0 26h-9" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M140 275h40v14c0 12-40 12-40 0Z" fill="#b8794a" stroke="currentColor" fill-opacity=".24" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M112 311h176v15H112Zm7 15v13m160-13v13M312 217q12 0 12 15v18l-8 19" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+ </symbol>
+<symbol id="siphon" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M127 61h96v109c0 20-13 31-37 31h-22c-24 0-37-11-37-31Z" fill="none" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <ellipse cx="175" cy="61" rx="48" ry="10" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+
+  <path d="M164 201v17c-31 5-54 28-54 56a65 65 0 0 0 130 0c0-28-23-51-54-56v-17" fill="none" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M119.071 285H230.929a57 57 0 0 1-111.858 0Z" fill="#b8794a" stroke="currentColor" fill-opacity=".24" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M261 117v266m-30 0h60M223 136h38m-38 11h38M151 371h48v12h-48Z" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="m166 367 8-20 9 20Z" fill="#b8794a" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M137 109h76m-76 15h76" opacity=".3" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+ </symbol>
+<symbol id="moka" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M123 137h140l-19 101H144Z" fill="none" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M146 250h96l18 81-18 16h-96l-18-16Z" fill="none" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="m125 148-39-19 49 66M119 137l64-34h22l62 34M144 238h100v12H144Z" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="m161 145 11 85m54-85-11 85m-50 28-15 74m73-74 15 74M128 331h132" opacity=".4" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M260.366 151H292q18 0 18 18v46q0 17-22 17h-42.871l3.01-16H284q10 0 10-10v-30q0-10-10-10h-26.455Z" fill="#b8794a" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M183 103V92q0-9 11-9t11 9v11Z" fill="#b8794a" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <circle cx="234" cy="277" r="4" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+ </symbol>
+<symbol id="frenchpress" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M125 145h128v184q0 20-64 20t-64-20Z" fill="none" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M253 176h18c64 0 64 103 0 103h-18v-16h18c35 0 35-71 0-71h-18Z" fill="none" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M119 132h140v13H119Zm6 13-20-10 20 41M189 88v223" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <ellipse cx="189" cy="311" rx="56" ry="8" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M133 311h112m-107 6h102M135 158v87M126 330h126" opacity=".4" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M133 254h112v73q0 14-56 14t-56-14Z" fill="#b8794a" stroke="currentColor" fill-opacity=".24" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M175 76h28q6 0 6 6v6h-40v-6q0-6 6-6Z" fill="#b8794a" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+ </symbol>
+<symbol id="coldbrew" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M137 124h126v202q0 19-18 19h-90q-18 0-18-19Z" fill="none" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M129 105q0-10 10-10h122q10 0 10 10v19H129Z" fill="none" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M170 140h60v156q0 14-30 14t-30-14Z" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <ellipse cx="200" cy="140" rx="30" ry="5" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M179 156v139m14-139v145m14-145v145m14-145v139M177 176h46m-46 24h46m-46 24h46m-46 24h46m-46 24h46" opacity=".3" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M145 233h110v91q0 13-12 13h-86q-12 0-12-13Z" fill="#b8794a" stroke="currentColor" fill-opacity=".24" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M137 103h126v13H137Z" fill="#b8794a" fill-opacity=".24" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+  <path d="M148 99v20m17-20v20m17-20v20m18-20v20m18-20v20m17-20v20m17-20v20M148 151v63" opacity=".4" vector-effect="non-scaling-stroke" stroke-width="1.5" />
+ </symbol>
+</svg>
