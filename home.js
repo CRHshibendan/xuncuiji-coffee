@@ -29,8 +29,16 @@
  function cancelFills(art){art.querySelectorAll('.hero-fill').forEach(el=>{for(const animation of el.getAnimations?.()||[]){try{animation.cancel();}catch{}}el.style.opacity='';});}
 
  function enter(el){el.classList.remove('selection-enter');if(!reduce.matches){void el.offsetWidth;el.classList.add('selection-enter');}}
+ // Clone the same SVG source into both players; no separate animation or geometry.
+ $$('template[data-brewer-template]').forEach(template=>{
+  for(const [selector,field]of [['[data-hero-rotator]','heroArt'],['.brewer-display','brewerArt']]){
+   const mount=$(selector);if(!mount)continue;
+   const art=template.content.firstElementChild.cloneNode(true);
+   art.dataset[field]=template.dataset.brewerTemplate;mount.appendChild(art);
+  }
+ });
  const heroArt=$$('[data-hero-art]'),galleryArt=$$('[data-brewer-art]'),heroCaption=$('[data-hero-caption]');
- const heroLabels={chemex:'CHEMEX / 玻璃滤壶',melitta:'MELITTA / 陶瓷滤杯',espresso:'ESPRESSO / 意式浓缩',siphon:'SIPHON / 虹吸壶'};
+ const heroLabels={chemex:'CHEMEX / 玻璃滤壶',melitta:'MELITTA / 陶瓷滤杯',espresso:'ESPRESSO / 意式浓缩',siphon:'SIPHON / 虹吸壶',moka:'MOKA POT / 摩卡壶',frenchpress:'FRENCH PRESS / 法压壶',coldbrew:'COLD BREW / 浸泡式冷萃'};
  // Wait for the dedicated closing stroke before revealing the detail lines.
  const HERO_DRAW_MS=2200,HERO_RETRACT_MS=1000;
  // Normalized dashes must scale with SVG geometry. Compensate stroke width
