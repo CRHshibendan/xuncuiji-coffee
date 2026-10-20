@@ -36,3 +36,10 @@
  body.pour-bed-open:not(.gesture-mode):not(.workshop-play) .pour-bed-view{position:fixed;inset:0;z-index:1200;padding:calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom))}
  body.pour-bed-open:not(.gesture-mode):not(.workshop-play) .site-dock{visibility:hidden}
 }
+
+/* Return: retract the bed's line art with the hero's dash technique instead of shrinking to a lone ellipse. */
+.pour-bed-view.bed-closing .bed-svg .bed-vessel :is(path,circle,ellipse),.pour-bed-view.bed-closing .bed-svg .bed-rim,.pour-bed-view.bed-closing .bed-svg .bed-paper,.pour-bed-view.bed-closing .bed-svg .bed-dry,.pour-bed-view.bed-closing .bed-svg .bed-inner-guide,.pour-bed-view.bed-closing .bed-kettle-layer :is(path,circle,ellipse){stroke-dasharray:1;stroke-dashoffset:0;animation:bed-line-retract .72s cubic-bezier(.65,.05,.35,.95) forwards}
+@keyframes bed-line-retract{to{stroke-dashoffset:1}}
+.pour-bed-view.bed-closing{animation:bed-panel-out .32s ease-in .5s forwards}
+@keyframes bed-panel-out{to{opacity:0}}
+@media(prefers-reduced-motion:reduce){.pour-bed-view.bed-closing,.pour-bed-view.bed-closing :is(path,circle,ellipse){animation:none!important}}
