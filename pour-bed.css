@@ -11,7 +11,7 @@
 
 .bed-svg:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px;border-radius:8px}.bed-svg:focus:not(:focus-visible){outline:none}.bed-landing>circle:first-child{fill:var(--color-surface);fill-opacity:.8}
 
-.bed-tool{pointer-events:none}.bed-tool-water{fill:none;stroke:var(--color-primary);stroke-width:2.4;stroke-linecap:round;opacity:.45}.bed-pouring .bed-tool-water{opacity:.9;stroke-width:3.2}
+.bed-tool{pointer-events:none}.bed-tool-water{fill:none;stroke:#9fbbb1;stroke-width:3;stroke-linecap:round;stroke-dasharray:6 4;opacity:0;animation:stream .4s linear infinite}.bed-pouring .bed-tool-water{opacity:1;stroke-width:3.2}
 
 .bed-mouse-input .bed-svg{outline:none!important}
 

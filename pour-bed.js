@@ -16,7 +16,7 @@
   // Reuse the workshop's 3/4 temperature-control kettle; the gooseneck lip is the water origin.
   const kettleSrc=document.querySelector('#kettle-object');
   if(kettleSrc){const clone=kettleSrc.cloneNode(true);clone.removeAttribute('id');clone.removeAttribute('role');clone.removeAttribute('tabindex');clone.removeAttribute('aria-label');clone.setAttribute('aria-hidden','true');clone.querySelectorAll('[id]').forEach(n=>n.removeAttribute('id'));tool.append(clone);}
-  tool.insertAdjacentHTML('afterbegin','<path class="bed-tool-water" d="M586 240C580 262 574 284 568 304"/>');
+  tool.insertAdjacentHTML('afterbegin','<path class="bed-tool-water" d="M577 216c-1 20-4 38-6 54s-3 22-3 34"/>');
   kettleLayer.append(tool);
   const KETTLE_SCALE=.95,SPOUT_DX=(568-720)*KETTLE_SCALE,SPOUT_DY=(304-280)*KETTLE_SCALE;
   const spoutScale=()=>{const r=svg.getBoundingClientRect(),lr=kettleLayer.getBoundingClientRect();if(!r.width||!r.height||!lr.width||!lr.height)return{sx:1,sy:1};return{sx:lr.width/r.width,sy:lr.height/r.height};};
