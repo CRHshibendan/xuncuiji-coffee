@@ -8,6 +8,8 @@ class Element{
  getBoundingClientRect(){return{width:480};}
  getAttribute(n){return n==='class'?[...this.names].join(' '):(this.attrs[n]??null);}
  setAttribute(n,v){this.attrs[n]=String(v);}
+ hasAttribute(n){return Object.hasOwn(this.attrs,n);}
+ removeAttribute(n){delete this.attrs[n];}
  cloneNode(deep=false){const e=new Element(this.tagName,{...this.attrs,class:[...this.names].join(' ')});e.dataset={...this.dataset};if(deep)e.children=this.children.map(child=>child.cloneNode(true));for(const key of ['animate','getAnimations'])if(Object.hasOwn(this,key))e[key]=this[key];return e;}
  appendChild(e){this.children.push(e);return e;}
  querySelectorAll(s){return this.children.filter(e=>s==='path,ellipse,circle'?['path','ellipse','circle'].includes(e.tagName):s.startsWith('.')&&e.classList.contains(s.slice(1)));}
@@ -40,7 +42,7 @@ function browser({page='index.html',reduced=false,noWebAnimations=false,throwWeb
  const motionButton=new Element('button'),motionNote=new Element();
  const single={'[data-hero-rotator]':heroMount,'.brewer-display':galleryMount,'#hero-motion-toggle':motionButton,'#hero-motion-note':motionNote,'.menu-toggle':menu,'#site-navigation':nav,'[data-hero-caption]':caption};
  const lists={'template[data-brewer-template]':additions,'[data-hero-art]':arts,'[data-brewer-select]':buttons,'[data-brewer-art]':lower,'[data-brewer-copy]':copy};
- const document={hidden:false,documentElement:html,querySelector:s=>single[s]??null,querySelectorAll:s=>lists[s]??[],addEventListener:(n,f)=>(docEvents[n]??=[]).push(f)};
+ const document={createElementNS:(_,tag)=>new Element(tag),hidden:false,documentElement:html,querySelector:s=>single[s]??null,querySelectorAll:s=>lists[s]??[],addEventListener:(n,f)=>(docEvents[n]??=[]).push(f)};
  const easing='cubic-bezier(.85, 0, .15, 1)';
  const context={document,URL,location:{href:'https://example.com/'+page,pathname:'/'+page,origin:'https://example.com',search:'',hash:''},matchMedia:()=>media,getComputedStyle:()=>({stroke:'rgb(31,42,38)',getPropertyValue:n=>n==='--hero-ease-both'?easing:'250ms'}),setTimeout:(fn,ms)=>{timers.set(++id,{at:clock+ms,fn,ms});return id;},clearTimeout:n=>timers.delete(n),addEventListener:(n,f)=>(winEvents[n]??=[]).push(f)};
  vm.runInNewContext(source,context);
@@ -54,7 +56,7 @@ test('shared script initializes pages without a hero and still reaches navigatio
 test('hero keeps independent contours, closing stroke before details and fill timing',()=>{
  const b=browser();assert.equal(b.active(),'chemex');for(const a of b.arts){const expected=a.querySelectorAll('.hero-main-static').reduce((sum,p)=>sum+splitSubpaths(p.getAttribute('d')).length,0);assert.equal(a.querySelectorAll('.hero-main-line').length,expected);assert.ok(a.querySelectorAll('.hero-main-line').every(l=>l.getAttribute('pathLength')==='1'&&!l.classList.contains('hero-fill')));}
  b.advance(2199);assert.ok(!b.arts[0].classList.contains('is-details'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-details'));b.advance(79);assert.ok(!b.arts[0].classList.contains('is-filled'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-filled'));
- const fills=b.arts[0].querySelectorAll('.hero-fill');assert.ok(fills.length);assert.ok(fills.every(e=>e.animations.at(-1).options.easing===b.easing&&e.animations.at(-1).options.duration===600));
+ const fills=b.arts[0].querySelectorAll('.hero-fill');assert.ok(fills.length);assert.ok(fills.every(e=>e.hasAttribute('data-liquid')?e.animations.at(-1).options.duration===1100:e.animations.at(-1).options.easing===b.easing&&e.animations.at(-1).options.duration===600));
 });
 test('clicking the current hero replays it and autoplay continues afterwards',()=>{
  const b=browser();b.advance(3300);b.click('chemex');b.advance(608);assert.equal(b.active(),'chemex');b.advance(6500+1520);assert.equal(b.active(),'melitta');
@@ -128,7 +130,7 @@ test('new artwork mounts the same geometry in both exhibitions and uses every or
   b.advance(2199);for(const art of [hero,gallery])assert.ok(!art.classList.contains('is-details'));
   b.advance(1);for(const art of [hero,gallery])assert.ok(art.classList.contains('is-details'));
   b.advance(79);for(const art of [hero,gallery])assert.ok(!art.classList.contains('is-filled'));
-  b.advance(1);for(const art of [hero,gallery]){assert.ok(art.classList.contains('is-filled'));assert.ok(art.querySelectorAll('.hero-fill').every(p=>p.animations.at(-1).options.duration===600));}
+  b.advance(1);for(const art of [hero,gallery]){assert.ok(art.classList.contains('is-filled'));assert.ok(art.querySelectorAll('.hero-fill').every(p=>p.animations.at(-1).options.duration===(p.hasAttribute('data-liquid')?1100:600)));}
   assert.deepEqual(b.lower.filter(a=>a.classList.contains('is-active')).map(a=>a.dataset.brewerArt),[key]);
  }
 });
@@ -154,7 +156,7 @@ test('real liquid geometry has a complete ink contour in both exhibitions, inclu
 
 test('all inner strokes and color contours are independent normalized lines, sharing the outer clock',()=>{
  const b=browser();for(const art of [...b.arts,...b.lower]){
-  const originals=art.children.filter(p=>!p.classList.contains('hero-ink-line'));
+  const originals=art.children.filter(p=>['path','ellipse','circle'].includes(p.tagName)&&!p.classList.contains('hero-ink-line'));
   const expected=originals.reduce((n,p)=>n+(p.tagName==='path'?splitSubpaths(p.getAttribute('d')).length:1),0);
   const ink=art.querySelectorAll('.hero-ink-line');assert.equal(ink.length,expected);
   assert.ok(ink.every(p=>p.getAttribute('pathLength')==='1'&&p.getAttribute('fill')==='none'&&!p.classList.contains('hero-fill')));
@@ -162,3 +164,15 @@ test('all inner strokes and color contours are independent normalized lines, sha
  }
  b.advance(2199);assert.ok(!b.arts[0].classList.contains('is-filled'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-details'));b.advance(79);assert.ok(!b.arts[0].classList.contains('is-filled'));b.advance(1);assert.ok(b.arts[0].classList.contains('is-filled'));
 });
+
+ test('only the five coffee liquids rise, while lids and wooden parts keep their original fill animation',()=>{
+ const b=browser();for(const key of ['chemex','melitta','siphon','frenchpress','coldbrew']){
+ b.click(key);b.advance(608+2280);const art=b.lower.find(a=>a.dataset.brewerArt===key);
+ const liquid=art.querySelectorAll('.hero-fill').filter(p=>p.hasAttribute('data-liquid'));assert.equal(liquid.length,1,key);
+ const fill=liquid[0];assert.match(fill.getAttribute('clip-path'),/^url\(#brewer-liquid-/);
+ const motion=fill.animations.at(-1);assert.equal(motion.options.duration,1100);assert.equal(motion.frames[2].transform,'scaleY(1.06)');assert.equal(motion.frames.at(-1).transform,'scaleY(1)');
+ for(const part of art.querySelectorAll('.hero-fill').filter(p=>!p.hasAttribute('data-liquid')))assert.equal(part.animations.at(-1).options.duration,600);
+ assert.ok(art.querySelectorAll('.hero-ink-line').every(p=>!p.hasAttribute('data-liquid')&&!p.getAttribute('clip-path')));
+ b.advance(1000);
+ }
+ });

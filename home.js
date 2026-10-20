@@ -51,7 +51,8 @@
  if(typeof reduce.addEventListener==='function')reduce.addEventListener('change',()=>{artMotion=null;refreshMotion();});
  else reduce.addListener?.(()=>{artMotion=null;refreshMotion();});
  updateMotionControl();
- function cancelFills(art){art.querySelectorAll('.hero-fill').forEach(el=>{for(const animation of el.getAnimations?.()||[]){try{animation.cancel();}catch{}}el.style.opacity='';});}
+ const liquidReveals=new WeakMap();let liquidId=0;
+ function cancelFills(art){art.querySelectorAll('.hero-fill').forEach(el=>{for(const target of [el,liquidReveals.get(el)].filter(Boolean)){for(const animation of target.getAnimations?.()||[]){try{animation.cancel();}catch{}}target.style.transform='';target.style.willChange='';}el.style.opacity='';});}
 
  function enter(el){el.classList.remove('selection-enter');if(!reduce.matches){void el.offsetWidth;el.classList.add('selection-enter');}}
  // Clone the same SVG source into both players; no separate animation or geometry.
@@ -92,18 +93,40 @@
    const pieces=el.tagName.toLowerCase()==='path'?splitSubpaths(el.getAttribute('d')):[null];
    for(const piece of pieces){
     const line=el.cloneNode(false);if(piece!==null)line.setAttribute('d',piece);
-    line.classList.remove('hero-main-static','hero-fill','hero-detail','hero-caramel');
+    line.classList.remove('hero-main-static','hero-fill','hero-detail','hero-caramel');line.removeAttribute('data-liquid');
     line.classList.add('hero-ink-line',role);line.setAttribute('fill','none');line.setAttribute('stroke','currentColor');
     line.setAttribute('stroke-width','1.5');line.setAttribute('pathLength','1');line.setAttribute('stroke-linecap','round');line.setAttribute('stroke-linejoin','round');
     art.appendChild(line);
    }
   });
+  // A translated clipping rectangle reveals the unchanged liquid silhouette from below.
+  // Only explicitly marked coffee moves: lids, collars and other wooden accents do not.
+  shapes.filter(el=>el.hasAttribute('data-liquid')).forEach(el=>{
+   const ns='http://www.w3.org/2000/svg',defs=document.createElementNS(ns,'defs'),clip=document.createElementNS(ns,'clipPath'),rect=document.createElementNS(ns,'rect');
+   const id='brewer-liquid-'+(++liquidId);clip.setAttribute('id',id);clip.setAttribute('clipPathUnits','objectBoundingBox');
+   for(const [key,value]of Object.entries({x:'-.05',y:'-.05',width:'1.1',height:'1.1',fill:'currentColor',stroke:'none'}))rect.setAttribute(key,value);
+   rect.style.transformOrigin='0 0';rect.style.transformBox='view-box';clip.appendChild(rect);defs.appendChild(clip);art.appendChild(defs);
+   el.setAttribute('clip-path','url(#'+id+')');el.style.transformOrigin='50% 100%';liquidReveals.set(el,rect);
+  });
  }
  function fadeFills(art,to,duration){
   const easing=getComputedStyle(art).getPropertyValue('--hero-ease-both').trim()||'ease-in-out';
   art.querySelectorAll('.hero-fill').forEach(el=>{
+   const current=Number.parseFloat(getComputedStyle(el).opacity),transform=getComputedStyle(el).transform;
+   const reveal=liquidReveals.get(el);
+   if(reveal){const frozen=getComputedStyle(reveal).transform;for(const a of reveal.getAnimations?.()||[])a.cancel();reveal.style.transform=to===1?'':frozen||'';reveal.style.willChange='';el.style.willChange='';}
    for(const animation of el.getAnimations?.()||[]){try{animation.cancel();}catch{}}
-   const current=Number.parseFloat(getComputedStyle(el).opacity);
+   if(reveal&&to===1){
+    try{
+     if(typeof el.animate!=='function'||typeof reveal.animate!=='function')throw new Error('No Web Animations');
+     el.style.transform='';el.style.willChange='transform, opacity';reveal.style.willChange='transform';
+     // One small settling movement at the end; no looping or spring oscillation.
+     const rise=reveal.animate([{transform:'translateY(1.05px)',offset:0,easing:'cubic-bezier(.22,0,.36,1)'},{transform:'translateY(0px)',offset:.64},{transform:'translateY(0px)',offset:1}],{duration:1100,fill:'both'});
+     const settle=el.animate([{opacity:1,transform:'scaleY(1)',offset:0},{opacity:1,transform:'scaleY(1)',offset:.6,easing:'ease-out'},{opacity:1,transform:'scaleY(1.06)',offset:.76,easing:'ease-in-out'},{opacity:1,transform:'scaleY(1)',offset:1}],{duration:1100,fill:'both'});
+     rise.onfinish=()=>{reveal.style.willChange='';};settle.onfinish=()=>{el.style.willChange='';};return;
+    }catch{reveal.style.transform='';el.style.transform='';reveal.style.willChange='';el.style.willChange='';}
+   }
+   if(reveal&&to===0)el.style.transform=transform||'';
    try{if(typeof el.animate!=='function')throw new Error('No Web Animations');el.animate([{opacity:to===1?0:Number.isFinite(current)?current:1},{opacity:to}],{duration,easing,fill:'both'});}
    catch{el.style.opacity=String(to);}
   });
