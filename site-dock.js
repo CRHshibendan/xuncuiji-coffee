@@ -1,7 +1,7 @@
 /* One set of centers moves both the real cutout and its orb. Links work without JS. */
 (function(root){
  'use strict';
- const RELEASE='20261020-process8';
+ const RELEASE='20261020-bed9';
  const destinations=['index.html','learn.html','workshop.html','shop.html','journal.html'];
  function positionsFor(width){return Array.from({length:5},(_,i)=>60+(width-120)*i/4);}
  function currentIndex(path){const page=path.split('/').pop()||'index.html';if(page==='explore.html')return 1;if(page==='method-lab.html')return 2;return Math.max(0,destinations.indexOf(page));}

@@ -1,12 +1,13 @@
 /* Deterministic educational brewing model. These are teaching estimates, not laboratory measurements. */
 (function(root){
  'use strict';
+ const WetBed=root.CoffeePourBed||(typeof require==='function'?require('./pour-bed.js'):null);
  const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
- function create(tool='melitta'){return{tool,dose:0,whole:0,grind:3,filter:false,oriented:true,rinsed:false,water:0,brewWater:0,retained:0,bed:0,liquid:0,contact:0,simTime:0,brewStart:null,lastWet:null,tempSum:0,tempWeight:0,brewTemp:20,wet:Array(8).fill(0),filteredWater:0,unfilteredWater:0,hadFilter:false,pourCount:0,pourActive:false,firstPour:0,bloomPause:0,lastStop:null,spilled:0,overflow:0,removed:false,discarded:0,events:[]};}
+ function create(tool='melitta'){return{tool,dose:0,whole:0,grind:3,filter:false,oriented:true,rinsed:false,water:0,brewWater:0,retained:0,bed:0,liquid:0,contact:0,simTime:0,brewStart:null,lastWet:null,tempSum:0,tempWeight:0,brewTemp:20,wet:Array(8).fill(0),wetMap:WetBed?WetBed.create():[],filteredWater:0,unfilteredWater:0,hadFilter:false,pourCount:0,pourActive:false,firstPour:0,bloomPause:0,lastStop:null,spilled:0,overflow:0,removed:false,discarded:0,events:[]};}
  function event(m,text){m.events.push({time:Math.round(m.simTime),text});if(m.events.length>60)m.events.shift();}
  function addGrounds(m,grams,grind,whole=false){if(grams<=0)return;const total=m.dose+grams;m.grind=(m.grind*m.dose+grind*grams)/total;m.dose=total;if(whole)m.whole+=grams;m.removed=false;event(m,`${whole?'投入整豆':'投入咖啡粉'} ${grams.toFixed(1)}g${whole?'':`，研磨 ${grind.toFixed(1)}/5`}`);}
- function addWater(m,grams,temp,sector=0){if(grams<=0)return;const heatMass=m.bed+m.liquid+m.retained;m.brewTemp=(m.brewTemp*heatMass+temp*grams)/(heatMass+grams);m.water+=grams;const containsCoffee=m.dose>0&&!m.removed;
-  if(containsCoffee){if(m.brewStart===null)m.brewStart=m.simTime;if(!m.pourActive){m.pourCount++;if(m.pourCount===2&&m.lastStop!==null)m.bloomPause=m.simTime-m.lastStop;}m.pourActive=true;if(m.pourCount===1)m.firstPour+=grams;m.brewWater+=grams;if(m.filter)m.filteredWater+=grams;else m.unfilteredWater+=grams;m.tempSum+=temp*grams;m.tempWeight+=grams;m.lastWet=m.simTime;m.wet[clamp(Math.floor(sector),0,7)]+=grams;}
+ function addWater(m,grams,temp,sector=0,point=null){if(grams<=0)return;const heatMass=m.bed+m.liquid+m.retained;m.brewTemp=(m.brewTemp*heatMass+temp*grams)/(heatMass+grams);m.water+=grams;const containsCoffee=m.dose>0&&!m.removed;
+  if(containsCoffee){if(m.brewStart===null)m.brewStart=m.simTime;if(!m.pourActive){m.pourCount++;if(m.pourCount===2&&m.lastStop!==null)m.bloomPause=m.simTime-m.lastStop;}m.pourActive=true;if(m.pourCount===1)m.firstPour+=grams;m.brewWater+=grams;if(m.filter)m.filteredWater+=grams;else m.unfilteredWater+=grams;m.tempSum+=temp*grams;m.tempWeight+=grams;m.lastWet=m.simTime;m.wet[clamp(Math.floor(sector),0,7)]+=grams;if(point&&WetBed)WetBed.deposit(m.wetMap,point,grams);}
   if(m.filter){const absorb=Math.min(Math.max(0,m.dose*2-m.retained),grams);m.retained+=absorb;m.bed+=grams-absorb;const maxBed=m.tool==='chemex'?160:110;if(m.bed>maxBed){const lost=m.bed-maxBed;m.bed=maxBed;m.overflow+=lost;}}
   else m.liquid+=grams;
   const capacity=m.tool==='chemex'?600:400;if(m.liquid>capacity){m.overflow+=m.liquid-capacity;m.liquid=capacity;}
@@ -19,7 +20,7 @@
   }
   if(m.filter&&m.bed>0){let rate=(m.tool==='chemex'?1.65:2.1)*Math.pow(1.45,m.grind-3);if(m.tool==='chemex'&&!m.oriented)rate*=.45;const out=Math.min(m.bed,rate*Math.sqrt(1+m.bed/40)*dt);m.bed-=out;m.liquid+=out;const capacity=m.tool==='chemex'?600:400;if(m.liquid>capacity){m.overflow+=m.liquid-capacity;m.liquid=capacity;}}
  }
- function discard(m){event(m,`倒掉 ${Math.round(m.bed+m.liquid)}g 液体`);m.discarded+=m.bed+m.liquid;m.bed=0;m.liquid=0;if(!m.filter){m.dose=0;m.whole=0;m.retained=0;}m.water=0;m.brewWater=0;m.filteredWater=0;m.unfilteredWater=0;m.contact=0;m.brewStart=null;m.tempSum=0;m.tempWeight=0;m.wet=Array(8).fill(0);m.pourCount=0;m.firstPour=0;m.bloomPause=0;m.lastStop=null;m.pourActive=false;}
+ function discard(m){event(m,`倒掉 ${Math.round(m.bed+m.liquid)}g 液体`);m.discarded+=m.bed+m.liquid;m.bed=0;m.liquid=0;if(!m.filter){m.dose=0;m.whole=0;m.retained=0;}m.water=0;m.brewWater=0;m.filteredWater=0;m.unfilteredWater=0;m.contact=0;m.brewStart=null;m.tempSum=0;m.tempWeight=0;m.wet=Array(8).fill(0);m.wetMap=WetBed?WetBed.create():[];m.pourCount=0;m.firstPour=0;m.bloomPause=0;m.lastStop=null;m.pourActive=false;}
  function removeFilter(m){m.removed=true;m.filter=false;event(m,m.tool==='chemex'?'取出滤纸与粉渣':'移走滤杯');}
  function result(m){
   const dose=m.dose,volume=Math.max(0,m.liquid),yieldRatio=clamp(.28*(1-Math.exp(-m.contact/85)),0,.28),tds=volume>0?yieldRatio*dose/volume*100:0;

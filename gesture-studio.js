@@ -86,6 +86,7 @@
    const stack=document.elementsFromPoint?.(point.x,point.y)||[document.elementFromPoint(point.x,point.y)];
    const el=stack.find(node=>node&&!node.closest('#scene-targets'));if(!el||el.closest('dialog:not([open])'))return null;
    const dialog=document.querySelector('dialog[open]');if(dialog&&!dialog.contains(el))return null;
+   if(el.closest('.bed-svg')&&adapter.canPick('kettle'))return{id:'kettle',label:'粉床上的水壶落点',type:'object'};
    const object=el.closest('[data-object]');
    if(object&&adapter.scene.contains(object)&&!object.closest('.object-hidden,.studio-stowed')&&adapter.canPick(object.dataset.object))return{id:object.dataset.object,label:object.getAttribute('aria-label')||object.dataset.object,type:'object',grip:el.closest('[data-crank-handle]')?'crank':el.closest('[data-press-grip]')?'press':null};
    const control=el.closest('button,a[href],input[type="range"],summary');

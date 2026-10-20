@@ -138,3 +138,5 @@
  .process-svg .process-animated{animation:none!important;transform:none!important}
  .process-svg[data-demo-state="waiting"] :is(.process-wet,.process-extract,.process-coffee){opacity:1}
 }
+/* The finite hero pour owns a single animation clock; no independent repeated CSS loops. */
+#hero-pour .pour-rings{stroke:var(--color-primary);stroke-width:var(--illustration-stroke);pointer-events:none}
