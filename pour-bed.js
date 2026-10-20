@@ -16,7 +16,7 @@
   // Purpose-drawn overhead silhouette. The gooseneck lip remains the water origin.
   tool.innerHTML='<path class="bed-tool-water" d="M0-40Q2-20 0 0"/><g class="bed-kettle-overhead"><path class="bed-kettle-handle" d="M151-117h17q23 22 0 45h-17"/><ellipse class="bed-kettle-shell" cx="108" cy="-98" rx="51" ry="43"/><path class="bed-kettle-neck" d="M65-114C31-116 45-68 14-59L-3-44L3-37L20-49C56-56 46-93 67-94Z"/><ellipse class="bed-kettle-lid" cx="108" cy="-100" rx="30" ry="26"/><path class="bed-kettle-seam" d="M75-121q31-22 62 0M81-75q27 12 54-3"/><ellipse class="bed-kettle-knob" cx="108" cy="-101" rx="8" ry="5"/><path class="bed-kettle-lip" d="m-3-44 6 7"/></g>';
   svg.append(tool);const kettle=tool.querySelector('.bed-kettle-overhead');
-  const placeMarker=(x,y)=>{marker.setAttribute('transform',`translate(${x} ${y})`);tool.setAttribute('transform',`translate(${x} ${y})`);const angle=-clamp((x-85)/230,0,1)*80;kettle.setAttribute('transform',`rotate(${angle} 0 -40)`);};
+  const placeMarker=(x,y)=>{marker.setAttribute('transform',`translate(${x} ${y})`);tool.setAttribute('transform',`translate(${x} ${y})`);kettle.setAttribute('transform','scale(.8)');};
   const patchNodes=cells.map((c,i)=>{const dot=document.createElementNS(ns,'circle');dot.setAttribute('cx',200+c.x*R);dot.setAttribute('cy',200+c.y*R);dot.setAttribute('r',R*.055);dot.setAttribute('opacity','0');panel.querySelector('.bed-wet-map').append(dot);return dot;});
   const texture=panel.querySelector('.bed-texture');for(let i=0;i<100;i++){const a=i*2.39996,r=140*Math.sqrt((i+.5)/100),dot=document.createElementNS(ns,'path'),x=200+Math.cos(a)*r,y=200+Math.sin(a)*r;dot.setAttribute('d',`M${x} ${y}l${1+i%3} ${i%2?1:-1}`);texture.append(dot);}
   let active=false,down=false,pointer=null,lastInput=null,p=sample(0,0),moving=[],closing=null,openingUntil=0,lastMap='';
@@ -26,7 +26,7 @@
   function animate(incoming){cancelMotion();if(matchMedia('(prefers-reduced-motion:reduce)').matches||typeof plane.animate!=='function')return 0;
    const pt=scene.createSVGPoint(),s=source();pt.x=s.x;pt.y=s.y;const old=pt.matrixTransform(scene.getScreenCTM()),q=svg.createSVGPoint();q.x=200;q.y=200;const center=q.matrixTransform(svg.getScreenCTM()),m=scene.getScreenCTM(),newRadius=R*svg.getScreenCTM().a,scale=clamp(74*Math.hypot(m.a,m.b)/newRadius,.08,1),start=`translate(${old.x-center.x}px,${old.y-center.y}px) rotateX(74deg) scale(${scale})`;
    plane.style.willChange='transform, opacity';panel.style.willChange='opacity';
-   const frames=[{transform:start,opacity:.65},{transform:`translate(${(old.x-center.x)*.2}px,${(old.y-center.y)*.2}px) rotateX(58deg) scale(.72)`,opacity:1,offset:.45},{transform:'translate(0,0) rotateX(0deg) scale(1)',opacity:1}];
+   const frames=[{transform:start,opacity:.65},{transform:`translate(${(old.x-center.x)*.2}px,${(old.y-center.y)*.2}px) rotateX(52deg) scale(.72)`,opacity:1,offset:.45},{transform:'translate(0,0) rotateX(38deg) scale(1)',opacity:1}];
    moving=[plane.animate(incoming?frames:[...frames].reverse(),{duration:900,easing:'cubic-bezier(.4,0,.2,1)',fill:'both'}),panel.animate(incoming?[{opacity:0},{opacity:1}]:[{opacity:1},{opacity:0}],{duration:incoming?650:900,easing:'ease-out',fill:'both'})];
    moving.push(tool.animate(incoming?[{opacity:0},{opacity:1}]:[{opacity:1},{opacity:0}],{duration:420,delay:incoming?400:0,fill:'both',easing:'ease-out'}));
    moving[0].onfinish=()=>{plane.style.willChange='';panel.style.willChange='';};return 900;
