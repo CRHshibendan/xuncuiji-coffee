@@ -16,19 +16,18 @@ class Element{
  getAnimations(){return this.animations.filter(a=>!a.cancelled);}
  animate(frames,options){const a={frames,options,cancelled:false,cancel(){this.cancelled=true;}};this.animations.push(a);return a;}
 }
+function svgFixture(svg){
+ const art=new Element('svg');art.children=[...svg.matchAll(/<(path|ellipse|circle)\b([^>]*?)\/>/g)].map(([,tag,raw])=>new Element(tag,Object.fromEntries([...raw.matchAll(/([\w:-]+)="([^"]*)"/g)].map(([,name,value])=>[name,value]))));return art;
+}
 function browser({page='index.html',reduced=false,noWebAnimations=false,throwWebAnimations=false}={}){
  let clock=0,id=0;const timers=new Map(),docEvents={},winEvents={};
  const keys=['chemex','melitta','espresso','siphon','moka','frenchpress','coldbrew'];
- const arts=page==='index.html'?keys.slice(0,4).map(key=>{const a=new Element('svg');a.dataset.heroArt=key;
-  a.children=[new Element('path',{fill:'#f6f3ec',d:'M0 0h10v10Z'}),new Element('path',{d:'M0 0h4'}),new Element('path',{fill:'#b8794a',d:'M1 1h2v2Z'})];
-  if(key==='melitta'||key==='siphon')a.children.push(new Element('path',{fill:'#f6f3ec',d:'M20 0h10v10Z'}));
-  return a;
- }):[];
+ const arts=page==='index.html'?keys.slice(0,4).map(key=>{const a=svgFixture(markup.match(new RegExp('<svg[^>]*data-hero-art="'+key+'"[\\s\\S]*?</svg>'))[0]);a.dataset.heroArt=key;return a;}):[];
  const buttons=(page==='index.html'?keys:[]).map(key=>{const a={dataset:{heroArt:key}};const b=new Element('button',{'aria-pressed':String(a.dataset.heroArt==='melitta')});b.dataset.brewerSelect=a.dataset.heroArt;const mark=new Element('span',{class:'selector-mark'});b.appendChild(mark);return b;});
- const lower=page==='index.html'?['melitta','chemex','espresso','siphon'].map(key=>{const e=new Element('svg');e.dataset.brewerArt=key;e.children=[new Element('path',{fill:'#f6f3ec',d:'M0 0h10v10Z'}),new Element('path',{d:'M0 0h4'}),new Element('path',{fill:'#b8794a',d:'M1 1h2v2Z'})];return e;}):[];
+ const lower=page==='index.html'?['melitta','chemex','espresso','siphon'].map(key=>{const a=svgFixture(markup.match(new RegExp('<svg[^>]*data-brewer-art="'+key+'"[\\s\\S]*?</svg>'))[0]);a.dataset.brewerArt=key;return a;}):[];
  const additions=page==='index.html'?templates.map(([,key,svg])=>{
   const template=new Element('template');template.dataset.brewerTemplate=key;
-  const art=new Element('svg');art.children=[...svg.matchAll(/<(path|ellipse|circle)\b([^>]*?)\/>/g)].map(([,tag,raw])=>new Element(tag,Object.fromEntries([...raw.matchAll(/([\w:-]+)="([^"]*)"/g)].map(([,name,value])=>[name,value]))));
+  const art=svgFixture(svg);
   template.content={firstElementChild:art};return template;
  }):[];
  const heroMount=new Element(),galleryMount=new Element();heroMount.children=arts;galleryMount.children=lower;
@@ -136,4 +135,18 @@ test('rapid switching to new brewers settles on the latest selection and remains
  const b=browser();b.advance(3300);b.click('moka');b.click('frenchpress');b.click('coldbrew');b.advance(608);
  assert.equal(b.active(),'coldbrew');assert.ok(b.lower.find(a=>a.dataset.brewerArt==='coldbrew').classList.contains('is-active'));
  b.reduce(true);for(const key of ['moka','frenchpress','coldbrew']){b.click(key);assert.equal(b.active(),key);assert.ok(b.arts.every(a=>!a.classList.contains('is-line')));}
+});
+
+test('real liquid geometry has a complete ink contour in both exhibitions, including the former masked fills',()=>{
+ const b=browser();
+ for(const key of ['chemex','melitta','espresso','siphon','frenchpress','coldbrew']){
+  for(const [arts,field]of [[b.arts,'heroArt'],[b.lower,'brewerArt']]){
+   const art=arts.find(a=>a.dataset[field]===key);
+   const liquid=art.querySelectorAll('.hero-caramel').find(p=>p.getAttribute('style')==='--fo:.24'&&p.getAttribute('stroke')==='none');
+   assert.ok(liquid,key+' liquid must be geometry rather than a clipped rectangle');
+   assert.match(liquid.getAttribute('d'),/Z$/);
+   const outline=art.querySelectorAll('.hero-caramel-line').filter(p=>p.getAttribute('d')===liquid.getAttribute('d'));
+   assert.equal(outline.length,1);assert.equal(outline[0].getAttribute('fill'),'none');assert.equal(outline[0].getAttribute('stroke-width'),'1.5');
+  }
+ }
 });

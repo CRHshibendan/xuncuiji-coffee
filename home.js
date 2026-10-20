@@ -60,7 +60,7 @@
   main.forEach(el=>el.classList.add('hero-main-static'));
   details.forEach(el=>el.classList.add('hero-detail'));
   caramel.forEach(el=>el.classList.add('hero-caramel'));
-  caramel.forEach(el=>{if(el.tagName!=='path')return;const line=el.cloneNode(false);line.setAttribute('fill','none');line.setAttribute('stroke','currentColor');line.setAttribute('stroke-width','1.2');line.classList.remove('hero-caramel','hero-fill');line.classList.add('hero-caramel-line');art.appendChild(line);});
+  caramel.forEach(el=>{if(el.tagName!=='path')return;const line=el.cloneNode(false);line.setAttribute('fill','none');line.setAttribute('stroke','currentColor');line.setAttribute('stroke-width','1.5');line.classList.remove('hero-caramel','hero-fill');line.classList.add('hero-caramel-line');art.appendChild(line);});
   main.forEach(el=>{
    const line=el.cloneNode(false);
    line.classList.remove('hero-main-static','hero-fill');
