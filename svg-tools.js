@@ -3,18 +3,19 @@
 // 所有插画尺寸统一为 viewBox 0 0 200 200，通过 CSS 缩放
 
 // Exact lower-glass contour, so liquid stays inside even while SVG clips are refreshed.
-function serverLiquidContour(top){
-  const curves=[[[189,326],[164,358],[145,390],[151,428]],[[151,428],[159,477],[204,500],[310,500]]];
+function lowerGlassContour(curves,center,top){
   const lerp=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
   function split(c,t){const a=lerp(c[0],c[1],t),b=lerp(c[1],c[2],t),d=lerp(c[2],c[3],t),e=lerp(a,b,t),f=lerp(b,d,t);return[lerp(e,f,t),f,d,c[3]];}
-  const index=top<=428?0:1,c=curves[index];let low=0,high=1;
+  const index=Math.max(0,curves.findIndex(c=>top<=c[3][1])),c=curves[index];let low=0,high=1;
   for(let i=0;i<32;i++){const mid=(low+high)/2;if(split(c,mid)[0][1]<top)low=mid;else high=mid;}
   const lower=[split(c,(low+high)/2),...curves.slice(index+1)],point=lower[0][0];
-  const pair=p=>p.map(v=>Number(v.toFixed(5))).join(' '),mirror=p=>[620-p[0],p[1]];
+  const pair=p=>p.map(v=>Number(v.toFixed(5))).join(' '),mirror=p=>[center*2-p[0],p[1]];
   let d='M'+pair(point);for(const curve of lower)d+='C'+curve.slice(1).map(pair).join(' ');
   for(const curve of [...lower].reverse())d+='C'+[curve[2],curve[1],curve[0]].map(p=>pair(mirror(p))).join(' ');
-  return {d:d+'Z',radius:310-point[0]};
+  return {d:d+'Z',radius:center-point[0]};
 }
+function serverLiquidContour(top){return lowerGlassContour([[[189,326],[164,358],[145,390],[151,428]],[[151,428],[159,477],[204,500],[310,500]]],310,top);}
+function chemexLiquidContour(top){return lowerGlassContour([[[265,342],[230,391],[170,436],[166,493]],[[166,493],[162,541],[198,565],[320,565]]],320,top);}
 
 const SVGTools = {
   // 滤杯：type='melitta'（梯形陶瓷）或 'chemex'（玻璃漏斗+木领）
@@ -59,8 +60,10 @@ const SVGTools = {
     const wood = '#C69A62';
     const woodDark = '#967044';
     const woodLight = '#E4C398';
-    const fillH = 215 * Math.min(level, 100) / 100;
+    const fillH = 215 * Math.max(0, Math.min(Number(level) || 0, 100)) / 100;
     const coffeeTop = 565 - fillH;
+    const liquidContour = chemexLiquidContour(coffeeTop);
+    const surfaceLift = Math.min(5, fillH * .25), surfaceDepth = Math.min(8, fillH);
     const bodyPath = 'M166 145C183 191 228 240 268 286C282 303 280 321 265 342C230 391 170 436 166 493C162 541 198 565 320 565C442 565 478 541 474 493C470 436 410 391 375 342C360 321 358 303 372 286C412 240 457 191 474 145Z';
     return `<svg viewBox="0 0 640 640" class="svg-tool">
       <defs>
@@ -76,8 +79,8 @@ const SVGTools = {
           <path d="M188 164C214 212 246 251 280 286M452 164C426 212 394 251 360 286" stroke="#B6C7C2" stroke-width="3"/>
           <!-- 咖啡液（裁剪在壶身内） -->
           ${fillH > 0 ? `<g clip-path="url(#cheBodyClip)">
-            <rect x="160" y="${coffeeTop}" width="320" height="${fillH + 8}" fill="url(#cheCoffee)"/>
-            <ellipse cx="320" cy="${coffeeTop}" rx="95" ry="9" fill="#6D4C41" opacity="0.45"/>
+            <path class="chemex-liquid-fill" d="${liquidContour.d}" fill="url(#cheCoffee) #8D6E63" stroke="none"/>
+            <path class="chemex-liquid-surface" d="M${320-liquidContour.radius} ${coffeeTop}Q320 ${coffeeTop-surfaceLift} ${320+liquidContour.radius} ${coffeeTop}Q320 ${coffeeTop+surfaceDepth} ${320-liquidContour.radius} ${coffeeTop}Z" fill="#6D4C41" opacity="0.45" stroke="none"/>
           </g>` : ''}
           <path d="M267 365C229 411 198 450 194 487C190 512 201 526 225 535" stroke="#FFFFFF" stroke-width="10"/>
           <path d="M398 400C424 431 446 462 448 491" stroke="#BBCBC5" stroke-width="3"/>
