@@ -4,14 +4,14 @@
 .pour-bed-view header div{display:flex;flex-direction:column;gap:8px}.pour-bed-view header span{font-size:12px;letter-spacing:.14em}.pour-bed-view strong{font:500 20px var(--font-heading)}
 .pour-bed-view button{min-height:48px;padding:8px 24px;border:1px solid var(--card-border);border-radius:8px;background:var(--color-surface);font-size:14px;color:inherit}
 .bed-perspective{min-height:0;perspective:900px;position:relative;display:flex;align-items:center;justify-content:center}.bed-kettle-layer{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:2}.bed-plane{height:100%;width:100%;min-height:0;transform-origin:50% 50%;transform:rotateX(38deg)}.bed-svg{display:block;height:100%;width:100%;touch-action:none;cursor:crosshair;overflow:visible}
-.bed-vessel{fill:var(--color-surface);stroke:var(--color-primary);stroke-width:1.5}.bed-cone{fill:var(--color-surface)}.bed-server{fill:var(--color-surface)}.bed-server-lip{fill:var(--color-surface)}.bed-svg *{vector-effect:non-scaling-stroke}.bed-svg{fill:none;stroke:var(--color-primary);stroke-width:1.5}.bed-rim{fill:var(--color-surface)}.bed-paper{stroke-opacity:.35}.bed-dry{fill:var(--color-accent);fill-opacity:.4;stroke-opacity:.35}.bed-texture{stroke-opacity:.35}.bed-wet-map{fill:var(--color-text);stroke:none}.bed-inner-guide{stroke-dasharray:3 8;stroke-opacity:.2}.bed-landing{display:none}
+.bed-vessel{fill:var(--color-surface);stroke:var(--color-primary);stroke-width:1.5}.bed-cone{fill:var(--color-surface)}.bed-server{fill:var(--color-surface)}.bed-server-lip{fill:var(--color-surface)}.bed-svg *{vector-effect:non-scaling-stroke}.bed-svg{fill:none;stroke:var(--color-primary);stroke-width:1.5}.bed-rim{fill:var(--color-surface)}.bed-paper{stroke-opacity:.35}.bed-dry{fill:var(--color-accent);fill-opacity:1;stroke-opacity:.35}.bed-dry-depth{fill:var(--color-text);fill-opacity:.18;stroke:none}.bed-texture{stroke:var(--color-text);stroke-opacity:.55}.bed-wet-map{fill:var(--color-text);stroke:none}.bed-inner-guide{stroke-dasharray:3 8;stroke-opacity:.2}.bed-landing{display:none}
 .pour-bed-view footer{font-size:12px;line-height:1.6;z-index:1}.pour-bed-view footer p{font-size:14px;margin:0 0 8px}.pour-bed-view footer>div{display:flex;justify-content:space-between;gap:16px}.pour-bed-view output{font-variant-numeric:tabular-nums}
 @media(max-width:760px),(max-height:450px){.pour-bed-view{padding:8px 16px}.pour-bed-view header span{display:none}.pour-bed-view strong{font-size:16px}.pour-bed-view footer p{font-size:12px}.pour-bed-view header button{padding:8px 16px}.pour-bed-view footer>div{font-size:12px}}
 @media(prefers-reduced-motion:reduce){.bed-tool-inner{transition:none;transform:none}}
 
 .bed-svg:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px;border-radius:8px}.bed-svg:focus:not(:focus-visible){outline:none}.bed-landing>circle:first-child{fill:var(--color-surface);fill-opacity:.8}
 
-.bed-tool{pointer-events:none}.bed-tool-inner{transform-origin:577px 216px;transition:transform .28s var(--motion-easing,cubic-bezier(.4,0,.2,1))}.bed-pouring .bed-tool-inner{transform:rotate(-8deg)}.bed-tool-water{fill:none;stroke:#9fbbb1;stroke-width:3;stroke-linecap:round;stroke-dasharray:6 4;opacity:0;transition:opacity .16s var(--motion-easing,cubic-bezier(.4,0,.2,1));animation:stream .4s linear infinite}.bed-pouring .bed-tool-water{opacity:1;transition-duration:0s}
+.bed-tool{pointer-events:none}.bed-tool-inner{transform-origin:577px 216px;transition:transform .28s var(--motion-easing,cubic-bezier(.4,0,.2,1))}.bed-pouring .bed-tool-inner{transform:rotate(-8deg)}.bed-tool-water{fill:none;stroke:#9fbbb1;stroke-width:3;stroke-linecap:round;stroke-dasharray:6 4;opacity:0;transition:none;animation:stream .4s linear infinite}.bed-pouring .bed-tool-water{opacity:1;transition-duration:0s}
 
 .bed-mouse-input .bed-svg{outline:none!important}
 
@@ -36,3 +36,39 @@
  body.pour-bed-open:not(.gesture-mode):not(.workshop-play) .pour-bed-view{position:fixed;inset:0;z-index:1200;padding:calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom))}
  body.pour-bed-open:not(.gesture-mode):not(.workshop-play) .site-dock{visibility:hidden}
 }
+
+/* A complete vessel is drawn in its final stage position, then material returns. */
+.bed-return-art{position:absolute;overflow:visible;pointer-events:none;z-index:3}
+.bed-return-color{opacity:0;animation:bed-return-material 230ms ease-out 2200ms forwards}
+.bed-return-line{fill:none!important;stroke:var(--color-primary)!important;stroke-dasharray:1;stroke-dashoffset:1;animation:bed-return-draw 2200ms linear forwards}
+@keyframes bed-return-draw{0%{stroke-dashoffset:1;animation-timing-function:cubic-bezier(.55,0,.45,.875333)}77.272727%{stroke-dashoffset:.04;animation-timing-function:cubic-bezier(.25,.4,.65,1)}100%{stroke-dashoffset:0}}
+@keyframes bed-return-material{to{opacity:1}}
+.bed-returning{pointer-events:none;animation:bed-return-panel 250ms var(--ease-soft,cubic-bezier(.22,1,.36,1)) 2430ms forwards}
+.bed-returning .bed-perspective,.bed-returning header,.bed-returning footer{opacity:0;transition:opacity 160ms ease-out}
+@keyframes bed-return-panel{to{opacity:0}}
+.bed-water-contact{fill:none;stroke:#9fbbb1;stroke-width:1.5;opacity:0}.bed-pouring .bed-water-contact{opacity:.8}
+@media(prefers-reduced-motion:reduce){.bed-tool-water,.bed-returning,.bed-return-color,.bed-return-line{animation:none!important;transition:none!important}.bed-return-line{stroke-dashoffset:0}.bed-return-color{opacity:1}.bed-pouring .bed-tool-inner{transform:none}}
+
+html.pour-bed-modal{overflow:hidden}
+
+/* Controls live beside the work, rather than inside the parameter sheet. */
+.brew-controls{position:sticky;top:0;z-index:11;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:16px 24px;background:var(--color-surface);border-bottom:1px solid var(--card-border);color:var(--color-primary)}
+.brew-controls[hidden]{display:none}.brew-water-readout{display:flex;align-items:baseline;gap:16px;white-space:nowrap}.brew-controls span{font-size:12px}.brew-water-readout output{font:500 32px var(--font-heading);min-width:4ch;font-variant-numeric:tabular-nums}.brew-heat-controls{display:flex;align-items:center;gap:16px}.brew-heat-controls>div{display:flex;flex-direction:column;gap:8px}.brew-heat-controls output{font-size:14px;font-variant-numeric:tabular-nums}.brew-controls button,.bed-live-bar button{min-height:48px;padding:8px 24px;border:1px solid var(--color-primary);border-radius:8px;background:var(--color-primary);color:var(--color-surface);font-size:14px;white-space:nowrap}.brew-controls button:disabled,.bed-live-bar button:disabled{opacity:.5}.brew-controls button:focus-visible,.bed-live-bar button:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px}
+.pour-bed-view header{flex-wrap:wrap}.pour-bed-view header .bed-live-bar{display:flex;flex:0 0 100%;flex-direction:row;align-items:center;justify-content:space-between;gap:16px;padding:8px 0;border-bottom:1px solid var(--card-border)}
+.pour-bed-view header .bed-live-water{display:flex;flex-direction:row;align-items:baseline;gap:8px;flex-wrap:wrap}.bed-live-water>span{letter-spacing:0!important}.bed-live-water output{font:500 32px var(--font-heading);min-width:4ch;font-variant-numeric:tabular-nums}.bed-live-water small{font-size:12px;opacity:.7}.pour-bed-view header .bed-live-heat{display:flex;flex-direction:row;align-items:center;gap:16px}.bed-temperature{font-size:14px!important;letter-spacing:0!important;font-variant-numeric:tabular-nums}
+.gesture-mode .brew-controls{display:none}.workshop-play:not(.gesture-mode) .brew-controls{position:fixed;top:calc(var(--workshop-play-top,48px) + 8px);left:16px;right:208px;padding:8px 16px;border:1px solid var(--card-border);border-radius:8px;z-index:64}
+@media(max-width:760px){.brew-controls{padding:8px 16px;gap:8px}.brew-water-readout{gap:8px}.brew-water-readout output{font-size:20px}.brew-heat-controls{gap:8px}.brew-controls button{padding:8px 16px}.pour-bed-view header .bed-live-bar{gap:8px;align-items:flex-start}.pour-bed-view header .bed-live-water{flex-direction:column;align-items:flex-start;gap:0}.pour-bed-view header .bed-live-heat{flex-direction:column;align-items:flex-end;gap:8px}.bed-live-water>span,.bed-temperature{display:block!important}.bed-live-water output{font-size:32px}.bed-live-bar button{padding:8px 16px}}
+.bed-compact header>div:first-child{display:none}.bed-compact header .bed-live-bar{flex:1;order:-1;border:0;gap:8px;padding:0}.bed-compact header .bed-live-water{flex-direction:row;align-items:center;gap:8px}.bed-compact .bed-live-water output{font-size:20px}.bed-compact .bed-live-water small,.bed-compact .bed-temperature{display:none!important}.bed-compact header .bed-live-heat{flex-direction:row}.bed-compact .bed-live-bar button{padding:8px 16px}
+@media(max-width:600px){.workshop-play:not(.gesture-mode) .brew-controls{right:16px}}
+.xc-refined.has-brew-controls .guide-banner{position:relative;top:auto}
+@media(max-width:760px){.brew-controls{top:58px}}
+/* The bed replaces the nearby strip, keeping just one visible set of controls. */
+.pour-bed-open .brew-controls{visibility:hidden}
+.has-brew-controls:not(.workshop-play):not(.gesture-mode) .scene-wrap.bed-view-active{overflow:visible;z-index:12}
+.has-brew-controls:not(.workshop-play):not(.gesture-mode) .scene-wrap.bed-view-active>.pour-bed-view{top:calc(-1 * var(--brew-controls-height,81px))}
+.workshop-play.workshop-compact:not(.gesture-mode) .brew-controls{top:auto;bottom:calc(64px + env(safe-area-inset-bottom));left:auto;right:max(8px,env(safe-area-inset-right));width:184px;padding:0;display:block;border:0;background:none}
+.workshop-play.workshop-compact .brew-water-readout,.workshop-play.workshop-compact .brew-heat-controls>div{display:none}
+.workshop-play.workshop-compact .brew-heat-controls{display:block}.workshop-play.workshop-compact .brew-controls button{width:100%}.workshop-play.workshop-compact .brew-controls button::after{content:' · ' attr(data-target) '°C'}
+
+/* One shared pen clock; overlays never compete with pointer or touch input. */
+.bed-return-art,.bed-return-art *{pointer-events:none!important}

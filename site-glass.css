@@ -1,0 +1,62 @@
+/* Approved glass controls, shared by the existing pages. Brewing art stays untouched. */
+:root.site-glass{
+ --glass-tint:251 249 244;--glass-ink:31 61 52;--glass-radius-pill:999px;
+ --glass-control-alpha:.54;--glass-control-blur:18px;--glass-plate-alpha:.58;--glass-plate-blur:20px;
+ --glass-saturation:1.35;--glass-green-alpha:.86;--ease-glass:cubic-bezier(.45,0,.55,1);
+ --glass-rim-top:rgb(var(--glass-tint)/.92);--glass-rim-side:rgb(var(--glass-tint)/.46);--glass-rim-bottom:rgb(var(--glass-ink)/.12);
+ --glass-shadow:0 8px 22px -9px rgb(var(--glass-ink)/.22),0 2px 5px -2px rgb(var(--glass-ink)/.12);
+ --glass-edge:inset 0 1px 0 var(--glass-rim-top),inset 1px 0 0 var(--glass-rim-side),inset 0 -1px 0 var(--glass-rim-bottom);
+}
+:root.site-glass[data-glass-material="standard"]{--glass-control-alpha:.74;--glass-control-blur:26px;--glass-plate-alpha:.78;--glass-plate-blur:26px;--glass-green-alpha:.92}
+:root.site-glass[data-glass-material="strong"]{--glass-control-alpha:.92;--glass-control-blur:32px;--glass-plate-alpha:.94;--glass-plate-blur:32px;--glass-green-alpha:.97}
+.site-glass .glass-control,.site-glass .glass-switch{background:var(--color-surface,#fbf9f4)!important;color:var(--color-primary,#1f3d34)!important;border:1px solid var(--glass-rim-side)!important;border-radius:var(--glass-radius-pill)!important;box-shadow:var(--glass-edge),var(--glass-shadow)!important}
+.site-glass .glass-control{transition:transform var(--motion-base,250ms) var(--ease-soft),opacity var(--motion-fast,150ms) var(--ease-soft)!important;touch-action:manipulation}
+.site-glass .glass-control::after{border:0!important;outline:0!important;box-shadow:none!important}
+.site-glass .glass-control.glass-primary{background:var(--color-primary,#1f3d34)!important;color:var(--color-surface,#fbf9f4)!important;border-color:rgb(var(--glass-tint)/.38)!important;box-shadow:inset 0 1px 0 rgb(var(--glass-tint)/.3),inset 0 -1px 0 rgb(var(--glass-ink)/.14),var(--glass-shadow)!important}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+ .site-glass .glass-control,.site-glass .glass-switch{background:linear-gradient(180deg,rgb(var(--glass-tint)/.2),rgb(var(--glass-tint)/.02) 52%,rgb(var(--glass-ink)/.025)),rgb(var(--glass-tint)/var(--glass-control-alpha))!important;-webkit-backdrop-filter:blur(var(--glass-control-blur)) saturate(var(--glass-saturation));backdrop-filter:blur(var(--glass-control-blur)) saturate(var(--glass-saturation))}
+ .site-glass .glass-control.glass-primary{background:linear-gradient(135deg,rgb(var(--glass-tint)/.12),transparent 55%),rgb(var(--glass-ink)/var(--glass-green-alpha))!important}
+}
+@media(hover:hover) and (pointer:fine){.site-glass .glass-control:not(:disabled):hover{transform:translateY(-2px)}}
+.site-glass .glass-control:not(:disabled):active{transform:translateY(1px) scale(.97);transition-duration:var(--motion-press,100ms)!important}
+.site-glass :is(.glass-control,.glass-switch>button):focus-visible{outline:2px solid var(--color-primary,#1f3d34)!important;outline-offset:3px!important}
+.site-glass .glass-control:disabled{cursor:not-allowed;opacity:.48}
+.site-glass select.glass-control option{background:var(--color-surface,#fbf9f4);color:var(--color-primary,#1f3d34)}
+/* One plate, one transform. Existing buttons and their event handlers stay in place. */
+.site-glass .glass-switch{position:relative;isolation:isolate;padding:7px!important;gap:4px!important;overflow:visible}
+.site-glass .glass-switch.glass-switch-vertical{border-radius:var(--radius-large,20px)!important}
+.site-glass .glass-switch>button{position:relative;z-index:1;border:0!important;border-radius:var(--glass-radius-pill)!important;background:transparent!important;color:var(--color-primary,#1f3d34)!important;box-shadow:none!important;min-height:48px;transition:opacity var(--motion-fast,150ms) var(--ease-soft)!important}
+.site-glass .glass-switch>button::before,.site-glass .glass-switch>button::after{content:none!important}
+.site-glass .glass-switch>button:is([aria-pressed="true"],[aria-selected="true"],.active,.chosen){font-weight:500}
+.site-glass .glass-switch .glass-slider{position:absolute;inset:0 auto auto 0;z-index:0;pointer-events:none;border:1px solid var(--glass-rim-top);border-radius:var(--glass-radius-pill);background:var(--color-surface,#fbf9f4);box-shadow:inset 0 2px 2px rgb(var(--glass-tint)/.7),inset 1px 0 1px var(--glass-rim-side),inset 0 -1px 2px var(--glass-rim-bottom),0 6px 14px -6px rgb(var(--glass-ink)/.28),0 1px 3px rgb(var(--glass-ink)/.08);transition:transform var(--motion-slow,420ms) var(--ease-glass);opacity:0}
+.site-glass .glass-switch .glass-slider::after{content:none}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.site-glass .glass-switch .glass-slider{background:linear-gradient(180deg,rgb(var(--glass-tint)/.28),rgb(var(--glass-tint)/.04) 50%,rgb(var(--glass-ink)/.035)),rgb(var(--glass-tint)/var(--glass-plate-alpha));-webkit-backdrop-filter:blur(var(--glass-plate-blur)) saturate(var(--glass-saturation));backdrop-filter:blur(var(--glass-plate-blur)) saturate(var(--glass-saturation))}}
+.site-glass .glass-switch.is-sizing>.glass-slider{transition:none!important}
+/* A stable reading surface for dialogs. No scene-sized moving blur layers. */
+.site-glass dialog.glass-panel{background:var(--color-surface,#fbf9f4);color:var(--color-primary,#1f3d34);border:1px solid var(--glass-rim-top);border-radius:var(--radius-large,20px);box-shadow:var(--glass-edge),0 24px 64px -20px rgb(var(--glass-ink)/.24)}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.site-glass dialog.glass-panel{background:rgb(var(--glass-tint)/.94);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}}
+.site-glass .glass-preferences{max-width:1152px;margin:24px auto;padding:16px 24px;color:var(--color-primary,#1f3d34);font:400 var(--text-xs,12px)/1.75 var(--font-body,sans-serif)}
+.site-glass .glass-preferences fieldset{display:flex;align-items:center;gap:16px;border:0;padding:0;margin:0;min-width:0;flex-wrap:wrap}
+.site-glass .glass-preferences legend{float:left;line-height:48px;padding:0}
+.site-glass .glass-preference-options{display:flex;gap:4px;flex-wrap:wrap}
+.site-glass .glass-preference-options label{position:relative;cursor:pointer}
+.site-glass .glass-preference-options input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.site-glass .glass-preference-options span{display:flex;align-items:center;justify-content:center;min-height:48px;padding:8px 14px;border:1px solid var(--card-border,rgb(var(--glass-ink)/.16));border-radius:var(--glass-radius-pill);pointer-events:none}
+.site-glass .glass-preference-options input:checked+span{background:var(--color-primary,#1f3d34);color:var(--color-surface,#fbf9f4);border-color:var(--color-primary,#1f3d34)}
+.site-glass .glass-preference-options input:focus-visible+span{outline:2px solid var(--color-primary,#1f3d34);outline-offset:3px}
+.site-glass .glass-preferences p{margin:6px 0 0}
+@media(max-width:520px){.site-glass .glass-preferences{padding-inline:16px}.site-glass .glass-preferences fieldset{gap:10px}.site-glass .glass-preference-options span{padding-inline:12px}}
+@media(prefers-reduced-motion:reduce){.site-glass .glass-control,.site-glass .glass-control:hover,.site-glass .glass-control:active{transform:none!important;transition:opacity var(--motion-reduced,150ms) linear!important}.site-glass .glass-switch>.glass-slider{transition:none!important}}
+@media(prefers-reduced-transparency:reduce){.site-glass .glass-control,.site-glass .glass-switch,.site-glass .glass-switch .glass-slider,.site-glass dialog.glass-panel{background:var(--color-surface,#fbf9f4)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}.site-glass .glass-control.glass-primary{background:var(--color-primary,#1f3d34)!important}}
+@media(forced-colors:active){.site-glass .glass-control,.site-glass .glass-switch,.site-glass .glass-switch .glass-slider{border:1px solid ButtonText!important;background:Canvas!important;color:CanvasText!important;box-shadow:none!important}}
+
+.site-glass .workshop-play .glass-preferences,.site-glass .gesture-mode .glass-preferences{display:none}
+.site-glass .play-mode-tabs{flex-wrap:wrap}.site-glass .play-mode-tabs>button{padding-inline:10px!important}.site-glass .play-mode-tabs [data-play-mode="gesture"]{gap:4px}
+/* Give the three modes their own row on phones; labels must not collide. */
+@media(max-width:760px){
+ .site-glass .session-options{flex-wrap:wrap;grid-template-columns:minmax(0,1fr)!important}
+ .site-glass .session-options #studio-tool{flex:1 1 100%;width:100%}
+ .site-glass .session-options .play-mode-tabs{flex:1 1 100%;width:100%;flex-wrap:nowrap}
+ .site-glass .play-mode-tabs>button{flex:1 1 0;min-width:0;white-space:nowrap;padding-inline:6px!important}
+ .site-glass .play-mode-tabs>button[data-play-mode="gesture"]{flex-grow:1.6}
+}

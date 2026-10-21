@@ -2,6 +2,20 @@
 // 高保真 SVG 咖啡器具插画，支持皮肤换色
 // 所有插画尺寸统一为 viewBox 0 0 200 200，通过 CSS 缩放
 
+// Exact lower-glass contour, so liquid stays inside even while SVG clips are refreshed.
+function serverLiquidContour(top){
+  const curves=[[[189,326],[164,358],[145,390],[151,428]],[[151,428],[159,477],[204,500],[310,500]]];
+  const lerp=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
+  function split(c,t){const a=lerp(c[0],c[1],t),b=lerp(c[1],c[2],t),d=lerp(c[2],c[3],t),e=lerp(a,b,t),f=lerp(b,d,t);return[lerp(e,f,t),f,d,c[3]];}
+  const index=top<=428?0:1,c=curves[index];let low=0,high=1;
+  for(let i=0;i<32;i++){const mid=(low+high)/2;if(split(c,mid)[0][1]<top)low=mid;else high=mid;}
+  const lower=[split(c,(low+high)/2),...curves.slice(index+1)],point=lower[0][0];
+  const pair=p=>p.map(v=>Number(v.toFixed(5))).join(' '),mirror=p=>[620-p[0],p[1]];
+  let d='M'+pair(point);for(const curve of lower)d+='C'+curve.slice(1).map(pair).join(' ');
+  for(const curve of [...lower].reverse())d+='C'+[curve[2],curve[1],curve[0]].map(p=>pair(mirror(p))).join(' ');
+  return {d:d+'Z',radius:310-point[0]};
+}
+
 const SVGTools = {
   // 滤杯：type='melitta'（梯形陶瓷）或 'chemex'（玻璃漏斗+木领）
   dripper(color = '#FF7043', type = 'melitta', level = 0, opts = {}) {
@@ -252,8 +266,9 @@ const SVGTools = {
   // 云朵咖啡分享壶（玻璃，带导流嘴、弧形把手、刻度，咖啡水位动态）
   server(level = 0, opts = {}) {
     const showLid = opts.showLid !== false;
-    const fillH = 95 * Math.min(level, 100) / 100;
+    const fillH = 95 * Math.max(0, Math.min(Number(level) || 0, 100)) / 100;
     const coffeeTop = 485 - fillH;
+    const liquidContour = serverLiquidContour(coffeeTop);
     return `<svg viewBox="0 0 640 640" class="svg-tool">
       <defs>
         <clipPath id="csGlassClip"><path d="M229 211C232 255 215 292 189 326C164 358 145 390 151 428C159 477 204 500 310 500C416 500 461 477 469 428C475 390 456 358 431 326C405 292 388 255 391 211Z"/></clipPath>
@@ -274,8 +289,8 @@ const SVGTools = {
         </g>
         <!-- 咖啡液（裁剪在壶身内） -->
         ${fillH > 0 ? `<g clip-path="url(#csGlassClip)">
-          <rect x="140" y="${coffeeTop}" width="340" height="${fillH + 20}" fill="#A8815C" fill-opacity=".7"/>
-          <ellipse cx="310" cy="${coffeeTop}" rx="145" ry="12" fill="#C6AD90" opacity="0.5"/>
+          <path class="server-liquid-fill" d="${liquidContour.d}" fill="#A8815C" fill-opacity=".7" stroke="none"/>
+          <path class="server-liquid-surface" d="M${310-liquidContour.radius} ${coffeeTop}Q310 ${coffeeTop-5} ${310+liquidContour.radius} ${coffeeTop}Q310 ${coffeeTop+8} ${310-liquidContour.radius} ${coffeeTop}Z" fill="#C6AD90" opacity="0.5" stroke="none"/>
         </g>` : ''}
         <!-- 杯口与导流嘴 -->
         <g id="rim-and-spout">
