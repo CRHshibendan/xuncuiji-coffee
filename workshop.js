@@ -340,7 +340,7 @@ function hintText(id,text){const el=$('#'+id);if(el.textContent!==text)el.textCo
 function renderOperationHints(){
  const paperVisible=!grindFocus&&!state.filterPlaced&&(!basic()||state.step===2)&&!state.served;
  const prepared=state.folded&&state.oriented;
- $('#filter-guide').hidden=!paperVisible;
+ $('#filter-guide').hidden=true;
  $('#filter-guide').classList.toggle('paper-ready',prepared);
  obj('filter').classList.toggle('needs-tap',paperVisible&&!prepared);
  $('#fold-filter-button').hidden=false;$('#fold-filter-button').disabled=prepared||state.paused||state.served;
@@ -362,8 +362,7 @@ function renderOperationHints(){
 }
 function filterTapReminder(){
  clearPick();renderOperationHints();message(brewer==='chemex'&&state.folded?'先点一下滤纸，对准三层面，再拖动。':'这一步先「点击」滤纸，准备好后再拖进滤杯。',true);
- const panel=$('#filter-guide');if(!reducedMotion.matches)panel.animate([{transform:'translateX(0)'},{transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(0)'}],{duration:300});
- $('#fold-filter-button').focus({preventScroll:true});
+ obj('filter')?.focus({preventScroll:true});
 }
 $('#fold-filter-button').addEventListener('click',()=>{if(state.paused||state.served||grindFocus||state.filterPlaced||state.folded&&state.oriented||!allowed().includes('filter'))return;prepFilter();});
 $('#studio-tool').addEventListener('change',e=>{const tool=e.target.value;if(CoffeeMethods.methods[tool])location.assign(`workshop.html?tool=${tool}&mode=${playMode}`);else reset(tool,playMode);});
