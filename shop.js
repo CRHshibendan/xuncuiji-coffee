@@ -43,6 +43,7 @@
   $$('[data-easy-kettle-tip]').forEach(el=>{el.hidden=mode!=='relax';});
  }
  function start(){
+  clearKettleDrag();
   $('#welcome-dialog').close();if($('#report-dialog').open)$('#report-dialog').close();
   game=R.createRound(mode);paused=false;document.body.classList.remove('game-paused');setArmed(false);report=null;noteSaved=false;renderKey='';
   $('#scene-fx').replaceChildren();$('#bonk-button').disabled=false;$('#scene-kettle').disabled=false;$('#pause-game').disabled=false;$('#pause-game').textContent='暂停 Ⅱ';
@@ -118,17 +119,18 @@
   const hitX=ar.left-fxr.left+ar.width*.5,hitY=ar.top-fxr.top+ar.height*.4;
   const speech=guest.querySelector('.guest-speech');if(speech)speech.remove();
   guest.removeAttribute('data-guest');guest.classList.add('guest-ejected');guest.tabIndex=-1;guest.setAttribute('aria-hidden','true');
-  const swing=document.createElement('div');swing.className='kettle-swing'+(drop?' is-drop':'');swing.innerHTML=kettle;
+  guest.style.setProperty('--bonk-delay',drop?'0s':'.4s');
+  const swing=document.createElement('div');swing.style.setProperty('--bonk-delay',drop?'0s':'.4s');swing.className='kettle-swing'+(drop?' is-drop':'');swing.innerHTML=kettle;
   fx.append(guest,swing);
   const kw=swing.offsetWidth,kh=swing.offsetHeight;let sx,sy;
   if(drop){sx=Math.max(8,Math.min(drop.x-fxr.left-kw*.5,fxr.width-kw-8));sy=Math.max(8,Math.min(drop.y-fxr.top-kh*.55,fxr.height-kh-8));}
   else{sx=Math.max(16,Math.min(hitX-200,fxr.width-kw-10));sy=Math.min(fxr.height-kh-10,hitY+45);}
   swing.style.left=`${sx}px`;swing.style.top=`${sy}px`;
   if(!drop){swing.style.setProperty('--dx',`${hitX-kw*.6-sx}px`);swing.style.setProperty('--dy',`${hitY-kh*.55-sy}px`);}
-  const burst=document.createElement('div');burst.className='bonk-burst';burst.style.left=`${hitX}px`;burst.style.top=`${hitY}px`;
+  const burst=document.createElement('div');burst.className='bonk-burst';burst.style.setProperty('--bonk-delay',drop?'0s':'.4s');burst.style.left=`${hitX}px`;burst.style.top=`${hitY}px`;
   burst.innerHTML='<b>咚！</b>'+Array.from({length:8},(_,i)=>`<i style="--a:${i*45}deg;--d:${44+(i*7)%20}px"></i>`).join('');
   fx.append(burst);
-  setTimeout(()=>{const scene=$('#shop-scene');scene.classList.add('bonk-shake');if(navigator.vibrate)navigator.vibrate([10,24,18]);setTimeout(()=>scene.classList.remove('bonk-shake'),330);},400);
+  setTimeout(()=>{const scene=$('#shop-scene');scene.classList.add('bonk-shake');if(navigator.vibrate)navigator.vibrate([10,24,18]);setTimeout(()=>scene.classList.remove('bonk-shake'),330);},drop?0:400);
   setTimeout(()=>{guest.remove();swing.remove();burst.remove();},1600);
   const res=R.resolve(game,id,'expelled',coins),comp=res?.comp||0;setArmed(false);
   say(order.trouble?`阿刺嘟囔着跑出了门，小店又安静了。压惊费 ¥${comp} 已进账，赶走找事客人不扣积分。`:`${order.name}捂着头，把一半咖啡钱拍在桌上就跑了。压惊费 ¥${comp} 已进账，积分 −20。`);
@@ -138,7 +140,7 @@
  }
  function canHoldKettle(){return !!(game&&game.status==='playing'&&!paused);}
  function guestAtPoint(x,y){const el=document.elementFromPoint(x,y);return el&&el.closest?el.closest('.guest[data-guest]'):null;}
- function placeKettleGhost(x,y){if(!kettleDrag||!kettleDrag.ghost)return;kettleDrag.ghost.style.left=x+'px';kettleDrag.ghost.style.top=y+'px';}
+ function placeKettleGhost(x,y){if(!kettleDrag||!kettleDrag.ghost)return;kettleDrag.ghost.style.transform=`translate3d(${x}px,${y}px,0) translate(-50%,-64%) rotate(-18deg)`;}
 function setKettleTarget(next){if(!kettleDrag||kettleDrag.target===next)return;if(kettleDrag.target)kettleDrag.target.classList.remove('kettle-target');kettleDrag.target=next;if(next)next.classList.add('kettle-target');}
  let kettleCombo=null;
  const KETTLE_HITS=4;
@@ -164,6 +166,8 @@ function setKettleTarget(next){if(!kettleDrag||kettleDrag.target===next)return;i
  function clearKettleDrag(){
   const drag=kettleDrag;if(!drag)return null;
   kettleDrag=null;
+  const handle=$('#scene-kettle');if(handle.hasPointerCapture?.(drag.id))handle.releasePointerCapture(drag.id);
+  window.removeEventListener('touchmove',blockKettleScroll);
   window.removeEventListener('pointermove',onKettleMove);window.removeEventListener('pointerup',onKettleUp);window.removeEventListener('pointercancel',onKettleCancel);
   if(drag.target)drag.target.classList.remove('kettle-target');
   drag.ghost.remove();$('#scene-kettle').classList.remove('is-held');document.body.classList.remove('kettle-dragging');
@@ -182,7 +186,7 @@ function setKettleTarget(next){if(!kettleDrag||kettleDrag.target===next)return;i
   const cx=g.left+g.width/2-fx.left,cy=g.top+g.height*.42-fx.top;
   guest.classList.remove('guest-bonked');void guest.offsetWidth;guest.classList.add('guest-bonked');
   setTimeout(()=>guest.classList.remove('guest-bonked'),240);
-  spawnCoins(cx,cy,n);showComboBadge(cx,cy);
+  kettleImpact(cx,cy);spawnCoins(cx,cy,n);showComboBadge(cx,cy);
   if(!kettleCombo.tick){
    kettleCombo.tick=setInterval(()=>{
     if(!kettleCombo||!kettleCombo.inside||!kettleCombo.targetId||!canHoldKettle())return;
@@ -205,9 +209,16 @@ function setKettleTarget(next){if(!kettleDrag||kettleDrag.target===next)return;i
   toast(`连击 ×${count} · 金币 ×${coins} · 压惊费 ¥${res?.comp||0} · ${res?.penalty===0?'不扣积分':'积分 −20'}`);
   say(`${name} 被连击 ×${count} 打飞，金币撒了一地。压惊费 ¥${res?.comp||0} 已进账，${res?.penalty===0?'赶走找事客人不扣积分':'积分 −20'}。`);
  }
+ function kettleImpact(cx,cy){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const fx=$('#scene-fx'),burst=document.createElement('span');burst.className='kettle-impact';burst.style.left=cx+'px';burst.style.top=cy+'px';fx.append(burst);setTimeout(()=>burst.remove(),320);
+  const art=kettleDrag?.ghost.querySelector('svg');art?.getAnimations().forEach(a=>a.cancel());art?.animate([{transform:'rotate(-12deg)'},{transform:'rotate(22deg)',offset:.35},{transform:'rotate(0deg)'}],{duration:180,easing:'cubic-bezier(.2,.75,.3,1)'});
+  if(navigator.vibrate)navigator.vibrate(10);
+ }
+ function blockKettleScroll(e){if(kettleDrag&&e.cancelable)e.preventDefault();}
  function onKettleMove(e){
   if(!kettleDrag||e.pointerId!==kettleDrag.id)return;
-  placeKettleGhost(e.clientX,e.clientY);
+  blockKettleScroll(e);placeKettleGhost(e.clientX,e.clientY);
   if(Math.hypot(e.clientX-kettleDrag.x,e.clientY-kettleDrag.y)>7)kettleDrag.moved=true;
   if(!kettleCombo)kettleCombo={count:0,coins:0,targetId:null,targetHits:0,inside:false,lastHit:0};
   const gr=kettleDrag.ghost.getBoundingClientRect(),guest=guestAtPoint(e.clientX,e.clientY)||guestAtPoint(gr.left+gr.width/2,gr.top+gr.height/2);
@@ -217,7 +228,7 @@ function setKettleTarget(next){if(!kettleDrag||kettleDrag.target===next)return;i
   }else{kettleCombo.inside=false;}
  }
  function endKettleDrag(e,allowHit){
-  const drag=kettleDrag;if(!drag)return;
+  const drag=kettleDrag;if(!drag||e.pointerId!==drag.id)return;
   const gr=drag.ghost.getBoundingClientRect(),gx=gr.left+gr.width/2,gy=gr.top+gr.height/2;
   const x=e.clientX||drag.x,y=e.clientY||drag.y,guest=guestAtPoint(x,y)||guestAtPoint(gx,gy);
   const combo=kettleCombo;
@@ -250,6 +261,7 @@ function setKettleTarget(next){if(!kettleDrag||kettleDrag.target===next)return;i
  }
  function feedback(t){$('#report-feedback').textContent=t;}
  function finish(){
+  clearKettleDrag();
   cancelAnimationFrame(raf);setArmed(false);$('#bonk-button').disabled=true;$('#scene-kettle').disabled=true;$('#pause-game').disabled=true;$('#main-action').disabled=true;$('#main-action').textContent='今天打烊啦 ✓';
   report=R.summary(game);const previous=Number(records[mode]?.best)||0,best=Math.max(previous,report.points);
   records[mode]={best,last:report,date:new Date().toISOString()};let stored=true;try{localStorage.setItem(KEY,JSON.stringify(records));}catch{stored=false;}
@@ -305,20 +317,27 @@ function setKettleTarget(next){if(!kettleDrag||kettleDrag.target===next)return;i
  $('#start-day').addEventListener('click',start);$('#main-action').addEventListener('click',action);
  document.addEventListener('click',e=>{const step=e.target.closest('[data-param]');if(step){if(game&&!paused&&R.tune(game,step.dataset.param,Number(step.dataset.dir)))render(true);return;}const cup=e.target.closest('[data-cup-action]');if(cup){if(game&&!paused){R.focus(game,cup.dataset.cupAction);action();}return;}const g=e.target.closest('[data-guest]');if(g)pick(g.dataset.guest);});
  $('#bonk-button').addEventListener('click',()=>{if(game&&!paused&&game.status==='playing')setArmed(!armed);});
- $('#scene-kettle').addEventListener('pointerdown',e=>{
+ function beginKettleDrag(e){
   if(!canHoldKettle()||kettleDrag||e.button!==0)return;
   e.preventDefault();e.stopPropagation();
-  const ghost=document.createElement('div');ghost.className='kettle-ghost';ghost.innerHTML=kettle;ghost.style.left=e.clientX+'px';ghost.style.top=e.clientY+'px';document.body.append(ghost);
+  const ghost=document.createElement('div');ghost.className='kettle-ghost';ghost.innerHTML=kettle;document.body.append(ghost);
   $('#scene-kettle').classList.add('is-held');document.body.classList.add('kettle-dragging');setArmed(false);
   kettleDrag={id:e.pointerId,ghost,x:e.clientX,y:e.clientY,moved:false,target:null};
+  placeKettleGhost(e.clientX,e.clientY);
+  $('#scene-kettle').setPointerCapture(e.pointerId);
   setKettleTarget(guestAtPoint(e.clientX,e.clientY));
-  window.addEventListener('pointermove',onKettleMove);
+  window.addEventListener('touchmove',blockKettleScroll,{passive:false});
+  window.addEventListener('pointermove',onKettleMove,{passive:false});
   window.addEventListener('pointerup',onKettleUp);
   window.addEventListener('pointercancel',onKettleCancel);
- });
- document.addEventListener('keydown',e=>{if(e.key==='Escape'&&armed){setArmed(false);e.preventDefault();}});
- $('#pause-game').addEventListener('click',()=>{if(!game||game.status!=='playing')return;paused=!paused;$('#scene-kettle').disabled=paused;setArmed(false);$('#pause-game').textContent=paused?'继续营业 ▷':'暂停 Ⅱ';document.body.classList.toggle('game-paused',paused);$('#main-action').disabled=paused;render(true);say(paused?'小店暂停了，歇一会儿也很好。':'欢迎回来，继续把咖啡递出去。');});
- $('#help-button').addEventListener('click',()=>$('#help-dialog').showModal());
+ }
+ $('#scene-kettle').addEventListener('pointerdown',beginKettleDrag);
+ $('#scene-kettle').addEventListener('lostpointercapture',onKettleCancel);
+ window.addEventListener('blur',clearKettleDrag);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)clearKettleDrag();});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&(armed||kettleDrag)){clearKettleDrag();setArmed(false);e.preventDefault();}});
+ $('#pause-game').addEventListener('click',()=>{if(!game||game.status!=='playing')return;clearKettleDrag();paused=!paused;$('#scene-kettle').disabled=paused;setArmed(false);$('#pause-game').textContent=paused?'继续营业 ▷':'暂停 Ⅱ';document.body.classList.toggle('game-paused',paused);$('#main-action').disabled=paused;render(true);say(paused?'小店暂停了，歇一会儿也很好。':'欢迎回来，继续把咖啡递出去。');});
+ $('#help-button').addEventListener('click',()=>{clearKettleDrag();$('#help-dialog').showModal();});
  for(const id of ['close-help','help-ok'])$('#'+id).addEventListener('click',()=>$('#help-dialog').close());
  $('#welcome-dialog').addEventListener('cancel',e=>e.preventDefault());$('#report-dialog').addEventListener('cancel',e=>e.preventDefault());
  $('#play-again').addEventListener('click',()=>{$('#report-dialog').close();$('#welcome-dialog').showModal();});

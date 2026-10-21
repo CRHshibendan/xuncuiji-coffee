@@ -1,6 +1,6 @@
 /* Approved glass controls, shared by the existing pages. Brewing art stays untouched. */
 :root.site-glass{
- --glass-tint:251 249 244;--glass-ink:31 61 52;--glass-radius-pill:999px;
+ --glass-tint:251 249 244;--glass-ink:31 61 52;--glass-radius-pill:999px;--glass-radius-card:18px;
  --glass-control-alpha:.54;--glass-control-blur:18px;--glass-plate-alpha:.58;--glass-plate-blur:20px;
  --glass-saturation:1.35;--glass-green-alpha:.86;--ease-glass:cubic-bezier(.45,0,.55,1);
  --glass-rim-top:rgb(var(--glass-tint)/.92);--glass-rim-side:rgb(var(--glass-tint)/.46);--glass-rim-bottom:rgb(var(--glass-ink)/.12);
@@ -22,6 +22,12 @@
 .site-glass :is(.glass-control,.glass-switch>button):focus-visible{outline:2px solid var(--color-primary,#1f3d34)!important;outline-offset:3px!important}
 .site-glass .glass-control:disabled{cursor:not-allowed;opacity:.48}
 .site-glass select.glass-control option{background:var(--color-surface,#fbf9f4);color:var(--color-primary,#1f3d34)}
+/* Multi-line choices stay cards; a scene character is never a glass button. */
+.site-glass .glass-control.glass-card-control{border-radius:var(--glass-radius-card)!important}
+.site-glass .glass-card-control[aria-pressed="true"]{border-color:rgb(var(--glass-ink)/.35)!important;box-shadow:var(--glass-edge),inset 0 0 0 1px rgb(var(--glass-ink)/.16),var(--glass-shadow)!important}
+.site-glass .round-options>.glass-card-control[aria-pressed="true"]{background:linear-gradient(140deg,rgb(var(--glass-tint)/.3),rgb(var(--glass-ink)/.1)),rgb(var(--glass-tint)/var(--glass-control-alpha))!important}
+.site-glass .round-options{grid-template-columns:repeat(2,minmax(0,1fr))}
+.site-glass .round-options>button{min-width:0}
 /* One plate, one transform. Existing buttons and their event handlers stay in place. */
 .site-glass .glass-switch{position:relative;isolation:isolate;padding:7px!important;gap:4px!important;overflow:visible}
 .site-glass .glass-switch.glass-switch-vertical{border-radius:var(--radius-large,20px)!important}

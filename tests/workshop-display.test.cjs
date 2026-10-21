@@ -26,6 +26,17 @@ test('late fullscreen or orientation promises cannot reopen the workbench after 
  const b=rig({pendingLock:true});const pending=b.session.enter();await Promise.resolve();await b.session.leave();b.grantLock();await pending;assert.equal(b.doc.fullscreenElement,null);assert.ok(b.calls.includes('unlock'));assert.equal(b.session.active,false);
 });
 const {viewportBounds,cameraBox}=require('../workshop-display.js');
+test('a compact control rail preserves the original readouts, buttons and exact home order on exit',()=>{
+ const {createControlRail}=require('../workshop-display.js');
+ function node(name){return{name,children:[],setAttribute(){},append(n){this.insertBefore(n,null);},insertBefore(n,next){if(n.parentNode)n.parentNode.children.splice(n.parentNode.children.indexOf(n),1);this.children.splice(next?this.children.indexOf(next):this.children.length,0,n);n.parentNode=this;},before(n){this.parentNode.insertBefore(n,this);},get nextSibling(){return this.parentNode.children[this.parentNode.children.indexOf(this)+1]||null;}};}
+ const doc={createElement:node,createComment:node},host=node('center'),scene=node('scene'),heat=node('heat'),dashboard=node('readouts'),actions=node('actions'),footer=node('footer');
+ host.append(scene);scene.append(heat);host.append(actions);host.append(dashboard);host.append(footer);heat.clickHandler=()=>92;dashboard.value=225;
+ const control=createControlRail(doc,host,[dashboard,heat,actions]);assert.equal(control.rail.hidden,true);
+ control.setActive(true);assert.deepEqual(control.rail.children,[dashboard,heat,actions]);assert.equal(heat.clickHandler(),92);assert.equal(dashboard.value,225);
+ control.setActive(true);assert.equal(control.rail.children.length,3);
+ control.setActive(false);assert.equal(heat.parentNode,scene);assert.equal(control.rail.children.length,0);assert.deepEqual(host.children.filter(n=>['scene','actions','readouts','footer'].includes(n.name)),[scene,actions,dashboard,footer]);assert.equal(control.rail.hidden,true);
+ control.setActive(true);assert.deepEqual(control.rail.children,[dashboard,heat,actions]);
+});
 test('visible viewport tracks expanded browser chrome, rotation and non-fullscreen offsets',()=>{
  assert.deepEqual(viewportBounds({innerWidth:874,innerHeight:402,visualViewport:{width:874,height:260,offsetTop:0,offsetLeft:0,scale:1}}),{width:874,height:260,left:0,top:0});
  assert.deepEqual(viewportBounds({innerWidth:430,innerHeight:932}),{width:430,height:932,left:0,top:0});

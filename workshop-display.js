@@ -34,10 +34,20 @@
   // Preserve the full crank orbit and collection cup, remove empty table around the grinder.
   return expanded&&view==='grind'?[90,185,225,285]:box;
  }
- const api={createSession,viewportBounds,cameraBox};root.CoffeeWorkshopDisplay=api;
+ // Move the original controls together, preserving listeners, state and reading order.
+ function createControlRail(doc,host,nodes){
+  const rail=doc.createElement('section');rail.className='workshop-control-rail';rail.setAttribute('aria-label','冲煮读数和操作');rail.hidden=true;host.append(rail);
+  const entries=nodes.filter(Boolean).map(node=>{const anchor=doc.createComment('workshop-control-home');node.before(anchor);return{node,anchor};});let active=false;
+  return{rail,setActive(next){next=Boolean(next);if(next===active)return;active=next;
+   for(const {node,anchor}of entries){if(active)rail.append(node);else anchor.parentNode.insertBefore(node,anchor.nextSibling);}
+   rail.hidden=!active;
+  }};
+ }
+ const api={createSession,viewportBounds,cameraBox,createControlRail};root.CoffeeWorkshopDisplay=api;
  if(typeof module==='object'&&module.exports)module.exports=api;
  if(!root.document||!document.querySelector('#scene'))return;
  const $=s=>document.querySelector(s),body=document.body;
+ const controlRail=createControlRail(document,$('.studio-center'),[$('.live-dashboard'),$('#brew-controls'),$('#heat-guide'),$('.hands-on-actions')]);
  const mobile=matchMedia('(max-width:760px), (max-width:1100px) and (max-height:600px)');
  const portrait=()=>{const v=viewportBounds(root);return v.height>v.width;};
  const toolbar=document.createElement('div');toolbar.className='workshop-play-toolbar';toolbar.hidden=true;
@@ -68,11 +78,12 @@
    const v=viewportBounds(root);
    for(const key of ['width','height','left','top'])body.style.setProperty('--workshop-viewport-'+key,v[key]+'px');
    body.classList.toggle('workshop-compact',v.width>v.height&&v.height<=500);
+   controlRail.setActive(body.classList.contains('workshop-compact'));
    const top=Math.ceil(toolbar.getBoundingClientRect().height);
    body.style.setProperty('--workshop-play-top',top+'px');
    const bounds=JSON.stringify(v);
    if(bounds!==lastBounds){lastBounds=bounds;document.dispatchEvent(new CustomEvent('coffee-camera-resize'));}
-  }
+  }else controlRail.setActive(false);
   updateOrientation();
  }
  const session=createSession({document,element:document.documentElement,orientation:root.screen?.orientation,onChange:state=>{const changed=active!==state.active;active=state.active;nativeFullscreen=state.native;refresh();if(changed)document.dispatchEvent(new CustomEvent('coffee-camera',{detail:{view:'auto'}}));}});

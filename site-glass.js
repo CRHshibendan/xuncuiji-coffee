@@ -9,7 +9,7 @@
  let value='light';try{value=localStorage.getItem(key)||localStorage.getItem('xuncuiji-glass-lab-material')||'light';}catch{}
  const valid=v=>Object.prototype.hasOwnProperty.call(materials,v)?v:'light';
  root.dataset.glassMaterial=valid(value);
- const groupSelector='.brewer-selector,.grind-options,.play-mode-tabs,.setting-tabs,.round-options,.mobile-scene-controls [role="group"]';
+ const groupSelector='.brewer-selector,.grind-options,.play-mode-tabs,.setting-tabs,.mobile-scene-controls [role="group"]';
  const primarySelector='.primary,.solid-button,.next-action,.task-action,#pour-hold,#quick-serve,#brew-heat-toggle,#heat-start,#start-basic,#first-note';
  function applyMaterial(value,save=false){
   value=valid(value);root.dataset.glassMaterial=value;let saved=true;
@@ -49,8 +49,8 @@
   if(!(node instanceof HTMLElement)||node.closest('.site-dock,.glass-preferences'))return;
   const controls=[...(node.matches('button,select,a.button,a.pill,a.secondary')?[node]:[]),...node.querySelectorAll('button,select,a.button,a.pill,a.secondary')];
   for(const control of controls){
-   if(control.namespaceURI!=='http://www.w3.org/1999/xhtml'||control.closest('.site-dock,.glass-preferences,svg')||control.matches('.text-link,.close-dialog,.dialog-close,.scene-kettle,.task-select,[data-delete]')||control.parentElement?.matches(groupSelector))continue;
-   control.classList.add('glass-control');if(control.matches(primarySelector))control.classList.add('glass-primary');
+   if(control.namespaceURI!=='http://www.w3.org/1999/xhtml'||control.closest('.site-dock,.glass-preferences,.shop-scene,svg')||control.matches('.text-link,.close-dialog,.dialog-close,.scene-kettle,.task-select,[data-delete]')||control.parentElement?.matches(groupSelector))continue;
+   control.classList.add('glass-control');if(control.matches('.round-options>button,.mode-choice-grid>button,.ticket'))control.classList.add('glass-card-control');if(control.matches(primarySelector))control.classList.add('glass-primary');
   }
   for(const group of [...(node.matches(groupSelector)?[node]:[]),...node.querySelectorAll(groupSelector)])enhanceGroup(group);
   for(const dialog of [...(node.matches('dialog')?[node]:[]),...node.querySelectorAll('dialog')])dialog.classList.add('glass-panel');

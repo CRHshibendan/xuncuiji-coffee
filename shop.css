@@ -409,7 +409,7 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 .kettle-armed .guest,.kettle-armed .ticket{cursor:crosshair;filter:drop-shadow(0 0 5px #b5905390)}
 .game-paused .shop-scene{filter:saturate(.5)}.game-paused .guest{pointer-events:none}
 #scene-fx{position:absolute;inset:0;pointer-events:none;z-index:10;overflow:hidden}
-#scene-fx .guest-ejected{animation:guest-ejected .98s cubic-bezier(.15,.75,.25,1) .4s forwards;transform-origin:50% 88%;pointer-events:none}
+#scene-fx .guest-ejected{animation:guest-ejected .98s cubic-bezier(.15,.75,.25,1) var(--bonk-delay,.4s) forwards;transform-origin:50% 88%;pointer-events:none}
 .kettle-swing{position:absolute;width:clamp(78px,8.5vw,110px);transform-origin:85% 70%;animation:kettle-bonk .74s cubic-bezier(.25,.7,.3,1) both;filter:drop-shadow(2px 6px 3px #473e2c33);z-index:12}
 .kettle-swing svg{width:100%;filter:drop-shadow(2px 5px 2px #473e2c22)}
 .kettle-swing>span{display:none}
@@ -455,9 +455,9 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 @media(max-width:800px){.batch-heading{display:block}.batch-heading>span{display:block;margin-top:6px}.batch-workbench{padding:14px}.batch-board{gap:7px}.cup-task{padding:10px 7px}.task-select strong{font-size:17px}.task-action{font-size:10px}.task-select small{font-size:9px}.task-progress{margin:10px 0}}
 /* 手冲壶出击：从吧台左侧抡到客人脸上，命中后再让整间店震一下 */
 .bonk-burst{position:absolute;z-index:14;pointer-events:none;width:0;height:0;transform:translate(-50%,-50%)}
-.bonk-burst b{position:absolute;left:50%;top:50%;transform:translate(-50%,-125%) rotate(-9deg);font:700 clamp(30px,3.9vw,44px) var(--serif);color:#8b5a25;text-shadow:0 2px 0 #fff6de,0 0 20px #ffcf73;animation:bonk-word .66s .4s cubic-bezier(.2,.8,.3,1.2) both}
-.bonk-burst::before{content:"";position:absolute;left:50%;top:50%;width:16px;height:16px;margin:-8px;border:3px solid #fff6dc;border-radius:50%;box-shadow:0 0 0 2px #d7a13d,0 0 26px #f4c45e;opacity:0;animation:bonk-ring .34s .4s ease-out both}
-.bonk-burst i{position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px;background:#e2ab45;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);opacity:0;animation:bonk-star .64s .4s ease-out both}
+.bonk-burst b{position:absolute;left:50%;top:50%;transform:translate(-50%,-125%) rotate(-9deg);font:700 clamp(30px,3.9vw,44px) var(--serif);color:#8b5a25;text-shadow:0 2px 0 #fff6de,0 0 20px #ffcf73;animation:bonk-word .66s var(--bonk-delay,.4s) cubic-bezier(.2,.8,.3,1.2) both}
+.bonk-burst::before{content:"";position:absolute;left:50%;top:50%;width:16px;height:16px;margin:-8px;border:3px solid #fff6dc;border-radius:50%;box-shadow:0 0 0 2px #d7a13d,0 0 26px #f4c45e;opacity:0;animation:bonk-ring .34s var(--bonk-delay,.4s) ease-out both}
+.bonk-burst i{position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px;background:#e2ab45;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);opacity:0;animation:bonk-star .64s var(--bonk-delay,.4s) ease-out both}
 @keyframes bonk-word{0%{opacity:0;transform:translate(-50%,-125%) rotate(-9deg) scale(.4)}30%{opacity:1;transform:translate(-50%,-128%) rotate(-9deg) scale(1.25)}60%{transform:translate(-50%,-132%) rotate(-8deg) scale(1)}100%{opacity:0;transform:translate(-50%,-150%) rotate(-6deg) scale(.95)}}
 @keyframes bonk-ring{0%{opacity:0;transform:scale(.2);border-width:6px}12%{opacity:1}60%{opacity:.25}100%{opacity:0;transform:scale(4.5);border-width:1px}}
 @keyframes bonk-star{0%{opacity:0;transform:rotate(var(--a)) translateX(8px) scale(.3)}20%{opacity:1}100%{opacity:0;transform:rotate(var(--a)) translateX(var(--d)) scale(1.1)}}
@@ -492,8 +492,8 @@ body.kettle-dragging{cursor:grabbing;user-select:none}
 .coin{position:absolute;z-index:16;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff6cf,#efc45e 52%,#b9822c);border:1px solid #9a6b22;box-shadow:0 2px 0 #8a5c1d;pointer-events:none;display:grid;place-items:center;font:800 9px/1 sans-serif;color:#7a5318;animation:coin-fly .82s cubic-bezier(.2,.7,.35,1) forwards}
 .coin::after{content:'¥'}
 @keyframes coin-fly{0%{opacity:0;transform:translate(0,0) scale(.4)}12%{opacity:1;transform:translate(var(--cx),var(--cy)) scale(1.1)}55%{opacity:1;transform:translate(calc(var(--cx)*1.7),calc(var(--cy)*1.7 - 8px)) scale(.95)}100%{opacity:0;transform:translate(calc(var(--cx)*2.3),calc(var(--cy)*2.3 + 62px)) scale(.7)}}
-.guest.guest-bonked{animation:guest-bonk .22s ease-out}
-@keyframes guest-bonk{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-3px,-2px) rotate(-2deg)}65%{transform:translate(3px,1px) rotate(1.5deg)}}
+.guest.guest-bonked .avatar{animation:guest-bonk .22s ease-out;transform-origin:50% 80%}
+@keyframes guest-bonk{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-4px,2px) rotate(-8deg) scale(.92,1.04)}65%{transform:translate(2px,-1px) rotate(4deg) scale(1.02,.98)}}
 @media(max-width:800px){.coin{width:13px;height:13px;font-size:8px}.combo-badge{font-size:11px;padding:4px 9px}.combo-badge b{font-size:15px}}
 /* A small easy-mode cue and one recognisable, impatient guest. */
 .easy-kettle-tip{margin:0;padding:13px 18px 14px;background:#f9ecd6;border-top:1px solid #e7d1aa;color:#654a28;font-size:13px;line-height:1.8}
@@ -505,3 +505,15 @@ body.kettle-dragging{cursor:grabbing;user-select:none}
 @media(max-width:440px){.easy-kettle-tip{padding:11px 13px;font-size:12px}.easy-kettle-tip small{font-size:11px}.guest-trouble .guest-speech{width:115px;font-size:11px;right:-7px;padding:7px 9px}.guest-trouble .guest-speech small{font-size:9px}.trouble-badge{font-size:8px;right:-9px;padding:2px 5px}.welcome-kettle-tip{padding:10px 11px}}
 .trouble-badge{z-index:2;right:-3px}
 @media(max-width:440px){.session-hud>div{padding-right:10px}.session-hud>div:nth-child(3) strong{font-size:17px;white-space:nowrap}.session-hud .hud-button{flex-shrink:0}}
+
+/* Dragging the illustrated kettle owns the gesture, including iPhone Safari. */
+.xc-refined .shop-scene .scene-kettle,.xc-refined .shop-scene .scene-kettle *{touch-action:none!important;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+body.kettle-dragging{overscroll-behavior:none;-webkit-user-select:none}
+.kettle-ghost{left:0;top:0;width:clamp(84px,9vw,110px);will-change:transform}
+.kettle-impact{position:absolute;width:28px;height:28px;margin:-14px;border:2px solid #e5bc73;border-radius:50%;pointer-events:none;animation:kettle-impact .3s ease-out both}
+.kettle-impact::before,.kettle-impact::after{content:"";position:absolute;inset:6px;border:2px solid #fff8e6;transform:rotate(45deg)}
+.kettle-impact::after{inset:-5px;border-width:1px;transform:rotate(22deg)}
+@keyframes kettle-impact{0%{opacity:1;transform:scale(.4) rotate(-15deg)}35%{opacity:1}100%{opacity:0;transform:scale(1.8) rotate(12deg)}}
+@media(prefers-reduced-motion:reduce){.kettle-impact{display:none}.guest.guest-bonked .avatar,.shop-scene.bonk-shake{animation:none!important}}
+
+#welcome-title:focus{outline:none}

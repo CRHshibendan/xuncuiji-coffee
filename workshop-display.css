@@ -69,3 +69,14 @@ body.workshop-play{height:100vh;height:var(--workshop-viewport-height,100dvh)}
 .workshop-play:not(.gesture-mode) #scene.grind-close-up .crank-hit{r:34}
 
 .workshop-play:not(.gesture-mode) #heat-guide{right:calc(100% - var(--workshop-viewport-left,0px) - var(--workshop-viewport-width,100%) + max(8px,env(safe-area-inset-right)))}
+
+/* A short screen gets one flowing rail. Readouts and heating never overlap. */
+.workshop-control-rail[hidden]{display:none!important}
+.workshop-play.workshop-compact:not(.gesture-mode) .workshop-control-rail{position:absolute;z-index:60;top:calc(var(--workshop-play-top,48px) + 8px);bottom:max(8px,env(safe-area-inset-bottom));right:max(8px,env(safe-area-inset-right));width:184px;display:flex;flex-direction:column;gap:12px;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;padding:0 0 3px;scrollbar-width:thin}
+.workshop-play.workshop-compact:not(.gesture-mode) .workshop-control-rail>.live-dashboard{position:static;inset:auto;flex:none;width:100%;margin:0}
+.workshop-play.workshop-compact:not(.gesture-mode) .workshop-control-rail>#heat-guide{position:static;inset:auto;flex:none;width:100%;margin:0}
+.workshop-play.workshop-compact:not(.gesture-mode) .workshop-control-rail>.hands-on-actions{position:static;inset:auto;flex:none;width:100%;margin:0}
+
+.workshop-play.workshop-compact:not(.gesture-mode) .workshop-control-rail>.brew-controls{position:static;inset:auto;flex:none;width:100%;margin:0;padding:0}
+.workshop-control-rail>.brew-controls[hidden]{display:none!important}
+.workshop-control-rail:has(>.brew-controls:not([hidden]))>#heat-guide{display:none!important}
