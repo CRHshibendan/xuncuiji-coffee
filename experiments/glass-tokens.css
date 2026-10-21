@@ -1,0 +1,54 @@
+/* Preview-scoped proposal. Importing this file does not restyle existing pages. */
+:where(.glass-lab){
+ --glass-tint:251 249 244;--glass-ink:31 61 52;--glass-warm:184 121 74;
+ --glass-light-alpha:.68;--glass-standard-alpha:.82;--glass-strong-alpha:.94;
+ --glass-light-blur:10px;--glass-standard-blur:20px;--glass-strong-blur:30px;
+ --glass-button-alpha:.58;--glass-button-blur:20px;--glass-button-green-alpha:.86;
+ --glass-control-light-alpha:.54;--glass-control-standard-alpha:.74;--glass-control-strong-alpha:.92;
+ --glass-control-light-blur:18px;--glass-control-standard-blur:26px;--glass-control-strong-blur:32px;
+ --glass-user-alpha:var(--glass-control-light-alpha);--glass-user-blur:var(--glass-control-light-blur);--glass-user-shadow:var(--glass-control-shadow);
+ --glass-control-shadow:0 8px 22px -9px rgb(var(--glass-ink)/.22),0 2px 5px -2px rgb(var(--glass-ink)/.12);
+ --glass-rim-top:rgb(var(--glass-tint)/.92);--glass-rim-side:rgb(var(--glass-tint)/.46);--glass-rim-bottom:rgb(var(--glass-ink)/.12);
+ --glass-control-saturation:1.35;--ease-glass:cubic-bezier(.45,0,.55,1);
+ --glass-saturation:1.1;--glass-border:rgb(var(--glass-tint)/.72);--glass-inner:rgb(var(--glass-tint)/.8);
+ --glass-shadow-light:0 4px 14px rgb(var(--glass-ink)/.06);
+ --glass-shadow-standard:0 12px 32px -12px rgb(var(--glass-ink)/.17);
+ --glass-shadow-strong:0 24px 64px -20px rgb(var(--glass-ink)/.24);
+ --glass-shadow-lift:0 10px 22px -8px rgb(var(--glass-ink)/.22);
+ --glass-radius-track:var(--glass-radius-pill);--glass-radius-control:var(--radius-small);--glass-radius-panel:var(--radius-large);--glass-radius-pill:999px;
+ --layer-environment:0;--layer-content:1;--layer-glass:10;--layer-controls:20;--layer-feedback:30;
+ --glass-hover-lift:-2px;--glass-press-scale:.97;--glass-dialog-travel:8px;
+}
+.glass-lab .g-surface{--g-alpha:var(--glass-standard-alpha);--g-blur:var(--glass-standard-blur);--g-shadow:var(--glass-shadow-standard);position:relative;isolation:isolate;color:var(--color-primary);background:var(--color-surface);border:1px solid var(--glass-border);border-radius:var(--glass-radius-panel);box-shadow:inset 0 1px 0 var(--glass-inner),inset 1px 0 0 rgb(var(--glass-tint)/.3),var(--g-shadow)}
+.glass-lab .g-light{--g-alpha:var(--glass-light-alpha);--g-blur:var(--glass-light-blur);--g-shadow:var(--glass-shadow-light)}
+.glass-lab .g-strong{--g-alpha:var(--glass-strong-alpha);--g-blur:var(--glass-strong-blur);--g-shadow:var(--glass-shadow-strong)}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+ .glass-lab .g-surface{background:linear-gradient(180deg,rgb(var(--glass-tint)/.07),rgb(var(--glass-tint)/0) 55%),rgb(var(--glass-tint)/var(--g-alpha));-webkit-backdrop-filter:blur(var(--g-blur)) saturate(var(--glass-saturation));backdrop-filter:blur(var(--g-blur)) saturate(var(--glass-saturation))}
+}
+.glass-lab.no-blur .g-surface{background:var(--color-surface);-webkit-backdrop-filter:none;backdrop-filter:none}
+.glass-lab .g-control{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 18px;border-radius:var(--glass-radius-control);font:inherit;font-size:var(--text-sm);cursor:pointer;touch-action:manipulation;transition:transform var(--motion-base) var(--ease-soft),opacity var(--motion-fast) var(--ease-soft);-webkit-tap-highlight-color:transparent}
+.glass-lab .g-control::after{content:"";position:absolute;inset:-1px;z-index:-1;border:0;border-radius:inherit;box-shadow:var(--glass-shadow-lift);opacity:0;pointer-events:none;transition:opacity var(--motion-base) var(--ease-soft)}
+@media(hover:hover) and (pointer:fine){.glass-lab .g-control:hover{transform:translateY(var(--glass-hover-lift))}.glass-lab .g-control:hover::after{opacity:1}}
+.glass-lab .g-control:active{transform:translateY(1px) scale(var(--glass-press-scale));transition-duration:var(--motion-press)}
+.glass-lab .g-control:focus-visible,.glass-lab a:focus-visible,.glass-lab input:focus-visible{outline:2px solid var(--color-primary);outline-offset:4px}
+.glass-lab .g-primary{background:var(--color-primary);color:var(--color-surface);border:1px solid rgb(var(--glass-tint)/.28);box-shadow:inset 0 1px 0 rgb(var(--glass-tint)/.2),var(--glass-shadow-light);-webkit-backdrop-filter:none;backdrop-filter:none}
+@media(prefers-reduced-motion:reduce){.glass-lab{scroll-behavior:auto}.glass-lab .g-control,.glass-lab .g-control:hover,.glass-lab .g-control:active{transform:none;transition:opacity var(--motion-reduced) linear}.glass-lab .g-control::after{transition:opacity var(--motion-reduced) linear}}
+@media(prefers-reduced-transparency:reduce){.glass-lab .g-surface{background:var(--color-surface);-webkit-backdrop-filter:none;backdrop-filter:none}}
+
+/* Button-first experiment: only a small selected plate moves. */
+.glass-lab .g-primary{background:linear-gradient(135deg,rgb(var(--glass-tint)/.12),transparent 55%),rgb(var(--glass-ink)/var(--glass-button-green-alpha));-webkit-backdrop-filter:blur(var(--glass-button-blur));backdrop-filter:blur(var(--glass-button-blur));border:1px solid rgb(var(--glass-tint)/.38);box-shadow:inset 0 1px 0 rgb(var(--glass-tint)/.3),inset 0 -1px 0 rgb(var(--glass-ink)/.14),var(--glass-shadow-light)}
+.glass-lab.no-blur .g-primary{background:var(--color-primary);-webkit-backdrop-filter:none;backdrop-filter:none}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.glass-lab .g-primary{background:var(--color-primary)}}
+
+/* User choice only affects preview controls; reference samples retain their grades. */
+.glass-lab[data-glass-material="standard"]{--glass-user-alpha:var(--glass-control-standard-alpha);--glass-user-blur:var(--glass-control-standard-blur);--glass-user-shadow:var(--glass-control-shadow);--glass-button-alpha:.78;--glass-button-blur:26px;--glass-button-green-alpha:.92}
+.glass-lab[data-glass-material="strong"]{--glass-user-alpha:var(--glass-control-strong-alpha);--glass-user-blur:var(--glass-control-strong-blur);--glass-user-shadow:var(--glass-control-shadow);--glass-button-alpha:.94;--glass-button-blur:32px;--glass-button-green-alpha:.97}
+.glass-lab .g-preference{--g-alpha:var(--glass-user-alpha);--g-blur:var(--glass-user-blur);--g-shadow:var(--glass-user-shadow)}
+
+/* A slightly thicker optical edge on small controls; large panels remain static. */
+.glass-lab .g-preference{border-color:var(--glass-rim-side);box-shadow:inset 0 1px 0 var(--glass-rim-top),inset 1px 0 0 var(--glass-rim-side),inset 0 -1px 0 var(--glass-rim-bottom),inset 0 0 0 1px rgb(var(--glass-tint)/.2),var(--g-shadow)}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+ .glass-lab .g-preference{background:linear-gradient(180deg,rgb(var(--glass-tint)/.2),rgb(var(--glass-tint)/.02) 52%,rgb(var(--glass-ink)/.025)),rgb(var(--glass-tint)/var(--g-alpha));-webkit-backdrop-filter:blur(var(--g-blur)) saturate(var(--glass-control-saturation));backdrop-filter:blur(var(--g-blur)) saturate(var(--glass-control-saturation))}
+}
+.glass-lab.no-blur .g-preference{background:var(--color-surface);-webkit-backdrop-filter:none;backdrop-filter:none}
+@media(prefers-reduced-transparency:reduce){.glass-lab .g-preference{background:var(--color-surface);-webkit-backdrop-filter:none;backdrop-filter:none}}
