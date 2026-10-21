@@ -98,8 +98,8 @@
     "workshop-display.js": "05c0c647389c9aa6e30a4f0a76a972459c6ed22df29b382801dbdcc4058bf617",
     "workshop-ink.js": "3b600aaaa05a3d7928ec648759f5c956cd3789da1daf92509dc2528a1babbc87",
     "workshop.css": "28744906e1f2c2cc5749d64a326b1168be4eee918c30e3362d91bcf7d14e6da0",
-    "workshop.html": "b3501375465e9fcd9cb26c67603619c06c4b864503364562313f8e831f546fa7",
-    "workshop.js": "7409d45208df1dc1a51d1a7b0383058a3451519bf1e97bacd2f9276828ba3d98",
+    "workshop.html": "b84aa0af7a0654e60dde6b57219ad200f4270487c5bc6db88fa6fdf66dbb1366",
+    "workshop.js": "bc3d5d76dc4a8f18565818a316e7384e87580b7a60a8139ccb874f9136493e9b",
     "tests/brew-model.test.cjs": "94293b487524e7fbe6e97952752bfee617cce13d06ad8dddbeade343f535ea3e",
     "tests/equipment-station.test.cjs": "4d614d8d39b7afde8be707b6f0a81aafdccc5eaa12c21a4d299fdb25512e6765",
     "tests/exhibition-motion.test.cjs": "fc1657aca81c69c26a59981bfcbffe32a70d8ce3e98ae00547b074906029455d",
@@ -123,6 +123,7 @@
     "tests/shop-round.test.cjs": "334496005cb7494146b799c4585531874fb95d7a6bf504529ffc26469e77e17b",
     "tests/site-dock.test.cjs": "719fac584fd1e3d5225a8456c687f259f4f75dfd9ba0a8680831cab79fa08552",
     "tests/studio-motion.test.cjs": "ebf6a93e3a64fdbd57d8545221ddf04ed5ad2ce1bd35db56c485f73ceb7b15a1",
+    "tests/workshop-attachment.test.cjs": "e0a7c3837ea7666d1cb7e58d6d6d0d12eb0021aab8994b66491cb76b72cf3022",
     "tests/workshop-controls.test.cjs": "781e55262edcedf1745bd66e36e0ab7bcb01cf451e313c6a750921a9ba21f24a",
     "tests/workshop-display.test.cjs": "f638eada58e107747ad50a0159ffff6e73339ed02acecc2a87f05ad1d9ec38cf",
     "tests/workshop-ink.test.cjs": "11fdcd30cc7e9a48af97b03143f4f64cd5f827acf755984b269980dcec66de5d"
