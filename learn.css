@@ -23,6 +23,7 @@
 .bean-seam{stroke:var(--color-accent)}
 .bean-seam-light{stroke:var(--color-bg);opacity:var(--bean-light-seam)}
 .bean-tone,.bean-depth,.bean-seam-light{transition:opacity var(--motion-slow) var(--ease-soft)}
+#bean-figure[data-bean-motion="drawing"] :is(.bean-tone,.bean-depth,.bean-seam-light){transition:none}
 .lesson-tabs{flex-direction:row;flex-wrap:wrap}
 .lesson-tabs button{flex:1 0 auto;min-width:var(--control-height);font-size:var(--text-sm)}
 .lesson-tabs button[aria-selected="true"]{background:var(--color-primary);color:var(--color-bg);border-color:var(--color-primary)}
