@@ -1,0 +1,15 @@
+.collection{max-width:1512px;padding:25px 5.3% 0;margin:auto}
+.collection-heading{display:flex;justify-content:space-between;align-items:center;color:#899580;font-size:8px;letter-spacing:2px;margin-bottom:13px}
+.collection-heading small{font-size:10px;letter-spacing:.7px}
+.brewer-options{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));padding:5px;gap:4px;background:linear-gradient(135deg,#fff9,#dedfd351);border:1px solid #e3e5da;border-radius:40px;box-shadow:inset 0 1px 0 #fff,0 7px 25px -24px #24423970}
+.brewer-options button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:45px;padding:7px 8px;background:none;border:1px solid transparent;border-radius:30px;font-size:12px;white-space:nowrap;color:#768572;transition:background 400ms var(--ease),color 400ms,transform 400ms var(--ease)}
+.brewer-options button>span{font:italic 10px Georgia,serif;color:#a0ab96}
+.brewer-options button[aria-pressed=true]{background:#fffdf5;box-shadow:inset 0 1px 0 #fff,0 3px 8px -5px #24423955;color:#244239}
+.brewer-options button:active{transform:scale(.97)}
+.study{min-height:0;padding-top:24px}.exhibition{transition:opacity 180ms ease-in-out,transform 300ms var(--ease)}
+.exhibition.is-changing{opacity:0;transform:translateY(7px) scale(.985);pointer-events:none}
+.specimen h2{font-family:var(--serif),Georgia,serif}.specimen-number{font-size:32px}.timeline-labels{gap:9px}.timeline-labels i{margin-left:5px}
+@media(max-width:960px){.collection{padding-inline:4%}.brewer-options button{font-size:11px;gap:4px;padding-inline:4px}.brewer-options button>span{display:none}.editorial{min-width:0}.editorial-actions{gap:8px}.secondary{padding-inline:15px}}
+@media(max-width:700px){.collection{padding:22px 22px 0}.collection-heading{font-size:7px;letter-spacing:1.4px;margin-bottom:11px}.collection-heading small{font-size:8px;letter-spacing:.2px}.brewer-options{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;border-radius:25px;padding:5px}.brewer-options button{min-height:42px;font-size:11px}.brewer-options button:last-child{grid-column:3/5}.study{padding-top:25px}.specimen h2{font-size:21px}.specimen p{max-width:110px}.intro{max-width:100%}.stage-header{font-size:6px;gap:8px}.viewport{height:395px}}
+@media(hover:hover){.brewer-options button:hover{color:#244239;background:#ffffff65}.brewer-options button[aria-pressed=true]:hover{background:#fffdf5}}
+@media(prefers-reduced-motion:reduce){.exhibition,.brewer-options button{transition:none!important}}

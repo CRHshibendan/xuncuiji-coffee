@@ -1,0 +1,32 @@
+/* Only the classroom's equipment illustration becomes an interactive model. */
+#equipment .brewer-pin-zone{display:contents}
+#equipment .lesson-figure{grid-column:1;grid-row:1 / span 2;align-self:center}
+#equipment .brewer-information{grid-column:2;grid-row:1}
+#equipment #brewer-copy{grid-column:2;grid-row:2}
+#equipment .brewer-layout{row-gap:var(--space-48)}
+#equipment .brewer-3d-stage{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 240ms ease-in-out;cursor:grab;touch-action:pan-y;outline:none}
+#equipment .brewer-3d-stage canvas{display:block;width:100%;height:100%}
+#equipment .brewer-3d-stage:focus-visible{outline:2px solid var(--color-primary);outline-offset:5px;border-radius:24px}
+#equipment .brewer-3d-stage.is-dragging{cursor:grabbing}
+#equipment .brewer-3d-stage.is-changing{opacity:0;pointer-events:none}
+#equipment .brewer-3d-ready>svg{display:none!important}
+#equipment .brewer-3d-ready>.brewer-3d-stage:not(.is-changing){opacity:1;pointer-events:auto}
+#equipment .brewer-3d-controls{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 20px;font-size:var(--text-sm)}
+#equipment .brewer-3d-controls p{flex-basis:100%;text-align:center;color:var(--color-text-muted,var(--color-text));font-size:.85em;min-height:1.5em}
+#equipment .brewer-3d-controls button{font-size:inherit;padding:8px 14px;min-height:44px;border-radius:999px}
+#equipment .brewer-3d-controls button:disabled{opacity:.4;cursor:default}
+#equipment .brewer-3d-controls button:focus-visible{outline:2px solid var(--color-primary);outline-offset:3px}
+@media(max-width:760px){
+ #equipment .brewer-layout{display:block}
+ /* This parent ends at option seven, so native sticky releases before the copy. */
+ #equipment .brewer-pin-zone{display:block;isolation:isolate}
+ #equipment .lesson-figure{position:sticky;top:env(safe-area-inset-top,0px);z-index:2;gap:8px;background:var(--color-bg);padding:8px 0 12px}
+ #equipment #lesson-brewer-display{max-width:420px;height:clamp(160px,32svh,280px);aspect-ratio:auto}
+ #equipment .brewer-3d-controls{gap:4px 6px;font-size:13px}
+ #equipment .brewer-3d-controls button{padding:5px 10px;min-height:40px}
+ #equipment .lesson-figure figcaption{font-size:12px;line-height:1.5;text-align:center;min-height:36px;justify-content:center}
+ #equipment .brewer-information{padding-bottom:12px}
+ #equipment #brewer-copy{margin-top:var(--space-32,32px)}
+ #equipment [data-learn-brewer]{scroll-margin-top:calc(32svh + 148px)}
+}
+@media(prefers-reduced-motion:reduce){#equipment .brewer-3d-stage{transition:none}}

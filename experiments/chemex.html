@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f7f5ef"><meta name="robots" content="noindex,nofollow">
+<title>一笔，成器 · 寻萃集</title>
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="stylesheet" href="chemex.css?v=1">
+<script type="module" src="chemex-scene.js?v=2"></script>
+</head>
+<body>
+<header class="masthead">
+ <a class="brand" href="../index.html" aria-label="寻萃集首页"><svg viewBox="0 0 36 42" fill="none" aria-hidden="true"><ellipse cx="18" cy="21" rx="11" ry="17" transform="rotate(27 18 21)"/><path d="M25 7C8 14 27 28 11 36"/></svg><span>寻萃集</span></a>
+ <a class="room-name" href="brewers.html?tool=chemex">七 件 器 具 预 览 ↗</a>
+ <a class="back-link" href="../learn.html?tool=chemex#equipment">回到课堂 <span>↗</span></a>
+</header>
+<main class="study">
+ <section class="editorial" aria-labelledby="title">
+  <p class="eyebrow"><span class="small-rule"></span> FROM A LINE, TO A FORM</p>
+  <h1 id="title">一笔，<br><span>慢慢成器。</span></h1>
+  <p class="intro">让平面的轮廓立起来。<br>转个角度，重新认识这一只 Chemex。</p>
+  <div class="specimen"><span class="specimen-number">01</span><div><h2>Chemex</h2><p>玻璃滤壶 · 原木护套 · 纸滤</p></div></div>
+  <div class="editorial-actions"><button class="button primary" id="replay"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/></svg>再看一次成器</button><button class="button secondary" id="paper-toggle" aria-pressed="false">提起滤纸 <span>↗</span></button></div>
+  <div class="observation" aria-live="polite"><span id="note-number">01 / 轮廓</span><p id="note">每一笔，都从同一刻开始。</p></div>
+ </section>
+ <section class="exhibition" aria-label="可旋转的 Chemex 器具模型">
+  <div class="stage-header"><span>CHEMEX / FORM STUDY</span><span id="stage-tag">线条正在成形</span></div>
+  <div id="viewport" class="viewport" tabindex="0" role="img" aria-label="Chemex 三维模型。左右拖动或按左右方向键旋转，上下方向键俯仰。">
+   <img class="fallback-art" id="fallback" src="../assets/flat-chemex.svg" alt="Chemex 线稿">
+   <div class="loading" id="loading" role="status"><span></span><p>把线条，慢慢立起来。</p></div>
+   <div class="orientation" aria-hidden="true"><span></span><i></i><b>FRONT</b></div>
+  </div>
+  <p class="gesture-hint" id="gesture-hint"><svg viewBox="0 0 48 16" fill="none" aria-hidden="true"><path d="M2 8h44M7 3 2 8l5 5M41 3l5 5-5 5"/></svg><span>左右拖动，换个角度看看</span></p>
+  <div class="view-options" role="group" aria-label="观察角度"><button data-view="front" aria-pressed="true">正面</button><button data-view="side" aria-pressed="false">侧面</button><button data-view="top" aria-pressed="false">俯看</button></div>
+  <div class="timeline"><div class="timeline-labels" aria-hidden="true"><span data-phase="0" class="current">01 <i>轮廓</i></span><span data-phase="1">02 <i>上色</i></span><span data-phase="2">03 <i>体积</i></span><span data-phase="3">04 <i>材质</i></span></div><label class="sr-only" for="formation">成器进度</label><input id="formation" type="range" min="0" max="1000" value="0" aria-valuetext="绘制轮廓"><div class="timeline-foot"><span>从一张线稿，到一件器物</span><button id="play-toggle" aria-label="暂停成器动画" aria-pressed="true">Ⅱ</button><span class="progress-number" id="progress-number">00 / 100</span></div></div>
+ </section>
+</main>
+<footer><span>寻萃集 · 一杯咖啡，从看见开始。</span><span>FORM · MATERIAL · MOTION <i>↗</i></span></footer>
+<noscript>请启用 JavaScript，或<a href="../learn.html?tool=chemex#equipment">返回器具课堂</a>查看线稿。</noscript>
+</body></html>
