@@ -30,13 +30,46 @@
  // Preserve older links from saved notes and existing workshop navigation.
  const oldHash={ '#journal':'journal.html','#practice':'explore.html','#more-methods':'explore.html'};
  if((location.pathname.endsWith('/')||location.pathname.endsWith('index.html'))&&oldHash[location.hash]){location.replace(oldHash[location.hash]);return;}
- const menu=$('.menu-toggle'),nav=$('#site-navigation');
- function closeMenu(){nav.classList.remove('open');menu.setAttribute('aria-expanded','false');}
- menu?.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));nav.classList.toggle('open',open);});
- nav?.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu();});
- document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu?.getAttribute('aria-expanded')==='true'){closeMenu();menu.focus();}});
- document.addEventListener('click',e=>{if(!e.target.closest('.site-header'))closeMenu();});
  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
+ const menu=$('.menu-toggle'),nav=$('#site-navigation'),header=$('.site-header');
+ if(menu&&nav&&header){
+  let menuAnimation=null;
+  const isOpen=()=>menu.getAttribute('aria-expanded')==='true';
+  nav.hidden=true;nav.inert=true;menu.hidden=false;
+  header.classList.add('nav-ready');
+  function setMenu(open){
+   if(open===isOpen())return;
+   const interrupted=menuAnimation!==null;
+   const current=!nav.hidden?{opacity:getComputedStyle(nav).opacity,transform:getComputedStyle(nav).transform}:null;
+   menuAnimation?.cancel();menuAnimation=null;
+   menu.setAttribute('aria-expanded',String(open));nav.inert=!open;
+   if(!open&&nav.contains(document.activeElement))menu.focus({preventScroll:true});
+   nav.hidden=false;
+   if(reduce.matches||!nav.animate){nav.hidden=!open;return;}
+   const rest={opacity:1,transform:'translateY(0) scale(1)'};
+   const frames=open?[
+    {...(interrupted&&current?current:{opacity:0,transform:'translateY(-14px) scale(.975)'}),offset:0,easing:'cubic-bezier(.42,0,.3,1)'},
+    {opacity:1,transform:'translateY(3px) scale(1)',offset:.7,easing:'ease-in-out'},
+    {opacity:1,transform:'translateY(-1px) scale(1)',offset:.88,easing:'ease-out'},
+    {...rest,offset:1}
+   ]:[current||rest,{opacity:0,transform:'translateY(-7px) scale(.985)'}];
+   const animation=nav.animate(frames,{duration:open?560:180,easing:open?'linear':'ease-in',fill:'both'});
+   menuAnimation=animation;
+   animation.finished.then(()=>{
+    if(menuAnimation!==animation)return;
+    nav.hidden=!open;animation.cancel();menuAnimation=null;
+   }).catch(()=>{});
+  }
+  menu.addEventListener('click',()=>setMenu(!isOpen()));
+  menu.addEventListener('keydown',e=>{
+   if(e.key==='ArrowDown'){e.preventDefault();setMenu(true);nav.querySelector('a')?.focus();}
+  });
+  nav.addEventListener('click',e=>{if(e.target.closest('a'))setMenu(false);});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&isOpen()){setMenu(false);menu.focus();}});
+  document.addEventListener('click',e=>{if(!e.target.closest('.site-header'))setMenu(false);});
+  document.addEventListener('focusin',e=>{if(!header.contains(e.target))setMenu(false);});
+  reduce.addEventListener?.('change',()=>{menuAnimation?.cancel();menuAnimation=null;nav.hidden=!isOpen();});
+ }
  const motionButton=$('#hero-motion-toggle'),motionNote=$('#hero-motion-note'),motionRefresh=[];
  let artMotion=null;
  try{const saved=localStorage.getItem('xuncuiji-art-motion');if(saved==='on'||saved==='off')artMotion=saved==='on';}catch{}

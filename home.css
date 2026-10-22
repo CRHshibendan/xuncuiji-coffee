@@ -38,7 +38,7 @@ dialog{max-width:min(640px,calc(100% - var(--space-48)));max-height:calc(100svh 
 @keyframes content-enter{from{opacity:0;transform:translateY(var(--space-8))}to{opacity:1;transform:translateY(0)}}
 @keyframes content-leave{to{opacity:0;transform:translateY(calc(-1*var(--space-8)))}}
 @view-transition{navigation:auto}::view-transition-old(root){animation:content-leave var(--motion-duration) var(--motion-easing) both}::view-transition-new(root){animation:content-enter var(--motion-duration) var(--motion-easing) both}.selection-enter{animation:content-enter var(--motion-duration) var(--motion-easing) both}html.home-motion-fallback main{animation:content-enter var(--motion-duration) var(--motion-easing) both}html.home-page-leaving main{animation:content-leave var(--motion-duration) var(--motion-easing) both;pointer-events:none}
-@media(max-width:1100px){.header-inner{padding-inline:var(--space-24);flex-wrap:wrap}.menu-toggle{display:flex}.site-header nav{display:none;width:100%;flex-direction:column;align-items:stretch;gap:0}.site-header nav.open{display:flex}.site-header nav a{min-height:var(--control-height);padding-inline:var(--space-24);border-bottom:1px solid var(--card-border)}}
+@media(max-width:1100px){.header-inner{padding-inline:var(--space-24);flex-wrap:wrap}.site-header:not(.nav-ready) nav{width:100%;flex-wrap:wrap;gap:8px 24px}}
 @media(max-width:760px){
  .page-width{width:calc(100% - var(--space-24)*2)}
  .hero{padding-top:var(--space-48)}.hero h1{font-size:var(--text-mobile-hero)}.hero-art{width:240px;height:240px}.hero .label{font-size:var(--text-xs)}.hero-description{max-width:19em}
@@ -106,3 +106,30 @@ html[data-art-motion="off"] :is(.hero-art,.brewer-display) svg > .hero-main-line
 :is(.hero-art,.brewer-display) svg.is-leaving .hero-ink-line{animation:hero-main-retract 1s var(--hero-ease-both) forwards;animation-delay:0s}
 :is(.hero-art,.brewer-display) svg.is-leaving.is-click-exit .hero-ink-line{animation-duration:.4s}
 html[data-art-motion="off"] :is(.hero-art,.brewer-display) svg > .hero-ink-line{display:none!important}
+
+/* One quiet disclosure for the shared header; links remain available without JS. */
+.header-inner{position:relative}
+.nav-ready .menu-toggle{display:inline-flex;border-radius:999px;padding-inline:22px;gap:12px}
+.nav-ready .menu-toggle svg{transition:transform 320ms cubic-bezier(.45,0,.55,1)}
+.nav-ready .menu-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+.site-header.nav-ready nav{
+ position:absolute;top:calc(100% + 10px);right:48px;width:280px;
+ display:flex;flex-direction:column;align-items:stretch;gap:0;padding:10px;
+ max-height:calc(100svh - 120px);overflow-y:auto;overscroll-behavior:contain;
+ border:1px solid rgba(255,255,255,.8);border-radius:22px;
+ background:var(--color-bg);color:var(--color-primary);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 16px 36px -18px rgba(31,61,52,.24),0 3px 8px -5px rgba(31,61,52,.15);
+ transform-origin:top right;
+}
+.site-header.nav-ready nav a{min-height:48px;padding:10px 18px;border:0;border-radius:13px;justify-content:space-between;gap:24px;line-height:1.5;text-decoration:none;transition:background-color 180ms ease,color 180ms ease}
+.site-header.nav-ready nav a::after{content:'↗';font-size:14px;opacity:.4;transition:transform 200ms ease,opacity 200ms ease}
+.site-header.nav-ready nav a:focus-visible{outline-offset:-2px;background:rgba(31,61,52,.05)}
+.site-header.nav-ready nav a:active{background:rgba(31,61,52,.09)}
+@media(hover:hover){.site-header.nav-ready nav a:hover{background:rgba(31,61,52,.045)}.site-header.nav-ready nav a:hover::after{transform:translate(2px,-2px);opacity:.8}}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+ .site-header.nav-ready nav{background:linear-gradient(145deg,rgba(255,255,255,.3),transparent 65%),rgba(246,243,236,.9);-webkit-backdrop-filter:blur(18px) saturate(1.1);backdrop-filter:blur(18px) saturate(1.1)}
+}
+@media(max-width:1100px){.site-header.nav-ready nav{right:24px}}
+@media(max-width:480px){.site-header.nav-ready nav{width:min(280px,calc(100vw - 48px))}.nav-ready .menu-toggle{padding-inline:18px}}
+/* The classroom header is static by design; anchor its floating panel above the lessons. */
+.classroom-page .site-header.nav-ready{position:relative}
