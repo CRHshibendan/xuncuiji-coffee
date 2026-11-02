@@ -66,3 +66,61 @@
  .site-glass .play-mode-tabs>button{flex:1 1 0;min-width:0;white-space:nowrap;padding-inline:6px!important}
  .site-glass .play-mode-tabs>button[data-play-mode="gesture"]{flex-grow:1.6}
 }
+
+.site-glass .round-options>button>small>span{display:inline-block;white-space:nowrap;font:inherit;color:inherit}
+/* Mobile control alignment: brief labels are centered; reading copy keeps its alignment. */
+@media (max-width:768px), (max-width:1024px) and (max-height:520px){
+ .site-glass :is(.primary,.secondary,.solid-button,.soft-button,.pill,.hud-button,
+ .hands-on-actions button,.scene-toolbar button,.workshop-display-toggle,
+ .workshop-play-toolbar button,.heat-buttons button,.dose-chips button){
+  display:inline-flex;align-items:center;justify-content:center;text-align:center;
+  gap:6px;line-height:1.5;min-height:44px;
+ }
+ .site-glass :is(.play-mode-tabs,.setting-tabs,.grind-options,.mobile-scene-controls [role="group"])>button{
+  display:flex;align-items:center;justify-content:center;text-align:center;gap:4px;line-height:1.5;
+ }
+ .site-glass .gesture-beta-tag{display:inline-flex;align-items:center;justify-content:center;line-height:1.2;flex-shrink:0}
+ .site-glass #studio-tool{box-sizing:border-box;text-align:center;text-align-last:center;padding-inline:30px;min-height:44px;line-height:1.5}
+ .site-glass .hands-on-actions #pour-hold{flex-direction:column;gap:3px}
+ .site-glass .round-options>button.glass-card-control{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;gap:6px;min-height:144px;
+ }
+ .site-glass .round-options>button>:is(span,b,small){width:100%;margin:0;text-align:center;text-wrap:balance}
+ .site-glass .round-options>button>b{line-height:1.4}
+ .site-glass .round-options>button>small{line-height:1.65}
+ .site-glass .parameter-cards>button{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;gap:5px;
+ }
+ .site-glass .parameter-cards>button>:is(span,strong){margin:0;text-align:center}
+ .site-glass .live-dashboard>div{text-align:center}
+ .site-glass .live-dashboard strong{display:block}
+ .site-glass :is(.toast,.scene-toast,.report-feedback){text-align:center}
+ /* One backdrop per group/dialog; moving plates reuse the already frosted surface. */
+ .site-glass .glass-switch>.glass-slider,
+ .site-glass dialog.glass-panel .glass-control{
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+ }
+ .site-glass .glass-switch>.glass-slider{transition-duration:320ms}
+ .site-glass .glass-switch>button:not(:disabled):active{opacity:.7}
+ .site-glass dialog.glass-panel{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+}
+@media (max-width:760px){
+ .site-glass .xc-refined #restart{width:44px;height:44px;min-width:44px;min-height:44px}
+ .site-glass .xc-refined #restart::before{
+  position:absolute;inset:0;display:grid;place-items:center;font-size:20px;line-height:1;
+ }
+}
+
+@media (max-width:360px){
+ .site-glass .welcome-dialog h2{font-size:22px}
+ .site-glass .round-options{grid-template-columns:minmax(0,1fr)}
+ .site-glass .round-options>button.glass-card-control{min-height:112px}
+ .site-glass .round-options>button>b{font-size:18px;white-space:nowrap}
+ .site-glass .round-options>button>:is(span,small){font-size:12px}
+}
+@media (max-width:768px){
+ .site-glass .welcome-foot a{white-space:nowrap}
+ .site-glass :is(.welcome-copy,.welcome-foot){text-wrap:balance}
+}

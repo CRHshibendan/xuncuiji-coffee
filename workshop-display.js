@@ -111,5 +111,5 @@
  observer.observe(body,{attributes:true,attributeFilter:['class']});
  for(const node of [$('#guide-command'),$('#instruction-title')])if(node)observer.observe(node,{subtree:true,childList:true,characterData:true});
  refresh();
- if(mobile.matches&&!dismissed)prompt.showModal();
+ // Keep the normal page on entry. Only the explicit expand buttons start this session.
 })(typeof window==='undefined'?globalThis:window);
