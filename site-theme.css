@@ -34,3 +34,49 @@
 @media(max-width:768px){.theme-toggle{padding:8px;gap:0}.theme-toggle>span{display:none}.site-header .header-inner{gap:12px}.studio-header,.shop-header,.masthead{flex-wrap:wrap}.theme-dialog{padding:20px}.gesture-panel-heading .theme-toggle{margin-left:auto}}
 @media(prefers-reduced-motion:reduce){.theme-toggle:active{transform:none}}
 @media(forced-colors:active){.theme-toggle,.theme-dialog label{border:1px solid ButtonText}.theme-dialog{background:Canvas;color:CanvasText}}
+
+/* The same frosted material as the site's moving capsule controls. */
+:root{
+ --theme-glass-tint:251 249 244;--theme-glass-ink:31 61 52;
+ --theme-glass-alpha:.7;--theme-panel-alpha:.88;--theme-glass-blur:18px;
+ --theme-rim:rgb(255 255 255/.65);--theme-highlight:rgb(255 255 255/.8);
+ --theme-shadow:0 12px 30px -14px rgb(31 61 52/.24),0 2px 6px -3px rgb(31 61 52/.16);
+}
+:root[data-theme="dark"]{
+ --theme-glass-tint:35 44 38;--theme-glass-ink:180 209 189;
+ --theme-glass-alpha:.76;--theme-panel-alpha:.94;
+ --theme-rim:rgb(226 242 230/.17);--theme-highlight:rgb(226 242 230/.16);
+ --theme-shadow:0 14px 36px -14px #0009,0 2px 6px -3px #0007;
+}
+:root[data-glass-material="standard"]{--theme-glass-alpha:.82;--theme-glass-blur:24px;--theme-panel-alpha:.94}
+:root[data-glass-material="strong"]{--theme-glass-alpha:.96;--theme-glass-blur:28px;--theme-panel-alpha:.98}
+.theme-dialog .theme-choices{position:relative;isolation:isolate;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:6px;border:1px solid var(--theme-rim);border-radius:999px;background:var(--color-surface,#fbf9f4);box-shadow:inset 0 1px 0 var(--theme-highlight),inset 0 -1px 0 rgb(var(--theme-glass-ink)/.08),var(--theme-shadow)}
+.theme-dialog .theme-choices::before{content:"";position:absolute;inset:6px auto 6px 6px;width:calc((100% - 12px)/3);pointer-events:none;border:1px solid var(--theme-rim);border-radius:999px;background:var(--color-surface,#fbf9f4);box-shadow:inset 0 1px 1px var(--theme-highlight),0 4px 12px -6px #0004;transform:translateX(0);transition:transform 420ms cubic-bezier(.45,0,.55,1)}
+:root[data-theme-preference="light"] .theme-choices::before{transform:translateX(100%)}
+:root[data-theme-preference="dark"] .theme-choices::before{transform:translateX(200%)}
+.theme-dialog .theme-choices .theme-choice{position:relative;z-index:1;display:flex!important;flex-direction:row!important;align-items:center;justify-content:center;min-width:0;min-height:48px;padding:10px 4px!important;margin:0!important;border:0!important;border-radius:999px;background:transparent!important;box-shadow:none!important;color:var(--color-primary,#1f3d34);font:400 14px/1.5 system-ui,sans-serif;cursor:pointer;touch-action:manipulation;white-space:nowrap}
+.theme-dialog .theme-choices .theme-choice>span{display:block;pointer-events:none}
+.theme-dialog .theme-choices .theme-choice>input{position:absolute!important;inset:auto!important;width:1px!important;height:1px!important;min-width:0!important;min-height:0!important;margin:0!important;padding:0!important;border:0!important;opacity:0!important;clip-path:inset(50%);overflow:hidden;outline:0!important}
+.theme-dialog .theme-choice:has(input:checked)>span{font-weight:600}
+.theme-dialog .theme-choice:has(input:focus-visible){outline:2px solid rgb(var(--theme-glass-ink)/.6);outline-offset:-3px}
+.theme-dialog .theme-choice:active>span{opacity:.65}
+/* Higher specificity than the generated legacy rules, including @supports. */
+:root[data-theme] .site-header.nav-ready nav,:root[data-theme] .theme-dialog.glass-panel,:root[data-theme] .theme-dialog{
+ background:var(--color-surface,#fbf9f4)!important;color:var(--color-text,#1f2a26)!important;
+ border:1px solid var(--theme-rim)!important;
+ box-shadow:inset 0 1px 0 var(--theme-highlight),inset 0 -1px 0 rgb(var(--theme-glass-ink)/.08),var(--theme-shadow)!important;
+}
+:root[data-theme] .site-header.nav-ready nav a{color:var(--color-primary,#1f3d34)!important;border-radius:999px;background:transparent}
+:root[data-theme] .site-header.nav-ready nav a:is(:hover,:focus-visible){background:rgb(var(--theme-glass-ink)/.1)!important;color:var(--color-primary,#1f3d34)!important;text-decoration:none}
+:root[data-theme] .site-header.nav-ready nav a:active{background:rgb(var(--theme-glass-ink)/.16)!important}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+ :root[data-theme] .site-header.nav-ready nav,:root[data-theme] .theme-dialog.glass-panel,:root[data-theme] .theme-dialog{background:linear-gradient(145deg,rgb(var(--theme-glass-tint)/.18),transparent 60%),rgb(var(--theme-glass-tint)/var(--theme-panel-alpha))!important;-webkit-backdrop-filter:blur(var(--theme-glass-blur)) saturate(1.35);backdrop-filter:blur(var(--theme-glass-blur)) saturate(1.35)}
+ .theme-dialog .theme-choices{background:linear-gradient(145deg,rgb(var(--theme-glass-tint)/.25),transparent 60%),rgb(var(--theme-glass-tint)/var(--theme-glass-alpha))}
+ .theme-dialog .theme-choices::before{background:linear-gradient(180deg,rgb(var(--theme-glass-tint)/.4),rgb(var(--theme-glass-ink)/.04)),rgb(var(--theme-glass-tint)/.76)}
+}
+@media(max-width:400px){.theme-dialog .theme-choices .theme-choice{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.theme-dialog .theme-choices::before{transition:none}}
+@media(prefers-reduced-transparency:reduce){:root[data-theme] .site-header.nav-ready nav,:root[data-theme] .theme-dialog.glass-panel,:root[data-theme] .theme-dialog{background:var(--color-surface,#fbf9f4)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}.theme-dialog .theme-choices,.theme-dialog .theme-choices::before{background:var(--color-surface,#fbf9f4)}}
+@media(forced-colors:active){.theme-dialog .theme-choice:has(input:checked){outline:2px solid Highlight}.theme-dialog .theme-choices::before{background:Canvas;border-color:Highlight}}
+
+@media(forced-colors:active){:root[data-theme] .site-header.nav-ready nav,:root[data-theme] .theme-dialog.glass-panel,:root[data-theme] .theme-dialog{background:Canvas!important;color:CanvasText!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border-color:ButtonText!important}:root[data-theme] .site-header.nav-ready nav a{color:LinkText!important}}
