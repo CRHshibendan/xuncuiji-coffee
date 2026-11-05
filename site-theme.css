@@ -16,8 +16,8 @@
 :root[data-theme="dark"] .glass-lab{--glass-tint:35 44 38;--glass-ink:180 209 189;--glass-rim-top:rgb(228 240 229/.22);--glass-rim-side:rgb(228 240 229/.14)}
 :root[data-theme="dark"] .glass-lab .scene-copy,:root[data-theme="dark"] .glass-lab .scene-copy p{color:#e4e8df!important}
 :root[data-theme="dark"] :is(.hero-art,.brewer-display,.bean-art){color:#c7d8c9}
-/* The table illustrations keep their own warm paper and natural coffee pigments. */
-:root[data-theme="dark"] :is(.scene-wrap,.shop-scene,#stage){background:#e9e6da!important;color:#343a2e}
+/* Shop illustration retains its original pigments; the workbench uses its own theme below. */
+:root[data-theme="dark"] :is(.shop-scene,#stage){background:#e9e6da!important;color:#343a2e}
 :root[data-theme="dark"] .site-dock{--dock-surface:#232c26;--dock-ink:#b4d1bd;--dock-border:#536559}
 :root[data-theme="dark"] .glass-primary{color:#16231b!important}
 :root[data-theme="dark"] .glass-preference-options input:checked+span{background:#b4d1bd;color:#16231b}
@@ -80,3 +80,31 @@
 @media(forced-colors:active){.theme-dialog .theme-choice:has(input:checked){outline:2px solid Highlight}.theme-dialog .theme-choices::before{background:Canvas;border-color:Highlight}}
 
 @media(forced-colors:active){:root[data-theme] .site-header.nav-ready nav,:root[data-theme] .theme-dialog.glass-panel,:root[data-theme] .theme-dialog{background:Canvas!important;color:CanvasText!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border-color:ButtonText!important}:root[data-theme] .site-header.nav-ready nav a{color:LinkText!important}}
+
+/* Explicit light surfaces also reset restored Safari form / dialog appearance. */
+:root[data-theme="light"]{color-scheme:light;--theme-glass-tint:251 249 244;--theme-glass-ink:31 61 52}
+:root[data-theme] .theme-dialog{color-scheme:inherit}
+:root[data-theme] .theme-dialog .theme-choice{color:rgb(var(--theme-glass-ink))!important}
+:root[data-theme] .theme-dialog .theme-done,:root[data-theme] .theme-dialog .theme-close{color:rgb(var(--theme-glass-ink))!important}
+/* One night palette for the workbench, at every breakpoint and in expanded mode.
+   Only the room, table and UI change: ceramic, glass, coffee and water keep their pigments. */
+:root[data-theme="dark"][data-theme-page="workshop"]{
+ --studio-room:#1d2620;--studio-panel:#232e27;--studio-raised:#2b3830;--studio-border:#46594c;
+ --studio-copy:#c2cfc3;--studio-title:#e4e8df;--studio-table-top:#303b31;--studio-table-bottom:#263129;
+}
+:root[data-theme="dark"][data-theme-page="workshop"] :is(.studio-main,.studio-center,.scene-wrap,#scene){background:var(--studio-room)!important;color:var(--studio-title)}
+:root[data-theme="dark"][data-theme-page="workshop"] :is(.studio-header,.journey-sidebar,.coach-panel,.stage-topline,.parameter-strip,.brew-controls,.live-dashboard,.hands-on-actions,.stage-footer,.mobile-scene-controls,.workshop-play-toolbar,.gesture-panel,.gesture-livebar){background:var(--studio-panel)!important;color:var(--studio-copy)!important;border-color:var(--studio-border)!important}
+:root[data-theme="dark"][data-theme-page="workshop"] :is(.workspace,.recipe-slip,.coach-tip,.task-progress,.free-stock,.studio-bottom){border-color:var(--studio-border)!important}
+:root[data-theme="dark"][data-theme-page="workshop"] :is(.guide-banner,.operation-guide,.gesture-card,.feedback-box,.coach-tip,.recipe-slip,.heat-guide,.selection-caption:not(:empty),.scene-toast,.scene-ticker,.basic-wait,.cause-card,.live-dashboard>div){background:var(--studio-raised)!important;border-color:var(--studio-border)!important;color:var(--studio-copy)!important;box-shadow:none}
+:root[data-theme="dark"][data-theme-page="workshop"] :is(.studio-title h1,.coach-panel h2,.live-dashboard strong,.brew-controls output,.parameter-cards strong,.guide-banner strong,.heat-temperatures output,.basic-wait strong){color:var(--studio-title)!important}
+:root[data-theme="dark"][data-theme-page="workshop"] :is(.guide-banner small,.guide-banner div>span,.guide-banner p,.live-dashboard span,.live-dashboard small,.coach-panel p,.coach-panel small,.journey-sidebar p,.journey-sidebar span,.stage-footer,.scene-toolbar>span,.heat-guide p,.heat-guide>span,.heat-temperatures>span,.studio-footnote,.gesture-readout,#gesture-status){color:var(--studio-copy)!important}
+:root[data-theme="dark"][data-theme-page="workshop"] #table-grad stop:first-child{stop-color:var(--studio-table-top)}
+:root[data-theme="dark"][data-theme-page="workshop"] #table-grad stop:last-child{stop-color:var(--studio-table-bottom)}
+:root[data-theme="dark"][data-theme-page="workshop"] #scene>path:not([fill]){stroke:var(--studio-border)}
+:root[data-theme="dark"][data-theme-page="workshop"] #scene :is(.scene-caption,.object-label){fill:var(--studio-copy)!important}
+:root[data-theme="dark"][data-theme-page="workshop"] :is(.heat-progress,.progress-bar){background:#405345!important}
+:root[data-theme="dark"][data-theme-page="workshop"] :is(.heat-progress,.progress-bar)>i{background:#b4cda9!important}
+:root[data-theme="dark"][data-theme-page="workshop"] :is(.live-dashboard,.workshop-control-rail) .hands-on-actions{background:transparent!important}
+:root[data-theme="dark"] .glass-preferences{color:var(--color-primary)}
+:root[data-theme="dark"] .glass-primary :is(span,small,strong,b){color:inherit!important}
+:root[data-theme="dark"][data-theme-page="workshop"] #scene #clock-object .object-label{fill:#52624f!important}

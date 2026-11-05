@@ -18,11 +18,16 @@
  }
  apply(preference);
  system.addEventListener('change',()=>{if(preference==='system')apply(preference);});
- host.addEventListener('storage',event=>{if(event.key===key)apply(event.newValue);});
+ host.addEventListener('storage',event=>{if(event.key===key)restore(event.newValue);});
+ // Safari may restore form controls independently when returning to a cached page.
+ function restore(fallback=preference){let value=fallback;try{value=host.localStorage.getItem(key);}catch{}apply(value);}
+ host.addEventListener('pageshow',()=>restore());
  function mount(){
   const dialog=doc.createElement('dialog');dialog.className='theme-dialog';dialog.id='site-theme-dialog';dialog.setAttribute('aria-labelledby','theme-dialog-title');
   dialog.innerHTML='<form method="dialog"><div class="theme-dialog-heading"><h2 id="theme-dialog-title">界面外观</h2><button class="theme-close" aria-label="关闭外观设置">×</button></div><p>选择适合此刻的光线，所有页面同步。</p><fieldset><legend>显示模式</legend><div class="theme-choices">'+Object.entries({system:'跟随系统',light:'浅色',dark:'深色'}).map(([value,label])=>'<label class="theme-choice"><input type="radio" name="site-color-theme" value="'+value+'"><span>'+label+'</span></label>').join('')+'</div></fieldset><button class="theme-done">完成</button></form>';
-  dialog.addEventListener('change',event=>{if(event.target.name==='site-color-theme')apply(event.target.value,true);});
+  const select=value=>apply(value,true);
+  dialog.addEventListener('click',event=>{const choice=event.target.closest('.theme-choice');if(choice)select(choice.querySelector('input').value);});
+  dialog.addEventListener('change',event=>{if(event.target.name==='site-color-theme'&&event.target.value!==preference)select(event.target.value);});
   doc.body.append(dialog);
   const toggle=doc.createElement('button');toggle.type='button';toggle.className='theme-toggle';toggle.dataset.themeToggle='';toggle.setAttribute('aria-haspopup','dialog');toggle.setAttribute('aria-controls',dialog.id);toggle.title='界面外观';
   toggle.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16Z"/></svg><span>外观</span>';
