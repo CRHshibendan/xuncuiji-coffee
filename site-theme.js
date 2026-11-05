@@ -9,7 +9,7 @@
  let preference='system';try{preference=valid(host.localStorage.getItem(key));}catch{}
  root.dataset.themePage=(host.location.pathname.split('/').pop()||'index.html').replace(/\.html$/,'');
  function apply(value,save=false){
-  preference=valid(value);const theme=resolve(preference,system.matches);root.dataset.theme=theme;root.dataset.themePreference=preference;root.style.colorScheme=theme;
+  preference=valid(value);const theme=resolve(preference,system.matches);root.dataset.theme=theme;root.dataset.themePreference=preference;root.style.colorScheme='light dark';
   if(save)try{host.localStorage.setItem(key,preference);}catch{}
   doc.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='dark'?'#161d19':'#f6f3ec');
   doc.querySelectorAll('[name="site-color-theme"]').forEach(input=>input.checked=input.value===preference);

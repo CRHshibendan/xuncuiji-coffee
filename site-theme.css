@@ -5,7 +5,7 @@
  --xc-paper:#161d19;--xc-surface:#232c26;--xc-ink:#e4e8df;--xc-copy:#bec7bc;--xc-muted:#b0bbae;--xc-forest:#b4d1bd;--xc-sage:#29392e;--xc-line:#435147;--xc-brass:#d8ac7e;--xc-clay:#e5ac96;--xc-blue:#25343a;--xc-blue-ink:#b6d5e2;--xc-peach:#3a2c24;--xc-peach-ink:#edbca1;
  --glass-tint:35 44 38;--glass-ink:180 209 189;--glass-rim-top:rgb(228 240 229/.22);--glass-rim-side:rgb(228 240 229/.14);--glass-rim-bottom:rgb(0 0 0/.35);
  --glass-shadow:0 8px 22px -9px #0009,0 2px 5px -2px #0006;--glass-control-shadow:var(--glass-shadow);
- color-scheme:dark;background:var(--color-bg);color:var(--color-text);
+ color-scheme:light dark;background:var(--color-bg);color:var(--color-text);
 }
 :root[data-theme="dark"] body{background:var(--color-bg)!important;color:var(--color-text)}
 :root[data-theme="dark"] :is(input:not([type=range]):not([type=radio]):not([type=checkbox]),textarea,select){background-color:#232c26;color:#e4e8df;border-color:#536559}
@@ -82,7 +82,7 @@
 @media(forced-colors:active){:root[data-theme] .site-header.nav-ready nav,:root[data-theme] .theme-dialog.glass-panel,:root[data-theme] .theme-dialog{background:Canvas!important;color:CanvasText!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border-color:ButtonText!important}:root[data-theme] .site-header.nav-ready nav a{color:LinkText!important}}
 
 /* Explicit light surfaces also reset restored Safari form / dialog appearance. */
-:root[data-theme="light"]{color-scheme:light;--theme-glass-tint:251 249 244;--theme-glass-ink:31 61 52}
+:root[data-theme="light"]{color-scheme:light dark;--theme-glass-tint:251 249 244;--theme-glass-ink:31 61 52}
 :root[data-theme] .theme-dialog{color-scheme:inherit}
 :root[data-theme] .theme-dialog .theme-choice{color:rgb(var(--theme-glass-ink))!important}
 :root[data-theme] .theme-dialog .theme-done,:root[data-theme] .theme-dialog .theme-close{color:rgb(var(--theme-glass-ink))!important}
@@ -108,3 +108,9 @@
 :root[data-theme="dark"] .glass-preferences{color:var(--color-primary)}
 :root[data-theme="dark"] .glass-primary :is(span,small,strong,b){color:inherit!important}
 :root[data-theme="dark"][data-theme-page="workshop"] #scene #clock-object .object-label{fill:#52624f!important}
+
+/* Root advertises both authored themes to Safari Adaptive Dark Mode.
+   Native controls follow the explicit choice inside the themed body. */
+:root{color-scheme:light dark}
+:root[data-theme="light"] body{color-scheme:light}
+:root[data-theme="dark"] body{color-scheme:dark}
