@@ -70,7 +70,7 @@
   const cursor=document.createElement('div');cursor.className='gesture-cursor';cursor.hidden=true;cursor.setAttribute('aria-hidden','true');document.body.append(cursor);
   const highlightStyle=document.createElement('style');panel.append(highlightStyle);
   const $=id=>panel.querySelector('#'+id),video=$('gesture-video'),start=$('gesture-start'),stopButton=$('gesture-stop'),check=$('gesture-check'),facing=$('gesture-facing');
-  let destroyed=false,worker=null,stream=null,generation=0,bootReject=null,raf=0,active=false,busy=false,lastSent=0,lastResult=0,lastVideo=-1,interval=1000/20,latency=35,nativeUntil=0,nativePointer=false,held=false,targetPoint=null,displayPoint=null,selected=null,hovered=null,glowKey='',pinching=false,indexSmooth=null,lastFrame=0,watchdogPaused=false,bootTimer=0,unfocused=false,mirror=true;
+  let destroyed=false,worker=null,stream=null,generation=0,bootReject=null,raf=0,active=false,busy=false,lastSent=0,lastResult=0,lastVideo=-1,interval=1000/20,latency=35,nativeUntil=0,nativePointer=false,held=false,targetPoint=null,displayPoint=null,selected=null,hovered=null,glowKey='',pinching=false,indexSmooth=null,lastFrame=0,watchdogPaused=false,bootTimer=0,bootDeadline=0,unfocused=false,mirror=true;
   const listeners=[];
   function listen(el,name,fn,options){el.addEventListener(name,fn,options);listeners.push(()=>el.removeEventListener(name,fn,options));}
   function say(text,state){$('gesture-status').textContent=text;$('gesture-help-status').textContent=text;if(state)panel.dataset.state=state;}
@@ -118,23 +118,26 @@
   });
   function pause(text,options){machine.pause(text,options);cursor.hidden=true;targetPoint=displayPoint=indexSmooth=null;pinching=false;}
   function stop(text='摄像头已关闭。冲煮进度保留，可用鼠标／触摸继续。'){
-   generation++;active=false;document.body.classList.remove('gesture-camera-active');cancelAnimationFrame(raf);raf=0;clearTimeout(bootTimer);bootReject?.(new Error('cancelled'));bootReject=null;
+   generation++;active=false;document.body.classList.remove('gesture-camera-active');cancelAnimationFrame(raf);raf=0;clearTimeout(bootTimer);clearTimeout(bootDeadline);bootReject?.(new Error('cancelled'));bootReject=null;
    pause(text);stream?.getTracks().forEach(track=>track.stop());stream=null;video.pause();video.srcObject=null;
    if(worker){try{worker.postMessage({type:'close'});}catch{}worker.terminate();worker=null;}
    busy=false;start.disabled=false;check.disabled=false;stopButton.disabled=true;start.textContent='开启摄像头';$('gesture-preview-label').textContent='摄像头未开启';
   }
   function failure(error){
    const code=error?.name;let reason=code==='NotAllowedError'?'摄像头授权被拒绝。请在浏览器地址栏允许此本地站点使用摄像头，再重试。':code==='NotFoundError'?'未找到摄像头，请连接设备后重试。':code==='NotReadableError'?'摄像头无法使用，可能正被其他应用占用。关闭其他应用后重试。':code==='OverconstrainedError'?'当前摄像头不支持所选方向，请切换前／后置后重试。':'识别资源或摄像头启动失败。请确认本地模型完整、使用支持 WebAssembly／Web Worker 的浏览器后重试。';
+   if(code!=='NotAllowedError'&&code!=='NotFoundError'&&code!=='NotReadableError'&&code!=='OverconstrainedError'&&error?.message)reason=`识别启动失败：${String(error.message).slice(0,180)}。可以重试，或先用鼠标／触摸冲煮。`;
    stop(reason);start.textContent='重试开启摄像头';console.warn('[手势冲煮]',error?.message||error);
   }
   async function boot(){
-   worker=new Worker(new URL('gesture-worker.js',document.baseURI),{type:'module'});const instance=worker;
+   worker=new Worker(new URL('gesture-worker.js?v=20261105-loading1',document.baseURI),{type:'module'});const instance=worker;
    return new Promise((resolve,reject)=>{
-    bootReject=reject;bootTimer=setTimeout(()=>reject(new Error('模型初始化超时')),45000);
+    const stalled=()=>{clearTimeout(bootTimer);bootTimer=setTimeout(()=>reject(new Error('模型加载超时，网络已超过90秒没有进展')),90000);};
+    bootReject=reject;stalled();bootDeadline=setTimeout(()=>reject(new Error('模型加载超时，请检查网络后重试')),300000);
     worker.onerror=event=>reject(new Error(event.message||'Worker 加载失败'));
     worker.onmessage=({data})=>{
      if(worker!==instance)return;
-     if(data.type==='ready'){clearTimeout(bootTimer);bootReject=null;worker.onerror=event=>failure(new Error(event.message||'识别线程停止'));resolve();}
+     if(data.type==='progress'&&bootReject){stalled();say(data.phase==='initializing'?'模型下载完成，正在初始化识别引擎…':`正在下载识别资源：${(Number(data.loaded||0)/1048576).toFixed(1)} MB。首次加载可能稍久，可随时关闭。`);}
+     else if(data.type==='ready'){clearTimeout(bootTimer);clearTimeout(bootDeadline);bootReject=null;worker.onerror=event=>failure(new Error(event.message||'识别线程停止'));resolve();}
      else if(data.type==='error'){if(bootReject){reject(new Error(data.message));}else failure(new Error(data.message));}
      else if(data.type==='result')receive(data);
     };

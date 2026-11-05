@@ -1,7 +1,9 @@
 /* Browser API doubles: exercises cleanup/ownership without touching a camera. */
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync(require.resolve('../gesture-studio.js'),'utf8'),GestureCore=require('../gesture-core.js');
-function fixture({pending=false,denied=false,modelError=false,hostname='127.0.0.1',protocol='http:'}={}){
+function fixture({pending=false,denied=false,modelError=false,hostname='127.0.0.1',protocol='http:',manualWorker=false,fakeTimers=false}={}){
+ const timers=new Map();let timerId=0;
+ const later=(fn,ms)=>{timers.set(++timerId,{fn,at:clock+ms});return timerId;};
  const nodes=new Map(),listeners=new Map(),frames=new Map(),workers=[],tracks=[];let next=0,requests=0,resolvePermission,pauses=0,clock=0;
  function node(id){if(nodes.has(id))return nodes.get(id);const events={},classes=new Set();
   const el={id,dataset:{},value:'user',textContent:'',disabled:false,hidden:false,readyState:2,videoWidth:640,videoHeight:480,currentTime:0,style:{setProperty(){},removeProperty(){}},getBoundingClientRect:()=>({height:100}),showModal(){},close(){},classList:{add:x=>classes.add(x),remove:x=>classes.delete(x),toggle(x,on){on?classes.add(x):classes.delete(x);}},setAttribute(){},remove(){},querySelector:s=>node(s.slice(1)),querySelectorAll:()=>[],insertAdjacentElement(){},append(){},pause(){},async play(){},addEventListener:(n,f)=>{(events[n]??=[]).push(f);},removeEventListener:(n,f)=>{events[n]=(events[n]||[]).filter(g=>g!==f);},fire(n,e={}){return(events[n]||[]).map(fn=>fn(e));}};
@@ -12,18 +14,18 @@ function fixture({pending=false,denied=false,modelError=false,hostname='127.0.0.
  function stream(){const track={stops:0,stop(){this.stops++;},addEventListener(){},getSettings:()=>({facingMode:'user'})};tracks.push(track);return{getTracks:()=>[track],getVideoTracks:()=>[track]};}
  class Worker{
   constructor(){workers.push(this);this.terminated=false;}
-  postMessage(m){if(m.type==='init')queueMicrotask(()=>this.onmessage?.({data:modelError?{type:'error',message:'missing model'}:{type:'ready'}}));}
+  postMessage(m){if(m.type==='init'&&!manualWorker)queueMicrotask(()=>this.onmessage?.({data:modelError?{type:'error',message:'missing model'}:{type:'ready'}}));}
   terminate(){this.terminated=true;}
  }
  document.dispatchEvent=event=>{(listeners.get(event.type)||[]).forEach(fn=>fn(event));return true;};
- const context={CustomEvent:class{constructor(type,options={}){this.type=type;this.detail=options.detail;}},GestureCore,location:{hostname,protocol,href:protocol+'//'+hostname+'/xuncuiji-coffee/workshop.html?tool=melitta&mode=gesture'},document,Worker,OffscreenCanvas:function(){},createImageBitmap:()=>{},isSecureContext:true,navigator:{mediaDevices:{async getUserMedia(){requests++;if(denied)throw Object.assign(new Error('denied'),{name:'NotAllowedError'});if(pending)return new Promise(resolve=>resolvePermission=()=>resolve(stream()));return stream();}}},URL,performance:{now:()=>clock},requestAnimationFrame:fn=>{frames.set(++next,fn);return next;},cancelAnimationFrame:id=>frames.delete(id),setTimeout,clearTimeout,console:{warn(){}},innerWidth:1024,innerHeight:768};
+ const context={CustomEvent:class{constructor(type,options={}){this.type=type;this.detail=options.detail;}},GestureCore,location:{hostname,protocol,href:protocol+'//'+hostname+'/xuncuiji-coffee/workshop.html?tool=melitta&mode=gesture'},document,Worker,OffscreenCanvas:function(){},createImageBitmap:()=>{},isSecureContext:true,navigator:{mediaDevices:{async getUserMedia(){requests++;if(denied)throw Object.assign(new Error('denied'),{name:'NotAllowedError'});if(pending)return new Promise(resolve=>resolvePermission=()=>resolve(stream()));return stream();}}},URL,performance:{now:()=>clock},requestAnimationFrame:fn=>{frames.set(++next,fn);return next;},cancelAnimationFrame:id=>frames.delete(id),setTimeout:fakeTimers?later:setTimeout,clearTimeout:fakeTimers?id=>timers.delete(id):clearTimeout,console:{warn(){}},innerWidth:1024,innerHeight:768};
  context.window=context;context.addEventListener=(n,f)=>document.addEventListener(n,f);context.removeEventListener=(n,f)=>document.removeEventListener(n,f);
  vm.runInNewContext(source,context);
  const adapter={scene,canPick:()=>true,ready:()=>true,select(){},begin(){return true;},move(){},release(){},tap(){},hold(){},pause(){pauses++;}};
  const controller=context.CoffeeGesture.mount(adapter);
  const flush=async()=>{for(let i=0;i<12;i++)await Promise.resolve();};
  const fire=(name,e={})=>(listeners.get(name)||[]).forEach(f=>f(e));
- return{nodes,node,controller,flush,fire,workers,tracks,frames,context,requests:()=>requests,pauses:()=>pauses,grant:()=>resolvePermission(),step(now){clock=now;const callbacks=[...frames.values()];frames.clear();callbacks.forEach(fn=>fn(now));}};
+ return{nodes,node,controller,flush,fire,workers,tracks,frames,context,advance(ms){clock+=ms;for(const [id,timer] of [...timers])if(timer.at<=clock&&timers.delete(id))timer.fn();},requests:()=>requests,pauses:()=>pauses,grant:()=>resolvePermission(),step(now){clock=now;const callbacks=[...frames.values()];frames.clear();callbacks.forEach(fn=>fn(now));}};
 }
 test('entry never requests camera; model-only check never requests it either',async()=>{
  const f=fixture();assert.equal(f.requests(),0);f.node('gesture-check').fire('click');await f.flush();
@@ -98,4 +100,30 @@ test('grabbing the grinder without moving does not grind on release, and loss ca
 
 test('the published HTTPS beta mounts without requesting a camera and keeps local development available',()=>{
  const f=fixture({hostname:'crhshibendan.github.io',protocol:'https:'});assert.equal(f.context.CoffeeGesture.local,false);assert.equal(f.context.CoffeeGesture.available,true);assert.ok(f.controller);assert.equal(f.requests(),0);f.controller.destroy();
+});
+
+
+test('slow downloads may exceed 45 seconds while genuine progress renews the startup wait',async()=>{
+ const f=fixture({manualWorker:true,fakeTimers:true});f.node('gesture-check').fire('click');await f.flush();
+ f.advance(80000);assert.equal(f.workers[0].terminated,false);
+ f.workers[0].onmessage({data:{type:'progress',loaded:1048576}});assert.match(f.node('gesture-status').textContent,/1.0 MB/);
+ f.advance(60000);await f.flush();assert.equal(f.workers[0].terminated,false);
+ f.workers[0].onmessage({data:{type:'ready'}});await f.flush();
+ assert.match(f.node('gesture-status').textContent,/检查通过/);assert.equal(f.requests(),0);f.controller.destroy();
+});
+test('a stalled model download terminates and exposes a useful timeout error',async()=>{
+ const f=fixture({manualWorker:true,fakeTimers:true});f.node('gesture-start').fire('click');await f.flush();
+ f.advance(90001);await f.flush();assert.equal(f.workers[0].terminated,true);
+ assert.equal(f.requests(),0);assert.match(f.node('gesture-status').textContent,/90秒没有进展/);f.controller.destroy();
+});
+test('continuous progress cannot bypass the five minute startup ceiling',async()=>{
+ const f=fixture({manualWorker:true,fakeTimers:true});f.node('gesture-check').fire('click');await f.flush();
+ for(let i=0;i<5;i++){f.advance(60000);f.workers[0].onmessage({data:{type:'progress',loaded:i+1}});await f.flush();}
+ assert.equal(f.workers[0].terminated,true);assert.match(f.node('gesture-status').textContent,/模型加载超时/);f.controller.destroy();
+});
+test('cancelled startup ignores late progress and never requests a camera',async()=>{
+ const f=fixture({manualWorker:true,fakeTimers:true});f.node('gesture-start').fire('click');await f.flush();
+ f.node('gesture-stop').fire('click');const status=f.node('gesture-status').textContent;
+ f.workers[0].onmessage({data:{type:'progress',loaded:123}});f.workers[0].onmessage({data:{type:'ready'}});f.advance(400000);await f.flush();
+ assert.equal(f.node('gesture-status').textContent,status);assert.equal(f.requests(),0);assert.ok(f.workers[0].terminated);f.controller.destroy();
 });
