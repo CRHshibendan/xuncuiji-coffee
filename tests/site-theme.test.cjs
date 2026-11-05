@@ -18,7 +18,7 @@ test('changes from another page and cleared settings synchronize without reload'
 test('every published page loads appearance before other scripts and shares the theme sheets',()=>{
  const root=path.join(__dirname,'..');const files=fs.readdirSync(root).filter(f=>f.endsWith('.html')).map(f=>f).concat(fs.readdirSync(path.join(root,'experiments')).filter(f=>f.endsWith('.html')).map(f=>'experiments/'+f));
  assert.equal(files.length,10);
- for(const file of files){const html=fs.readFileSync(path.join(root,file),'utf8');assert.match(html,/<script src="(?:\.\.\/)?site-theme.js\?v=20261106-theme2"><\/script>/);assert.match(html,/site-theme-legacy.css/);assert.match(html,/site-theme.css/);assert.equal(html.match(/<script[^>]*src="([^\"]+)/)[1].includes('site-theme.js'),true,file);}
+ for(const file of files){const html=fs.readFileSync(path.join(root,file),'utf8');assert.match(html,/<script src="(?:\.\.\/)?site-theme.js\?v=20261106-theme2"><\/script>/);assert.match(html,/<meta name="color-scheme" content="light dark">/);assert.ok(html.indexOf('name="color-scheme"')<html.indexOf('<script'),file+' declares native theme support before JS');assert.match(html,/site-theme-legacy.css/);assert.match(html,/site-theme.css/);assert.equal(html.match(/<script[^>]*src="([^\"]+)/)[1].includes('site-theme.js'),true,file);}
 });
 
 test('system appearance follows OS changes without overriding an explicit user choice',()=>{const f=fixture('system');f.media.matches=true;f.mediaEvents.change();assert.equal(f.root.dataset.theme,'dark');f.host.localStorage.setItem('xuncuiji-color-theme','light');f.events.storage({key:'xuncuiji-color-theme',newValue:'light'});f.mediaEvents.change();assert.equal(f.root.dataset.theme,'light');});
