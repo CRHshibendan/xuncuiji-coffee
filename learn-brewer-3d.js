@@ -12,7 +12,7 @@ if(display){
  async function load(){
   if(viewer||loading||failed||disposed)return;loading=true;
   try{
-   const {createClassroomBrewer}=await import('./experiments/classroom-brewer.js');
+   const {createClassroomBrewer}=await import('./experiments/classroom-brewer.js?v=20261105-dark1');
    if(disposed)return;
    viewer=createClassroomBrewer({stage,controls,tool:selected(),onError:fallback});
    if(failed){viewer.dispose();return;}

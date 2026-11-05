@@ -8,7 +8,7 @@ async function boot(){
  renderer.setPixelRatio(Math.min(devicePixelRatio||1,matchMedia('(max-width:700px)').matches?1.5:1.8));
  renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;renderer.localClippingEnabled=true;renderer.shadowMap.enabled=false;renderer.shadowMap.type=T.PCFSoftShadowMap;
  renderer.domElement.setAttribute('aria-hidden','true');viewport.prepend(renderer.domElement);
- const scene=new T.Scene();scene.background=new T.Color('#f5f2eb');
+ const scene=new T.Scene();scene.background=new T.Color(document.documentElement.dataset.theme==='dark'?'#161d19':'#f5f2eb');
  const pmrem=new T.PMREMGenerator(renderer),room=new RoomEnvironment(),environment=pmrem.fromScene(room,.02);scene.environment=environment.texture;scene.environmentIntensity=.55;room.dispose();pmrem.dispose();
  const camera=new T.OrthographicCamera(-3,3,2.45,-2.45,.1,40);camera.position.set(0,1.55,7);camera.lookAt(0,.04,0);
  const model=createChemex();scene.add(model.root);
@@ -21,6 +21,9 @@ async function boot(){
 
  let progress=reduced.matches?1:0,playing=!reduced.matches,last=0,raf=0,disposed=false,drag=null,wantPaper=false,lift=0,yaw=0,targetYaw=0,pitch=0,targetPitch=0,zoom=1.22,phaseIndex=-1,uiProgress=-1;
  const motion={duration:FORMATION_DURATION};
+
+ const syncTheme=()=>{scene.background.set(document.documentElement.dataset.theme==='dark'?'#161d19':'#f5f2eb');schedule();};
+ addEventListener('coffee-theme-change',syncTheme);
  function schedule(){if(!raf&&!disposed&&!document.hidden)raf=requestAnimationFrame(frame);}
  function resize(){const w=viewport.clientWidth,h=viewport.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);const half=2.4;camera.left=-half*w/h;camera.right=half*w/h;camera.top=half;camera.bottom=-half;camera.updateProjectionMatrix();schedule();}
  const resizeObserver=new ResizeObserver(resize);resizeObserver.observe(viewport);
@@ -60,7 +63,7 @@ async function boot(){
  reduced.addEventListener('change',()=>{if(reduced.matches){progress=1;setPlaying(false);}schedule();});
  document.addEventListener('visibilitychange',()=>{last=0;if(document.hidden){if(drag)release({pointerId:drag.id});cancelAnimationFrame(raf);raf=0;}else schedule();});
  renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();disposed=true;cancelAnimationFrame(raf);showFallback('画面暂时停住了，刷新可重新打开。');});
- addEventListener('pagehide',e=>{if(e.persisted)return;disposed=true;cancelAnimationFrame(raf);resizeObserver.disconnect();model.dispose();floor.geometry.dispose();floorMaterial.dispose();contact.geometry.dispose();contactMat.dispose();shadowMap.dispose();environment.dispose();renderer.dispose();});
+ addEventListener('pagehide',e=>{if(e.persisted)return;disposed=true;cancelAnimationFrame(raf);resizeObserver.disconnect();model.dispose();floor.geometry.dispose();floorMaterial.dispose();contact.geometry.dispose();contactMat.dispose();shadowMap.dispose();environment.dispose();removeEventListener('coffee-theme-change',syncTheme);renderer.dispose();});
  resize();primeFormation(renderer,scene,camera,model,progress);last=0;viewport.classList.add('is-ready');updateUI();setPlaying(playing);schedule();
 }
 function showFallback(message){viewport.classList.remove('is-ready');viewport.classList.add('is-unavailable');$('#loading p').textContent=message;document.querySelectorAll('.editorial-actions button,.view-options button,.timeline button,.timeline input').forEach(n=>n.disabled=true);$('#note').textContent='也可以回到课堂，继续观察器具线稿。';}

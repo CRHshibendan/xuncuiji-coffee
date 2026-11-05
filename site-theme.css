@@ -1,0 +1,36 @@
+/* Shared theme tokens. Legacy literal colors are scoped in site-theme-legacy.css. */
+:root[data-theme="dark"]{
+ --color-bg:#161d19;--color-text:#e4e8df;--color-primary:#b4d1bd;--color-accent:#d8ac7e;--color-surface:#232c26;--card-border:#435147;
+ --bg:#161d19;--paper:#1d2620;--stage:#1d2620;--ink:#e4e8df;--muted:#b0bbae;--line:#435147;--green:#b4d1bd;--deep:#c8dcca;--gold:#d8ac7e;--accent:#d8ac7e;--light-green:#29392e;--gold-soft:#3b3024;
+ --xc-paper:#161d19;--xc-surface:#232c26;--xc-ink:#e4e8df;--xc-copy:#bec7bc;--xc-muted:#b0bbae;--xc-forest:#b4d1bd;--xc-sage:#29392e;--xc-line:#435147;--xc-brass:#d8ac7e;--xc-clay:#e5ac96;--xc-blue:#25343a;--xc-blue-ink:#b6d5e2;--xc-peach:#3a2c24;--xc-peach-ink:#edbca1;
+ --glass-tint:35 44 38;--glass-ink:180 209 189;--glass-rim-top:rgb(228 240 229/.22);--glass-rim-side:rgb(228 240 229/.14);--glass-rim-bottom:rgb(0 0 0/.35);
+ --glass-shadow:0 8px 22px -9px #0009,0 2px 5px -2px #0006;--glass-control-shadow:var(--glass-shadow);
+ color-scheme:dark;background:var(--color-bg);color:var(--color-text);
+}
+:root[data-theme="dark"] body{background:var(--color-bg)!important;color:var(--color-text)}
+:root[data-theme="dark"] :is(input:not([type=range]):not([type=radio]):not([type=checkbox]),textarea,select){background-color:#232c26;color:#e4e8df;border-color:#536559}
+:root[data-theme="dark"] ::placeholder{color:#a5b3a7;opacity:1}
+:root[data-theme="dark"] :is(button,a,input,textarea,select,summary):focus-visible{outline-color:#c1dfc7}
+:root[data-theme="dark"] dialog{color:#e4e8df;background:#232c26;border-color:#536559}
+:root[data-theme="dark"] dialog::backdrop{background:rgb(0 8 3/.68)}
+:root[data-theme="dark"] .glass-lab{--glass-tint:35 44 38;--glass-ink:180 209 189;--glass-rim-top:rgb(228 240 229/.22);--glass-rim-side:rgb(228 240 229/.14)}
+:root[data-theme="dark"] .glass-lab .scene-copy,:root[data-theme="dark"] .glass-lab .scene-copy p{color:#e4e8df!important}
+:root[data-theme="dark"] :is(.hero-art,.brewer-display,.bean-art){color:#c7d8c9}
+/* The table illustrations keep their own warm paper and natural coffee pigments. */
+:root[data-theme="dark"] :is(.scene-wrap,.shop-scene,#stage){background:#e9e6da!important;color:#343a2e}
+:root[data-theme="dark"] .site-dock{--dock-surface:#232c26;--dock-ink:#b4d1bd;--dock-border:#536559}
+:root[data-theme="dark"] .glass-primary{color:#16231b!important}
+:root[data-theme="dark"] .glass-preference-options input:checked+span{background:#b4d1bd;color:#16231b}
+.theme-toggle{display:inline-flex!important;align-items:center;justify-content:center;gap:7px;flex:0 0 auto;min-width:44px;min-height:44px;padding:8px 12px;border:1px solid var(--card-border,#8a968755)!important;border-radius:999px;background:var(--color-surface,#fbf9f4);color:var(--color-text,#1f2a26);font:400 13px/1.4 system-ui,sans-serif;cursor:pointer;touch-action:manipulation;white-space:nowrap}
+.theme-toggle svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.5;flex:none}.theme-toggle svg path{fill:currentColor;stroke:none}
+.theme-toggle:active{transform:scale(.96)}
+#welcome-dialog>.theme-toggle{position:absolute;top:12px;right:12px}#welcome-dialog>.theme-toggle>span{display:none}.gesture-help-actions .theme-toggle{margin-left:auto}
+.theme-dialog{box-sizing:border-box;width:min(420px,calc(100% - 32px));max-height:calc(100dvh - 48px);overflow:auto;padding:24px;border:1px solid var(--card-border,#d4dbcf);border-radius:24px;background:var(--color-surface,#fbf9f4);color:var(--color-text,#1f2a26);box-shadow:0 24px 70px #0005;font:400 14px/1.7 system-ui,sans-serif;overscroll-behavior:contain}
+.theme-dialog::backdrop{background:#15231977;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.theme-dialog-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}.theme-dialog h2{margin:0;font-size:22px;line-height:1.5}.theme-dialog p{margin:8px 0 20px;color:inherit;opacity:.8}
+.theme-close{font:400 26px/1 system-ui;background:transparent;color:inherit;border:0;min-width:44px;min-height:44px;cursor:pointer}
+.theme-dialog fieldset{display:grid;gap:10px;border:0;padding:0;margin:0}.theme-dialog legend{margin-bottom:10px;font-size:13px}.theme-dialog label{display:flex;align-items:center;gap:12px;padding:12px 16px;min-height:48px;border:1px solid var(--card-border,#d4dbcf);border-radius:14px;cursor:pointer}.theme-dialog input{accent-color:var(--color-primary,#1f3d34);width:18px;height:18px;flex:none}.theme-dialog label:has(input:checked){background:color-mix(in srgb,var(--color-primary,#1f3d34) 12%,transparent);border-color:var(--color-primary,#1f3d34)}
+.theme-done{display:block;margin-top:20px;width:100%;min-height:48px;border:0;border-radius:999px;background:var(--color-primary,#1f3d34);color:var(--color-bg,#f6f3ec);font:inherit;cursor:pointer}
+@media(max-width:768px){.theme-toggle{padding:8px;gap:0}.theme-toggle>span{display:none}.site-header .header-inner{gap:12px}.studio-header,.shop-header,.masthead{flex-wrap:wrap}.theme-dialog{padding:20px}.gesture-panel-heading .theme-toggle{margin-left:auto}}
+@media(prefers-reduced-motion:reduce){.theme-toggle:active{transform:none}}
+@media(forced-colors:active){.theme-toggle,.theme-dialog label{border:1px solid ButtonText}.theme-dialog{background:Canvas;color:CanvasText}}

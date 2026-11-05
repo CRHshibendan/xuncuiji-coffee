@@ -21,6 +21,9 @@ export function createClassroomBrewer({stage,controls,tool,onError}){
  const replay=controls.querySelector('[data-model-replay]'),inspect=controls.querySelector('[data-model-inspect]'),reset=controls.querySelector('[data-model-reset]'),hint=controls.querySelector('p');
  const listen=(target,event,fn,options={})=>target.addEventListener(event,fn,{...options,signal:events.signal});
  function describe(){stage.dataset.tool=brewer.id;stage.setAttribute('aria-label',brewer.name+' 三维器具，可左右拖动或使用方向键旋转');inspect.textContent=(wantLift?brewer.close:brewer.open)+' ↗';inspect.setAttribute('aria-pressed',String(wantLift));}
+
+ const syncTheme=()=>{scene.background.set(document.documentElement.dataset.theme==='dark'?'#161d19':'#f6f3ec');schedule();};
+ addEventListener('coffee-theme-change',syncTheme);
  function schedule(){if(!disposed&&visible&&!document.hidden&&!switchTimer&&!raf)raf=requestAnimationFrame(frame);}
  function resize(){const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);camera.left=-2.4*w/h;camera.right=2.4*w/h;camera.updateProjectionMatrix();schedule();}
  function frame(now){
@@ -70,7 +73,7 @@ export function createClassroomBrewer({stage,controls,tool,onError}){
  listen(renderer.domElement,'webglcontextlost',event=>{event.preventDefault();dispose();onError();});
  const observer=new ResizeObserver(resize);observer.observe(stage);
  function setVisible(value){visible=value;last=0;if(!value){release();cancelAnimationFrame(raf);raf=0;}else schedule();}
- function dispose(){if(disposed)return;disposed=true;release();clearTimeout(switchTimer);cancelAnimationFrame(raf);observer.disconnect();events.abort();model.dispose();environment.dispose();renderer.dispose();renderer.domElement.remove();}
+ function dispose(){if(disposed)return;disposed=true;release();clearTimeout(switchTimer);cancelAnimationFrame(raf);observer.disconnect();events.abort();model.dispose();environment.dispose();removeEventListener('coffee-theme-change',syncTheme);renderer.dispose();renderer.domElement.remove();}
  try{describe();resize();camera.zoom=brewer.zoom;camera.updateProjectionMatrix();primeFormation(renderer,scene,camera,model,progress);}catch(error){dispose();throw error;}
  return {select,setVisible,dispose};
 }

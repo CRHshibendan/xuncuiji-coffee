@@ -1,0 +1,1319 @@
+/* Generated from the exact styles each page loads. Rebuild with build-legacy.py. SVG fill/stroke and keyframes are preserved. */
+:root[data-theme="dark"][data-theme-page="brewers"] button:focus-visible,:root[data-theme="dark"][data-theme-page="brewers"] a:focus-visible,:root[data-theme="dark"][data-theme-page="brewers"] input:focus-visible,:root[data-theme="dark"][data-theme-page="brewers"] #viewport:focus-visible{outline:2px solid #6a9082}
+:root[data-theme="dark"][data-theme-page="brewers"] .room-name{color:#b7bbb4}
+:root[data-theme="dark"][data-theme-page="brewers"] .back-link{color:#b0bfb7}
+:root[data-theme="dark"][data-theme-page="brewers"] .eyebrow{color:#b3bcb3}
+:root[data-theme="dark"][data-theme-page="brewers"] .small-rule{background:#252b25}
+:root[data-theme="dark"][data-theme-page="brewers"] h1>span{color:#b5c0b0}
+:root[data-theme="dark"][data-theme-page="brewers"] .intro{color:#b7bbb4}
+:root[data-theme="dark"][data-theme-page="brewers"] .specimen-number{color:#b9bdb2;border-right:1px solid #525643}
+:root[data-theme="dark"][data-theme-page="brewers"] .button{border:1px solid #4d5643;background:linear-gradient(145deg,#1d1d1da8,#25221755);box-shadow:inset 0 1px 0 #ffffff20,0 5px 14px -9px #00000045}
+:root[data-theme="dark"][data-theme-page="brewers"] .primary{background:#294d41;color:#fffdf5;border-color:#65957c;box-shadow:inset 0 1px 0 #ffffff35,0 6px 18px -12px #00000077}
+:root[data-theme="dark"][data-theme-page="brewers"] .secondary[aria-pressed=true]{background:#1e2719;border-color:#475742}
+:root[data-theme="dark"][data-theme-page="brewers"] .observation>span{color:#b7bcb3}
+:root[data-theme="dark"][data-theme-page="brewers"] .observation p{color:#b2bfb0}
+:root[data-theme="dark"][data-theme-page="brewers"] .stage-header{color:#b7bcb3}
+:root[data-theme="dark"][data-theme-page="brewers"] .stage-header>span:last-child{color:#b4bfb0}
+:root[data-theme="dark"][data-theme-page="brewers"] .loading{color:#b5bfb0}
+:root[data-theme="dark"][data-theme-page="brewers"] .loading span{border:1px solid #4d5841;border-top-color:#62987c}
+:root[data-theme="dark"][data-theme-page="brewers"] .orientation{color:#b5c0af}
+:root[data-theme="dark"][data-theme-page="brewers"] .gesture-hint{color:#b7bdb2}
+:root[data-theme="dark"][data-theme-page="brewers"] .view-options{border:1px solid #505a3f;background:#1d1d1d52;box-shadow:inset 0 1px 0 #ffffff99}
+:root[data-theme="dark"][data-theme-page="brewers"] .view-options button{color:#b6beb1}
+:root[data-theme="dark"][data-theme-page="brewers"] .view-options button[aria-pressed=true]{background:#242117;box-shadow:0 3px 8px -5px #00000055,inset 0 1px 0 #ffffff20;color:#c5ddd2}
+:root[data-theme="dark"][data-theme-page="brewers"] .timeline{border-top:1px solid #505a3f}
+:root[data-theme="dark"][data-theme-page="brewers"] .timeline-labels{color:#b8beb1}
+:root[data-theme="dark"][data-theme-page="brewers"] .timeline-labels .current{color:#c3dfd0}
+:root[data-theme="dark"][data-theme-page="brewers"] .timeline input{background:linear-gradient(to right,#252d25 var(--progress,0%),#22271b var(--progress,0%))}
+:root[data-theme="dark"][data-theme-page="brewers"] .timeline input::-webkit-slider-thumb{background:#243628;box-shadow:0 0 0 1px #00000040}
+:root[data-theme="dark"][data-theme-page="brewers"] .timeline input::-moz-range-thumb{background:#243628}
+:root[data-theme="dark"][data-theme-page="brewers"] .timeline-foot{color:#b7beb1}
+:root[data-theme="dark"][data-theme-page="brewers"] .timeline-foot>button{color:#b3c4ab}
+:root[data-theme="dark"][data-theme-page="brewers"] footer{color:#b8beb1}
+@media(hover:hover){:root[data-theme="dark"][data-theme-page="brewers"] .back-link:hover{color:#c4dfd6}}
+:root[data-theme="dark"][data-theme-page="brewers"] .collection-heading{color:#b7beb1}
+:root[data-theme="dark"][data-theme-page="brewers"] .brewer-options{background:linear-gradient(135deg,#1d1d1d99,#25261c51);border:1px solid #555a3f;box-shadow:inset 0 1px 0 #ffffff20,0 7px 25px -24px #00000070}
+:root[data-theme="dark"][data-theme-page="brewers"] .brewer-options button{color:#b4bdb2}
+:root[data-theme="dark"][data-theme-page="brewers"] .brewer-options button>span{color:#b7c0b0}
+:root[data-theme="dark"][data-theme-page="brewers"] .brewer-options button[aria-pressed=true]{background:#252217;box-shadow:inset 0 1px 0 #ffffff20,0 3px 8px -5px #00000055;color:#c4dfd6}
+@media(hover:hover){:root[data-theme="dark"][data-theme-page="brewers"] .brewer-options button:hover{color:#c4dfd6;background:#1d1d1d65}
+:root[data-theme="dark"][data-theme-page="brewers"] .brewer-options button[aria-pressed=true]:hover{background:#252217}}
+:root[data-theme="dark"][data-theme-page="chemex"] button:focus-visible,:root[data-theme="dark"][data-theme-page="chemex"] a:focus-visible,:root[data-theme="dark"][data-theme-page="chemex"] input:focus-visible,:root[data-theme="dark"][data-theme-page="chemex"] #viewport:focus-visible{outline:2px solid #6a9082}
+:root[data-theme="dark"][data-theme-page="chemex"] .room-name{color:#b7bbb4}
+:root[data-theme="dark"][data-theme-page="chemex"] .back-link{color:#b0bfb7}
+:root[data-theme="dark"][data-theme-page="chemex"] .eyebrow{color:#b3bcb3}
+:root[data-theme="dark"][data-theme-page="chemex"] .small-rule{background:#252b25}
+:root[data-theme="dark"][data-theme-page="chemex"] h1>span{color:#b5c0b0}
+:root[data-theme="dark"][data-theme-page="chemex"] .intro{color:#b7bbb4}
+:root[data-theme="dark"][data-theme-page="chemex"] .specimen-number{color:#b9bdb2;border-right:1px solid #525643}
+:root[data-theme="dark"][data-theme-page="chemex"] .button{border:1px solid #4d5643;background:linear-gradient(145deg,#1d1d1da8,#25221755);box-shadow:inset 0 1px 0 #ffffff20,0 5px 14px -9px #00000045}
+:root[data-theme="dark"][data-theme-page="chemex"] .primary{background:#294d41;color:#fffdf5;border-color:#65957c;box-shadow:inset 0 1px 0 #ffffff35,0 6px 18px -12px #00000077}
+:root[data-theme="dark"][data-theme-page="chemex"] .secondary[aria-pressed=true]{background:#1e2719;border-color:#475742}
+:root[data-theme="dark"][data-theme-page="chemex"] .observation>span{color:#b7bcb3}
+:root[data-theme="dark"][data-theme-page="chemex"] .observation p{color:#b2bfb0}
+:root[data-theme="dark"][data-theme-page="chemex"] .stage-header{color:#b7bcb3}
+:root[data-theme="dark"][data-theme-page="chemex"] .stage-header>span:last-child{color:#b4bfb0}
+:root[data-theme="dark"][data-theme-page="chemex"] .loading{color:#b5bfb0}
+:root[data-theme="dark"][data-theme-page="chemex"] .loading span{border:1px solid #4d5841;border-top-color:#62987c}
+:root[data-theme="dark"][data-theme-page="chemex"] .orientation{color:#b5c0af}
+:root[data-theme="dark"][data-theme-page="chemex"] .gesture-hint{color:#b7bdb2}
+:root[data-theme="dark"][data-theme-page="chemex"] .view-options{border:1px solid #505a3f;background:#1d1d1d52;box-shadow:inset 0 1px 0 #ffffff99}
+:root[data-theme="dark"][data-theme-page="chemex"] .view-options button{color:#b6beb1}
+:root[data-theme="dark"][data-theme-page="chemex"] .view-options button[aria-pressed=true]{background:#242117;box-shadow:0 3px 8px -5px #00000055,inset 0 1px 0 #ffffff20;color:#c5ddd2}
+:root[data-theme="dark"][data-theme-page="chemex"] .timeline{border-top:1px solid #505a3f}
+:root[data-theme="dark"][data-theme-page="chemex"] .timeline-labels{color:#b8beb1}
+:root[data-theme="dark"][data-theme-page="chemex"] .timeline-labels .current{color:#c3dfd0}
+:root[data-theme="dark"][data-theme-page="chemex"] .timeline input{background:linear-gradient(to right,#252d25 var(--progress,0%),#22271b var(--progress,0%))}
+:root[data-theme="dark"][data-theme-page="chemex"] .timeline input::-webkit-slider-thumb{background:#243628;box-shadow:0 0 0 1px #00000040}
+:root[data-theme="dark"][data-theme-page="chemex"] .timeline input::-moz-range-thumb{background:#243628}
+:root[data-theme="dark"][data-theme-page="chemex"] .timeline-foot{color:#b7beb1}
+:root[data-theme="dark"][data-theme-page="chemex"] .timeline-foot>button{color:#b3c4ab}
+:root[data-theme="dark"][data-theme-page="chemex"] footer{color:#b8beb1}
+@media(hover:hover){:root[data-theme="dark"][data-theme-page="chemex"] .back-link:hover{color:#c4dfd6}}
+
+
+
+
+
+
+
+
+:root[data-theme="dark"][data-theme-page="explore"] .site-glass .glass-control,:root[data-theme="dark"][data-theme-page="explore"] .site-glass .glass-switch{background:var(--color-surface,#252117)!important;color:var(--color-primary,#c2e0d7)!important}
+:root[data-theme="dark"][data-theme-page="explore"] .site-glass .glass-control.glass-primary{background:var(--color-primary,#1f3d34)!important;color:var(--color-surface,#fbf9f4)!important}
+:root[data-theme="dark"][data-theme-page="explore"] .site-glass :is(.glass-control,.glass-switch>button):focus-visible{outline:2px solid var(--color-primary,#619888)!important}
+:root[data-theme="dark"][data-theme-page="explore"] .site-glass select.glass-control option{background:var(--color-surface,#252117);color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="explore"] .site-glass .glass-switch>button{color:var(--color-primary,#c2e0d7)!important}
+:root[data-theme="dark"][data-theme-page="explore"] .site-glass .glass-switch .glass-slider{background:var(--color-surface,#252117)}
+:root[data-theme="dark"][data-theme-page="explore"] .site-glass dialog.glass-panel{background:var(--color-surface,#252117);color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="explore"] .site-glass .glass-preferences{color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="explore"] .site-glass .glass-preference-options input:checked+span{background:var(--color-primary,#1f3d34);color:var(--color-surface,#fbf9f4);border-color:var(--color-primary,#619888)}
+:root[data-theme="dark"][data-theme-page="explore"] .site-glass .glass-preference-options input:focus-visible+span{outline:2px solid var(--color-primary,#619888)}
+@media(prefers-reduced-transparency:reduce){:root[data-theme="dark"][data-theme-page="explore"] .site-glass .glass-control,:root[data-theme="dark"][data-theme-page="explore"] .site-glass .glass-switch,:root[data-theme="dark"][data-theme-page="explore"] .site-glass .glass-switch .glass-slider,:root[data-theme="dark"][data-theme-page="explore"] .site-glass dialog.glass-panel{background:var(--color-surface,#252117)!important}
+:root[data-theme="dark"][data-theme-page="explore"] .site-glass .glass-control.glass-primary{background:var(--color-primary,#1f3d34)!important}}
+
+
+
+
+:root[data-theme="dark"][data-theme-page="index"] .site-glass .glass-control,:root[data-theme="dark"][data-theme-page="index"] .site-glass .glass-switch{background:var(--color-surface,#252117)!important;color:var(--color-primary,#c2e0d7)!important}
+:root[data-theme="dark"][data-theme-page="index"] .site-glass .glass-control.glass-primary{background:var(--color-primary,#1f3d34)!important;color:var(--color-surface,#fbf9f4)!important}
+:root[data-theme="dark"][data-theme-page="index"] .site-glass :is(.glass-control,.glass-switch>button):focus-visible{outline:2px solid var(--color-primary,#619888)!important}
+:root[data-theme="dark"][data-theme-page="index"] .site-glass select.glass-control option{background:var(--color-surface,#252117);color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="index"] .site-glass .glass-switch>button{color:var(--color-primary,#c2e0d7)!important}
+:root[data-theme="dark"][data-theme-page="index"] .site-glass .glass-switch .glass-slider{background:var(--color-surface,#252117)}
+:root[data-theme="dark"][data-theme-page="index"] .site-glass dialog.glass-panel{background:var(--color-surface,#252117);color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="index"] .site-glass .glass-preferences{color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="index"] .site-glass .glass-preference-options input:checked+span{background:var(--color-primary,#1f3d34);color:var(--color-surface,#fbf9f4);border-color:var(--color-primary,#619888)}
+:root[data-theme="dark"][data-theme-page="index"] .site-glass .glass-preference-options input:focus-visible+span{outline:2px solid var(--color-primary,#619888)}
+@media(prefers-reduced-transparency:reduce){:root[data-theme="dark"][data-theme-page="index"] .site-glass .glass-control,:root[data-theme="dark"][data-theme-page="index"] .site-glass .glass-switch,:root[data-theme="dark"][data-theme-page="index"] .site-glass .glass-switch .glass-slider,:root[data-theme="dark"][data-theme-page="index"] .site-glass dialog.glass-panel{background:var(--color-surface,#252117)!important}
+:root[data-theme="dark"][data-theme-page="index"] .site-glass .glass-control.glass-primary{background:var(--color-primary,#1f3d34)!important}}
+
+
+
+
+
+:root[data-theme="dark"][data-theme-page="journal"] .site-glass .glass-control,:root[data-theme="dark"][data-theme-page="journal"] .site-glass .glass-switch{background:var(--color-surface,#252117)!important;color:var(--color-primary,#c2e0d7)!important}
+:root[data-theme="dark"][data-theme-page="journal"] .site-glass .glass-control.glass-primary{background:var(--color-primary,#1f3d34)!important;color:var(--color-surface,#fbf9f4)!important}
+:root[data-theme="dark"][data-theme-page="journal"] .site-glass :is(.glass-control,.glass-switch>button):focus-visible{outline:2px solid var(--color-primary,#619888)!important}
+:root[data-theme="dark"][data-theme-page="journal"] .site-glass select.glass-control option{background:var(--color-surface,#252117);color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="journal"] .site-glass .glass-switch>button{color:var(--color-primary,#c2e0d7)!important}
+:root[data-theme="dark"][data-theme-page="journal"] .site-glass .glass-switch .glass-slider{background:var(--color-surface,#252117)}
+:root[data-theme="dark"][data-theme-page="journal"] .site-glass dialog.glass-panel{background:var(--color-surface,#252117);color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="journal"] .site-glass .glass-preferences{color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="journal"] .site-glass .glass-preference-options input:checked+span{background:var(--color-primary,#1f3d34);color:var(--color-surface,#fbf9f4);border-color:var(--color-primary,#619888)}
+:root[data-theme="dark"][data-theme-page="journal"] .site-glass .glass-preference-options input:focus-visible+span{outline:2px solid var(--color-primary,#619888)}
+@media(prefers-reduced-transparency:reduce){:root[data-theme="dark"][data-theme-page="journal"] .site-glass .glass-control,:root[data-theme="dark"][data-theme-page="journal"] .site-glass .glass-switch,:root[data-theme="dark"][data-theme-page="journal"] .site-glass .glass-switch .glass-slider,:root[data-theme="dark"][data-theme-page="journal"] .site-glass dialog.glass-panel{background:var(--color-surface,#252117)!important}
+:root[data-theme="dark"][data-theme-page="journal"] .site-glass .glass-control.glass-primary{background:var(--color-primary,#1f3d34)!important}}
+
+
+
+
+
+
+:root[data-theme="dark"][data-theme-page="learn"] .site-glass .glass-control,:root[data-theme="dark"][data-theme-page="learn"] .site-glass .glass-switch{background:var(--color-surface,#252117)!important;color:var(--color-primary,#c2e0d7)!important}
+:root[data-theme="dark"][data-theme-page="learn"] .site-glass .glass-control.glass-primary{background:var(--color-primary,#1f3d34)!important;color:var(--color-surface,#fbf9f4)!important}
+:root[data-theme="dark"][data-theme-page="learn"] .site-glass :is(.glass-control,.glass-switch>button):focus-visible{outline:2px solid var(--color-primary,#619888)!important}
+:root[data-theme="dark"][data-theme-page="learn"] .site-glass select.glass-control option{background:var(--color-surface,#252117);color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="learn"] .site-glass .glass-switch>button{color:var(--color-primary,#c2e0d7)!important}
+:root[data-theme="dark"][data-theme-page="learn"] .site-glass .glass-switch .glass-slider{background:var(--color-surface,#252117)}
+:root[data-theme="dark"][data-theme-page="learn"] .site-glass dialog.glass-panel{background:var(--color-surface,#252117);color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="learn"] .site-glass .glass-preferences{color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="learn"] .site-glass .glass-preference-options input:checked+span{background:var(--color-primary,#1f3d34);color:var(--color-surface,#fbf9f4);border-color:var(--color-primary,#619888)}
+:root[data-theme="dark"][data-theme-page="learn"] .site-glass .glass-preference-options input:focus-visible+span{outline:2px solid var(--color-primary,#619888)}
+@media(prefers-reduced-transparency:reduce){:root[data-theme="dark"][data-theme-page="learn"] .site-glass .glass-control,:root[data-theme="dark"][data-theme-page="learn"] .site-glass .glass-switch,:root[data-theme="dark"][data-theme-page="learn"] .site-glass .glass-switch .glass-slider,:root[data-theme="dark"][data-theme-page="learn"] .site-glass dialog.glass-panel{background:var(--color-surface,#252117)!important}
+:root[data-theme="dark"][data-theme-page="learn"] .site-glass .glass-control.glass-primary{background:var(--color-primary,#1f3d34)!important}}
+
+
+:root[data-theme="dark"][data-theme-page="shop"] body{background:radial-gradient(ellipse at 20% 0,#252217 0,transparent 55%),var(--bg)}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-header{background:#262218}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-name small{color:#bebeb1}
+:root[data-theme="dark"][data-theme-page="shop"] .hud-cell span{color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .hud-cell b{color:#d1dbc7}
+:root[data-theme="dark"][data-theme-page="shop"] .hud-cell.money b{color:#cbddc5}
+:root[data-theme="dark"][data-theme-page="shop"] .hud-cell.rep b{color:#cfbea0}
+:root[data-theme="dark"][data-theme-page="shop"] .hud-button{border:1px solid #565b3e;background:#252417;color:#b8bfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .hud-button:hover{background:#1d1d1d}
+:root[data-theme="dark"][data-theme-page="shop"] .scene-card{border:1px solid #5c5a3d;background:#262218;box-shadow:0 14px 40px #00000010}
+:root[data-theme="dark"][data-theme-page="shop"] .scene-topline{border-bottom:1px solid #5d583c;color:#bdbfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .scene-topline i{background:#292f1f}
+:root[data-theme="dark"][data-theme-page="shop"] #scene-status{color:#b9c0af}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-scene{background:#272218}
+:root[data-theme="dark"][data-theme-page="shop"] .guest-name{color:#b9c1ae;background:#252217dd;border:1px solid #5d593c}
+:root[data-theme="dark"][data-theme-page="shop"] .guest-patience{background:#29271a}
+:root[data-theme="dark"][data-theme-page="shop"] .guest-patience b{background:#293020}
+:root[data-theme="dark"][data-theme-page="shop"] .guest-patience b.low{background:#32291f}
+:root[data-theme="dark"][data-theme-page="shop"] .guest-name{background:#41553b;color:#f3f0dd;border-color:#719466}
+:root[data-theme="dark"][data-theme-page="shop"] .guest.is-active .guest-patience{box-shadow:0 0 0 2px #ffffff20}
+:root[data-theme="dark"][data-theme-page="shop"] .guest-extra{color:#bcbfb0;background:#252217dd;border:1px solid #5d593c}
+:root[data-theme="dark"][data-theme-page="shop"] .bubble{background:#252017;border:1px solid #5d533c;box-shadow:0 10px 26px #0000001f}
+:root[data-theme="dark"][data-theme-page="shop"] .bubble:after{background:#252017;border-right:1px solid #5d533c;border-bottom:1px solid #5d533c}
+:root[data-theme="dark"][data-theme-page="shop"] .bubble b{color:#d0dbc7}
+:root[data-theme="dark"][data-theme-page="shop"] .bubble small{color:#c8bfa8}
+:root[data-theme="dark"][data-theme-page="shop"] .bubble .bubble-bar{color:#c7bfa8}
+:root[data-theme="dark"][data-theme-page="shop"] .bubble .bubble-bar i{color:#d2bc9e}
+:root[data-theme="dark"][data-theme-page="shop"] .bubble .bubble-patience{background:#29241a}
+:root[data-theme="dark"][data-theme-page="shop"] .bubble .bubble-patience b{background:#2a301f}
+:root[data-theme="dark"][data-theme-page="shop"] .open-sign{background:#272319;border:1px solid #5d543c;color:#cabda6}
+:root[data-theme="dark"][data-theme-page="shop"] .open-sign:before{background:#302a1e}
+:root[data-theme="dark"][data-theme-page="shop"] .open-sign.is-open{background:#222718;border-color:#4e5d3c;color:#b7c9a6}
+:root[data-theme="dark"][data-theme-page="shop"] .open-sign.is-open:before{background:#2b3320;box-shadow:0 0 0 3px #00000022}
+:root[data-theme="dark"][data-theme-page="shop"] .scene-toast{background:#252517ee;border:1px solid #525d3c;color:#b9c4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .scene-toast.warn{background:#262118;border-color:#5d4f3c;color:#d3ba9d}
+:root[data-theme="dark"][data-theme-page="shop"] .scene-ticker{border-top:1px solid #5d583c;background:#262218;color:#bcbeb1}
+:root[data-theme="dark"][data-theme-page="shop"] .scene-ticker:before{color:#c2c0ae}
+:root[data-theme="dark"][data-theme-page="shop"] .side-card{border:1px solid #5c5a3d;box-shadow:0 8px 24px #00000008}
+:root[data-theme="dark"][data-theme-page="shop"] .side-head span{color:#b9c1ae}
+:root[data-theme="dark"][data-theme-page="shop"] .side-head small{color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .day-progress{background:#282719}
+:root[data-theme="dark"][data-theme-page="shop"] .day-progress i{background:#2a3020}
+:root[data-theme="dark"][data-theme-page="shop"] .staff-chip{color:#cbc0a4;background:#272319;border:1px solid #5d533c}
+:root[data-theme="dark"][data-theme-page="shop"] .empty-hint{color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .ticket{background:#262318;border:1px solid #5d583c}
+:root[data-theme="dark"][data-theme-page="shop"] .ticket:hover{background:#252217;border-color:#5d543c}
+:root[data-theme="dark"][data-theme-page="shop"] .ticket.is-active{background:#262218;border-color:#988561;box-shadow:0 0 0 2px #00000022}
+:root[data-theme="dark"][data-theme-page="shop"] .ticket.is-urgent{border-color:#5d4e3c;background:#262118}
+:root[data-theme="dark"][data-theme-page="shop"] .ticket-title em{color:#c8bfa8}
+:root[data-theme="dark"][data-theme-page="shop"] .ticket-sub{color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .ticket-patience{background:#292519}
+:root[data-theme="dark"][data-theme-page="shop"] .ticket-patience i{background:#29301f}
+:root[data-theme="dark"][data-theme-page="shop"] .ticket-patience i.low{background:#32291f}
+:root[data-theme="dark"][data-theme-page="shop"] .ticket-price{color:#cfc1a1}
+:root[data-theme="dark"][data-theme-page="shop"] .brew-empty{color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .brew-empty b{color:#b9c1ae}
+:root[data-theme="dark"][data-theme-page="shop"] .active-order{border:1px solid #5d573c;background:#262218}
+:root[data-theme="dark"][data-theme-page="shop"] .active-order small{color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .active-order button{color:#cabea5}
+:root[data-theme="dark"][data-theme-page="shop"] .field-label{color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .field-label b{color:#bac4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .chip{border:1px solid #5d573c;background:#252217;color:#bcc0af}
+:root[data-theme="dark"][data-theme-page="shop"] .chip:hover{border-color:#988661;background:#252017}
+:root[data-theme="dark"][data-theme-page="shop"] .chip.is-active{background:#41553b;border-color:#719466;color:#f6f3e5;box-shadow:0 2px 6px #00000033}
+:root[data-theme="dark"][data-theme-page="shop"] .chip.is-recommended{box-shadow:0 0 0 2px #00000055}
+:root[data-theme="dark"][data-theme-page="shop"] .primary{color:#fbfcf7}
+:root[data-theme="dark"][data-theme-page="shop"] .primary:hover{background:#30472e}
+:root[data-theme="dark"][data-theme-page="shop"] .warn-text{color:#d2b89d}
+:root[data-theme="dark"][data-theme-page="shop"] .timing-copy b{color:#bac4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .timing-copy span{color:#c7bfa9}
+:root[data-theme="dark"][data-theme-page="shop"] .timing-track{background:#282519;box-shadow:inset 0 1px 3px #0000001a}
+:root[data-theme="dark"][data-theme-page="shop"] .timing-zone{background:linear-gradient(90deg,#2b261b,#2f291d 50%,#2b261b);box-shadow:0 0 8px #00000066}
+:root[data-theme="dark"][data-theme-page="shop"] .timing-zone:after{background:#262217aa}
+:root[data-theme="dark"][data-theme-page="shop"] .timing-marker{background:#3f5138;box-shadow:0 0 0 2px #ffffff20,0 2px 5px #00000055}
+:root[data-theme="dark"][data-theme-page="shop"] .timing-note{color:#c7bfa9}
+:root[data-theme="dark"][data-theme-page="shop"] .brew-progress b{color:#bac4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .brew-progress small{color:#c0c1ae}
+:root[data-theme="dark"][data-theme-page="shop"] .progress-line{background:#292719}
+:root[data-theme="dark"][data-theme-page="shop"] .progress-line i{background:#2a3120}
+:root[data-theme="dark"][data-theme-page="shop"] .cup-ready .cup{border:2px solid #988861;background:linear-gradient(#252217,#282319)}
+:root[data-theme="dark"][data-theme-page="shop"] .cup-ready .cup:before{border:2px solid #988861}
+:root[data-theme="dark"][data-theme-page="shop"] .cup-ready .cup:after{background:#372c22}
+:root[data-theme="dark"][data-theme-page="shop"] .cup-ready b{color:#d1dac8}
+:root[data-theme="dark"][data-theme-page="shop"] .cup-ready small{color:#c8bfa8}
+:root[data-theme="dark"][data-theme-page="shop"] .quality-pill{background:#242718;color:#bac6a9}
+:root[data-theme="dark"][data-theme-page="shop"] .quality-pill.good{background:#212718;color:#b8cba4}
+:root[data-theme="dark"][data-theme-page="shop"] .quality-pill.bad{background:#272118;color:#d6b99a}
+:root[data-theme="dark"][data-theme-page="shop"] .stock-row{color:#bcbeb1}
+:root[data-theme="dark"][data-theme-page="shop"] .stock-row b{color:#bbc4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .stock-row small{color:#c0c0af}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-footer{color:#bfbfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-dialog{background:#262218;border:1px solid #5d583c;box-shadow:0 30px 90px #0000003d}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-dialog::backdrop{background:#28352177}
+:root[data-theme="dark"][data-theme-page="shop"] .dialog-head p:last-child{color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .overline{color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .goal-strip{border:1px dashed #5d533c;background:#262218;color:#c7bea8}
+:root[data-theme="dark"][data-theme-page="shop"] .goal-strip b{color:#dcd6c6}
+:root[data-theme="dark"][data-theme-page="shop"] .goal-strip .ok{color:#b7c9a6}
+:root[data-theme="dark"][data-theme-page="shop"] .goal-strip .no{color:#d2b89d}
+:root[data-theme="dark"][data-theme-page="shop"] .first-note{background:#232618;border:1px solid #535d3c;color:#b9c2ad}
+:root[data-theme="dark"][data-theme-page="shop"] .first-note b{color:#b8c8a7}
+:root[data-theme="dark"][data-theme-page="shop"] .prep-block h3{color:#b8c4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .prep-block h3 small{color:#bfbfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-item{border:1px solid #5d573c;background:#252217}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-item small{color:#c0c0b0}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-item .buy{border:1px solid #5d543c;background:#252117;color:#d2c29d}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-item .buy:hover{background:#1d1d1d}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-item .owned{color:#bac4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .text-button{color:#c1bdae}
+:root[data-theme="dark"][data-theme-page="shop"] .dialog-help{color:#c4bdab}
+:root[data-theme="dark"][data-theme-page="shop"] .dialog-close{color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .report-cell{border:1px solid #5d573c;background:#252217}
+:root[data-theme="dark"][data-theme-page="shop"] .report-cell span{color:#c0c0b0}
+:root[data-theme="dark"][data-theme-page="shop"] .report-cell b{color:#d0dbc7}
+:root[data-theme="dark"][data-theme-page="shop"] .report-cell b.neg{color:#d2b89d}
+:root[data-theme="dark"][data-theme-page="shop"] .report-cell small{color:#c0c0af}
+:root[data-theme="dark"][data-theme-page="shop"] .report-note{color:#bebfb1;border-left:2px solid #545d3c}
+:root[data-theme="dark"][data-theme-page="shop"] .help-steps li{border-bottom:1px solid #5d563c}
+:root[data-theme="dark"][data-theme-page="shop"] .help-steps li:before{color:#cfbfa0}
+:root[data-theme="dark"][data-theme-page="shop"] .help-steps b{color:#b9c7a9}
+:root[data-theme="dark"][data-theme-page="shop"] .help-steps span{color:#bebeb1}
+:root[data-theme="dark"][data-theme-page="shop"] .help-notes p{color:#bebeb1}
+:root[data-theme="dark"][data-theme-page="shop"] .help-notes b{color:#b9c6aa}
+:root[data-theme="dark"][data-theme-page="shop"] .float-money{color:#b7c9a6;text-shadow:0 1px 0 #ffffff20}
+:root[data-theme="dark"][data-theme-page="shop"] .float-money.bad{color:#d2b89d}
+@media(max-width:760px){:root[data-theme="dark"][data-theme-page="shop"] .shop-hud{border-top:1px solid #5d563c}}
+:root[data-theme="dark"][data-theme-page="shop"] .prep-note{color:#bac4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .prep-note.warn{color:#d2b89d}
+@media(max-width:640px){:root[data-theme="dark"][data-theme-page="shop"] .dialog-actions{background:linear-gradient(transparent,#262218 26%)}}
+:root[data-theme="dark"][data-theme-page="shop"] .mode-bar{color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .mode-note{color:#c0c0af}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-modes{background:#282519;border:1px solid #5d583c}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-modes a{color:#b9c0b0}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-modes a:hover{background:#262318}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-modes a.active{background:#41553b;color:#f5f2e3}
+:root[data-theme="dark"][data-theme-page="shop"] .workbench-card{border:1px solid #5c5a3d;box-shadow:0 8px 24px #00000008}
+:root[data-theme="dark"][data-theme-page="shop"] .workbench-head span{color:#b4c4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .workbench-head small{color:#c0c0b0}
+:root[data-theme="dark"][data-theme-page="shop"] .workbench-hint{color:#c7bfa9}
+:root[data-theme="dark"][data-theme-page="shop"] .tool{border:1px solid #5d563c;background:#262318}
+:root[data-theme="dark"][data-theme-page="shop"] .tool b{color:#b8c4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .tool small{color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .tool:hover{border-color:#5d533c;background:#252217}
+:root[data-theme="dark"][data-theme-page="shop"] .tool.is-held{border-color:#988561;box-shadow:0 0 0 2px #00000033;background:#252117}
+:root[data-theme="dark"][data-theme-page="shop"] .tool.is-busy{border-color:#859861;background:#232718}
+:root[data-theme="dark"][data-theme-page="shop"] .tool.static{background:#272318}
+:root[data-theme="dark"][data-theme-page="shop"] .tool.static:hover{border-color:#5d563c;background:#272318}
+:root[data-theme="dark"][data-theme-page="shop"] .dial{border:1px solid #5d563c;background:#252217}
+:root[data-theme="dark"][data-theme-page="shop"] .dial button{color:#bac2ad}
+:root[data-theme="dark"][data-theme-page="shop"] .dial button:hover{background:#272319}
+:root[data-theme="dark"][data-theme-page="shop"] .dial b{color:#b8c4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .station{border:1px solid #5d583c;background:#262218}
+:root[data-theme="dark"][data-theme-page="shop"] .station.is-selected{border-color:#988561;box-shadow:0 0 0 2px #00000022}
+:root[data-theme="dark"][data-theme-page="shop"] .station.is-ready{background:#222618;border-color:#505d3c}
+:root[data-theme="dark"][data-theme-page="shop"] .station.is-orphan{background:#272018;border-color:#5d4f3c}
+:root[data-theme="dark"][data-theme-page="shop"] .station-name{color:#b8c4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .station-state{color:#bebfb0;background:#272319}
+:root[data-theme="dark"][data-theme-page="shop"] .station.is-ready .station-state{background:#222819;color:#b7c9a6}
+:root[data-theme="dark"][data-theme-page="shop"] .station-order{color:#c3bdac}
+:root[data-theme="dark"][data-theme-page="shop"] .station-order b{color:#d1dac8}
+:root[data-theme="dark"][data-theme-page="shop"] .station-order em{color:#cfbea0}
+:root[data-theme="dark"][data-theme-page="shop"] .station-order small{color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .station-meters{color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .station-meters b{color:#b9c4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .station-actions button{border:1px solid #5d553c;background:#252117;color:#ccbfa4}
+:root[data-theme="dark"][data-theme-page="shop"] .station-actions button:hover:not(:disabled){background:#1d1d1d}
+:root[data-theme="dark"][data-theme-page="shop"] .station-actions button.primary-action{background:#41553b;border-color:#719466;color:#f6f3e5}
+:root[data-theme="dark"][data-theme-page="shop"] .station-actions button.primary-action:hover:not(:disabled){background:#30472e}
+:root[data-theme="dark"][data-theme-page="shop"] .station-actions button.is-holding{background:#2f402d;color:#fff}
+:root[data-theme="dark"][data-theme-page="shop"] .station-note{color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .bench-note{color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .side-tip{color:#bebeb1}
+:root[data-theme="dark"][data-theme-page="shop"] .side-progress{border-top:1px dashed #5d563c;color:#bebfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .side-progress b{color:#b9c4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop{background:#262218}
+:root[data-theme="dark"][data-theme-page="shop"] .site-links{color:#b9beb1}
+:root[data-theme="dark"][data-theme-page="shop"] .site-links a[aria-current]{color:#cbd8ca;border-bottom:1px solid #6c906a}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-intro .overline{color:#b8c3ad}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-intro h1 span{color:#b8c4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .shop-intro p:last-child{color:#babdb2}
+:root[data-theme="dark"][data-theme-page="shop"] .session-hud>div{border-right:1px solid #565a3f}
+:root[data-theme="dark"][data-theme-page="shop"] .session-hud span{color:#babeb1}
+:root[data-theme="dark"][data-theme-page="shop"] .session-hud strong{color:#cfdac8}
+:root[data-theme="dark"][data-theme-page="shop"] .guest-speech{background:#252017;border:1px solid #565b3e;box-shadow:0 5px 15px #00000012;color:#cedac8}
+:root[data-theme="dark"][data-theme-page="shop"] .guest-speech small{color:#c1bdae}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop .side-head span{color:#b4c5aa}
+:root[data-theme="dark"][data-theme-page="shop"] #step-count{color:#bdbfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-steps li{color:#babfb1;border-bottom:2px solid #575c3d}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-steps li span{color:#bbc2ad}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-steps li.current{color:#cfddc5;border-color:#7c9367}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-steps li.current span{color:#b7c7a8}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-steps li.done{border-color:#4f5d3c;color:#b7c2ae}
+:root[data-theme="dark"][data-theme-page="shop"] .counter-empty h2{color:#b7c5aa}
+:root[data-theme="dark"][data-theme-page="shop"] .counter-empty p{color:#bac0b0}
+:root[data-theme="dark"][data-theme-page="shop"] .order-heading small{color:#babfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .order-heading h2{color:#cfdbc7}
+:root[data-theme="dark"][data-theme-page="shop"] .order-heading p{color:#cabca5}
+:root[data-theme="dark"][data-theme-page="shop"] .recipe-pills span{border:1px solid #555d3c;background:#232618;color:#bac2ad}
+:root[data-theme="dark"][data-theme-page="shop"] .flavor-select>span{color:#babfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .flavor-select button{border:1px solid #525d3c;color:#b9c2ad}
+:root[data-theme="dark"][data-theme-page="shop"] .flavor-select button.selected{background:#222719;border-color:#809861;color:#cedec4}
+:root[data-theme="dark"][data-theme-page="shop"] .flavor-chip{border:1px solid #525d3c;color:#b9c2ad}
+:root[data-theme="dark"][data-theme-page="shop"] .flavor-chip.selected{background:#222719;border-color:#809861;color:#cedec4}
+:root[data-theme="dark"][data-theme-page="shop"] .flavor-chip.target:not(.selected){box-shadow:inset 0 0 0 1px #00000055;color:#ccbda3}
+:root[data-theme="dark"][data-theme-page="shop"] .flavor-chip.selected.target{background:#222819;border-color:#7c9367;color:#cfe1c1}
+:root[data-theme="dark"][data-theme-page="shop"] .recipe-pills .param-pill{border:1px solid #555d3c;background:#232618;color:#bac2ad}
+:root[data-theme="dark"][data-theme-page="shop"] .recipe-pills .param-pill b{color:#b9c5aa}
+:root[data-theme="dark"][data-theme-page="shop"] .param-step{background:#242819;color:#b9c8a7}
+:root[data-theme="dark"][data-theme-page="shop"] .param-step:hover{background:#25291a}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop .primary:hover{background:#2e452e}
+:root[data-theme="dark"][data-theme-page="shop"] .next-action:enabled{box-shadow:0 4px 14px #00000015}
+:root[data-theme="dark"][data-theme-page="shop"] .action-hint{color:#b8c0af}
+:root[data-theme="dark"][data-theme-page="shop"] .brew-meter{background:#242819}
+:root[data-theme="dark"][data-theme-page="shop"] .brew-meter i{background:#29301f}
+:root[data-theme="dark"][data-theme-page="shop"] #queue-note{color:#bdbfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .coffee-connection{background:#232718!important;border-color:#525d3c!important}
+:root[data-theme="dark"][data-theme-page="shop"] .coffee-connection .overline{color:#bac4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .coffee-connection h3{color:#b7c8a7}
+:root[data-theme="dark"][data-theme-page="shop"] .coffee-connection>p:not(.overline){color:#b9c2ad}
+:root[data-theme="dark"][data-theme-page="shop"] .coffee-connection a{color:#b8c8a7;border-bottom:1px solid #505d3c}
+:root[data-theme="dark"][data-theme-page="shop"] .counter-tools>button{border:1px solid #5d533c;background:#272218;color:#cdbca3}
+:root[data-theme="dark"][data-theme-page="shop"] .counter-tools>button:hover:enabled{border-color:#988561;background:#272218}
+:root[data-theme="dark"][data-theme-page="shop"] .counter-tools small{color:#c9bca6}
+:root[data-theme="dark"][data-theme-page="shop"] .counter-tools>p{color:#c1beae}
+:root[data-theme="dark"][data-theme-page="shop"] .kettle-armed .counter-tools>button{background:#2a251a;border-color:#988361;box-shadow:0 0 0 3px #00000033}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop .shop-footer{color:#babfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop .shop-dialog{background:#262317;border:1px solid #545d3c}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop .shop-dialog::backdrop{background:#33432e88}
+:root[data-theme="dark"][data-theme-page="shop"] .welcome-dialog .overline{color:#b9c2ad}
+:root[data-theme="dark"][data-theme-page="shop"] .welcome-art span{color:#d4c19b}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop .welcome-dialog h2{color:#cedac8}
+:root[data-theme="dark"][data-theme-page="shop"] .welcome-copy{color:#b9bfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .round-options button{border:1px solid #545d3c;background:#242618}
+:root[data-theme="dark"][data-theme-page="shop"] .round-options button.chosen{border-color:#809763;background:#222718;box-shadow:0 0 0 1px #00000055}
+:root[data-theme="dark"][data-theme-page="shop"] .round-options span{color:#b9c2ad}
+:root[data-theme="dark"][data-theme-page="shop"] .round-options b{color:#cfdcc6}
+:root[data-theme="dark"][data-theme-page="shop"] .round-options small{color:#b9bfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .welcome-foot{color:#bbbfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .welcome-foot a{color:#b8c8a8}
+:root[data-theme="dark"][data-theme-page="shop"] .welcome-back{color:#b9c1ae}
+:root[data-theme="dark"][data-theme-page="shop"] .report-stamp{border:1px solid #505d3c;background:#222618}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop .report-dialog h2{color:#b5c8a7}
+:root[data-theme="dark"][data-theme-page="shop"] #report-sub{color:#bac0b0}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop .report-cell{background:#232618;border-color:#525d3c}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop .report-cell span{color:#bac1ae}
+:root[data-theme="dark"][data-theme-page="shop"] .report-note{color:#b9bfb0!important}
+:root[data-theme="dark"][data-theme-page="shop"] .best-note{color:#b9c3ac}
+:root[data-theme="dark"][data-theme-page="shop"] .secondary{border:1px solid #515d3c;color:#b9c5aa}
+:root[data-theme="dark"][data-theme-page="shop"] .secondary:hover{background:#222618}
+:root[data-theme="dark"][data-theme-page="shop"] .report-feedback{color:#b9c5ab}
+:root[data-theme="dark"][data-theme-page="shop"] .report-next{border-top:1px solid #525d3c}
+:root[data-theme="dark"][data-theme-page="shop"] .report-next a{color:#b8c5aa}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop .help-steps span{color:#b9bfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop .help-notes p{color:#b9bfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop .help-dialog h2{color:#cedcc6}
+@media(max-width:800px){:root[data-theme="dark"][data-theme-page="shop"] .easy-shop #main-action{box-shadow:0 0 0 7px #ffffffee,0 5px 18px #00000033}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop #main-action:disabled{background:#292d24;color:#f7f8f1}}
+:root[data-theme="dark"][data-theme-page="shop"] .batch-workbench{border:1px solid #515d3c;background:#252417}
+:root[data-theme="dark"][data-theme-page="shop"] .batch-heading h2{color:#b6c6a9}
+:root[data-theme="dark"][data-theme-page="shop"] .batch-heading>span{color:#b9c0af}
+:root[data-theme="dark"][data-theme-page="shop"] .cup-task{background:#242618;border:1px solid #535d3c}
+:root[data-theme="dark"][data-theme-page="shop"] .cup-task.chosen{border-color:#7f9862}
+:root[data-theme="dark"][data-theme-page="shop"] .cup-task.ready{background:#212719;border-color:#7a9861}
+:root[data-theme="dark"][data-theme-page="shop"] .task-select span{color:#bbc1ae}
+:root[data-theme="dark"][data-theme-page="shop"] .task-select strong{color:#b6c7a8}
+:root[data-theme="dark"][data-theme-page="shop"] .task-select small{color:#b9c3ac}
+:root[data-theme="dark"][data-theme-page="shop"] .task-progress{background:#232819}
+:root[data-theme="dark"][data-theme-page="shop"] .task-progress i{background:#2a311f}
+:root[data-theme="dark"][data-theme-page="shop"] .task-action{border:1px solid #505d3c;background:#232517;color:#b8c7a8}
+:root[data-theme="dark"][data-theme-page="shop"] .ready .task-action{background:#4f6940;color:#fff;border-color:#769861}
+:root[data-theme="dark"][data-theme-page="shop"] .empty-task{color:#b9c0b0}
+:root[data-theme="dark"][data-theme-page="shop"] .bonk-burst b{color:#e4d2be;text-shadow:0 2px 0 #ffffff20,0 0 20px #ffffff20}
+:root[data-theme="dark"][data-theme-page="shop"] .bonk-burst::before{border:3px solid #5d553c;box-shadow:0 0 0 2px #00000055,0 0 26px #00000055}
+:root[data-theme="dark"][data-theme-page="shop"] .bonk-burst i{background:#312a1e}
+:root[data-theme="dark"][data-theme-page="shop"] .scene-kettle:focus-visible{outline:2px solid #988461}
+:root[data-theme="dark"][data-theme-page="shop"] .combo-badge{background:#262217;border:1px solid #988461;color:#e4d4be;box-shadow:0 7px 16px #00000022}
+:root[data-theme="dark"][data-theme-page="shop"] .combo-badge b{color:#d6be9a}
+:root[data-theme="dark"][data-theme-page="shop"] .combo-badge span{color:#d3be9c}
+:root[data-theme="dark"][data-theme-page="shop"] .coin{background:radial-gradient(circle at 35% 30%,#272418,#2e291d 52%,#342d21);border:1px solid #988361;box-shadow:0 2px 0 #00000055;color:#e4d5be}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-kettle-tip{background:#272118;border-top:1px solid #5d513c;color:#e4d3be}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-kettle-tip>span{background:#2c261c;color:#e4d3be}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-kettle-tip small{color:#e0d4c2}
+:root[data-theme="dark"][data-theme-page="shop"] .welcome-kettle-tip{border:1px solid #5d513c}
+:root[data-theme="dark"][data-theme-page="shop"] .guest-trouble .guest-speech{border-color:#987161;background:#261e18;color:#e4c7be}
+:root[data-theme="dark"][data-theme-page="shop"] .guest-trouble .guest-speech small{color:#d4ae9b}
+:root[data-theme="dark"][data-theme-page="shop"] .trouble-badge{background:#352521;border:1px solid #5d523c;color:#fff7e8;box-shadow:0 2px 4px #00000022}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop .ticket-trouble{border-color:#987461;background:#261e18}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop .ticket-trouble .ticket-title b{color:#d6a69a}
+:root[data-theme="dark"][data-theme-page="shop"] .easy-shop .ticket-trouble.is-active{border-color:#986f61;box-shadow:inset 3px 0 #00000055}
+:root[data-theme="dark"][data-theme-page="shop"] .kettle-impact{border:2px solid #5d513c}
+:root[data-theme="dark"][data-theme-page="shop"] .kettle-impact::before,:root[data-theme="dark"][data-theme-page="shop"] .kettle-impact::after{border:2px solid #5d543c}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.header,.studio-header,.shop-header,.learn-header){background:#252117}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.nav-link,.site-links a,.back-home,.studio-shop-link){color:#d0d8ca}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.brand-en,.brand small,.studio-brand small,.learn-brand small){color:#b8bfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.button.primary,.solid-button,.pill.dark,.next-action,.report-actions .primary){color:#fffdf7}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.button.primary,.solid-button,.pill.dark,.next-action):hover:enabled{background:#29432d}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.soft-button,.secondary,.button.outline){border-color:#4d5c3d;color:#cddbc7}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.lesson-body h3,.new-method-card h3){color:#ccddc6}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.lesson-status,.entry-link,.new-method-modes a,.plain-link){color:#cedcc6}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .hero-note{color:#b8c0af}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .taste-tag{color:#cedbc7}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .studio-title h1{color:#cbddc5}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .workspace{border-color:#515d3c;box-shadow:0 8px 34px #00000008}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.journey-sidebar,.coach-panel){background:#242618}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .sidebar-heading{color:#cedac9}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined #journey-list li{color:#b7bfb0}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined #journey-list li.active{color:#c8dcc6}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined #journey-list li.complete{color:#cedcc6}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.recipe-slip p,.recipe-slip>span,.studio-footnote,.studio-bottom){color:#b9c0b0}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.parameter-heading,.parameter-cards button>span){color:#b7c1ae}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .parameter-cards strong{color:#cbdec4}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.parameter-cards small,.parameter-heading small){color:#b6c0af}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .guide-banner{background:#282419;border-color:#5d533c}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .guide-banner strong{color:#e4d5be}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.guide-banner small,.guide-banner div>span){color:#cfc0a0}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined.advanced-play .guide-banner{background:#222718;border-color:#505d3c}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined.advanced-play .guide-banner strong{color:#cddfc4}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined.advanced-play :is(.guide-banner small,.guide-banner div>span){color:#b8c5aa}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.scene-toolbar button,.stage-footer button){color:#b5c6a9}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .live-dashboard{background:#232718;border-color:#515d3c}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .live-dashboard span{color:#b7c2ad}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .live-dashboard strong{color:#ccdfc3}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .live-dashboard small{color:#b8c5ab}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.coach-panel #instruction-desc,.gesture-card p,.coach-tip p,.feedback-box p){color:#b8c3ac}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.coach-eyebrow,.coach-tip>span,.task-progress>div>span,.free-sidebar-desc){color:#b7c1af}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .coach-panel h2{color:#cddfc3}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .heat-guide{background:#272318;border-color:#988561;box-shadow:0 8px 25px #00000016}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.heat-guide>span,.heat-guide p){color:#e4d4be}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .heat-temperatures output{color:#e4d4be}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .heat-temperatures>span{color:#e4d5be}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .heat-guide button:disabled{color:#e4d7be;background:#2a261b}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .shop-intro .overline{color:#b8c3ac}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .shop-intro h1{color:#caddc5}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .shop-intro h1 span{color:#b7c9a7}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .shop-intro p:last-child{color:#b7c0af}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .session-hud span{color:#b9c2ae}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .session-hud strong{color:#ccdfc3}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.scene-topline,.scene-ticker){color:#b8c0af}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.side-card,.scene-card,.batch-workbench){border-color:#505d3c}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .side-head span{color:#ccdfc3}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.side-head small,#queue-note,.action-hint,.coffee-connection>p:not(.overline)){color:#b9c4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .order-heading small{color:#b6c2ad}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .order-heading h2{color:#ccdfc3}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .order-heading p{color:#d6bb9a}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .recipe-pills span{color:#cfddc5;background:#222618;border-color:#505d3c}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .flavor-select>span{color:#b7c4ab}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .flavor-select button{color:#b6c7a9}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .easy-steps li{color:#b8c1ae}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .easy-steps li.current{color:#cbe0c3;border-color:#7b9861}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .ticket-sub{color:#b7c4ac}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .ticket-title b{color:#cedec4}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .ticket-price{color:#e4d4be}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .coffee-connection .overline{color:#b8c7a9}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .coffee-connection h3{color:#cddfc3}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .batch-heading h2{color:#cde0c3}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .batch-heading>span{color:#b8c5aa}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task{background:#222618;border:1px solid #515d3c}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task.chosen{background:#222718;border-color:#7f9861}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task.ready{background:#212618;border-color:#7c9861}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .task-select span{color:#b7c4ac}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .task-select strong{color:#cde0c2}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .task-select small{color:#b9c5aa;background:#232819}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .ready .task-select small{background:#222919;color:#cde2c0}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .task-action{border-color:#4f5d3c;color:#cfdec4}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .ready .task-action{background:#3f6031;color:#fffdf7}
+:root[data-theme="dark"][data-theme-page="shop"] .task-cup{border:1.5px solid #81906a;background:#252117;box-shadow:0 7px 0 -4px #ffffff20}
+:root[data-theme="dark"][data-theme-page="shop"] .task-cup:after{border:2px solid #81906a}
+:root[data-theme="dark"][data-theme-page="shop"] .task-cup-fill i{background:#362b22}
+:root[data-theme="dark"][data-theme-page="shop"] .task-art[data-drink="latte"] .task-cup-fill i{background:linear-gradient(#32291f 0 14%,#2b251b 15%)}
+:root[data-theme="dark"][data-theme-page="shop"] .task-cup-steam{border-left:1.5px solid #819169;border-right:1.5px solid #819169}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .counter-tools>button{background:#272218;border-color:#5d513c}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .counter-tools b{color:#e4d4be}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .counter-tools small{color:#cdbea2}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .shop-footer{color:#b9c3ac}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.welcome-copy,.welcome-foot,.round-options small,.round-options span,.report-note,.best-note){color:#b9c6a9}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.report-cell span,.report-next a,.welcome-back){color:#b6c7a8}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.section-heading>p:not(.eyebrow),.brewer-copy>p,.recipe-detail>p,.brewer-facts,.recipe-footnote,.footer-note){color:#b6c1ae}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .chapter-nav a{color:#b7c4ac}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .chapter-nav a.active{color:#fffdf7;background:#36533a}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .hero-meta{color:#b7c4ac}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.header,.studio-header,.shop-header,.learn-header){background:#242117;border-color:#4d5346}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.section-description,.hero p,.lead,.title-sub){color:#cdd5d1}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.overline,.eyebrow,.tiny-label){color:#b3bcb6}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.nav-link,.site-links a,.back-home,.studio-shop-link){color:#cbd7d0}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.button.primary,.solid-button,.pill.dark,.next-action,.report-actions .primary){background:#285442}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.button.outline,.soft-button,.secondary){background:#1d1d1d;border-color:#708a77;color:#c5decf}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .hero-note{color:#b3bcb6}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.lesson-card,.workshop-entry,.new-method-card,.note-card){border-color:#4a5445}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .lesson-art{background:#19271c}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .bean-art{background:#281f19}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .ratio-art{background:#182127}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .art-tag{color:#ccd7d0}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .bean-art .art-tag{color:#e2ccc1}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .ratio-art .art-tag{color:#c1d5e2}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .lesson-body{background:#1d1d1d}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .lesson-body .tiny-label{color:#b3bdb7}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .lesson-body h3{color:#cad8d2}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.lesson-body p,.workshop-entry p,.new-method-card p,.shop-promo p){color:#cdd5d1}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .lesson-status{color:#c1e1d4;border-color:#445546}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .workshop-entry{background:#192519;border-color:#3f5a47}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .workshop-entry:nth-child(2){background:#261f18;border-color:#5d4b3c}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .workshop-entry h3{color:#c6dcd0}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .workshop-entry:nth-child(2) h3{color:#e4cbbe}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .workshop-entry h3 span{color:#ccd6cf}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .entry-link{color:#c1e1d4}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .new-method-card{background:#1d1d1d;border-top:4px solid #987461}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .new-method-card:nth-child(2){border-top-color:#618698}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .new-method-card:nth-child(3){border-top-color:#6d8d77}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .new-method-card:nth-child(4){border-top-color:#816991}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .new-method-card:nth-child(5){border-top-color:#988961}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .new-method-card h3{color:#cad8d2}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .new-method-modes a{color:#c5decf;border-color:#425747;background:#1d1d1d}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .new-method-modes a:last-child{color:#fff;background:#285442;border-color:#619882}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .shop-promo{background:#281f19;border-color:#5d4c3c}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .shop-promo strong{color:#e4cbbf}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .shop-promo .tiny-label{color:#e1cec2}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .shop-promo :is(.promo-tags,.promo-cta){color:#e4cdbe}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .promo-cta{background:#251e17;border-color:#987961}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .lab-controls{background:#1d1d1d}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .lab-result{background:#182126;border-color:#3c515d}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.range-label,.lab-heading){color:#cad8cf}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .lab-result :is(p,.lab-tip,.flavor-desc){color:#c7d3db}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .water-result strong{color:#bfd6e4}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .water-result span{color:#c7d3db}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .note-card{background:#1d1d1d;border-color:#4b5346}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .note-card h3{color:#cad8d2}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .note-card p{color:#cdd5d1}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.note-top,.note-recipe,.journal-footer,.hands-on-note){color:#b3bcb6}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .taste-tag{background:#18271c;color:#c1e1d4;border-color:#3f5a44}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .workspace{border-color:#485445}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .journey-sidebar{background:#1b241b}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .coach-panel{background:#242017;border-color:#4b5544}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .studio-center{background:#1d1d1d}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .guide-banner{background:#282019;border-color:#5d4d3c}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .guide-banner strong{color:#e4cdbe}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .guide-banner :is(small,div>span){color:#e1cfc1}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined.advanced-play .guide-banner{background:#18271d;border-color:#3c5d48}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined.advanced-play .guide-banner strong{color:#c0e2d1}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined.advanced-play .guide-banner :is(small,div>span){color:#c8dacf}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .parameter-strip{background:#192124;border-color:#415358}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .parameter-cards button{background:#1d1d1d;border-color:#435356;border-top:3px solid #689176}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .parameter-cards button:nth-child(2){border-top-color:#806a90}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .parameter-cards button:nth-child(3){border-top-color:#987561}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .parameter-cards button:nth-child(4){border-top-color:#618598}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.parameter-heading,.parameter-cards button>span,.parameter-cards small,.parameter-heading small){color:#aebbc2}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .parameter-cards strong{color:#c8dbd3}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .scene-wrap{background:#252317}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.scene-toolbar button,.stage-footer button){color:#c7dbd0}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .live-dashboard{background:#1d1d1d;border-color:#45544c}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .live-dashboard>div{background:#262118}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .live-dashboard>div:nth-child(2){background:#182026}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .live-dashboard>div:nth-child(3){background:#272018}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .live-dashboard>div:nth-child(4){background:#1e1826}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .live-dashboard span{color:#ced5d0}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .live-dashboard strong{color:#c9dad1}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .live-dashboard small{color:#ced5d0}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .watching-heat .live-dashboard>div:nth-child(3),:root[data-theme="dark"][data-theme-page="shop"] .xc-refined.watching-heat .live-dashboard>div:nth-child(3){background:#29221a}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .coach-panel h2{color:#c8dad0}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.coach-panel #instruction-desc,.gesture-card p,.coach-tip p,.feedback-box p){color:#ccd6cf}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .gesture-card{background:#182126;border-color:#3c505d}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .gesture-card :is(strong,span){color:#bfd6e4}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.coach-eyebrow,.coach-tip>span,.task-progress>div>span,.free-sidebar-desc){color:#b2beb5}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .coach-tip{border-color:#465643}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .feedback-box{border-color:#669378}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .operation-guide{background:#272118;border-color:#5d513c}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .operation-guide strong{color:#e4d0be}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .operation-guide p{color:#e2d2c1}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .heat-guide{background:#282219;border-color:#988261}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .heat-guide>span,:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .heat-guide p{color:#e4d1be}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .heat-temperatures output{color:#e4cebe}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .heat-guide button{background:#764821;border-color:#987b61;color:#fffdf7}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .heat-guide button:disabled{background:#2a241a;border-color:#988261;color:#e4d2be}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.side-card,.scene-card,.batch-workbench){background:#1d1d1d;border-color:#475544}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .scene-ticker{background:#19241c;color:#cad8ce}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .batch-heading h2{color:#cad9cf}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .batch-heading>span{color:#b2bdb6}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task{background:#242017;border-color:#515643;border-top:3px solid #6d8c76}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task:nth-child(2){border-top-color:#987661}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task:nth-child(3){border-top-color:#618098}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task.chosen{background:#242017;border-color:#649675;box-shadow:0 0 0 1px #00000055 inset}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task[data-phase="grinding"],:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task[data-phase="prepared"]{background:#272018;border-color:#988061}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task[data-phase="brewing"]{background:#182126;border-color:#618398}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task.ready{background:#192718;border-color:#6b8f6d}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .task-select span{color:#b2bdb6}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .task-select strong{color:#c8dad0}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .task-select small{color:#cdd6d0;background:#1f241a}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task[data-phase="grinding"] .task-select small,:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task[data-phase="prepared"] .task-select small{background:#2a231a;color:#e4d2be}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task[data-phase="brewing"] .task-select small{background:#1a2329;color:#bed5e4}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task.ready .task-select small{background:#1c2a1a;color:#c3dfc7}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .task-action{background:#1d1d1d;color:#c5ddce;border-color:#425746}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .task-action:disabled{background:#171f25;color:#a5baca;border-color:#3c515d}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .ready .task-action{background:#285442;color:#fff;border-color:#619882}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task.empty-task{background:#23231a;border:1px dashed #495445}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .recipe-pills span{background:#202618;color:#ccdac9;border-color:#4b5a3f}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.side-head small,#queue-note,.action-hint,.coffee-connection>p:not(.overline),.ticket-sub,.order-heading small){color:#b1beb6}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .ticket{background:#212419;border-color:#4c5643}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .ticket.is-active{background:#272118;border-color:#988061}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .ticket-title b{color:#c8dacd}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .ticket-price{color:#e4cebe}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .coffee-connection{background:#182126!important;border-color:#3c525d!important}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .coffee-connection h3{color:#bfd6e4}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .coffee-connection :is(.overline,a){color:#c4d4de}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .counter-tools>button{background:#271d18;border-color:#987461}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .counter-tools b{color:#e4c8be}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .counter-tools small{color:#e0cdc3}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.welcome-copy,.welcome-foot,.round-options small,.round-options span,.report-note,.best-note){color:#ccd7cf}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .round-options button{background:#1d1d1d;border-color:#465643}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .round-options button[aria-pressed="true"]{background:#182719;border-color:#699171}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.section-heading>p:not(.eyebrow),.brewer-copy>p,.recipe-detail>p,.brewer-facts,.recipe-footnote,.footer-note){color:#ccd6d0}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .recipe-detail{background:#1d1d1d;border-color:#445544}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .recipe-detail h3{color:#c7dbcf}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .recipe-step-top{color:#b1beb6}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .recipe-meta{background:#182126;border-color:#3c525d}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .recipe-meta :is(span,small){color:#adbac3}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .recipe-meta strong{color:#bfd6e4}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .brewer-tabs{background:#1c251b;border-color:#455742}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .brewer-tabs button{color:#cad8cd}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .brewer-tabs button span{color:#b0bfb5}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .recipe-timeline button{color:#cbd7cf;background:#232618;border-color:#4c5841}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .recipe-timeline button.active{background:#182718;border-color:#6c8e6e;color:#c2e0d0}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .taste-response>p{color:#dcd0c7}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.footer-note,.studio-footnote,.studio-bottom,.shop-footer){color:#b2bdb5}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .lesson-art{background:#1a291d}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .bean-art{background:#29211a}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .ratio-art{background:#192328}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .practice-wrap{background:#1e241b}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .workshop-entry{background:#18271b;border-left:4px solid #669475}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .workshop-entry:nth-child(2){background:#272019;border-left:4px solid #987961}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .strip-intro strong{color:#cad8cf}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .intro-strip b{color:#c8dacd}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .intro-strip small{color:#b1beb6}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .section-top h2{color:#c7dbcf}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .heat-guide>span,:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .heat-guide p{color:#e4d1be}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .lesson-body h3>span{color:#cad9ce}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(#note-form label,.taste-options legend){color:#cbd7cf}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .taste-options span{color:#cbd7cf}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.note-top button,.range-scale,.range-ends){color:#b2bdb5}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(#help-dialog dt,#help-dialog dd,.sheet-note){color:#ccd6d0}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined.easy-shop #main-action:disabled{background:#182227;color:#c0d5e2;border-color:#3c505d}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task .task-progress{background:#1f251c}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task[data-phase="grinding"] .task-progress i,:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task[data-phase="prepared"] .task-progress i{background:#342a21}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task[data-phase="brewing"] .task-progress i{background:#212d35}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .cup-task.ready .task-progress i{background:#223623}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .story-step.active .step-kicker{color:#c1e1d4}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.story-step>p,.toolkit p,.roast-description p,.variable-explanation p,.faq details p,.practice-finale>p:not(.eyebrow)){color:#cdd5d1}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .brewer-facts>div{color:#cdd5d1}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .brewer-facts strong{color:#c7dbce}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .brewer-facts b{background:#192719;color:#c6dccc}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .experiment-rule span{color:#dfd1c3}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .experiment-rule strong{color:#e0d0c2}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .taste-response .small-note,:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .small-note{color:#b3bcb5}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .faq summary{color:#e0d0c2}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .roast-options button{color:#cad9ce;background:#1d1d1d;border-color:#455742}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .roast-options button.active{color:#fff;background:#775138;border-color:#987761}
+@media(max-width:760px){:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.header,.studio-header,.shop-header){background:#252117f7}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .mobile-scene-controls{background:#262518;border-top:1px solid #535d3c}
+:root[data-theme="dark"][data-theme-page="shop"] .mobile-scene-controls button{border:1px solid #515d3c;background:#232517;color:#b7c6a9}
+:root[data-theme="dark"][data-theme-page="shop"] .mobile-scene-controls button[aria-pressed=true]{background:#222819;color:#cce1c1;border-color:#7d9861}
+:root[data-theme="dark"][data-theme-page="shop"] .mobile-scene-controls p{color:#b9c0af}}
+@media(max-width:760px){:root[data-theme="dark"][data-theme-page="shop"] .xc-refined #restart{border:1px solid #505d3c;background:#242517}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined #restart:before{color:#b8c5ab}}
+@media(max-width:760px){:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.header,.studio-header,.shop-header,.learn-header){background:#252117}}
+@media(max-width:760px){:root[data-theme="dark"][data-theme-page="shop"] .xc-refined :is(.header,.studio-header,.shop-header,.learn-header){background:#242117}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .studio-title h1{color:#c7dbce}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .guide-banner strong{color:#e4cdbe}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined.advanced-play .guide-banner strong{color:#c0e2d1}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .mobile-scene-controls{background:#1a2224;border-color:#425257}
+:root[data-theme="dark"][data-theme-page="shop"] .mobile-scene-controls button{background:#1d1d1d;border-color:#435652;color:#cad8d1}
+:root[data-theme="dark"][data-theme-page="shop"] .mobile-scene-controls button[aria-pressed=true]{background:#19271a;border-color:#6b8f6f;color:#c2e1cf}
+:root[data-theme="dark"][data-theme-page="shop"] .mobile-scene-controls p{color:#b1beb6}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .heat-guide>span,:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .heat-guide p{color:#e4d1be}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .stage-footer{color:#b1beb6}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .scene-ticker{background:#19251b}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .session-hud span{color:#b1beb6}}
+@media(max-width:760px){:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .story-step .takeaway{color:#ced6cc}
+:root[data-theme="dark"][data-theme-page="shop"] .xc-refined .story-step .takeaway strong{color:#cad9cd}}
+
+
+
+
+:root[data-theme="dark"][data-theme-page="shop"] .site-glass .glass-control,:root[data-theme="dark"][data-theme-page="shop"] .site-glass .glass-switch{background:var(--color-surface,#252117)!important;color:var(--color-primary,#c2e0d7)!important}
+:root[data-theme="dark"][data-theme-page="shop"] .site-glass .glass-control.glass-primary{background:var(--color-primary,#1f3d34)!important;color:var(--color-surface,#fbf9f4)!important}
+:root[data-theme="dark"][data-theme-page="shop"] .site-glass :is(.glass-control,.glass-switch>button):focus-visible{outline:2px solid var(--color-primary,#619888)!important}
+:root[data-theme="dark"][data-theme-page="shop"] .site-glass select.glass-control option{background:var(--color-surface,#252117);color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="shop"] .site-glass .glass-switch>button{color:var(--color-primary,#c2e0d7)!important}
+:root[data-theme="dark"][data-theme-page="shop"] .site-glass .glass-switch .glass-slider{background:var(--color-surface,#252117)}
+:root[data-theme="dark"][data-theme-page="shop"] .site-glass dialog.glass-panel{background:var(--color-surface,#252117);color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="shop"] .site-glass .glass-preferences{color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="shop"] .site-glass .glass-preference-options input:checked+span{background:var(--color-primary,#1f3d34);color:var(--color-surface,#fbf9f4);border-color:var(--color-primary,#619888)}
+:root[data-theme="dark"][data-theme-page="shop"] .site-glass .glass-preference-options input:focus-visible+span{outline:2px solid var(--color-primary,#619888)}
+@media(prefers-reduced-transparency:reduce){:root[data-theme="dark"][data-theme-page="shop"] .site-glass .glass-control,:root[data-theme="dark"][data-theme-page="shop"] .site-glass .glass-switch,:root[data-theme="dark"][data-theme-page="shop"] .site-glass .glass-switch .glass-slider,:root[data-theme="dark"][data-theme-page="shop"] .site-glass dialog.glass-panel{background:var(--color-surface,#252117)!important}
+:root[data-theme="dark"][data-theme-page="shop"] .site-glass .glass-control.glass-primary{background:var(--color-primary,#1f3d34)!important}}
+
+:root[data-theme="dark"][data-theme-page="workshop"] .studio-name small{color:#bebeb1}
+:root[data-theme="dark"][data-theme-page="workshop"] .back-home{color:#bbbeb1}
+:root[data-theme="dark"][data-theme-page="workshop"] .overline{color:#bcbeb1}
+:root[data-theme="dark"][data-theme-page="workshop"] h1 span{color:#c4baab}
+:root[data-theme="dark"][data-theme-page="workshop"] .title-sub{color:#bdbeb2}
+:root[data-theme="dark"][data-theme-page="workshop"] .v60-chip{border:1px solid #505b3e;color:#bbc2ad;background:#232718}
+:root[data-theme="dark"][data-theme-page="workshop"] .session-options button{color:#bbbeb1}
+:root[data-theme="dark"][data-theme-page="workshop"] #guidance-toggle{color:#bac2ad}
+:root[data-theme="dark"][data-theme-page="workshop"] .workspace{border:1px solid #585a3f;background:#252317;box-shadow:0 12px 45px #00000004}
+:root[data-theme="dark"][data-theme-page="workshop"] .journey-sidebar{background:#262618}
+:root[data-theme="dark"][data-theme-page="workshop"] .sidebar-heading small{color:#bfbeb0}
+:root[data-theme="dark"][data-theme-page="workshop"] #journey-list li{color:#bfc0af}
+:root[data-theme="dark"][data-theme-page="workshop"] #journey-list li:after{background:#27281a}
+:root[data-theme="dark"][data-theme-page="workshop"] #journey-list .step-dot{border:1px solid #565c3d;background:#262618}
+:root[data-theme="dark"][data-theme-page="workshop"] #journey-list .active .step-dot{color:#fff;box-shadow:0 0 0 4px #ffffff20}
+:root[data-theme="dark"][data-theme-page="workshop"] #journey-list .complete{color:#b9c2ad}
+:root[data-theme="dark"][data-theme-page="workshop"] #journey-list .complete .step-dot{background:#222819;border-color:#4e5d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .recipe-slip{border-top:1px dashed #585d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .recipe-slip>div{color:#bdbeb1}
+:root[data-theme="dark"][data-theme-page="workshop"] .recipe-slip strong{color:#bbc4ac}
+:root[data-theme="dark"][data-theme-page="workshop"] .recipe-slip p{color:#bfbeb0}
+:root[data-theme="dark"][data-theme-page="workshop"] .studio-center{background:#272718}
+:root[data-theme="dark"][data-theme-page="workshop"] .stage-topline{border-bottom:1px solid #5b5d3c;color:#bcbfb0}
+:root[data-theme="dark"][data-theme-page="workshop"] .stage-topline i{background:#292f1f}
+:root[data-theme="dark"][data-theme-page="workshop"] #interaction-badge{color:#bebfb1}
+:root[data-theme="dark"][data-theme-page="workshop"] .scene-wrap{background:radial-gradient(ellipse at 30% 15%,#252317aa,transparent 65%),#272718}
+:root[data-theme="dark"][data-theme-page="workshop"] .scene-toast{background:#252517ed;border:1px solid #525d3c;color:#bac4ab}
+:root[data-theme="dark"][data-theme-page="workshop"] .scene-toast.warn{background:#262118;border-color:#5d4f3c;color:#d3ba9d}
+:root[data-theme="dark"][data-theme-page="workshop"] .selection-caption{color:#bcc4ab}
+:root[data-theme="dark"][data-theme-page="workshop"] .live-dashboard{background:#242719e0;border-top:1px solid #535d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .live-dashboard>div{border-left:1px solid #535d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .live-dashboard span{color:#bcbfb0}
+:root[data-theme="dark"][data-theme-page="workshop"] .live-dashboard strong{color:#d1dac8}
+:root[data-theme="dark"][data-theme-page="workshop"] .live-dashboard small{color:#bbc1af}
+:root[data-theme="dark"][data-theme-page="workshop"] .stage-footer{color:#bec0b0}
+:root[data-theme="dark"][data-theme-page="workshop"] .stage-footer button{color:#bbc0b0}
+:root[data-theme="dark"][data-theme-page="workshop"] .coach-panel{background:#252317}
+:root[data-theme="dark"][data-theme-page="workshop"] .coach-eyebrow{color:#bfc0af}
+:root[data-theme="dark"][data-theme-page="workshop"] .coach-eyebrow span:last-child{background:#242718;color:#bac3ac}
+:root[data-theme="dark"][data-theme-page="workshop"] #instruction-desc{color:#bebeb2}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-card{border:1px solid #535d3c;background:#232618}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-card>span{color:#bac3ac}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-card strong{color:#bac4ab}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-card p{color:#bbc1ae}
+:root[data-theme="dark"][data-theme-page="workshop"] .task-progress>div:first-child{color:#bdc0af}
+:root[data-theme="dark"][data-theme-page="workshop"] .task-progress strong{color:#bac4ab}
+:root[data-theme="dark"][data-theme-page="workshop"] .progress-bar{background:#242819}
+:root[data-theme="dark"][data-theme-page="workshop"] .progress-bar i{background:#2a3020}
+:root[data-theme="dark"][data-theme-page="workshop"] .solid-button,:root[data-theme="dark"][data-theme-page="workshop"] .soft-button{color:#fbfcf7}
+:root[data-theme="dark"][data-theme-page="workshop"] .solid-button:hover{background:#30472e}
+:root[data-theme="dark"][data-theme-page="workshop"] .soft-button{border-color:#565d3c;color:#bac3ac}
+:root[data-theme="dark"][data-theme-page="workshop"] .coach-tip{border-top:1px solid #565b3e}
+:root[data-theme="dark"][data-theme-page="workshop"] .coach-tip>span{color:#bac0af}
+:root[data-theme="dark"][data-theme-page="workshop"] .coach-tip p{color:#bfbfb0}
+:root[data-theme="dark"][data-theme-page="workshop"] .feedback-box{border-left:2px solid #515d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .feedback-box p{color:#bcc4ab}
+:root[data-theme="dark"][data-theme-page="workshop"] .feedback-box.warn{border-color:#5d503c}
+:root[data-theme="dark"][data-theme-page="workshop"] .feedback-box.warn p{color:#ccbca3}
+:root[data-theme="dark"][data-theme-page="workshop"] .studio-footnote{color:#c0c0af}
+:root[data-theme="dark"][data-theme-page="workshop"] .studio-bottom{color:#bfbfb0}
+:root[data-theme="dark"][data-theme-page="workshop"] .step-mini-controls label{color:#bbc0af}
+:root[data-theme="dark"][data-theme-page="workshop"] .step-mini-controls output{color:#bac4ab}
+:root[data-theme="dark"][data-theme-page="workshop"] .step-mini-controls small{color:#bfc0af}
+:root[data-theme="dark"][data-theme-page="workshop"] .coverage-mini span{background:#252819;border:1px solid #545d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .coverage-mini span.wet{background:#2b301e;border-color:#899861}
+:root[data-theme="dark"][data-theme-page="workshop"] .heat-buttons button{background:#272418;border:1px solid #5d563c;color:#c8bea7}
+:root[data-theme="dark"][data-theme-page="workshop"] dialog{border:1px solid #555d3c;box-shadow:0 25px 100px #00000033}
+:root[data-theme="dark"][data-theme-page="workshop"] dialog::backdrop{background:#26352280}
+:root[data-theme="dark"][data-theme-page="workshop"] dialog .dialog-close{color:#bdbfb0}
+:root[data-theme="dark"][data-theme-page="workshop"] dt{color:#bac4ab}
+:root[data-theme="dark"][data-theme-page="workshop"] dd{color:#bebeb1}
+:root[data-theme="dark"][data-theme-page="workshop"] .help-note{color:#c1beaf}
+:root[data-theme="dark"][data-theme-page="workshop"] .result-sub{color:#bcc0b0}
+:root[data-theme="dark"][data-theme-page="workshop"] .score-row{background:#232718}
+:root[data-theme="dark"][data-theme-page="workshop"] .score-row>strong{color:#bcc9a7}
+:root[data-theme="dark"][data-theme-page="workshop"] .score-row>span{color:#bbc3ac}
+:root[data-theme="dark"][data-theme-page="workshop"] .score-row small{color:#bcc1ae}
+:root[data-theme="dark"][data-theme-page="workshop"] #result-metrics span{color:#bfbfb0}
+:root[data-theme="dark"][data-theme-page="workshop"] #result-metrics strong{color:#bbc4ab}
+:root[data-theme="dark"][data-theme-page="workshop"] #result-advice{color:#bfbfb0}
+:root[data-theme="dark"][data-theme-page="workshop"] .brewer-select{background:#232719;border:1px solid #515d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .brewer-select button{color:#bac0af}
+:root[data-theme="dark"][data-theme-page="workshop"] .brewer-select button.active{background:#232517;box-shadow:0 1px 5px #0000001a;color:#cedcc7}
+:root[data-theme="dark"][data-theme-page="workshop"] .action-complete{color:#bbc5aa}
+:root[data-theme="dark"][data-theme-page="workshop"] .mini-timing{color:#bbc1ae}
+:root[data-theme="dark"][data-theme-page="workshop"] .key-hint{color:#bac1ae}
+:root[data-theme="dark"][data-theme-page="workshop"] .repeat-note{background:#272418;color:#cabfa5}
+:root[data-theme="dark"][data-theme-page="workshop"] .step-cooldown{color:#c8bea7;background:#272218}
+:root[data-theme="dark"][data-theme-page="workshop"] .studio-footnote a{color:#bbc1af}
+:root[data-theme="dark"][data-theme-page="workshop"] .play-mode-tabs{background:#252819;border:1px solid #545d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .play-mode-tabs button{color:#bbc0af}
+:root[data-theme="dark"][data-theme-page="workshop"] .play-mode-tabs button.active{background:#41563b;color:#fff;box-shadow:0 2px 4px #0000001a}
+:root[data-theme="dark"][data-theme-page="workshop"] .guide-banner{background:#272318;border-bottom:1px solid #5d543c}
+:root[data-theme="dark"][data-theme-page="workshop"] .mentor-avatar{border:1px solid #5d513c;background:#252217}
+:root[data-theme="dark"][data-theme-page="workshop"] .guide-banner small{color:#c9bda6}
+:root[data-theme="dark"][data-theme-page="workshop"] .guide-banner strong{color:#e0d5c2}
+:root[data-theme="dark"][data-theme-page="workshop"] .guide-banner div>span{color:#cabca5}
+:root[data-theme="dark"][data-theme-page="workshop"] .guide-banner button{background:#262218;color:#cbbda4}
+:root[data-theme="dark"][data-theme-page="workshop"] .basic-play .gesture-card{background:#262218;border-color:#5d533c}
+:root[data-theme="dark"][data-theme-page="workshop"] .basic-play .gesture-card strong{color:#d3be9c}
+:root[data-theme="dark"][data-theme-page="workshop"] .basic-play #step-action p{background:#212718;color:#b8c7a8}
+:root[data-theme="dark"][data-theme-page="workshop"] .advanced-play .guide-banner{background:#222718;border-color:#515d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .advanced-play .guide-banner strong{color:#b7c6a9}
+:root[data-theme="dark"][data-theme-page="workshop"] .advanced-play .guide-banner div>span{color:#b9c2ae}
+:root[data-theme="dark"][data-theme-page="workshop"] .advanced-play .mentor-avatar{border-color:#515d3c;background:#222618}
+:root[data-theme="dark"][data-theme-page="workshop"] .advanced-play .guide-banner small{color:#b7c1ae}
+:root[data-theme="dark"][data-theme-page="workshop"] .advanced-play .journey-sidebar{background:#222618}
+:root[data-theme="dark"][data-theme-page="workshop"] .advanced-play .coach-panel{background:#232517}
+:root[data-theme="dark"][data-theme-page="workshop"] .free-setting label{color:#b8c1af}
+:root[data-theme="dark"][data-theme-page="workshop"] .free-setting output{color:#b7c8a7}
+:root[data-theme="dark"][data-theme-page="workshop"] .free-setting small{color:#bac1ae}
+:root[data-theme="dark"][data-theme-page="workshop"] .dose-chips button{border:1px solid #525d3c;color:#b8c3ac}
+:root[data-theme="dark"][data-theme-page="workshop"] .dose-chips button.active{background:#222819;border-color:#839861;color:#b7caa5}
+:root[data-theme="dark"][data-theme-page="workshop"] .free-stock{border-top:1px dashed #505d3c;border-bottom:1px dashed #505d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .free-stock span{color:#b8c1ae}
+:root[data-theme="dark"][data-theme-page="workshop"] .free-stock strong{color:#b8c7a8}
+:root[data-theme="dark"][data-theme-page="workshop"] .pause-button{border:1px solid #525d3c;color:#b9c3ac}
+:root[data-theme="dark"][data-theme-page="workshop"] .free-event{color:#b9c1ae;border-bottom:1px solid #515d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .free-event small{color:#bac3ac}
+:root[data-theme="dark"][data-theme-page="workshop"] .free-sidebar-title{color:#b8c6aa}
+:root[data-theme="dark"][data-theme-page="workshop"] .free-sidebar-desc{color:#b8c1af}
+:root[data-theme="dark"][data-theme-page="workshop"] .free-status-tile{border-bottom:1px solid #515d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .free-status-tile span{color:#b9c2ad}
+:root[data-theme="dark"][data-theme-page="workshop"] .free-status-tile strong{color:#b9c6aa}
+:root[data-theme="dark"][data-theme-page="workshop"] .free-pour-hint{color:#b8c3ac}
+:root[data-theme="dark"][data-theme-page="workshop"] .free-help-link{color:#b8c4ab}
+:root[data-theme="dark"][data-theme-page="workshop"] .basic-wait{color:#bbc4ab;background:#232618}
+:root[data-theme="dark"][data-theme-page="workshop"] .basic-wait strong{color:#bcc8a7}
+:root[data-theme="dark"][data-theme-page="workshop"] .mode-welcome>p:last-child{color:#babfb0}
+:root[data-theme="dark"][data-theme-page="workshop"] .mode-choice-grid button{border:1px solid #545d3c;background:#232618}
+:root[data-theme="dark"][data-theme-page="workshop"] .mode-choice-grid button:first-child{background:#272218;border-color:#5d523c}
+:root[data-theme="dark"][data-theme-page="workshop"] .mode-choice-grid button:hover{border-color:#819861}
+:root[data-theme="dark"][data-theme-page="workshop"] .mode-illustration{color:#bbc7a8}
+:root[data-theme="dark"][data-theme-page="workshop"] .mode-choice-grid button:first-child .mode-illustration{color:#d1c09e}
+:root[data-theme="dark"][data-theme-page="workshop"] .mode-badge{color:#bac2ad}
+:root[data-theme="dark"][data-theme-page="workshop"] .mode-choice-grid button:first-child .mode-badge{color:#cdbda2}
+:root[data-theme="dark"][data-theme-page="workshop"] .mode-choice-grid button>span:not([class]){color:#bbc1ae}
+:root[data-theme="dark"][data-theme-page="workshop"] .mode-choice-grid b{color:#b8c4ab}
+:root[data-theme="dark"][data-theme-page="workshop"] .mode-choice-grid button:first-child b{color:#d0bea0}
+:root[data-theme="dark"][data-theme-page="workshop"] #mode-dialog::backdrop{background:#293b2888}
+:root[data-theme="dark"][data-theme-page="workshop"] #taste-profile .taste-meter{color:#b9c2ad}
+:root[data-theme="dark"][data-theme-page="workshop"] .taste-meter>div{background:#232819}
+:root[data-theme="dark"][data-theme-page="workshop"] .taste-meter i{background:#2a301f}
+:root[data-theme="dark"][data-theme-page="workshop"] .taste-meter[data-taste="苦感"] i{background:#322b20}
+:root[data-theme="dark"][data-theme-page="workshop"] .taste-meter[data-taste="酸感"] i{background:#302d1e}
+:root[data-theme="dark"][data-theme-page="workshop"] .taste-meter[data-taste="甜感"] i{background:#2c2f1d}
+:root[data-theme="dark"][data-theme-page="workshop"] .taste-meter small{color:#bbc1ae}
+:root[data-theme="dark"][data-theme-page="workshop"] .cause-card{border:1px solid #525d3c;background:#232618}
+:root[data-theme="dark"][data-theme-page="workshop"] .cause-card strong{color:#b9c8a8}
+:root[data-theme="dark"][data-theme-page="workshop"] .cause-card p{color:#bbc2ae}
+:root[data-theme="dark"][data-theme-page="workshop"] .cause-card small{color:#b9c4ab}
+:root[data-theme="dark"][data-theme-page="workshop"] .result-section-heading{color:#bac5aa;border-top:1px solid #535d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .active-lesson{background:#262118;border:1px solid #5d533c;color:#d1be9f}
+:root[data-theme="dark"][data-theme-page="workshop"] .basic-play .scene-wrap{background:#262518}
+:root[data-theme="dark"][data-theme-page="workshop"] .guide-speed{color:#c6c0a9}
+:root[data-theme="dark"][data-theme-page="workshop"] #mode-dialog .mode-choice-grid button:focus-visible{outline:2px solid #988661}
+:root[data-theme="dark"][data-theme-page="workshop"] .parameter-strip{background:#252317;border-bottom:1px solid #5c5a3d}
+:root[data-theme="dark"][data-theme-page="workshop"] .parameter-heading{color:#d0d8ca}
+:root[data-theme="dark"][data-theme-page="workshop"] .parameter-heading small{color:#b9beb1}
+:root[data-theme="dark"][data-theme-page="workshop"] .parameter-cards button{border:1px solid #545d3c;background:#242317;box-shadow:0 2px 4px #00000003}
+:root[data-theme="dark"][data-theme-page="workshop"] .parameter-cards button:hover{background:#212618;border-color:#809466;box-shadow:0 4px 12px #0000000d}
+:root[data-theme="dark"][data-theme-page="workshop"] .parameter-cards button>span{color:#b8c0af}
+:root[data-theme="dark"][data-theme-page="workshop"] .parameter-cards strong{color:#cadbc7}
+:root[data-theme="dark"][data-theme-page="workshop"] .parameter-cards i{color:#b9c1ae}
+:root[data-theme="dark"][data-theme-page="workshop"] .parameter-cards .is-heating{border-color:#988261;background:#262218}
+:root[data-theme="dark"][data-theme-page="workshop"] .scene-toolbar span{color:#b9c0b0}
+:root[data-theme="dark"][data-theme-page="workshop"] .scene-toolbar button{border:1px solid #535d3c;background:#252217e8;color:#cfddc6;box-shadow:0 3px 12px #00000008}
+:root[data-theme="dark"][data-theme-page="workshop"] .hands-on-actions{background:#262518}
+:root[data-theme="dark"][data-theme-page="workshop"] .hands-on-actions button{border:1px solid #505d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] #pour-hold{background:#222819;color:#cdddc5}
+:root[data-theme="dark"][data-theme-page="workshop"] #pour-hold span{color:#b7c3ac}
+:root[data-theme="dark"][data-theme-page="workshop"] #pour-hold.pouring{background:#3e5639;color:#fff;box-shadow:0 0 0 4px #00000028}
+:root[data-theme="dark"][data-theme-page="workshop"] #pour-hold.pouring span{color:#e1ecd7}
+:root[data-theme="dark"][data-theme-page="workshop"] #quick-serve{background:#3e5035;color:#fff}
+:root[data-theme="dark"][data-theme-page="workshop"] #parameter-dialog{border:1px solid #575c3d;background:#252317}
+:root[data-theme="dark"][data-theme-page="workshop"] #parameter-dialog .overline{color:#b8bfb0}
+:root[data-theme="dark"][data-theme-page="workshop"] #close-parameters{background:#212719;color:#cddec5}
+:root[data-theme="dark"][data-theme-page="workshop"] .setting-tabs{background:#242718}
+:root[data-theme="dark"][data-theme-page="workshop"] .setting-tabs button{color:#b7bfb0}
+:root[data-theme="dark"][data-theme-page="workshop"] .setting-tabs .active{background:#242217;color:#cbdec4;box-shadow:0 2px 8px #00000012}
+:root[data-theme="dark"][data-theme-page="workshop"] #parameter-dialog .free-setting label{color:#cfdac9}
+:root[data-theme="dark"][data-theme-page="workshop"] #parameter-dialog .free-setting output{color:#cddcc6}
+:root[data-theme="dark"][data-theme-page="workshop"] #parameter-dialog input[type=range]::-webkit-slider-runnable-track{background:#23291a}
+:root[data-theme="dark"][data-theme-page="workshop"] #parameter-dialog input[type=range]::-webkit-slider-thumb{border:3px solid #5d583c;background:#4b6540;box-shadow:0 2px 8px #00000033}
+:root[data-theme="dark"][data-theme-page="workshop"] #parameter-dialog input[type=range]::-moz-range-track{background:#23291a}
+:root[data-theme="dark"][data-theme-page="workshop"] #parameter-dialog input[type=range]::-moz-range-thumb{border:3px solid #5d583c;background:#4b6540}
+:root[data-theme="dark"][data-theme-page="workshop"] #parameter-dialog .free-setting small{color:#b9beb1}
+:root[data-theme="dark"][data-theme-page="workshop"] #parameter-dialog .heat-buttons button,:root[data-theme="dark"][data-theme-page="workshop"] #parameter-dialog .dose-chips button{color:#d1dbc7}
+:root[data-theme="dark"][data-theme-page="workshop"] #parameter-dialog .heat-buttons button:first-child{background:#405936;color:#fff;border-color:#719861}
+:root[data-theme="dark"][data-theme-page="workshop"] #parameter-dialog .dose-chips button.active{background:#222819;border-color:#7c9763;color:#ccdfc3}
+:root[data-theme="dark"][data-theme-page="workshop"] .sheet-note{color:#b9bdb2;border-top:1px solid #535c3d}
+:root[data-theme="dark"][data-theme-page="workshop"] .selection-caption{color:#d0dac9}
+@media(max-width:640px){:root[data-theme="dark"][data-theme-page="workshop"] .title-sub{color:#babeb1}
+:root[data-theme="dark"][data-theme-page="workshop"] .advanced-play .guide-banner{background:#232718;border-color:#535d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .advanced-play .scene-wrap{background:#262518}
+:root[data-theme="dark"][data-theme-page="workshop"] .live-dashboard{background:#242719}
+:root[data-theme="dark"][data-theme-page="workshop"] .live-dashboard span{color:#b9c2ad}
+:root[data-theme="dark"][data-theme-page="workshop"] .live-dashboard strong{color:#cedec4}
+:root[data-theme="dark"][data-theme-page="workshop"] .live-dashboard small{color:#b9c2ad}
+:root[data-theme="dark"][data-theme-page="workshop"] .stage-footer{color:#b9bfb0}
+:root[data-theme="dark"][data-theme-page="workshop"] .advanced-play .feedback-box p{color:#b7c7a8}
+:root[data-theme="dark"][data-theme-page="workshop"] .sheet-handle{background:#24291c}}
+:root[data-theme="dark"][data-theme-page="workshop"] .range-scale{color:#b8c0af}
+:root[data-theme="dark"][data-theme-page="workshop"] .operation-guide{border-bottom:1px solid #5d523c;background:#272218;color:#e4d4be}
+:root[data-theme="dark"][data-theme-page="workshop"] .operation-symbol{background:#252017;border:1px solid #5d523c}
+:root[data-theme="dark"][data-theme-page="workshop"] #fold-filter-button{border:1px solid #987e61;background:#875924;color:#ffffff;box-shadow:0 3px 8px #00000014}
+:root[data-theme="dark"][data-theme-page="workshop"] .filter-guide.paper-ready{background:#212718;color:#cee0c2;border-color:#4f5d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .filter-guide.paper-ready .operation-symbol{background:#222517;border-color:#505d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .pour-guide{background:#182527;color:#bedee4;border-top:1px solid #3c575d;border-bottom:1px solid #3c575d}
+:root[data-theme="dark"][data-theme-page="workshop"] .pour-guide .operation-symbol{background:#172525;border-color:#3c585d;color:#bedfe4}
+:root[data-theme="dark"][data-theme-page="workshop"] .pour-shortcut{color:#a5c4ca}
+:root[data-theme="dark"][data-theme-page="workshop"] #pour-state{border:1px solid #3c575d;background:#172525}
+:root[data-theme="dark"][data-theme-page="workshop"] .pour-guide.is-pouring{background:#192823;color:#bfe3d4;border-color:#3c5d4c}
+:root[data-theme="dark"][data-theme-page="workshop"] .pour-guide.is-pouring #pour-state{background:#315d44;border-color:#619879;color:#ffffff}
+:root[data-theme="dark"][data-theme-page="workshop"] .pour-guide.pour-missed{background:#262118;color:#e4d3be;border-color:#5d513c}
+:root[data-theme="dark"][data-theme-page="workshop"] .pour-guide.pour-missed #pour-state{background:#372e22;color:#fff;border-color:#988061}
+:root[data-theme="dark"][data-theme-page="workshop"] .selection-caption:not(:empty){background:#252017f5;border:1px solid #4e5d3c;color:#ceddc5;box-shadow:0 4px 18px #00000015}
+:root[data-theme="dark"][data-theme-page="workshop"] #fold-filter-button:disabled{background:#202618;border-color:#4d5d3c;color:#cfddc5}
+:root[data-theme="dark"][data-theme-page="workshop"] #guide-progress{color:#cfbda0;background:#262218;border:1px solid #5d533c}
+:root[data-theme="dark"][data-theme-page="workshop"] #guide-next{color:#cbbea4;background:#252017;border:1px dashed #5d523c}
+:root[data-theme="dark"][data-theme-page="workshop"] .studio-header .studio-shop-link{border:1px solid #4e5d3c;background:#222618;color:#b6c8a7}
+:root[data-theme="dark"][data-theme-page="workshop"] .studio-header .studio-shop-link:hover{background:#212819;border-color:#7c9861}
+:root[data-theme="dark"][data-theme-page="workshop"] .heat-guide{background:#262218;border:1px solid #5d513c;box-shadow:0 8px 25px #00000016}
+:root[data-theme="dark"][data-theme-page="workshop"] .heat-guide>span{color:#cfbfa0}
+:root[data-theme="dark"][data-theme-page="workshop"] .heat-temperatures output{color:#d6bc9a}
+:root[data-theme="dark"][data-theme-page="workshop"] .heat-temperatures>span{color:#cabda5}
+:root[data-theme="dark"][data-theme-page="workshop"] .heat-progress{background:#29241a}
+:root[data-theme="dark"][data-theme-page="workshop"] .heat-progress i{background:#322a1f}
+:root[data-theme="dark"][data-theme-page="workshop"] .heat-guide p{color:#c9bda6}
+:root[data-theme="dark"][data-theme-page="workshop"] .heat-guide button{border:1px solid #988761;background:#262217;color:#d0bfa0}
+:root[data-theme="dark"][data-theme-page="workshop"] .heat-guide button:disabled{background:#29251a;color:#c9bda6;border-color:#5d523c}
+:root[data-theme="dark"][data-theme-page="workshop"] .watching-heat .live-dashboard>div:nth-child(3){background:#282319;box-shadow:0 0 0 7px #ffffff20}
+:root[data-theme="dark"][data-theme-page="workshop"] .watching-heat .live-dashboard>div:nth-child(3) strong{color:#d6bc9a}
+:root[data-theme="dark"][data-theme-page="workshop"] #studio-tool{color:#b6c4ab;border:1px solid #505d3c;background:#242517}
+:root[data-theme="dark"][data-theme-page="workshop"] .equipment-studio .title-sub{color:#b8bfb1}
+:root[data-theme="dark"][data-theme-page="workshop"] .equipment-studio .scene-wrap{background:radial-gradient(ellipse at 50% 0,#252217 0,transparent 70%),#272518}
+:root[data-theme="dark"][data-theme-page="workshop"] .equipment-studio .live-dashboard{background:#252417}
+:root[data-theme="dark"][data-theme-page="workshop"] .equipment-studio #quick-serve{background:#232718;color:#cddbc7;border:1px solid #515d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .equipment-setting output{color:#cfddc5}
+:root[data-theme="dark"][data-theme-page="workshop"] .equipment-setting p{color:#bac0af}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.header,.studio-header,.shop-header,.learn-header){background:#252117}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.nav-link,.site-links a,.back-home,.studio-shop-link){color:#d0d8ca}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.brand-en,.brand small,.studio-brand small,.learn-brand small){color:#b8bfb0}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.button.primary,.solid-button,.pill.dark,.next-action,.report-actions .primary){color:#fffdf7}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.button.primary,.solid-button,.pill.dark,.next-action):hover:enabled{background:#29432d}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.soft-button,.secondary,.button.outline){border-color:#4d5c3d;color:#cddbc7}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.lesson-body h3,.new-method-card h3){color:#ccddc6}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.lesson-status,.entry-link,.new-method-modes a,.plain-link){color:#cedcc6}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .hero-note{color:#b8c0af}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .taste-tag{color:#cedbc7}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .studio-title h1{color:#cbddc5}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .workspace{border-color:#515d3c;box-shadow:0 8px 34px #00000008}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.journey-sidebar,.coach-panel){background:#242618}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .sidebar-heading{color:#cedac9}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined #journey-list li{color:#b7bfb0}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined #journey-list li.active{color:#c8dcc6}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined #journey-list li.complete{color:#cedcc6}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.recipe-slip p,.recipe-slip>span,.studio-footnote,.studio-bottom){color:#b9c0b0}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.parameter-heading,.parameter-cards button>span){color:#b7c1ae}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .parameter-cards strong{color:#cbdec4}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.parameter-cards small,.parameter-heading small){color:#b6c0af}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .guide-banner{background:#282419;border-color:#5d533c}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .guide-banner strong{color:#e4d5be}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.guide-banner small,.guide-banner div>span){color:#cfc0a0}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined.advanced-play .guide-banner{background:#222718;border-color:#505d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined.advanced-play .guide-banner strong{color:#cddfc4}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined.advanced-play :is(.guide-banner small,.guide-banner div>span){color:#b8c5aa}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.scene-toolbar button,.stage-footer button){color:#b5c6a9}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .live-dashboard{background:#232718;border-color:#515d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .live-dashboard span{color:#b7c2ad}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .live-dashboard strong{color:#ccdfc3}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .live-dashboard small{color:#b8c5ab}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.coach-panel #instruction-desc,.gesture-card p,.coach-tip p,.feedback-box p){color:#b8c3ac}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.coach-eyebrow,.coach-tip>span,.task-progress>div>span,.free-sidebar-desc){color:#b7c1af}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .coach-panel h2{color:#cddfc3}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .heat-guide{background:#272318;border-color:#988561;box-shadow:0 8px 25px #00000016}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.heat-guide>span,.heat-guide p){color:#e4d4be}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .heat-temperatures output{color:#e4d4be}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .heat-temperatures>span{color:#e4d5be}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .heat-guide button:disabled{color:#e4d7be;background:#2a261b}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .shop-intro .overline{color:#b8c3ac}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .shop-intro h1{color:#caddc5}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .shop-intro h1 span{color:#b7c9a7}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .shop-intro p:last-child{color:#b7c0af}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .session-hud span{color:#b9c2ae}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .session-hud strong{color:#ccdfc3}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.scene-topline,.scene-ticker){color:#b8c0af}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.side-card,.scene-card,.batch-workbench){border-color:#505d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .side-head span{color:#ccdfc3}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.side-head small,#queue-note,.action-hint,.coffee-connection>p:not(.overline)){color:#b9c4ab}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .order-heading small{color:#b6c2ad}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .order-heading h2{color:#ccdfc3}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .order-heading p{color:#d6bb9a}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .recipe-pills span{color:#cfddc5;background:#222618;border-color:#505d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .flavor-select>span{color:#b7c4ab}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .flavor-select button{color:#b6c7a9}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .easy-steps li{color:#b8c1ae}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .easy-steps li.current{color:#cbe0c3;border-color:#7b9861}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .ticket-sub{color:#b7c4ac}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .ticket-title b{color:#cedec4}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .ticket-price{color:#e4d4be}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .coffee-connection .overline{color:#b8c7a9}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .coffee-connection h3{color:#cddfc3}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .batch-heading h2{color:#cde0c3}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .batch-heading>span{color:#b8c5aa}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task{background:#222618;border:1px solid #515d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task.chosen{background:#222718;border-color:#7f9861}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task.ready{background:#212618;border-color:#7c9861}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .task-select span{color:#b7c4ac}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .task-select strong{color:#cde0c2}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .task-select small{color:#b9c5aa;background:#232819}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .ready .task-select small{background:#222919;color:#cde2c0}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .task-action{border-color:#4f5d3c;color:#cfdec4}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .ready .task-action{background:#3f6031;color:#fffdf7}
+:root[data-theme="dark"][data-theme-page="workshop"] .task-cup{border:1.5px solid #81906a;background:#252117;box-shadow:0 7px 0 -4px #ffffff20}
+:root[data-theme="dark"][data-theme-page="workshop"] .task-cup:after{border:2px solid #81906a}
+:root[data-theme="dark"][data-theme-page="workshop"] .task-cup-fill i{background:#362b22}
+:root[data-theme="dark"][data-theme-page="workshop"] .task-art[data-drink="latte"] .task-cup-fill i{background:linear-gradient(#32291f 0 14%,#2b251b 15%)}
+:root[data-theme="dark"][data-theme-page="workshop"] .task-cup-steam{border-left:1.5px solid #819169;border-right:1.5px solid #819169}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .counter-tools>button{background:#272218;border-color:#5d513c}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .counter-tools b{color:#e4d4be}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .counter-tools small{color:#cdbea2}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .shop-footer{color:#b9c3ac}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.welcome-copy,.welcome-foot,.round-options small,.round-options span,.report-note,.best-note){color:#b9c6a9}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.report-cell span,.report-next a,.welcome-back){color:#b6c7a8}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.section-heading>p:not(.eyebrow),.brewer-copy>p,.recipe-detail>p,.brewer-facts,.recipe-footnote,.footer-note){color:#b6c1ae}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .chapter-nav a{color:#b7c4ac}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .chapter-nav a.active{color:#fffdf7;background:#36533a}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .hero-meta{color:#b7c4ac}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.header,.studio-header,.shop-header,.learn-header){background:#242117;border-color:#4d5346}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.section-description,.hero p,.lead,.title-sub){color:#cdd5d1}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.overline,.eyebrow,.tiny-label){color:#b3bcb6}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.nav-link,.site-links a,.back-home,.studio-shop-link){color:#cbd7d0}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.button.primary,.solid-button,.pill.dark,.next-action,.report-actions .primary){background:#285442}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.button.outline,.soft-button,.secondary){background:#1d1d1d;border-color:#708a77;color:#c5decf}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .hero-note{color:#b3bcb6}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.lesson-card,.workshop-entry,.new-method-card,.note-card){border-color:#4a5445}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .lesson-art{background:#19271c}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .bean-art{background:#281f19}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .ratio-art{background:#182127}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .art-tag{color:#ccd7d0}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .bean-art .art-tag{color:#e2ccc1}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .ratio-art .art-tag{color:#c1d5e2}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .lesson-body{background:#1d1d1d}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .lesson-body .tiny-label{color:#b3bdb7}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .lesson-body h3{color:#cad8d2}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.lesson-body p,.workshop-entry p,.new-method-card p,.shop-promo p){color:#cdd5d1}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .lesson-status{color:#c1e1d4;border-color:#445546}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .workshop-entry{background:#192519;border-color:#3f5a47}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .workshop-entry:nth-child(2){background:#261f18;border-color:#5d4b3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .workshop-entry h3{color:#c6dcd0}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .workshop-entry:nth-child(2) h3{color:#e4cbbe}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .workshop-entry h3 span{color:#ccd6cf}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .entry-link{color:#c1e1d4}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .new-method-card{background:#1d1d1d;border-top:4px solid #987461}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .new-method-card:nth-child(2){border-top-color:#618698}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .new-method-card:nth-child(3){border-top-color:#6d8d77}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .new-method-card:nth-child(4){border-top-color:#816991}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .new-method-card:nth-child(5){border-top-color:#988961}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .new-method-card h3{color:#cad8d2}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .new-method-modes a{color:#c5decf;border-color:#425747;background:#1d1d1d}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .new-method-modes a:last-child{color:#fff;background:#285442;border-color:#619882}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .shop-promo{background:#281f19;border-color:#5d4c3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .shop-promo strong{color:#e4cbbf}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .shop-promo .tiny-label{color:#e1cec2}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .shop-promo :is(.promo-tags,.promo-cta){color:#e4cdbe}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .promo-cta{background:#251e17;border-color:#987961}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .lab-controls{background:#1d1d1d}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .lab-result{background:#182126;border-color:#3c515d}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.range-label,.lab-heading){color:#cad8cf}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .lab-result :is(p,.lab-tip,.flavor-desc){color:#c7d3db}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .water-result strong{color:#bfd6e4}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .water-result span{color:#c7d3db}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .note-card{background:#1d1d1d;border-color:#4b5346}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .note-card h3{color:#cad8d2}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .note-card p{color:#cdd5d1}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.note-top,.note-recipe,.journal-footer,.hands-on-note){color:#b3bcb6}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .taste-tag{background:#18271c;color:#c1e1d4;border-color:#3f5a44}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .workspace{border-color:#485445}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .journey-sidebar{background:#1b241b}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .coach-panel{background:#242017;border-color:#4b5544}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .studio-center{background:#1d1d1d}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .guide-banner{background:#282019;border-color:#5d4d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .guide-banner strong{color:#e4cdbe}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .guide-banner :is(small,div>span){color:#e1cfc1}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined.advanced-play .guide-banner{background:#18271d;border-color:#3c5d48}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined.advanced-play .guide-banner strong{color:#c0e2d1}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined.advanced-play .guide-banner :is(small,div>span){color:#c8dacf}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .parameter-strip{background:#192124;border-color:#415358}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .parameter-cards button{background:#1d1d1d;border-color:#435356;border-top:3px solid #689176}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .parameter-cards button:nth-child(2){border-top-color:#806a90}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .parameter-cards button:nth-child(3){border-top-color:#987561}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .parameter-cards button:nth-child(4){border-top-color:#618598}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.parameter-heading,.parameter-cards button>span,.parameter-cards small,.parameter-heading small){color:#aebbc2}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .parameter-cards strong{color:#c8dbd3}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .scene-wrap{background:#252317}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.scene-toolbar button,.stage-footer button){color:#c7dbd0}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .live-dashboard{background:#1d1d1d;border-color:#45544c}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .live-dashboard>div{background:#262118}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .live-dashboard>div:nth-child(2){background:#182026}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .live-dashboard>div:nth-child(3){background:#272018}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .live-dashboard>div:nth-child(4){background:#1e1826}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .live-dashboard span{color:#ced5d0}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .live-dashboard strong{color:#c9dad1}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .live-dashboard small{color:#ced5d0}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .watching-heat .live-dashboard>div:nth-child(3),:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined.watching-heat .live-dashboard>div:nth-child(3){background:#29221a}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .coach-panel h2{color:#c8dad0}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.coach-panel #instruction-desc,.gesture-card p,.coach-tip p,.feedback-box p){color:#ccd6cf}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .gesture-card{background:#182126;border-color:#3c505d}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .gesture-card :is(strong,span){color:#bfd6e4}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.coach-eyebrow,.coach-tip>span,.task-progress>div>span,.free-sidebar-desc){color:#b2beb5}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .coach-tip{border-color:#465643}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .feedback-box{border-color:#669378}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .operation-guide{background:#272118;border-color:#5d513c}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .operation-guide strong{color:#e4d0be}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .operation-guide p{color:#e2d2c1}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .heat-guide{background:#282219;border-color:#988261}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .heat-guide>span,:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .heat-guide p{color:#e4d1be}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .heat-temperatures output{color:#e4cebe}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .heat-guide button{background:#764821;border-color:#987b61;color:#fffdf7}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .heat-guide button:disabled{background:#2a241a;border-color:#988261;color:#e4d2be}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.side-card,.scene-card,.batch-workbench){background:#1d1d1d;border-color:#475544}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .scene-ticker{background:#19241c;color:#cad8ce}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .batch-heading h2{color:#cad9cf}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .batch-heading>span{color:#b2bdb6}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task{background:#242017;border-color:#515643;border-top:3px solid #6d8c76}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task:nth-child(2){border-top-color:#987661}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task:nth-child(3){border-top-color:#618098}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task.chosen{background:#242017;border-color:#649675;box-shadow:0 0 0 1px #00000055 inset}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task[data-phase="grinding"],:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task[data-phase="prepared"]{background:#272018;border-color:#988061}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task[data-phase="brewing"]{background:#182126;border-color:#618398}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task.ready{background:#192718;border-color:#6b8f6d}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .task-select span{color:#b2bdb6}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .task-select strong{color:#c8dad0}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .task-select small{color:#cdd6d0;background:#1f241a}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task[data-phase="grinding"] .task-select small,:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task[data-phase="prepared"] .task-select small{background:#2a231a;color:#e4d2be}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task[data-phase="brewing"] .task-select small{background:#1a2329;color:#bed5e4}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task.ready .task-select small{background:#1c2a1a;color:#c3dfc7}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .task-action{background:#1d1d1d;color:#c5ddce;border-color:#425746}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .task-action:disabled{background:#171f25;color:#a5baca;border-color:#3c515d}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .ready .task-action{background:#285442;color:#fff;border-color:#619882}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task.empty-task{background:#23231a;border:1px dashed #495445}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .recipe-pills span{background:#202618;color:#ccdac9;border-color:#4b5a3f}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.side-head small,#queue-note,.action-hint,.coffee-connection>p:not(.overline),.ticket-sub,.order-heading small){color:#b1beb6}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .ticket{background:#212419;border-color:#4c5643}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .ticket.is-active{background:#272118;border-color:#988061}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .ticket-title b{color:#c8dacd}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .ticket-price{color:#e4cebe}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .coffee-connection{background:#182126!important;border-color:#3c525d!important}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .coffee-connection h3{color:#bfd6e4}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .coffee-connection :is(.overline,a){color:#c4d4de}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .counter-tools>button{background:#271d18;border-color:#987461}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .counter-tools b{color:#e4c8be}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .counter-tools small{color:#e0cdc3}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.welcome-copy,.welcome-foot,.round-options small,.round-options span,.report-note,.best-note){color:#ccd7cf}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .round-options button{background:#1d1d1d;border-color:#465643}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .round-options button[aria-pressed="true"]{background:#182719;border-color:#699171}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.section-heading>p:not(.eyebrow),.brewer-copy>p,.recipe-detail>p,.brewer-facts,.recipe-footnote,.footer-note){color:#ccd6d0}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .recipe-detail{background:#1d1d1d;border-color:#445544}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .recipe-detail h3{color:#c7dbcf}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .recipe-step-top{color:#b1beb6}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .recipe-meta{background:#182126;border-color:#3c525d}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .recipe-meta :is(span,small){color:#adbac3}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .recipe-meta strong{color:#bfd6e4}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .brewer-tabs{background:#1c251b;border-color:#455742}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .brewer-tabs button{color:#cad8cd}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .brewer-tabs button span{color:#b0bfb5}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .recipe-timeline button{color:#cbd7cf;background:#232618;border-color:#4c5841}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .recipe-timeline button.active{background:#182718;border-color:#6c8e6e;color:#c2e0d0}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .taste-response>p{color:#dcd0c7}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.footer-note,.studio-footnote,.studio-bottom,.shop-footer){color:#b2bdb5}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .lesson-art{background:#1a291d}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .bean-art{background:#29211a}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .ratio-art{background:#192328}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .practice-wrap{background:#1e241b}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .workshop-entry{background:#18271b;border-left:4px solid #669475}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .workshop-entry:nth-child(2){background:#272019;border-left:4px solid #987961}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .strip-intro strong{color:#cad8cf}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .intro-strip b{color:#c8dacd}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .intro-strip small{color:#b1beb6}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .section-top h2{color:#c7dbcf}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .heat-guide>span,:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .heat-guide p{color:#e4d1be}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .lesson-body h3>span{color:#cad9ce}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(#note-form label,.taste-options legend){color:#cbd7cf}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .taste-options span{color:#cbd7cf}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.note-top button,.range-scale,.range-ends){color:#b2bdb5}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(#help-dialog dt,#help-dialog dd,.sheet-note){color:#ccd6d0}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined.easy-shop #main-action:disabled{background:#182227;color:#c0d5e2;border-color:#3c505d}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task .task-progress{background:#1f251c}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task[data-phase="grinding"] .task-progress i,:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task[data-phase="prepared"] .task-progress i{background:#342a21}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task[data-phase="brewing"] .task-progress i{background:#212d35}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .cup-task.ready .task-progress i{background:#223623}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .story-step.active .step-kicker{color:#c1e1d4}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.story-step>p,.toolkit p,.roast-description p,.variable-explanation p,.faq details p,.practice-finale>p:not(.eyebrow)){color:#cdd5d1}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .brewer-facts>div{color:#cdd5d1}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .brewer-facts strong{color:#c7dbce}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .brewer-facts b{background:#192719;color:#c6dccc}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .experiment-rule span{color:#dfd1c3}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .experiment-rule strong{color:#e0d0c2}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .taste-response .small-note,:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .small-note{color:#b3bcb5}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .faq summary{color:#e0d0c2}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .roast-options button{color:#cad9ce;background:#1d1d1d;border-color:#455742}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .roast-options button.active{color:#fff;background:#775138;border-color:#987761}
+@media(max-width:760px){:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.header,.studio-header,.shop-header){background:#252117f7}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .mobile-scene-controls{background:#262518;border-top:1px solid #535d3c}
+:root[data-theme="dark"][data-theme-page="workshop"] .mobile-scene-controls button{border:1px solid #515d3c;background:#232517;color:#b7c6a9}
+:root[data-theme="dark"][data-theme-page="workshop"] .mobile-scene-controls button[aria-pressed=true]{background:#222819;color:#cce1c1;border-color:#7d9861}
+:root[data-theme="dark"][data-theme-page="workshop"] .mobile-scene-controls p{color:#b9c0af}}
+@media(max-width:760px){:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined #restart{border:1px solid #505d3c;background:#242517}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined #restart:before{color:#b8c5ab}}
+@media(max-width:760px){:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.header,.studio-header,.shop-header,.learn-header){background:#252117}}
+@media(max-width:760px){:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined :is(.header,.studio-header,.shop-header,.learn-header){background:#242117}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .studio-title h1{color:#c7dbce}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .guide-banner strong{color:#e4cdbe}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined.advanced-play .guide-banner strong{color:#c0e2d1}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .mobile-scene-controls{background:#1a2224;border-color:#425257}
+:root[data-theme="dark"][data-theme-page="workshop"] .mobile-scene-controls button{background:#1d1d1d;border-color:#435652;color:#cad8d1}
+:root[data-theme="dark"][data-theme-page="workshop"] .mobile-scene-controls button[aria-pressed=true]{background:#19271a;border-color:#6b8f6f;color:#c2e1cf}
+:root[data-theme="dark"][data-theme-page="workshop"] .mobile-scene-controls p{color:#b1beb6}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .heat-guide>span,:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .heat-guide p{color:#e4d1be}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .stage-footer{color:#b1beb6}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .scene-ticker{background:#19251b}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .session-hud span{color:#b1beb6}}
+@media(max-width:760px){:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .story-step .takeaway{color:#ced6cc}
+:root[data-theme="dark"][data-theme-page="workshop"] .xc-refined .story-step .takeaway strong{color:#cad9cd}}
+
+:root[data-theme="dark"][data-theme-page="workshop"] body.gesture-mode{background:#262118;color:#cad8d3}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-mode .studio-main{background:#262118}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-mode .studio-center{background:#262118}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-mode .scene-wrap{background:#262118}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-mode #scene{background:#262118}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-panel{background:#252117;color:#cad8d3;border-bottom:1px solid #61988830}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-panel button,:root[data-theme="dark"][data-theme-page="workshop"] .gesture-panel select,:root[data-theme="dark"][data-theme-page="workshop"] .gesture-panel a{background:#262118;color:#cad8d3;border:1px solid #61988840}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-panel button:focus-visible,:root[data-theme="dark"][data-theme-page="workshop"] .gesture-panel select:focus-visible,:root[data-theme="dark"][data-theme-page="workshop"] .gesture-panel a:focus-visible{outline:2px solid #987961}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-panel h2 span{color:#c2e0d7}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-panel #gesture-start,:root[data-theme="dark"][data-theme-page="workshop"] .gesture-panel #gesture-ready{background:#1f3d34;color:#fbf9f4}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-livebar{background:#252117;border-top:1px solid #61988830}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-livebar #gesture-status{color:#c2e0d7}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-views [aria-pressed="true"]{background:#1f3d34;color:#fbf9f4}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-preview video{background:#1f2a26}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-preview p{background:#252117}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-panel dialog{background:#252117;color:#cad8d3;border:1px solid #61988850}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-panel dialog::backdrop{background:#1f2a2680}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-privacy{border-top:1px solid #61988820}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-cursor{border:2px solid #619888;background:#25211780}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-cursor[data-state="selected"]{border-color:#987961}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-cursor[data-state="grabbed"]{background:#33282080}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-panel .gesture-readout{color:#cad8d3}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-panel #gesture-heat[aria-pressed="true"]{background:#1f3d34;color:#fbf9f4;border-color:#619888}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-panel #gesture-heat{border:2px solid #619888;background:#252117;color:#c2e0d7}
+:root[data-theme="dark"][data-theme-page="workshop"] .gesture-panel #gesture-heat[aria-pressed="true"]{background:#1f3d34;color:#fbf9f4}
+:root[data-theme="dark"][data-theme-page="workshop"] .workshop-display-toggle,:root[data-theme="dark"][data-theme-page="workshop"] .workshop-play-toolbar button,:root[data-theme="dark"][data-theme-page="workshop"] .workshop-play-toolbar select{border:1px solid #61988840;background:#252117;color:#c2e0d7}
+:root[data-theme="dark"][data-theme-page="workshop"] #workshop-display-prompt{border:1px solid #61988840;background:#252117;color:#cad8d3}
+:root[data-theme="dark"][data-theme-page="workshop"] #workshop-display-prompt::backdrop{background:#1f2a2680}
+:root[data-theme="dark"][data-theme-page="workshop"] #workshop-display-prompt button{border:1px solid #61988840;background:#262118;color:#c2e0d7}
+:root[data-theme="dark"][data-theme-page="workshop"] #workshop-display-prompt #workshop-display-start{background:#1f3d34;color:#fbf9f4}
+:root[data-theme="dark"][data-theme-page="workshop"] body.workshop-play{background:#262118}
+:root[data-theme="dark"][data-theme-page="workshop"] .workshop-play:not(.gesture-mode) .studio-center{background:#262118}
+:root[data-theme="dark"][data-theme-page="workshop"] .workshop-play:not(.gesture-mode) .scene-wrap{background:#262118}
+:root[data-theme="dark"][data-theme-page="workshop"] .workshop-play:not(.gesture-mode) #scene{background:#262118}
+:root[data-theme="dark"][data-theme-page="workshop"] .workshop-play-toolbar{background:#252117;border-bottom:1px solid #61988830}
+:root[data-theme="dark"][data-theme-page="workshop"] #workshop-play-hint{color:#c2e0d7}
+:root[data-theme="dark"][data-theme-page="workshop"] .workshop-play:not(.gesture-mode) .live-dashboard{background:#252117;border-top:1px solid #61988830}
+:root[data-theme="dark"][data-theme-page="workshop"] .workshop-play:not(.gesture-mode) .live-dashboard span{color:#cad8d3}
+:root[data-theme="dark"][data-theme-page="workshop"] .workshop-play:not(.gesture-mode) .live-dashboard strong{color:#c2e0d7}
+:root[data-theme="dark"][data-theme-page="workshop"] .workshop-play.workshop-compact:not(.gesture-mode) .live-dashboard{border:1px solid #61988830}
+
+
+
+:root[data-theme="dark"][data-theme-page="workshop"] .site-glass .glass-control,:root[data-theme="dark"][data-theme-page="workshop"] .site-glass .glass-switch{background:var(--color-surface,#252117)!important;color:var(--color-primary,#c2e0d7)!important}
+:root[data-theme="dark"][data-theme-page="workshop"] .site-glass .glass-control.glass-primary{background:var(--color-primary,#1f3d34)!important;color:var(--color-surface,#fbf9f4)!important}
+:root[data-theme="dark"][data-theme-page="workshop"] .site-glass :is(.glass-control,.glass-switch>button):focus-visible{outline:2px solid var(--color-primary,#619888)!important}
+:root[data-theme="dark"][data-theme-page="workshop"] .site-glass select.glass-control option{background:var(--color-surface,#252117);color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="workshop"] .site-glass .glass-switch>button{color:var(--color-primary,#c2e0d7)!important}
+:root[data-theme="dark"][data-theme-page="workshop"] .site-glass .glass-switch .glass-slider{background:var(--color-surface,#252117)}
+:root[data-theme="dark"][data-theme-page="workshop"] .site-glass dialog.glass-panel{background:var(--color-surface,#252117);color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="workshop"] .site-glass .glass-preferences{color:var(--color-primary,#c2e0d7)}
+:root[data-theme="dark"][data-theme-page="workshop"] .site-glass .glass-preference-options input:checked+span{background:var(--color-primary,#1f3d34);color:var(--color-surface,#fbf9f4);border-color:var(--color-primary,#619888)}
+:root[data-theme="dark"][data-theme-page="workshop"] .site-glass .glass-preference-options input:focus-visible+span{outline:2px solid var(--color-primary,#619888)}
+@media(prefers-reduced-transparency:reduce){:root[data-theme="dark"][data-theme-page="workshop"] .site-glass .glass-control,:root[data-theme="dark"][data-theme-page="workshop"] .site-glass .glass-switch,:root[data-theme="dark"][data-theme-page="workshop"] .site-glass .glass-switch .glass-slider,:root[data-theme="dark"][data-theme-page="workshop"] .site-glass dialog.glass-panel{background:var(--color-surface,#252117)!important}
+:root[data-theme="dark"][data-theme-page="workshop"] .site-glass .glass-control.glass-primary{background:var(--color-primary,#1f3d34)!important}}
