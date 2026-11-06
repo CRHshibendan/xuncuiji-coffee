@@ -109,6 +109,12 @@ html[data-art-motion="off"] :is(.hero-art,.brewer-display) svg > .hero-ink-line{
 
 /* One quiet disclosure for the shared header; links remain available without JS. */
 .header-inner{position:relative}
+.header-menu{display:contents}
+@media(min-width:769px){
+ .site-header.nav-ready .header-inner{justify-content:flex-start;column-gap:var(--space-12,12px)}
+ .site-header.nav-ready .header-menu{display:block;position:relative;margin-inline-start:auto}
+ .site-header.nav-ready .header-menu nav{inset-inline-end:0}
+}
 .nav-ready .menu-toggle{display:inline-flex;border-radius:999px;padding-inline:22px;gap:12px}
 .nav-ready .menu-toggle svg{transition:transform 320ms cubic-bezier(.45,0,.55,1)}
 .nav-ready .menu-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
